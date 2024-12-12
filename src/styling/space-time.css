@@ -1,0 +1,98 @@
+svg.space-time {
+    max-width: 20em;
+    max-height: 20em;
+
+    .process line {
+        stroke: var(--font-color);
+
+        &.highlight {
+            stroke: var(--highlight-color);
+        }
+
+        &:last-of-type {
+            marker-end: url(#arrow);
+
+            &.highlight {
+                marker-end: url(#arrow-highlight);
+            }
+        }
+    }
+
+    polyline.tick {
+        stroke: var(--font-color);
+        stroke-width: 1;
+        stroke-dasharray: 4 4;
+        fill: none;
+    }
+
+    circle {
+        fill: var(--font-color);
+        r: 4;
+
+        &.highlight {
+            fill: var(--highlight-color);
+        }
+
+        &:hover {
+            fill: var(--highlight-color);
+        }
+    }
+
+    defs {
+        marker#arrow {
+            & * {
+                stroke-width: 0;
+                stroke: var(--font-color);
+
+                fill: var(--font-color);
+            }
+        }
+
+        marker#arrow-highlight {
+            & * {
+                stroke-width: 0;
+                fill: var(--highlight-color);
+            }
+        }
+    }
+
+    text {
+        font-size: 0.30em;
+
+        &.highlight {
+            fill: var(--highlight-color);
+        }
+    }
+
+    path {
+        stroke: var(--font-color);
+
+        &.highlight {
+            stroke: var(--highlight-color);
+        }
+
+        &.message {
+            fill: none;
+            marker-end: url(#arrow);
+
+            &.highlight {
+                marker-end: url(#arrow-highlight);
+            }
+        }
+    }
+
+    foreignObject.label {
+        color: var(--font-color);
+        font-size: 6px;
+
+        mn {
+            font-size: 4px;
+        }
+    }
+
+    &.selection {
+        circle.event {
+            cursor: pointer;
+        }
+    }
+}

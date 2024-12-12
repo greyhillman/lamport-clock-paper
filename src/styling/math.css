@@ -1,0 +1,50 @@
+math {
+
+    mrow[title],
+    mi[title],
+    mo[title],
+    msub[title],
+    mfrac[title],
+    mtext.description {
+        cursor: pointer;
+        padding: 2px;
+        margin: 4px;
+        border-radius: 0.25em;
+        box-shadow: 1px 1px 1px 1px var(--muted-font-color);
+
+        &:hover {
+            box-shadow: 1px 1px 1px 1px var(--font-color);
+
+            &:has(mi[title]:hover),
+            &:has(mrow[title]:hover),
+            &:has(mo[title]:hover),
+            &:has(mfrac[title]:hover),
+            &:has(mtext.description:hover),
+            &:has(msub[title]:hover) {
+                box-shadow: 1px 1px 1px 1px var(--muted-font-color);
+            }
+        }
+
+        &:active {
+            box-shadow: inset 1px 1px 1px 1px var(--font-color);
+        }
+    }
+}
+
+mtext.description {
+    font-family: var(--font-family);
+}
+
+mtext:not(.description) {
+    font-style: italic;
+}
+
+mi.set {
+    font-variant-alternates: stylistic(calligraphic);
+    font-feature-settings: "ss01";
+    -webkit-font-feature-settings: "ss01";
+}
+
+msub>mtext:nth-child(2) {
+    font-size: 0.7rem;
+}

@@ -1,0 +1,15 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+var {
+    font-style: normal;
+}
+
+address {
+    font-style: normal;
+}

@@ -1,0 +1,67 @@
+:root {
+  --font-color: black;
+  --muted-font-color: grey;
+  --link-color: blue;
+  --background-color: rgb(255, 246, 229);
+
+  --highlight-color: rgb(9, 255, 0);
+
+  --font-family: NewComputerModern10, serif;
+}
+
+:root {
+  font-size: 21px;
+  font-family: var(--font-family);
+}
+
+body {
+  color: var(--font-color);
+  background-color: var(--background-color);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#root {
+  max-width: 35em;
+}
+
+address {
+  display: flex;
+  flex-direction: column;
+}
+
+address {
+  margin-bottom: 1em;
+}
+
+article>header {
+  font-weight: bold;
+  font-size: 2em;
+}
+
+article>header {
+  margin-bottom: 0.5em;
+}
+
+section>header {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+span.link {
+  text-decoration: underline dotted;
+}
+
+a[href^="#"]:visited {
+  color: var(--link-color);
+}
