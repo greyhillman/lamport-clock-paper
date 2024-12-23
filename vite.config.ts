@@ -4,6 +4,7 @@ import postcssNesting from "postcss-nesting";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+	base: "/lamport-clock-paper",
 	plugins: [preact()],
 	css: {
 		postcss: {
@@ -11,5 +12,5 @@ export default defineConfig({
 				postcssNesting,
 			]
 		}
-	}
+	},
 });
