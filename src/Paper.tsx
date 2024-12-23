@@ -119,16 +119,6 @@ const operators = {
 }
 
 export function Paper() {
-    // const eventNote = useNote();
-    // const messageNote = useNote();
-    // const orderingNote = useNote();
-    // const eventuallyNote = useNote();
-    // const acknowledgementNote = useNote();
-    // const receiveMessageNote = useNote();
-    // const releaseNote = useNote();
-    // const timeNote = useNote();
-    // const limitNote = useNote();
-
     const p1 = useLink();
     const p2 = useLink();
     const p3 = useLink();
