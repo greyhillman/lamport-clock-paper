@@ -5,6 +5,8 @@ import { codes } from "./codes";
 import { Expression, Identifier, Operator, Number, SubScript, Fraction, SuperScript, Under } from "./Expression";
 import { Event, Message, Process, SpaceTimeDiagram, Tick, usePathSelection } from "./SpaceTimeDiagram";
 import { Inline } from "./Inline";
+import { createPortal, Portal } from "./Portal";
+import { Expand } from "./Expand";
 
 
 interface AnchorProps {
@@ -20,17 +22,18 @@ function Anchor(props: AnchorProps) {
     )
 }
 
-interface NoteAnchorProps {
-    id: string;
+interface NoteProps {
+    portal: Portal;
 }
 
-function NoteAnchor(props: NoteAnchorProps) {
+function Note(props: NoteProps) {
     return (
-        <sup>
-            <Anchor id={props.id}>
+        <Expand>
+            <sup>
                 [Note]
-            </Anchor>
-        </sup>
+            </sup>
+            <props.portal.Exit />
+        </Expand>
     )
 }
 
@@ -138,8 +141,872 @@ export function Paper() {
         off: () => {
             examplePath[1]();
             examplePath[2]();
-        }
+        },
     });
+
+    const notes = {
+        event: createPortal({
+            entrance: (content) => content,
+            exit: (content) => content,
+            content: <p>
+                The choice of what constitutes an event affects the ordering of events in a process. For example, the receipt of a message might denote
+                the setting of an interrupt bit in a computer, or the execution of a
+                subprogram to handle that interrupt. Since interrupts need not be
+                handled in the order that they occur, this choice will affect the ordering of a process' message-receiving events.
+            </p>
+        }),
+        message: createPortal({
+            entrance: (content) => content,
+            exit: (content) => content,
+            content: <p>
+                Observe that messages may be received out of order.
+                We allow the sending of several messages to be a
+                single event, but for convenience we will assume
+                that the receipt of a single message does not
+                coincide with the sending or receipt of any other message.
+            </p>,
+        }),
+        ordering: createPortal({
+            entrance: (content) => content,
+            exit: (content) => content,
+            content: <p>
+                The ordering <Operator>{codes.operators.precedes}</Operator> establishes a priority among the processes.
+                If a "fairer" method is desired, then <Operator>{codes.operators.precedes}</Operator> can be made
+                a function of the clock value. For example, if <Expression>
+                    <SubScript>
+                        <Identifier>C</Identifier>
+                        <Identifier>i</Identifier>
+                    </SubScript>
+                    <Operator>{codes.operators.angle.left}</Operator>
+                    <Identifier>a</Identifier>
+                    <Operator>{codes.operators.angle.right}</Operator>
+                    <Operator>{codes.operators.equals}</Operator>
+                    <SubScript>
+                        <Identifier>C</Identifier>
+                        <Identifier>j</Identifier>
+                    </SubScript>
+                    <Operator>{codes.operators.angle.left}</Operator>
+                    <Identifier>b</Identifier>
+                    <Operator>{codes.operators.angle.right}</Operator>
+                </Expression> and <Expression>
+                    <Identifier>j</Identifier>
+                    <Operator>{codes.operators.less_than}</Operator>
+                    <Identifier>i</Identifier>
+                </Expression>, then we can let <Expression>
+                    <Identifier>a</Identifier>
+                    <Operator>{codes.operators.arrows.right.double}</Operator>
+                    <Identifier>b</Identifier>
+                </Expression> if <Expression>
+                    <Identifier>j</Identifier>
+                    <Operator>{codes.operators.less_than}</Operator>
+                    <SubScript>
+                        <Identifier>C</Identifier>
+                        <Identifier>i</Identifier>
+                    </SubScript>
+                    <Operator>{codes.operators.angle.left}</Operator>
+                    <Identifier>a</Identifier>
+                    <Operator>{codes.operators.angle.right}</Operator>
+                    <Identifier>mod</Identifier>
+                    <Identifier>N</Identifier>
+                    <Operator>less-than-equal</Operator>
+                    <Identifier>i</Identifier>
+                </Expression>, and <Expression>
+                    <Identifier>b</Identifier>
+                    <Operator>{codes.operators.arrows.right.double}</Operator>
+                    <Identifier>a</Identifier>
+                </Expression> otherwise; where <Identifier>N</Identifier> is the total number of processes.
+            </p>
+        }),
+        eventually: createPortal({
+            entrance: (content) => content,
+            exit: (content) => content,
+            content: <p>
+                The term "eventually" should be made precise, but that would require too long a diversion from our main topic.
+            </p>,
+        }),
+        acknowledgement: createPortal({
+            entrance: (content) => content,
+            exit: (content) => content,
+            content: <p>
+                This acknowledgement message need not be sent if <SubScript>
+                    <Identifier>P</Identifier>
+                    <Identifier>j</Identifier>
+                </SubScript> has
+                already sent a message to <SubScript>
+                    <Identifier>P</Identifier>
+                    <Identifier>i</Identifier>
+                </SubScript> timestamped later
+                than <SubScript>
+                    <Identifier>T</Identifier>
+                    <Identifier>m</Identifier>
+                </SubScript>.
+            </p>
+        }),
+        receive_message: createPortal({
+            entrance: (content) => content,
+            exit: (content) => content,
+            content: <p>
+                If <Expression>
+                    <SubScript>
+                        <Identifier>P</Identifier>
+                        <Identifier>i</Identifier>
+                    </SubScript>
+                    <Operator>{codes.operators.precedes}</Operator>
+                    <SubScript>
+                        <Identifier>P</Identifier>
+                        <Identifier>j</Identifier>
+                    </SubScript>
+                </Expression>, then <SubScript>
+                    <Identifier>P</Identifier>
+                    <Identifier>i</Identifier>
+                </SubScript> need only have received a
+                message timestamped <Expression>
+                    <Operator>greater-than-equal</Operator>
+                    <SubScript>
+                        <Identifier>T</Identifier>
+                        <Identifier>m</Identifier>
+                    </SubScript>
+                </Expression> from <SubScript>
+                    <Identifier>P</Identifier>
+                    <Identifier>j</Identifier>
+                </SubScript>.
+            </p>
+        }),
+        release: createPortal({
+            entrance: (content) => content,
+            exit: (content) => content,
+            content: <p>
+                If each process does not stricly alternate <em>request</em> and <em>release</em> commands,
+                then executing a <em>release</em> command could delete zero, one, or more than one request
+                from the queue.
+            </p>
+        }),
+        time: createPortal({
+            entrance: (content) => content,
+            exit: (content) => content,
+            content: <p>
+                We will assume a Newtonian space-time. If the relative motion of the clocks or gravitational effects are not
+                negligible, then <Expression>
+                    <SubScript>
+                        <Identifier>C</Identifier>
+                        <Identifier>i</Identifier>
+                    </SubScript>
+                    <Operator>(</Operator>
+                    <Identifier>t</Identifier>
+                    <Operator>)</Operator>
+                </Expression> must be deduced from the actual clock reading by transforming from proper time
+                to the arbitrarily chosen time coordinate.
+            </p>
+        }),
+        limit: createPortal({
+            entrance: (content) => content,
+            exit: (content) => content,
+            content: <p>
+                <Expression display="block">
+                    <SubScript>
+                        <Identifier>C</Identifier>
+                        <Identifier>j</Identifier>
+                    </SubScript>
+                    <Operator>(</Operator>
+                    <Identifier>t</Identifier>
+                    <Operator>{codes.operators.prime}</Operator>
+                    <Operator>-</Operator>
+                    <Number value={0} />
+                    <Operator>)</Operator>
+                    <Operator>=</Operator>
+                    <Under>
+                        <Identifier>lim</Identifier>
+                        <Expression>
+                            <Identifier>{codes.greek.delta}</Identifier>
+                            <Operator>{codes.operators.arrows.right.single}</Operator>
+                            <Number value={0} />
+                        </Expression>
+                    </Under>
+                    <SubScript>
+                        <Identifier>C</Identifier>
+                        <Identifier>j</Identifier>
+                    </SubScript>
+                    <Operator>(</Operator>
+                    <Identifier>t</Identifier>
+                    <Operator>{codes.operators.prime}</Operator>
+                    <Operator>-</Operator>
+                    <Operator>|</Operator>
+                    <Identifier>{codes.greek.delta}</Identifier>
+                    <Operator>|</Operator>
+                    <Operator>)</Operator>
+                </Expression>
+            </p>
+        }),
+    }
+
+    const ClockCondition = createPortal({
+        entrance: (content) => <p id={ids.clock_condition.root}>
+            {content}
+        </p>,
+        exit: (content) => <>
+            <Anchor id={ids.clock_condition.root}>Go to definition.</Anchor>
+            <p>{content}</p>
+        </>,
+        content: <>
+            <em>Clock Condition.</em> For any events <Identifier description="first event">a</Identifier>, <Identifier description="second event">b</Identifier>:
+            if <Expression description="the first event happened before the second event">
+                <Identifier description="first event">a</Identifier>
+                <Operator description="happened before">{codes.operators.arrows.right.single}</Operator>
+                <Identifier description="second event">b</Identifier>
+            </Expression> then <Expression description="the logical time of the first event is less than the logical time of the second event">
+                <Expression description="the logical time of the first event">
+                    <Identifier>C</Identifier>
+                    <Operator>{codes.operators.angle.left}</Operator>
+                    <Identifier description="first event">a</Identifier>
+                    <Operator>{codes.operators.angle.right}</Operator>
+                </Expression>
+                <Operator>{codes.operators.less_than}</Operator>
+                <Expression description="the logical time of the second event">
+                    <Identifier>C</Identifier>
+                    <Operator>{codes.operators.angle.left}</Operator>
+                    <Identifier description="second event">b</Identifier>
+                    <Operator>{codes.operators.angle.right}</Operator>
+                </Expression>
+            </Expression>.
+        </>,
+    });
+
+    const FirstClockCondition = createPortal({
+        entrance: (content) => content,
+        exit: (content) => <>
+            <Anchor id={ids.clock_condition.first}>Go to definition.</Anchor>
+            {content}
+        </>,
+        content: <p>
+            If <Identifier>a</Identifier> and <Identifier>b</Identifier> are
+            events in process <SubScript>
+                <Identifier>P</Identifier>
+                <Identifier>i</Identifier>
+            </SubScript> and <Identifier>a</Identifier> comes
+            before <Identifier>b</Identifier>, then <Expression>
+                <Expression>
+                    <SubScript>
+                        <Identifier>C</Identifier>
+                        <Identifier>i</Identifier>
+                    </SubScript>
+                    <Operator>{codes.operators.angle.left}</Operator>
+                    <Identifier description="the first event">a</Identifier>
+                    <Operator>{codes.operators.angle.right}</Operator>
+                </Expression>
+                <Operator>{codes.operators.less_than}</Operator>
+                <Expression>
+                    <SubScript>
+                        <Identifier>C</Identifier>
+                        <Identifier>i</Identifier>
+                    </SubScript>
+                    <Operator>{codes.operators.angle.left}</Operator>
+                    <Identifier description="the second event">b</Identifier>
+                    <Operator>{codes.operators.angle.right}</Operator>
+                </Expression>
+            </Expression>
+        </p>
+    });
+    const SecondClockCondition = createPortal({
+        entrance: (content) => content,
+        exit: (content) => <>
+            <Anchor id={ids.clock_condition.second}>Go to definition.</Anchor>
+            {content}
+        </>,
+        content: <p>
+            If <Identifier>a</Identifier> is the sending of a message
+            by process <SubScript>
+                <Identifier>P</Identifier>
+                <Identifier>i</Identifier>
+            </SubScript> and <Identifier>b</Identifier> is
+            the receipt of that message by process <SubScript>
+                <Identifier>P</Identifier>
+                <Identifier>j</Identifier>
+            </SubScript>, then <Expression description="the logical time of sending a message is less than the logical time of receiving the message">
+                <Expression description="the logical time of sending a message">
+                    <SubScript>
+                        <Identifier>C</Identifier>
+                        <Identifier>i</Identifier>
+                    </SubScript>
+                    <Operator>{codes.operators.angle.left}</Operator>
+                    <Identifier description="the event of sending a message">a</Identifier>
+                    <Operator>{codes.operators.angle.right}</Operator>
+                </Expression>
+                <Operator>{codes.operators.less_than}</Operator>
+                <Expression description="the logical time of receiving the message">
+                    <SubScript>
+                        <Identifier>C</Identifier>
+                        <Identifier>j</Identifier>
+                    </SubScript>
+                    <Operator>{codes.operators.angle.left}</Operator>
+                    <Identifier description="the event of receiving the message">b</Identifier>
+                    <Operator>{codes.operators.angle.right}</Operator>
+                </Expression>
+            </Expression>
+        </p>
+    });
+
+    const SecondAImplementationRule = createPortal({
+        entrance: (content) => content,
+        exit: (content) => <>
+            <Anchor id={ids.implementation_rules.second.a}>Go to definition.</Anchor>
+            {content}
+        </>,
+        content: <p>
+            If event <Identifier description="an event">a</Identifier> is the sending of a message <Identifier description="a message">m</Identifier> by
+            process <SubScript description="a process">
+                <Identifier>P</Identifier>
+                <Identifier>i</Identifier>
+            </SubScript>, then the message <Identifier description="the message">m</Identifier> contains
+            a timestamp <Expression description="the timestamp of the message equal to the logical timestamp of the process's clock register">
+                <SubScript description="the timestamp of the message">
+                    <Identifier>T</Identifier>
+                    <Identifier description="the message">m</Identifier>
+                </SubScript>
+                <Operator>{codes.operators.equals}</Operator>
+                <Expression description="the logical timestamp of the event in the process">
+                    <SubScript>
+                        <Identifier>C</Identifier>
+                        <Identifier>i</Identifier>
+                    </SubScript>
+                    <Operator>{codes.operators.angle.left}</Operator>
+                    <Identifier>a</Identifier>
+                    <Operator>{codes.operators.angle.right}</Operator>
+                </Expression>
+            </Expression>.
+        </p>
+    });
+    const SecondBImplementationRule = createPortal({
+        entrance: (content) => content,
+        exit: (content) => <>
+            <Anchor id={ids.implementation_rules.second.b}>Go to definition.</Anchor>
+            {content}
+        </>,
+        content: <p>
+            Upon receiving a message <Identifier description="a message">m</Identifier>, process <SubScript description="the receiving process">
+                <Identifier>P</Identifier>
+                <Identifier>j</Identifier>
+            </SubScript> sets <SubScript description="the clock register for the receiving process">
+                <Identifier>C</Identifier>
+                <Identifier>j</Identifier>
+            </SubScript> greater
+            than or equal to its present value and
+            greater than <SubScript description="the timestamp of the received message">
+                <Identifier>T</Identifier>
+                <Identifier description="the received message">m</Identifier>
+            </SubScript>.
+        </p>
+    });
+
+    const ImplementationRules = {
+        First: createPortal({
+            entrance: (content) => content,
+            exit: (content) => <>
+                <Anchor id={ids.implementation_rules.first}>Go to definition.</Anchor>
+                {content}
+            </>,
+            content: <p>
+                IR1. Each process <SubScript description="a process">
+                    <Identifier>P</Identifier>
+                    <Identifier>i</Identifier>
+                </SubScript> increments <SubScript description="the clock register of the process">
+                    <Identifier>C</Identifier>
+                    <Identifier>i</Identifier>
+                </SubScript> between any two successive events.
+            </p>
+        }),
+        Second: {
+            Root: createPortal({
+                entrance: (content) => <ol type="a">
+                    <li id={ids.implementation_rules.second.a}>
+                        <SecondAImplementationRule.Entrance />
+                    </li>
+                    <li id={ids.implementation_rules.second.b}>
+                        <SecondBImplementationRule.Entrance />
+                    </li>
+                </ol>,
+                exit: (content) => <>
+                    <Anchor id={ids.implementation_rules.second.root}>Go to definition.</Anchor>
+                    {content}
+                </>,
+                content: <ol type="a">
+                    <li>
+                        <SecondAImplementationRule.Entrance />
+                    </li>
+                    <li>
+                        <SecondBImplementationRule.Entrance />
+                    </li>
+                </ol>
+            }),
+            A: SecondAImplementationRule,
+            B: SecondBImplementationRule,
+        }
+    }
+
+    const MutualExclusionConditions = {
+        First: createPortal({
+            entrance: (content) => content,
+            exit: (content) => <>
+                <Anchor id={ids.mutual_exclusion.conditions.first}>Go to definition.</Anchor>
+                {content}
+            </>,
+            content: <p>
+                A process which
+                has been granted the resource must release it before it
+                can be granted to another process.
+            </p>,
+        }),
+        Second: createPortal({
+            entrance: (content) => content,
+            exit: (content) => <>
+                <Anchor id={ids.mutual_exclusion.conditions.second}>Go to definition.</Anchor>
+                {content}
+            </>,
+            content: <p>
+                Different requests
+                for the resource must be granted in the order in which
+                they are made.
+            </p>
+        }),
+        Third: createPortal({
+            entrance: (content) => content,
+            exit: (content) => <>
+                <Anchor id={ids.mutual_exclusion.conditions.third}>Go to definition.</Anchor>
+                {content}
+            </>,
+            content: <p>
+                If every process which is granted the
+                resource eventually releases it, then every request is
+                eventually granted.
+            </p>
+        }),
+    };
+    const AllMutualExclusionConditions = createPortal({
+        entrance: (content) => <ol type="I" id={ids.mutual_exclusion.conditions.all}>
+            <li id={ids.mutual_exclusion.conditions.first}>
+                <MutualExclusionConditions.First.Entrance />
+            </li>
+            <li id={ids.mutual_exclusion.conditions.second}>
+                <MutualExclusionConditions.Second.Entrance />
+            </li>
+            <li id={ids.mutual_exclusion.conditions.third}>
+                <MutualExclusionConditions.Third.Entrance />
+            </li>
+        </ol>,
+        exit: (content) => <>
+            <Anchor id={ids.mutual_exclusion.conditions.all}>Go to definition.</Anchor>
+            {content}
+        </>,
+        content: <ol>
+            <li><MutualExclusionConditions.First.Exit /></li>
+            <li><MutualExclusionConditions.Second.Exit /></li>
+            <li><MutualExclusionConditions.Third.Exit /></li>
+        </ol>
+    });
+
+    const FifthMutualExclusionRule = {
+        First: createPortal({
+            entrance: (content) => content,
+            exit: (content) => <>
+                <Anchor id={ids.mutual_exclusion.rules.fifth.first}>Go to definition.</Anchor>
+                {content}
+            </>,
+            content: <p>
+                There is a <Expression>
+                    <SubScript>
+                        <Identifier>T</Identifier>
+                        <Identifier>m</Identifier>
+                    </SubScript>
+                    <Operator>:</Operator>
+                    <SubScript>
+                        <Identifier>P</Identifier>
+                        <Identifier>i</Identifier>
+                    </SubScript>
+                    <mtext>requests resource</mtext>
+                </Expression> message in its request queue which is ordered before any other request
+                in its queue by the relation <Operator>{codes.operators.arrows.right.double}</Operator>.
+                (To define the relation "<Operator>{codes.operators.arrows.right.double}</Operator>" for messages,
+                we identify a message with the event of sending it.)
+            </p>
+        }),
+        Second: createPortal({
+            entrance: (content) => content,
+            exit: (content) => <>
+                <Anchor id={ids.mutual_exclusion.rules.fifth.second}>Go to definition.</Anchor>
+                {content}
+            </>,
+            content: <p>
+                <SubScript>
+                    <Identifier>P</Identifier>
+                    <Identifier>i</Identifier>
+                </SubScript> has received a message from every other process timestamped
+                later than <SubScript>
+                    <Identifier>T</Identifier>
+                    <Identifier>m</Identifier>
+                </SubScript>. <Note portal={notes.receive_message} />
+            </p>
+        }),
+    };
+
+    const MutualExclusionRules = {
+        Second: createPortal({
+            entrance: (content) => content,
+            exit: (content) => <>
+                <Anchor id={ids.mutual_exclusion.rules.second}>Go to definition.</Anchor>
+                {content}
+            </>,
+            content: <p>
+                When process <SubScript>
+                    <Identifier>P</Identifier>
+                    <Identifier>j</Identifier>
+                </SubScript> receives the message <Expression>
+                    <SubScript>
+                        <Identifier>T</Identifier>
+                        <Identifier>m</Identifier>
+                    </SubScript>
+                    <Operator>:</Operator>
+                    <SubScript>
+                        <Identifier>P</Identifier>
+                        <Identifier>i</Identifier>
+                    </SubScript>
+                    <mtext>requests resource</mtext>
+                </Expression>, it places it on its request queue
+                and sends a (timestamped) acknowledgement message to <SubScript>
+                    <Identifier>P</Identifier>
+                    <Identifier>i</Identifier>
+                </SubScript>. <Note portal={notes.acknowledgement} />
+            </p>
+        }),
+        Third: createPortal({
+            entrance: (content) => content,
+            exit: (content) => <>
+                <Anchor id={ids.mutual_exclusion.rules.third}>Go to definition.</Anchor>
+                {content}
+            </>,
+            content: <p>
+                To release the resource, process <SubScript>
+                    <Identifier>P</Identifier>
+                    <Identifier>i</Identifier>
+                </SubScript> removes
+                any <Expression>
+                    <SubScript>
+                        <Identifier>T</Identifier>
+                        <Identifier>m</Identifier>
+                    </SubScript>
+                    <Operator>:</Operator>
+                    <SubScript>
+                        <Identifier>P</Identifier>
+                        <Identifier>i</Identifier>
+                    </SubScript>
+                    <mtext>requests resource</mtext>
+                </Expression> message from its request queue and sends a (timestamped) <Expression>
+                    <SubScript>
+                        <Identifier>P</Identifier>
+                        <Identifier>i</Identifier>
+                    </SubScript>
+                    <mtext>releases resource</mtext>
+                </Expression> message to every other process.
+            </p>
+        }),
+        Fourth: createPortal({
+            entrance: (content) => content,
+            exit: (content) => <>
+                <Anchor id={ids.mutual_exclusion.rules.fourth}>Go to definition.</Anchor>
+                {content}
+            </>,
+            content: <p>
+                When process <SubScript>
+                    <Identifier>P</Identifier>
+                    <Identifier>j</Identifier>
+                </SubScript> receives a <Expression>
+                    <SubScript>
+                        <Identifier>P</Identifier>
+                        <Identifier>i</Identifier>
+                    </SubScript>
+                    <mtext>releases resource</mtext>
+                </Expression> message,
+                it removes any <Expression>
+                    <SubScript>
+                        <Identifier>T</Identifier>
+                        <Identifier>m</Identifier>
+                    </SubScript>
+                    <Operator>:</Operator>
+                    <SubScript>
+                        <Identifier>P</Identifier>
+                        <Identifier>i</Identifier>
+                    </SubScript>
+                    <mtext>requests resource</mtext>
+                </Expression> message from its queue.
+            </p>
+        }),
+        Fifth: {
+            Root: createPortal({
+                entrance: (content) => <>
+                    {content}
+                    <ol type="i">
+                        <li id={ids.mutual_exclusion.rules.fifth.first}>
+                            <FifthMutualExclusionRule.First.Entrance />
+                        </li>
+                        <li id={ids.mutual_exclusion.rules.fifth.second}>
+                            <FifthMutualExclusionRule.Second.Entrance />
+                        </li>
+                    </ol>
+                </>,
+                exit: (content) => <>
+                    <Anchor id={ids.mutual_exclusion.rules.fifth.root}>Go to definition.</Anchor>
+                    {content}
+                    <ol type="i">
+                        <li>
+                            <FifthMutualExclusionRule.First.Exit />
+                        </li>
+                        <li>
+                            <FifthMutualExclusionRule.Second.Exit />
+                        </li>
+                    </ol>
+                </>,
+                content: <p>
+                    Process <SubScript>
+                        <Identifier>P</Identifier>
+                        <Identifier>i</Identifier>
+                    </SubScript> is granted the resource when the following
+                    two conditions are satisfied:
+                </p>
+            }),
+            First: FifthMutualExclusionRule.First,
+            Second: FifthMutualExclusionRule.Second,
+        }
+    }
+
+    const StrongClockCondition = createPortal({
+        entrance: (content) => <p id={ids.strong_clock_condition}>{content}</p>,
+        exit: (content) => <>
+            <Anchor id={ids.strong_clock_condition}>Go to definition.</Anchor>
+            <p>{content}</p>
+        </>,
+        content: <>
+            <em>Strong Clock Condition.</em> For any events <Identifier description="an event">a</Identifier>, <Identifier description="another event">b</Identifier> in <Identifier description="the set of all system events">{codes.greek.zeta}</Identifier>:
+            if <Expression>
+                <Identifier description="the first event">a</Identifier>
+                <Operator>{codes.operators.arrows.right.thick}</Operator>
+                <Identifier description="the second event">b</Identifier>
+            </Expression> then <Expression description="the logical timestamp of the first event is less than the logical timestamp of the second event">
+                <Expression description="the logical timestamp of the first event">
+                    <Identifier>C</Identifier>
+                    <Operator>{codes.operators.angle.left}</Operator>
+                    <Identifier>a</Identifier>
+                    <Operator>{codes.operators.angle.right}</Operator>
+                </Expression>
+                <Operator>{codes.operators.less_than}</Operator>
+                <Expression description="the logical timestamp of the second event">
+                    <Identifier>C</Identifier>
+                    <Operator>{codes.operators.angle.left}</Operator>
+                    <Identifier>b</Identifier>
+                    <Operator>{codes.operators.angle.right}</Operator>
+                </Expression>
+            </Expression>.
+        </>
+    });
+
+    const FirstPhysicalClockCondition = createPortal({
+        entrance: (content) => <p id={ids.physical_clock_condition.first}>{content}</p>,
+        exit: (content) => <>
+            <Anchor id={ids.physical_clock_condition.first}>Go to definition.</Anchor>
+            <p>{content}</p>
+        </>,
+        content: <>
+            <strong>PC1.</strong> There exists a constant <Expression>
+                <Identifier description="maximum clock rate error">{codes.greek.kappa}</Identifier>
+                <Operator>{codes.operators.much_less_than}</Operator>
+                <Number value={1} />
+            </Expression> such that for all <Identifier>i</Identifier>: <Expression description="the clock rate error is less than the maximum clock rate error">
+                <Expression>
+                    <Operator>|</Operator>
+                    <Expression>
+                        <Fraction description="the clock rate">
+                            <Expression>
+                                <Operator>d</Operator>
+                                <SubScript>
+                                    <Identifier>C</Identifier>
+                                    <Identifier>i</Identifier>
+                                </SubScript>
+                                <Operator>(</Operator>
+                                <Identifier>t</Identifier>
+                                <Operator>)</Operator>
+                            </Expression>
+                            <Operator>dt</Operator>
+                        </Fraction>
+                        <Operator>-</Operator>
+                        <Number value={1}></Number>
+                    </Expression>
+                    <Operator>|</Operator>
+                </Expression>
+                <Operator>{codes.operators.less_than}</Operator>
+                <Identifier>{codes.greek.kappa}</Identifier>
+            </Expression>.
+        </>
+    });
+
+    const SecondPhysicalClockCondition = createPortal({
+        entrance: (content) => <p id={ids.physical_clock_condition.second}>{content}</p>,
+        exit: (content) => <>
+            <Anchor id={ids.physical_clock_condition.second}>Go to definition.</Anchor>
+            <p>{content}</p>
+        </>,
+        content: <>
+            <strong>PC2.</strong> For all <Identifier>i</Identifier>, <Identifier>j</Identifier>: <Expression>
+                <Expression description="the difference between two clocks' time">
+                    <Operator>|</Operator>
+                    <Expression description="one clock's time">
+                        <SubScript>
+                            <Identifier>C</Identifier>
+                            <Identifier>i</Identifier>
+                        </SubScript>
+                        <Operator>(</Operator>
+                        <Identifier>t</Identifier>
+                        <Operator>)</Operator>
+                    </Expression>
+                    <Operator>-</Operator>
+                    <Expression description="another clock's time">
+                        <SubScript>
+                            <Identifier>C</Identifier>
+                            <Identifier>j</Identifier>
+                        </SubScript>
+                        <Operator>(</Operator>
+                        <Identifier>t</Identifier>
+                        <Operator>)</Operator>
+                    </Expression>
+                    <Operator>|</Operator>
+                </Expression>
+                <Operator>{codes.operators.less_than}</Operator>
+                <Identifier description="maximum clock drift">{codes.greek.epsilon}</Identifier>
+            </Expression>.
+        </>
+    });
+
+    const PhysicalImplementationRules = {
+        First: createPortal({
+            entrance: (content) => content,
+            exit: (content) => <>
+                <Anchor id={ids.physical_implementation_rules.first}>Go to definition.</Anchor>
+                {content}
+            </>,
+            content: <p>
+                <strong>IR1'</strong>: For each <Identifier>i</Identifier>,
+                if <SubScript description="a process">
+                    <Identifier>P</Identifier>
+                    <Identifier>i</Identifier>
+                </SubScript> does not receive a message at physical time <Identifier description="physical time">t</Identifier>,
+                then <SubScript description="the process's clock">
+                    <Identifier>C</Identifier>
+                    <Identifier>i</Identifier>
+                </SubScript> is differentiable at <Identifier description="physical time">t</Identifier> and <Expression description="the clock speed is positive">
+                    <Fraction description="the clock speed">
+                        <Expression>
+                            <Operator>d</Operator>
+                            <SubScript>
+                                <Identifier>C</Identifier>
+                                <Identifier>i</Identifier>
+                            </SubScript>
+                            <Operator>(</Operator>
+                            <Identifier>t</Identifier>
+                            <Operator>)</Operator>
+                        </Expression>
+                        <Operator>dt</Operator>
+                    </Fraction>
+                    <Operator>{codes.operators.greater_than}</Operator>
+                    <Number value={0} />
+                </Expression>.
+            </p>
+        }),
+        Second: createPortal({
+            entrance: (content) => content,
+            exit: (content) => <>
+                <Anchor id={ids.physical_implementation_rules.second}>Go to definition.</Anchor>
+                {content}
+            </>,
+            content: <>
+                <p>
+                    <strong>IR2'</strong>:
+                </p>
+                <ol type="a">
+                    <li>
+                        <p>
+                            If <SubScript description="a process">
+                                <Identifier>P</Identifier>
+                                <Identifier>i</Identifier>
+                            </SubScript> sends a message <Identifier description="a message">m</Identifier> at
+                            physical time <Identifier description="physical sent time">t</Identifier>, then <Identifier description="the message">m</Identifier> contains
+                            a timestamp <Expression>
+                                <SubScript description="the message's timestamp">
+                                    <Identifier>T</Identifier>
+                                    <Identifier>m</Identifier>
+                                </SubScript>
+                                <Operator>=</Operator>
+                                <Expression description="the clock's value at sent time">
+                                    <SubScript>
+                                        <Identifier>C</Identifier>
+                                        <Identifier>i</Identifier>
+                                    </SubScript>
+                                    <Operator>(</Operator>
+                                    <Identifier>t</Identifier>
+                                    <Operator>)</Operator>
+                                </Expression>
+                            </Expression>.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            Upon receiving a message <Identifier description="a message">m</Identifier> at
+                            time <Expression description="physical received time">
+                                <Identifier>t</Identifier>
+                                <Operator>{codes.operators.prime}</Operator>
+                            </Expression>, process <SubScript description="the receiving process">
+                                <Identifier>P</Identifier>
+                                <Identifier>j</Identifier>
+                            </SubScript> sets <Expression description="the receiving process's clock at the received time">
+                                <SubScript>
+                                    <Identifier>C</Identifier>
+                                    <Identifier>j</Identifier>
+                                </SubScript>
+                                <Operator>(</Operator>
+                                <Expression description="physical received time">
+                                    <Identifier>t</Identifier>
+                                    <Operator>{codes.operators.prime}</Operator>
+                                </Expression>
+                                <Operator>)</Operator>
+                            </Expression> equal to maximum <Expression>
+                                <Operator>(</Operator>
+                                <Expression>
+                                    <SubScript>
+                                        <Identifier>C</Identifier>
+                                        <Identifier>j</Identifier>
+                                    </SubScript>
+                                    <Operator>(</Operator>
+                                    <Identifier>t</Identifier>
+                                    <Operator>{codes.operators.prime}</Operator>
+                                    <Operator>-</Operator>
+                                    <Number value={0} />
+                                    <Operator>)</Operator>
+                                </Expression>
+                                <Operator>,</Operator>
+                                <Expression>
+                                    <SubScript description="the message's timestamp">
+                                        <Identifier>T</Identifier>
+                                        <Identifier>m</Identifier>
+                                    </SubScript>
+                                    <Operator>+</Operator>
+                                    <SubScript description="the message's minimum delay">
+                                        <Identifier>{codes.greek.mu}</Identifier>
+                                        <Identifier>m</Identifier>
+                                    </SubScript>
+                                </Expression>
+                                <Operator>)</Operator>
+                            </Expression>. <Note portal={notes.limit} />
+                        </p>
+                    </li>
+                </ol>
+            </>
+        })
+    }
 
     return (
         <article>
@@ -296,7 +1163,7 @@ export function Paper() {
                     In other words, a single process is
                     defined to be a set of events with an a priori total
                     ordering. This seems to be what is generally meant by a
-                    process. <NoteAnchor id={ids.notes.event} /> It would be trivial to extend our definition to
+                    process. <Note portal={notes.event} /> It would be trivial to extend our definition to
                     allow a process to split into distinct subprocesses, but we
                     will not bother to do so.
                 </p>
@@ -381,7 +1248,7 @@ export function Paper() {
                     direction represents space, and the vertical direction
                     represents time &ndash; later times being higher than earlier
                     ones. The dots denote events, the vertical lines denote
-                    processes, and the wavy lines denote messages. It is easy
+                    processes, and the wavy lines denote messages. <Note portal={notes.message} /> It is easy
                     to see that <Expression description="the first event happened before the second event">
                         <Identifier description="the first event">a</Identifier>
                         <Operator description="happened before">{operators.happened_before}</Operator>
@@ -647,28 +1514,7 @@ export function Paper() {
                     happen at an earlier time than <Identifier>b</Identifier>. We state this condition more
                     formally as follows.
                 </p>
-                <p id={ids.clock_condition.root}>
-                    <em>Clock Condition.</em> For any events <Identifier description="first event">a</Identifier>, <Identifier description="second event">b</Identifier>:
-                    if <Expression description="the first event happened before the second event">
-                        <Identifier description="first event">a</Identifier>
-                        <Operator description="happened before">{codes.operators.arrows.right.single}</Operator>
-                        <Identifier description="second event">b</Identifier>
-                    </Expression> then <Expression description="the logical time of the first event is less than the logical time of the second event">
-                        <Expression description="the logical time of the first event">
-                            <Identifier>C</Identifier>
-                            <Operator>{codes.operators.angle.left}</Operator>
-                            <Identifier description="first event">a</Identifier>
-                            <Operator>{codes.operators.angle.right}</Operator>
-                        </Expression>
-                        <Operator>{codes.operators.less_than}</Operator>
-                        <Expression description="the logical time of the second event">
-                            <Identifier>C</Identifier>
-                            <Operator>{codes.operators.angle.left}</Operator>
-                            <Identifier description="second event">b</Identifier>
-                            <Operator>{codes.operators.angle.right}</Operator>
-                        </Expression>
-                    </Expression>.
-                </p>
+                <ClockCondition.Entrance />
                 <p>
                     Note that we cannot expect the converse condition to
                     hold as well, since that would imply that any two concurrent
@@ -686,7 +1532,7 @@ export function Paper() {
                         <Identifier>q</Identifier>
                         <Number value={3} />
                     </SubScript>, which would
-                    contradict the <Anchor id={ids.clock_condition.root}>Clock Condition</Anchor> because <Expression description="the second event in process P happened before the third event in process P">
+                    contradict the <Expand>Clock Condition<ClockCondition.Exit /></Expand> because <Expression description="the second event in process P happened before the third event in process P">
                         <SubScript description="the second event in process P">
                             <Identifier>p</Identifier>
                             <Number value={2} />
@@ -700,71 +1546,14 @@ export function Paper() {
                 </p>
                 <p>
                     It is easy to see from our definition of the relation "<Operator description="happend before relation">{codes.operators.arrows.right.single}</Operator>"
-                    that the <Anchor id={ids.clock_condition.root}>Clock Condition</Anchor> is satisfied if the following two conditions hold.
+                    that the <Expand>Clock Condition<ClockCondition.Exit /></Expand> is satisfied if the following two conditions hold.
                 </p>
                 <ol>
-                    <li>
-                        <p id={ids.clock_condition.first}>
-                            If <Identifier>a</Identifier> and <Identifier>b</Identifier> are
-                            events in process <SubScript>
-                                <Identifier>P</Identifier>
-                                <Identifier>i</Identifier>
-                            </SubScript> and <Identifier>a</Identifier> comes
-                            before <Identifier>b</Identifier>, then <Expression>
-                                <Expression>
-                                    <SubScript>
-                                        <Identifier>C</Identifier>
-                                        <Identifier>i</Identifier>
-                                    </SubScript>
-                                    <Operator>{codes.operators.angle.left}</Operator>
-                                    <Identifier description="the first event">a</Identifier>
-                                    <Operator>{codes.operators.angle.right}</Operator>
-                                </Expression>
-                                <Operator>{codes.operators.less_than}</Operator>
-                                <Expression>
-                                    <SubScript>
-                                        <Identifier>C</Identifier>
-                                        <Identifier>i</Identifier>
-                                    </SubScript>
-                                    <Operator>{codes.operators.angle.left}</Operator>
-                                    <Identifier description="the second event">b</Identifier>
-                                    <Operator>{codes.operators.angle.right}</Operator>
-                                </Expression>
-                            </Expression>
-                        </p>
+                    <li id={ids.clock_condition.first}>
+                        <FirstClockCondition.Entrance />
                     </li>
-                    <li>
-                        <p id={ids.clock_condition.second}>
-                            If <Identifier>a</Identifier> is the sending of a message
-                            by process <SubScript>
-                                <Identifier>P</Identifier>
-                                <Identifier>i</Identifier>
-                            </SubScript> and <Identifier>b</Identifier> is
-                            the receipt of that message by process <SubScript>
-                                <Identifier>P</Identifier>
-                                <Identifier>j</Identifier>
-                            </SubScript>, then <Expression description="the logical time of sending a message is less than the logical time of receiving the message">
-                                <Expression description="the logical time of sending a message">
-                                    <SubScript>
-                                        <Identifier>C</Identifier>
-                                        <Identifier>i</Identifier>
-                                    </SubScript>
-                                    <Operator>{codes.operators.angle.left}</Operator>
-                                    <Identifier description="the event of sending a message">a</Identifier>
-                                    <Operator>{codes.operators.angle.right}</Operator>
-                                </Expression>
-                                <Operator>{codes.operators.less_than}</Operator>
-                                <Expression description="the logical time of receiving the message">
-                                    <SubScript>
-                                        <Identifier>C</Identifier>
-                                        <Identifier>j</Identifier>
-                                    </SubScript>
-                                    <Operator>{codes.operators.angle.left}</Operator>
-                                    <Identifier description="the event of receiving the message">b</Identifier>
-                                    <Operator>{codes.operators.angle.right}</Operator>
-                                </Expression>
-                            </Expression>
-                        </p>
+                    <li id={ids.clock_condition.second}>
+                        <SecondClockCondition.Entrance />
                     </li>
                 </ol>
                 <p>
@@ -805,14 +1594,19 @@ export function Paper() {
                     ticks of the different processes. The space-time
                     diagram of <Anchor id={ids.figures.first}>Figure 1</Anchor> might then yield the picture in <Anchor id={ids.figures.second}>
                         Figure 2
-                    </Anchor>. <Anchor id={ids.clock_condition.first}>
+                    </Anchor>. <Expand>
                         Condition C1
-                    </Anchor> means that there must be a tick
-                    line between any two events on a process line, and <Anchor id={ids.clock_condition.second}>
+                        <FirstClockCondition.Exit />
+                    </Expand> means that there must be a tick
+                    line between any two events on a process line, and <Expand>
                         condition C2
-                    </Anchor> means that every message line must cross
+                        <SecondClockCondition.Exit />
+                    </Expand> means that every message line must cross
                     a tick line. From the pictorial meaning of <Operator description="the happened-before relation">{codes.operators.arrows.right.single}</Operator>, it is easy to
-                    see why these two conditions imply the <Anchor id={ids.clock_condition.root}>Clock Condition</Anchor>.
+                    see why these two conditions imply the <Expand>
+                        Clock Condition
+                        <ClockCondition.Exit />
+                    </Expand>.
                 </p>
                 <figure id={ids.figures.second} class="space-time">
                     <SpaceTimeDiagram path={examplePath}>
@@ -1078,7 +1872,10 @@ export function Paper() {
                     Let us now assume that the processes are algorithms,
                     and the events represent certain actions during their
                     execution. We will show how to introduce clocks into the
-                    processes which satisfy the <Anchor id={ids.clock_condition.root}>Clock Condition</Anchor>. Process <SubScript description="a process">
+                    processes which satisfy the <Expand>
+                        Clock Condition
+                        <ClockCondition.Exit />
+                    </Expand>. Process <SubScript description="a process">
                         <Identifier>P</Identifier>
                         <Identifier>i</Identifier>
                     </SubScript>'s
@@ -1106,34 +1903,31 @@ export function Paper() {
                     </SubScript> does not itself constitute an event.
                 </p>
                 <p>
-                    To guarantee that the system of clocks satisfies the <Anchor id={ids.clock_condition.root}>
+                    To guarantee that the system of clocks satisfies the <Expand>
                         Clock Condition
-                    </Anchor>, we will insure that it satisfies conditions <Anchor id={ids.clock_condition.first}>
+                        <ClockCondition.Exit />
+                    </Expand>, we will insure that it satisfies conditions <Expand>
                         C1
-                    </Anchor> and <Anchor id={ids.clock_condition.second}>
+                        <FirstClockCondition.Exit />
+                    </Expand> and <Expand>
                         C2
-                    </Anchor>. <Anchor id={ids.clock_condition.first}>
+                        <SecondClockCondition.Exit />
+                    </Expand>. <Expand>
                         Condition C1
-                    </Anchor> is simple; the processes need
+                        <FirstClockCondition.Exit />
+                    </Expand> is simple; the processes need
                     only obey the following implementation rule:
                 </p>
                 <ol start={1}>
-                    <li>
-                        <p id={ids.implementation_rules.first}>
-                            IR1. Each process <SubScript description="a process">
-                                <Identifier>P</Identifier>
-                                <Identifier>i</Identifier>
-                            </SubScript> increments <SubScript description="the clock register of the process">
-                                <Identifier>C</Identifier>
-                                <Identifier>i</Identifier>
-                            </SubScript> between any two successive events.
-                        </p>
+                    <li id={ids.implementation_rules.first}>
+                        <ImplementationRules.First.Entrance />
                     </li>
                 </ol>
                 <p>
-                    To meet <Anchor id={ids.clock_condition.second}>
+                    To meet <Expand>
                         condition C2
-                    </Anchor>, we require that each message <Identifier description="a message">m</Identifier> contain a <em>timestamp</em> <SubScript description="the timestamp of the message">
+                        <SecondClockCondition.Exit />
+                    </Expand>, we require that each message <Identifier description="a message">m</Identifier> contain a <em>timestamp</em> <SubScript description="the timestamp of the message">
                         <Identifier>T</Identifier>
                         <Identifier description="a message">m</Identifier>
                     </SubScript> which equals
@@ -1148,68 +1942,36 @@ export function Paper() {
                 </p>
                 <ol start={2}>
                     <li id={ids.implementation_rules.second.root}>
-                        <ol type="a">
-                            <li id={ids.implementation_rules.second.a}>
-                                <p>
-                                    If event <Identifier description="an event">a</Identifier> is the sending of a message <Identifier description="a message">m</Identifier> by
-                                    process <SubScript description="a process">
-                                        <Identifier>P</Identifier>
-                                        <Identifier>i</Identifier>
-                                    </SubScript>, then the message <Identifier description="the message">m</Identifier> contains
-                                    a timestamp <Expression description="the timestamp of the message equal to the logical timestamp of the process's clock register">
-                                        <SubScript description="the timestamp of the message">
-                                            <Identifier>T</Identifier>
-                                            <Identifier description="the message">m</Identifier>
-                                        </SubScript>
-                                        <Operator>{codes.operators.equals}</Operator>
-                                        <Expression description="the logical timestamp of the event in the process">
-                                            <SubScript>
-                                                <Identifier>C</Identifier>
-                                                <Identifier>i</Identifier>
-                                            </SubScript>
-                                            <Operator>{codes.operators.angle.left}</Operator>
-                                            <Identifier>a</Identifier>
-                                            <Operator>{codes.operators.angle.right}</Operator>
-                                        </Expression>
-                                    </Expression>.
-                                </p>
-                            </li>
-                            <li id={ids.implementation_rules.second.b}>
-                                <p>
-                                    Upon receiving a message <Identifier description="a message">m</Identifier>, process <SubScript description="the receiving process">
-                                        <Identifier>P</Identifier>
-                                        <Identifier>j</Identifier>
-                                    </SubScript> sets <SubScript description="the clock register for the receiving process">
-                                        <Identifier>C</Identifier>
-                                        <Identifier>j</Identifier>
-                                    </SubScript> greater
-                                    than or equal to its present value and
-                                    greater than <SubScript description="the timestamp of the received message">
-                                        <Identifier>T</Identifier>
-                                        <Identifier description="the received message">m</Identifier>
-                                    </SubScript>.
-                                </p>
-                            </li>
-                        </ol>
+                        <ImplementationRules.Second.Root.Entrance />
                     </li>
                 </ol>
                 <p>
-                    In <Anchor id={ids.implementation_rules.second.b}>IR2(b)</Anchor> we consider the event
+                    In <Expand>
+                        IR2(b)
+                        <ImplementationRules.Second.B.Exit />
+                    </Expand> we consider the event
                     which represents the receipt of the message <Identifier description="a message">m</Identifier> to
                     occur after the setting of <SubScript description="the receiving process's clock register">
                         <Identifier>C</Identifier>
                         <Identifier>j</Identifier>
                     </SubScript>. (This is just a notational nuisance, and is irrelevant in any actual implementation.)
-                    Obviously, <Anchor id={ids.implementation_rules.second.root}>IR2</Anchor> insures
-                    that <Anchor id={ids.clock_condition.second}>
-                        C2
-                    </Anchor> is satisfied. Hence, the simple implementation rules <Anchor id={ids.implementation_rules.first}>
-                        IR1
-                    </Anchor> and <Anchor id={ids.implementation_rules.second.root}>
+                    Obviously, <Expand>
                         IR2
-                    </Anchor> imply that the <Anchor id={ids.clock_condition.root}>
+                        <ImplementationRules.Second.Root.Exit />
+                    </Expand> insures
+                    that <Expand>
+                        C2
+                        <SecondClockCondition.Exit />
+                    </Expand> is satisfied. Hence, the simple implementation rules <Expand>
+                        IR1
+                        <ImplementationRules.First.Exit />
+                    </Expand> and <Expand>
+                        IR2
+                        <ImplementationRules.Second.Root.Exit />
+                    </Expand> imply that the <Expand>
                         Clock Condition
-                    </Anchor> is satisfied, so they guarantee a correct system of logical clocks.
+                        <ClockCondition.Exit />
+                    </Expand> is satisfied, so they guarantee a correct system of logical clocks.
                 </p>
             </section>
 
@@ -1217,7 +1979,10 @@ export function Paper() {
                 <header>Ordering the Events Totally</header>
 
                 <p>
-                    We can use a system of clocks satisfying the <Anchor id={ids.clock_condition.root}>Clock Condition</Anchor> to place
+                    We can use a system of clocks satisfying the <Expand>
+                        Clock Condition
+                        <ClockCondition.Exit />
+                    </Expand> to place
                     a total ordering on the set of all system events. We simply order the events
                     by the times at which they occur. To break ties, we use any arbitrary total
                     ordering <Operator description="an arbitrary total ordering">{codes.operators.precedes}</Operator> of the processes. More precisely,
@@ -1299,7 +2064,10 @@ export function Paper() {
                 </ol>
                 <p>
                     It is easy to see that this defines a total ordering,
-                    and that the <Anchor id={ids.clock_condition.root}>Clock Condition</Anchor> implies that if <Expression description="an event happened before another event">
+                    and that the <Expand>
+                        Clock Condition
+                        <ClockCondition.Exit />
+                    </Expand> implies that if <Expression description="an event happened before another event">
                         <Identifier description="an event">a</Identifier>
                         <Operator description="happened before">{codes.operators.arrows.right.single}</Operator>
                         <Identifier description="another event">b</Identifier>
@@ -1308,17 +2076,23 @@ export function Paper() {
                         <Operator description="totally happened event">{codes.operators.arrows.right.double}</Operator>
                         <Identifier description="the other event">b</Identifier>
                     </Expression>. In other words, the relation <Operator description="total-order happened before">{codes.operators.arrows.right.double}</Operator> is a
-                    way of completing the "happened before" partial ordering to a total ordering. <NoteAnchor id={ids.notes.ordering} />
+                    way of completing the "happened before" partial ordering to a total ordering. <Note portal={notes.ordering} />
                 </p>
                 <p>
                     The ordering <Operator description="total-order happened before relation">{codes.operators.arrows.right.double}</Operator> depends upon the system of clocks <SubScript>
                         <Identifier>C</Identifier>
                         <Identifier>i</Identifier>
-                    </SubScript>, and is not unique. Different choices of clocks which satisfy the <Anchor id={ids.clock_condition.root}>Clock Condition</Anchor> yield different
+                    </SubScript>, and is not unique. Different choices of clocks which satisfy the <Expand>
+                        Clock Condition
+                        <ClockCondition.Exit />
+                    </Expand> yield different
                     relations <Operator description="total-order happened before relation">{codes.operators.arrows.right.double}</Operator>.
                     Given any total ordering relation <Operator description="total-order happened before relation">{codes.operators.arrows.right.double}</Operator> which
                     extends <Operator description="happened before relation">{codes.operators.arrows.right.single}</Operator>, there is a
-                    system of clocks satisfying the <Anchor id={ids.clock_condition.root}>Clock Condition</Anchor> which yields that relation.
+                    system of clocks satisfying the <Expand>
+                        Clock Condition
+                        <ClockCondition.Exit />
+                    </Expand> which yields that relation.
                     It is only the partial ordering <Operator description="happened before relation">{codes.operators.arrows.right.single}</Operator> which is
                     uniquely determined by the system of events.
                 </p>
@@ -1336,38 +2110,19 @@ export function Paper() {
                     for granting the resource to a process which satisfies
                     the following three conditions:
                 </p>
-                <ol type="I" id={ids.mutual_exclusion.conditions.all}>
-                    <li id={ids.mutual_exclusion.conditions.first}>
-                        <p>
-                            A process which
-                            has been granted the resource must release it before it
-                            can be granted to another process.
-                        </p>
-                    </li>
-                    <li id={ids.mutual_exclusion.conditions.second}>
-                        <p>
-                            Different requests
-                            for the resource must be granted in the order in which
-                            they are made.
-                        </p>
-                    </li>
-                    <li id={ids.mutual_exclusion.conditions.third}>
-                        <p>
-                            If every process which is granted the
-                            resource eventually releases it, then every request is
-                            eventually granted.
-                        </p>
-                    </li>
-                </ol>
+                <AllMutualExclusionConditions.Entrance />
                 <p>
                     We assume that the resource is initially granted to exactly one process.
                 </p>
                 <p>
                     These are perfectly natural requirements. They precisely
                     specify what it means for a solution to
-                    be correct. <NoteAnchor id={ids.notes.eventually} /> Observe how the
+                    be correct. <Note portal={notes.eventually} /> Observe how the
                     conditions involve the ordering of
-                    events. <Anchor id={ids.mutual_exclusion.conditions.second}>Condition II</Anchor> says nothing about which of two
+                    events. <Expand>
+                        Condition II
+                        <MutualExclusionConditions.Second.Exit />
+                    </Expand> says nothing about which of two
                     concurrently issued requests should be granted first.
                 </p>
                 <p>
@@ -1406,19 +2161,22 @@ export function Paper() {
                     </SubScript> before <SubScript description="the first process">
                         <Identifier>P</Identifier>
                         <Number value={1} />
-                    </SubScript>'s request does. <Anchor id={ids.mutual_exclusion.conditions.second}>
+                    </SubScript>'s request does. <Expand>
                         Condition II
-                    </Anchor> is then violated if <SubScript description="the second process">
+                        <MutualExclusionConditions.Second.Exit />
+                    </Expand> is then violated if <SubScript description="the second process">
                         <Identifier>P</Identifier>
                         <Number value={2} />
                     </SubScript>'s request is granted first.
                 </p>
                 <p>
-                    To solve the problem, we implement a system of clocks with rules <Anchor id={ids.implementation_rules.first}>
+                    To solve the problem, we implement a system of clocks with rules <Expand>
                         IR1
-                    </Anchor> and <Anchor id={ids.implementation_rules.second.root}>
+                        <ImplementationRules.First.Exit />
+                    </Expand> and <Expand>
                         IR2
-                    </Anchor>, and use them to define a total ordering <Operator description="total-order happened before">{codes.operators.arrows.right.double}</Operator> of all events.
+                        <ImplementationRules.Second.Root.Exit />
+                    </Expand>, and use them to define a total ordering <Operator description="total-order happened before">{codes.operators.arrows.right.double}</Operator> of all events.
                     This provides a total ordering of all request and release operations. With this ordering, finding a solution
                     becomes a straightforward exercise. It just involves making sure that each process learns about all
                     other processes' operations.
@@ -1495,168 +2253,76 @@ export function Paper() {
                         </p>
                     </li>
                     <li id={ids.mutual_exclusion.rules.second}>
-                        <p>
-                            When process <SubScript>
-                                <Identifier>P</Identifier>
-                                <Identifier>j</Identifier>
-                            </SubScript> receives the message <Expression>
-                                <SubScript>
-                                    <Identifier>T</Identifier>
-                                    <Identifier>m</Identifier>
-                                </SubScript>
-                                <Operator>:</Operator>
-                                <SubScript>
-                                    <Identifier>P</Identifier>
-                                    <Identifier>i</Identifier>
-                                </SubScript>
-                                <mtext>requests resource</mtext>
-                            </Expression>, it places it on its request queue
-                            and sends a (timestamped) acknowledgement message to <SubScript>
-                                <Identifier>P</Identifier>
-                                <Identifier>i</Identifier>
-                            </SubScript>. <NoteAnchor id={ids.notes.acknowledgement} />
-                        </p>
+                        <MutualExclusionRules.Second.Entrance />
                     </li>
                     <li id={ids.mutual_exclusion.rules.third}>
-                        <p>
-                            To release the resource, process <SubScript>
-                                <Identifier>P</Identifier>
-                                <Identifier>i</Identifier>
-                            </SubScript> removes
-                            any <Expression>
-                                <SubScript>
-                                    <Identifier>T</Identifier>
-                                    <Identifier>m</Identifier>
-                                </SubScript>
-                                <Operator>:</Operator>
-                                <SubScript>
-                                    <Identifier>P</Identifier>
-                                    <Identifier>i</Identifier>
-                                </SubScript>
-                                <mtext>requests resource</mtext>
-                            </Expression> message from its request queue and sends a (timestamped) <Expression>
-                                <SubScript>
-                                    <Identifier>P</Identifier>
-                                    <Identifier>i</Identifier>
-                                </SubScript>
-                                <mtext>releases resource</mtext>
-                            </Expression> message to every other process.
-                        </p>
+                        <MutualExclusionRules.Third.Entrance />
                     </li>
                     <li id={ids.mutual_exclusion.rules.fourth}>
-                        <p>
-                            When process <SubScript>
-                                <Identifier>P</Identifier>
-                                <Identifier>j</Identifier>
-                            </SubScript> receives a <Expression>
-                                <SubScript>
-                                    <Identifier>P</Identifier>
-                                    <Identifier>i</Identifier>
-                                </SubScript>
-                                <mtext>releases resource</mtext>
-                            </Expression> message,
-                            it removes any <Expression>
-                                <SubScript>
-                                    <Identifier>T</Identifier>
-                                    <Identifier>m</Identifier>
-                                </SubScript>
-                                <Operator>:</Operator>
-                                <SubScript>
-                                    <Identifier>P</Identifier>
-                                    <Identifier>i</Identifier>
-                                </SubScript>
-                                <mtext>requests resource</mtext>
-                            </Expression> message from its queue.
-                        </p>
+                        <MutualExclusionRules.Fourth.Entrance />
                     </li>
                     <li id={ids.mutual_exclusion.rules.fifth.root}>
-                        <p>
-                            Process <SubScript>
-                                <Identifier>P</Identifier>
-                                <Identifier>i</Identifier>
-                            </SubScript> is granted the resource when the following
-                            two conditions are satisfied:
-                        </p>
-                        <ol type="i">
-                            <li id={ids.mutual_exclusion.rules.fifth.first}>
-                                <p>
-                                    There is a <Expression>
-                                        <SubScript>
-                                            <Identifier>T</Identifier>
-                                            <Identifier>m</Identifier>
-                                        </SubScript>
-                                        <Operator>:</Operator>
-                                        <SubScript>
-                                            <Identifier>P</Identifier>
-                                            <Identifier>i</Identifier>
-                                        </SubScript>
-                                        <mtext>requests resource</mtext>
-                                    </Expression> message in its request queue which is ordered before any other request
-                                    in its queue by the relation <Operator>{codes.operators.arrows.right.double}</Operator>.
-                                    (To define the relation "<Operator>{codes.operators.arrows.right.double}</Operator>" for messages,
-                                    we identify a message with the event of sending it.)
-                                </p>
-                            </li>
-                            <li id={ids.mutual_exclusion.rules.fifth.second}>
-                                <p>
-                                    <SubScript>
-                                        <Identifier>P</Identifier>
-                                        <Identifier>i</Identifier>
-                                    </SubScript> has received a message from every other process timestamped
-                                    later than <SubScript>
-                                        <Identifier>T</Identifier>
-                                        <Identifier>m</Identifier>
-                                    </SubScript>. <NoteAnchor id={ids.notes.receive_message} />
-                                </p>
-                            </li>
-                        </ol>
+                        <MutualExclusionRules.Fifth.Root.Entrance />
                     </li>
                 </ol>
                 <p>
-                    Note that <Anchor id={ids.mutual_exclusion.rules.fifth.first}>
-                        conditions (i)
-                    </Anchor> and <Anchor id={ids.mutual_exclusion.rules.fifth.second}>
-                        (ii)
-                    </Anchor> of rule 5 are tested locally by <SubScript>
+                    Note that <Expand>
+                        conditions (i) and (ii) of rule 5
+                        <MutualExclusionRules.Fifth.Root.Exit />
+                    </Expand> are tested locally by <SubScript>
                         <Identifier>P</Identifier>
                         <Identifier>i</Identifier>
                     </SubScript>.
                 </p>
                 <p>
-                    It is easy to verify that the algorithm defined by these rules satisfies <Anchor id={ids.mutual_exclusion.conditions.all}>
+                    It is easy to verify that the algorithm defined by these rules satisfies <Expand>
                         conditions I-III
-                    </Anchor>.
-                    First of all, observe that <Anchor id={ids.mutual_exclusion.rules.fifth.second}>
+                        <AllMutualExclusionConditions.Exit />
+                    </Expand>.
+                    First of all, observe that <Expand>
                         condition (ii) of rule 5
-                    </Anchor>, together with the assumption that messages
+                        <MutualExclusionRules.Fifth.Second.Exit />
+                    </Expand>, together with the assumption that messages
                     are received in order, guarantees that <SubScript>
                         <Identifier>P</Identifier>
                         <Identifier>i</Identifier>
-                    </SubScript> has learned about all requests which preceded its current request. Since <Anchor id={ids.mutual_exclusion.rules.third}>
+                    </SubScript> has learned about all requests which preceded its current request. Since <Expand>
                         rules 3
-                    </Anchor> and <Anchor id={ids.mutual_exclusion.rules.fourth}>
+                        <MutualExclusionRules.Third.Exit />
+                    </Expand> and <Expand>
                         4
-                    </Anchor> are the only ones which delete messages from the request queue, it is then easy to see that <Anchor id={ids.mutual_exclusion.conditions.first}>
+                        <MutualExclusionRules.Fourth.Exit />
+                    </Expand> are the only ones which delete messages from the request queue, it
+                    is then easy to see that <Expand>
                         condition I
-                    </Anchor> holds. <Anchor id={ids.mutual_exclusion.conditions.second}>
+                        <MutualExclusionConditions.First.Exit />
+                    </Expand> holds. <Expand>
                         Condition II
-                    </Anchor> follows from the fact that the total ordering <Operator>{codes.operators.arrows.right.double}</Operator> extends the
-                    partial ordering <Operator>{codes.operators.arrows.right.single}</Operator>. <Anchor id={ids.mutual_exclusion.rules.second}>
+                        <MutualExclusionConditions.Second.Exit />
+                    </Expand> follows from the fact that the total ordering <Operator>{codes.operators.arrows.right.double}</Operator> extends the
+                    partial ordering <Operator>{codes.operators.arrows.right.single}</Operator>. <Expand>
                         Rule 2
-                    </Anchor> guarantees that after <SubScript>
+                        <MutualExclusionRules.Second.Exit />
+                    </Expand> guarantees that after <SubScript>
                         <Identifier>P</Identifier>
                         <Identifier>i</Identifier>
-                    </SubScript> requests the resource, <Anchor id={ids.mutual_exclusion.rules.fifth.second}>
+                    </SubScript> requests the resource, <Expand>
                         condition (ii) of rule 5
-                    </Anchor> will eventually hold. <Anchor id={ids.mutual_exclusion.rules.third}>
+                        <MutualExclusionRules.Fifth.Second.Exit />
+                    </Expand> will eventually hold. <Expand>
                         Rules 3
-                    </Anchor> and <Anchor id={ids.mutual_exclusion.rules.fourth}>
+                        <MutualExclusionRules.Third.Exit />
+                    </Expand> and <Expand>
                         4
-                    </Anchor> imply that if each process which is granted the resource eventually releases it, then <Anchor id={ids.mutual_exclusion.rules.fifth.first}>
+                        <MutualExclusionRules.Fourth.Exit />
+                    </Expand> imply that if each process which is granted the resource eventually releases it,
+                    then <Expand>
                         condition (i) of rule 5
-                    </Anchor> will eventually hold, thus providing <Anchor id={ids.mutual_exclusion.conditions.third}>
+                        <MutualExclusionRules.Fifth.First.Exit />
+                    </Expand> will eventually hold, thus providing <Expand>
                         condition III
-                    </Anchor>.
+                        <MutualExclusionConditions.Third.Exit />
+                    </Expand>.
                 </p>
                 <p>
                     This is a distributed algorithm. Each process independently
@@ -1708,7 +2374,7 @@ export function Paper() {
                     is the currently granted one. Executing a <em>request</em> command
                     adds the request to the tail of the queue, and
                     executing a <em>release</em> command removes a command from
-                    the queue. <NoteAnchor id={ids.notes.release} />
+                    the queue. <Note portal={notes.release} />
                 </p>
                 <p>
                     Each process independently simulates the execution
@@ -1795,30 +2461,12 @@ export function Paper() {
                 <p>
                     The second approach is to construct a system of clocks which satisfies the following condition.
                 </p>
-                <p id={ids.strong_clock_condition}>
-                    <em>Strong Clock Condition.</em> For any events <Identifier description="an event">a</Identifier>, <Identifier description="another event">b</Identifier> in <Identifier description="the set of all system events">{codes.greek.zeta}</Identifier>:
-                    if <Expression>
-                        <Identifier description="the first event">a</Identifier>
-                        <Operator>{codes.operators.arrows.right.thick}</Operator>
-                        <Identifier description="the second event">b</Identifier>
-                    </Expression> then <Expression description="the logical timestamp of the first event is less than the logical timestamp of the second event">
-                        <Expression description="the logical timestamp of the first event">
-                            <Identifier>C</Identifier>
-                            <Operator>{codes.operators.angle.left}</Operator>
-                            <Identifier>a</Identifier>
-                            <Operator>{codes.operators.angle.right}</Operator>
-                        </Expression>
-                        <Operator>{codes.operators.less_than}</Operator>
-                        <Expression description="the logical timestamp of the second event">
-                            <Identifier>C</Identifier>
-                            <Operator>{codes.operators.angle.left}</Operator>
-                            <Identifier>b</Identifier>
-                            <Operator>{codes.operators.angle.right}</Operator>
-                        </Expression>
-                    </Expression>.
-                </p>
+                <StrongClockCondition.Entrance />
                 <p>
-                    This is stronger than the ordinary <Anchor id={ids.clock_condition.root}>Clock Condition</Anchor> because <Operator>{codes.operators.arrows.right.thick}</Operator> is
+                    This is stronger than the ordinary <Expand>
+                        Clock Condition
+                        <ClockCondition.Exit />
+                    </Expand> because <Operator>{codes.operators.arrows.right.thick}</Operator> is
                     a stronger relation than <Operator description="happened before">{codes.operators.arrows.right.single}</Operator>. It is not in general satisfied by our logical clocks.
                 </p>
                 <p>
@@ -1826,8 +2474,10 @@ export function Paper() {
                     some set of "real" events in physical space-time, and let <Operator>{codes.operators.arrows.right.thick}</Operator> be
                     the partial ordering of events defined by special relativity. One of the
                     mysteries of the universe is that it is possible to construct a system of physical
-                    clocks which, running quite independently of one another, will satisfy the <Anchor id={ids.strong_clock_condition}>Strong Clock Condition</Anchor>.
-                    We can therefore use physical clocks to eliminate anomalous behavior. We now turn
+                    clocks which, running quite independently of one another, will satisfy the <Expand>
+                        Strong Clock Condition.
+                        <StrongClockCondition.Exit />
+                    </Expand> We can therefore use physical clocks to eliminate anomalous behavior. We now turn
                     our attention to such clocks.
                 </p>
             </section>
@@ -1847,7 +2497,7 @@ export function Paper() {
                     </Expression> denote the reading of the clock <SubScript description="a clock">
                         <Identifier>C</Identifier>
                         <Identifier>i</Identifier>
-                    </SubScript> at physical time <Identifier description="physical time">t</Identifier>. <NoteAnchor id={ids.notes.time} /> For mathematical
+                    </SubScript> at physical time <Identifier description="physical time">t</Identifier>. <Note portal={notes.time} /> For mathematical
                     convenience, we assume that the clocks run continuously rather than in discrete "ticks."
                     (A discrete clock can be thought of as a continuous one in which there is an error of up to <Fraction>
                         <Number value={1} />
@@ -1898,37 +2548,7 @@ export function Paper() {
                         <Number value={1} />
                     </Expression> for all <Identifier description="physical time">t</Identifier>. More precisely, we will assume that the following condition is satisfied:
                 </p>
-                <p id={ids.physical_clock_condition.first}>
-                    <strong>PC1.</strong> There exists a constant <Expression>
-                        <Identifier description="maximum clock rate error">{codes.greek.kappa}</Identifier>
-                        <Operator>{codes.operators.much_less_than}</Operator>
-                        <Number value={1} />
-                    </Expression> such that for all <Identifier>i</Identifier>: <Expression description="the clock rate error is less than the maximum clock rate error">
-                        <Expression>
-                            <Operator>|</Operator>
-                            <Expression>
-                                <Fraction description="the clock rate">
-                                    <Expression>
-                                        <Operator>d</Operator>
-                                        <SubScript>
-                                            <Identifier>C</Identifier>
-                                            <Identifier>i</Identifier>
-                                        </SubScript>
-                                        <Operator>(</Operator>
-                                        <Identifier>t</Identifier>
-                                        <Operator>)</Operator>
-                                    </Expression>
-                                    <Operator>dt</Operator>
-                                </Fraction>
-                                <Operator>-</Operator>
-                                <Number value={1}></Number>
-                            </Expression>
-                            <Operator>|</Operator>
-                        </Expression>
-                        <Operator>{codes.operators.less_than}</Operator>
-                        <Identifier>{codes.greek.kappa}</Identifier>
-                    </Expression>.
-                </p>
+                <FirstPhysicalClockCondition.Entrance />
                 <p>
                     For typical crystal controlled clocks, <Expression>
                         <Identifier description="maximum clock speed error">{codes.greek.kappa}</Identifier>
@@ -1965,50 +2585,38 @@ export function Paper() {
                     More precisely, there must be a sufficiently small constant <Identifier description="maximum clock drift">{codes.greek.epsilon}</Identifier> so
                     that the following condition holds:
                 </p>
-                <p id={ids.physical_clock_condition.second}>
-                    <strong>PC2.</strong> For all <Identifier>i</Identifier>, <Identifier>j</Identifier>: <Expression>
-                        <Expression description="the difference between two clocks' time">
-                            <Operator>|</Operator>
-                            <Expression description="one clock's time">
-                                <SubScript>
-                                    <Identifier>C</Identifier>
-                                    <Identifier>i</Identifier>
-                                </SubScript>
-                                <Operator>(</Operator>
-                                <Identifier>t</Identifier>
-                                <Operator>)</Operator>
-                            </Expression>
-                            <Operator>-</Operator>
-                            <Expression description="another clock's time">
-                                <SubScript>
-                                    <Identifier>C</Identifier>
-                                    <Identifier>j</Identifier>
-                                </SubScript>
-                                <Operator>(</Operator>
-                                <Identifier>t</Identifier>
-                                <Operator>)</Operator>
-                            </Expression>
-                            <Operator>|</Operator>
-                        </Expression>
-                        <Operator>{codes.operators.less_than}</Operator>
-                        <Identifier description="maximum clock drift">{codes.greek.epsilon}</Identifier>
-                    </Expression>.
-                </p>
+                <SecondPhysicalClockCondition.Entrance />
                 <p>
-                    If we consider vertical distance in <Anchor id={ids.figures.second}>Figure 2</Anchor> to represent physical time, then <Anchor id={ids.physical_clock_condition.second}>PC2</Anchor> states
+                    If we consider vertical distance in <Anchor id={ids.figures.second}>Figure 2</Anchor> to
+                    represent physical time, then <Expand>
+                        PC2
+                        <SecondPhysicalClockCondition.Exit />
+                    </Expand> states
                     that the variation in height of a single tick line is less than <Identifier description="maximum clock drift">{codes.greek.epsilon}</Identifier>.
                 </p>
                 <p>
                     Since two different clocks will never run at exactly
                     the same rate, they will tend to drift further and further
                     apart. We must therefore devise an algorithm to insure
-                    that <Anchor id={ids.physical_clock_condition.second}>PC2</Anchor> always holds. First, however, let us examine
+                    that <Expand>
+                        PC2
+                        <SecondPhysicalClockCondition.Exit />
+                    </Expand> always holds. First, however, let us examine
                     how small <Identifier description="maximum clock speed error">{codes.greek.kappa}</Identifier> and <Identifier description="maximum clock drift">{codes.greek.epsilon}</Identifier> must
                     be to prevent anomalous behavior.
                     We must insure that the system <Identifier>{codes.greek.zeta}</Identifier> of relevant physical
-                    events satisfies the <Anchor id={ids.strong_clock_condition}>Strong Clock Condition</Anchor>. We assume
-                    that our clocks satisfy the ordinary <Anchor id={ids.clock_condition.root}>Clock Condition</Anchor>, so
-                    we need only require that the <Anchor id={ids.strong_clock_condition}>Strong Clock Condition</Anchor> holds
+                    events satisfies the <Expand>
+                        Strong Clock Condition
+                        <StrongClockCondition.Exit />
+                    </Expand>. We assume
+                    that our clocks satisfy the ordinary <Expand>
+                        Clock Condition
+                        <ClockCondition.Exit />
+                    </Expand>, so
+                    we need only require that the <Expand>
+                        Strong Clock Condition
+                        <StrongClockCondition.Exit />
+                    </Expand> holds
                     when <Identifier description="an event">a</Identifier> and <Identifier description="another event">b</Identifier> are events
                     in <Identifier>{codes.greek.zeta}</Identifier> with <Expression description="the event did not happen before the other event">
                         <Identifier description="the event">a</Identifier>
@@ -2062,12 +2670,22 @@ export function Paper() {
                         </Expression>
                         <Operator>{codes.operators.greater_than}</Operator>
                         <Number value={0} />
-                    </Expression>. Combining this with <Anchor id={ids.physical_clock_condition.first}>PC1</Anchor> and <Anchor id={ids.physical_clock_condition.second}>2</Anchor> allows us to relate the required
+                    </Expression>. Combining this with <Expand>
+                        PC1
+                        <FirstPhysicalClockCondition.Exit />
+                    </Expand> and <Expand>
+                        2
+                        <SecondPhysicalClockCondition.Exit />
+                    </Expand> allows us to relate the required
                     smallness of <Identifier>{codes.greek.kappa}</Identifier> and <Identifier>{codes.greek.epsilon}</Identifier> to
                     the value of <Identifier>{codes.greek.mu}</Identifier> as follows. We assume that when a clock is reset, it is
-                    always set forward and never back. (Setting it back would cause <Anchor id={ids.clock_condition.first}>
+                    always set forward and never back. (Setting it back would cause <Expand>
                         C1
-                    </Anchor> to be violated.) <Anchor id={ids.physical_clock_condition.first}>PC1</Anchor> then
+                        <FirstClockCondition.Exit />
+                    </Expand> to be violated.) <Expand>
+                        PC1
+                        <FirstPhysicalClockCondition.Exit />
+                    </Expand> then
                     implies that <Expression>
                         <Expression>
                             <SubScript>
@@ -2099,7 +2717,10 @@ export function Paper() {
                             <Operator>)</Operator>
                             <Identifier>{codes.greek.mu}</Identifier>
                         </Expression>
-                    </Expression>. Using <Anchor id={ids.physical_clock_condition.second}>PC2</Anchor>, it is then easy to deduce that <Expression>
+                    </Expression>. Using <Expand>
+                        PC2
+                        <SecondPhysicalClockCondition.Exit />
+                    </Expand>, it is then easy to deduce that <Expression>
                         <Expression>
                             <SubScript>
                                 <Identifier>C</Identifier>
@@ -2137,10 +2758,19 @@ export function Paper() {
                         <Operator>{codes.operators.less_than_equal}</Operator>
                         <Identifier>{codes.greek.mu}</Identifier>
                     </Expression>
-                    This inequality together with <Anchor id={ids.physical_clock_condition.first}>PC1</Anchor> and <Anchor id={ids.physical_clock_condition.second}>PC2</Anchor> implies that anomalous behavior is impossible.
+                    This inequality together with <Expand>
+                        PC1
+                        <FirstPhysicalClockCondition.Exit />
+                    </Expand> and <Expand>
+                        PC2
+                        <SecondPhysicalClockCondition.Exit />
+                    </Expand> implies that anomalous behavior is impossible.
                 </p>
                 <p>
-                    We now describe our algorithm for insuring that <Anchor id={ids.physical_clock_condition.second}>PC2</Anchor> holds.
+                    We now describe our algorithm for insuring that <Expand>
+                        PC2
+                        <SecondPhysicalClockCondition.Exit />
+                    </Expand> holds.
                     Let <Identifier description="a message">m</Identifier> be a message which is sent at physical time <Identifier description="physical time">t</Identifier> and
                     received at time <Expression>
                         <Identifier description="physical time">t</Identifier>
@@ -2194,119 +2824,20 @@ export function Paper() {
                     </Expression> the <em>unpredictable delay</em> of the message.
                 </p>
                 <p>
-                    We now specialize rules <Anchor id={ids.implementation_rules.first}>IR1</Anchor> and <Anchor id={ids.implementation_rules.second.root}>2</Anchor> for our physical clocks as follows:
+                    We now specialize rules <Expand>
+                        IR1
+                        <ImplementationRules.First.Exit />
+                    </Expand> and <Expand>
+                        2
+                        <ImplementationRules.Second.Root.Exit />
+                    </Expand> for our physical clocks as follows:
                 </p>
                 <ol>
                     <li id={ids.physical_implementation_rules.first}>
-                        <p>
-                            <strong>IR1'</strong>: For each <Identifier>i</Identifier>,
-                            if <SubScript description="a process">
-                                <Identifier>P</Identifier>
-                                <Identifier>i</Identifier>
-                            </SubScript> does not receive a message at physical time <Identifier description="physical time">t</Identifier>,
-                            then <SubScript description="the process's clock">
-                                <Identifier>C</Identifier>
-                                <Identifier>i</Identifier>
-                            </SubScript> is differentiable at <Identifier description="physical time">t</Identifier> and <Expression description="the clock speed is positive">
-                                <Fraction description="the clock speed">
-                                    <Expression>
-                                        <Operator>d</Operator>
-                                        <SubScript>
-                                            <Identifier>C</Identifier>
-                                            <Identifier>i</Identifier>
-                                        </SubScript>
-                                        <Operator>(</Operator>
-                                        <Identifier>t</Identifier>
-                                        <Operator>)</Operator>
-                                    </Expression>
-                                    <Operator>dt</Operator>
-                                </Fraction>
-                                <Operator>{codes.operators.greater_than}</Operator>
-                                <Number value={0} />
-                            </Expression>.
-                        </p>
+                        <PhysicalImplementationRules.First.Entrance />
                     </li>
                     <li id={ids.physical_implementation_rules.second}>
-                        <p>
-                            <strong>IR2'</strong>:
-                        </p>
-                        <ol type="a">
-                            <li>
-                                <p>
-                                    If <SubScript description="a process">
-                                        <Identifier>P</Identifier>
-                                        <Identifier>i</Identifier>
-                                    </SubScript> sends a message <Identifier description="a message">m</Identifier> at
-                                    physical time <Identifier description="physical sent time">t</Identifier>, then <Identifier description="the message">m</Identifier> contains
-                                    a timestamp <Expression>
-                                        <SubScript description="the message's timestamp">
-                                            <Identifier>T</Identifier>
-                                            <Identifier>m</Identifier>
-                                        </SubScript>
-                                        <Operator>=</Operator>
-                                        <Expression description="the clock's value at sent time">
-                                            <SubScript>
-                                                <Identifier>C</Identifier>
-                                                <Identifier>i</Identifier>
-                                            </SubScript>
-                                            <Operator>(</Operator>
-                                            <Identifier>t</Identifier>
-                                            <Operator>)</Operator>
-                                        </Expression>
-                                    </Expression>.
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    Upon receiving a message <Identifier description="a message">m</Identifier> at
-                                    time <Expression description="physical received time">
-                                        <Identifier>t</Identifier>
-                                        <Operator>{codes.operators.prime}</Operator>
-                                    </Expression>, process <SubScript description="the receiving process">
-                                        <Identifier>P</Identifier>
-                                        <Identifier>j</Identifier>
-                                    </SubScript> sets <Expression description="the receiving process's clock at the received time">
-                                        <SubScript>
-                                            <Identifier>C</Identifier>
-                                            <Identifier>j</Identifier>
-                                        </SubScript>
-                                        <Operator>(</Operator>
-                                        <Expression description="physical received time">
-                                            <Identifier>t</Identifier>
-                                            <Operator>{codes.operators.prime}</Operator>
-                                        </Expression>
-                                        <Operator>)</Operator>
-                                    </Expression> equal to maximum <Expression>
-                                        <Operator>(</Operator>
-                                        <Expression>
-                                            <SubScript>
-                                                <Identifier>C</Identifier>
-                                                <Identifier>j</Identifier>
-                                            </SubScript>
-                                            <Operator>(</Operator>
-                                            <Identifier>t</Identifier>
-                                            <Operator>{codes.operators.prime}</Operator>
-                                            <Operator>-</Operator>
-                                            <Number value={0} />
-                                            <Operator>)</Operator>
-                                        </Expression>
-                                        <Operator>,</Operator>
-                                        <Expression>
-                                            <SubScript description="the message's timestamp">
-                                                <Identifier>T</Identifier>
-                                                <Identifier>m</Identifier>
-                                            </SubScript>
-                                            <Operator>+</Operator>
-                                            <SubScript description="the message's minimum delay">
-                                                <Identifier>{codes.greek.mu}</Identifier>
-                                                <Identifier>m</Identifier>
-                                            </SubScript>
-                                        </Expression>
-                                        <Operator>)</Operator>
-                                    </Expression>. <NoteAnchor id={ids.notes.limit} />
-                                </p>
-                            </li>
-                        </ol>
+                        <PhysicalImplementationRules.Second.Entrance />
                     </li>
                 </ol>
                 <p>
@@ -2317,19 +2848,30 @@ export function Paper() {
                     assuming that each event occurs at a precise instant of
                     physical time, and different events in the same process
                     occur at different times. These rules are then specializations
-                    of rules <Anchor id={ids.implementation_rules.first}>IR1</Anchor> and <Anchor id={ids.implementation_rules.second.root}>IR2</Anchor>, so our system of clocks
-                    satisfies the <Anchor id={ids.clock_condition.root}>
+                    of rules <Expand>
+                        IR1
+                        <ImplementationRules.First.Exit />
+                    </Expand> and <Expand>
+                        IR2
+                        <ImplementationRules.Second.Root.Exit />
+                    </Expand>, so our system of clocks
+                    satisfies the <Expand>
                         Clock Condition
-                    </Anchor>. The fact that real events
+                        <ClockCondition.Exit />
+                    </Expand>. The fact that real events
                     have a finite duration causes no difficulty in implementing
                     the algorithm. The only real concern in the implementation
                     is making sure that the discrete clock ticks are
-                    frequent enough so <Anchor id={ids.clock_condition.first}>
+                    frequent enough so <Expand>
                         C1
-                    </Anchor> is maintained.
+                        <FirstClockCondition.Exit />
+                    </Expand> is maintained.
                 </p>
                 <p>
-                    We now show that this clock synchronizing algorithm can be used to satisfy <Anchor id={ids.physical_clock_condition.second}>condition PC2</Anchor>.
+                    We now show that this clock synchronizing algorithm can be used to satisfy <Expand>
+                        condition PC2
+                        <SecondPhysicalClockCondition.Exit />
+                    </Expand>.
                     We assume that the system of processes is described by a
                     directed graph in which an arc from process <SubScript description="a process">
                         <Identifier>P</Identifier>
@@ -2372,13 +2914,23 @@ export function Paper() {
                     </SubScript> having at most <Identifier description="diameter">d</Identifier> arcs.
                 </p>
                 <p>
-                    In addition to establishing <Anchor id={ids.physical_clock_condition.second}>PC2</Anchor>, the following theorem bounds the length of time
+                    In addition to establishing <Expand>
+                        PC2
+                        <SecondPhysicalClockCondition.Exit />
+                    </Expand>, the following theorem bounds the length of time
                     it can take the clocks to become synchronized when the system is first started.
                 </p>
                 <section>
                     <p>
                         <strong>THEOREM</strong>. Assume a strongly connected graph of processes
-                        with diameter <Identifier description="diameter">d</Identifier> which always obeys rules <Anchor id={ids.physical_implementation_rules.first}>IR1'</Anchor> and <Anchor id={ids.physical_implementation_rules.second}>IR2'</Anchor>. Assume that for
+                        with diameter <Identifier description="diameter">d</Identifier> which always
+                        obeys rules <Expand>
+                            IR1'
+                            <PhysicalImplementationRules.First.Exit />
+                        </Expand> and <Expand>
+                            IR2'
+                            <PhysicalImplementationRules.Second.Exit />
+                        </Expand>. Assume that for
                         any message <Identifier description="a message">m</Identifier>, <Expression>
                             <SubScript description="the message's minimum delay">
                                 <Identifier>{codes.greek.mu}</Identifier>
@@ -2510,177 +3062,31 @@ export function Paper() {
 
                 <ol>
                     <li id={ids.notes.event}>
-                        <p>
-                            The choice of what constitutes an event affects the ordering of events in a process. For example, the receipt of a message might denote
-                            the setting of an interrupt bit in a computer, or the execution of a
-                            subprogram to handle that interrupt. Since interrupts need not be
-                            handled in the order that they occur, this choice will affect the ordering of a process' message-receiving events.
-                        </p>
+                        <notes.event.Entrance />
                     </li>
                     <li id={ids.notes.message}>
-                        <p>
-                            Observe that messages may be received out of order.
-                            We allow the sending of several messages to be a
-                            single event, but for convenience we will assume
-                            that the receipt of a single message does not
-                            coincide with the sending or receipt of any other message.
-                        </p>
+                        <notes.message.Entrance />
                     </li>
                     <li id={ids.notes.ordering}>
-
-                        <p>
-                            The ordering <Operator>{codes.operators.precedes}</Operator> establishes a priority among the processes.
-                            If a "fairer" method is desired, then <Operator>{codes.operators.precedes}</Operator> can be made
-                            a function of the clock value. For example, if <Expression>
-                                <SubScript>
-                                    <Identifier>C</Identifier>
-                                    <Identifier>i</Identifier>
-                                </SubScript>
-                                <Operator>{codes.operators.angle.left}</Operator>
-                                <Identifier>a</Identifier>
-                                <Operator>{codes.operators.angle.right}</Operator>
-                                <Operator>{codes.operators.equals}</Operator>
-                                <SubScript>
-                                    <Identifier>C</Identifier>
-                                    <Identifier>j</Identifier>
-                                </SubScript>
-                                <Operator>{codes.operators.angle.left}</Operator>
-                                <Identifier>b</Identifier>
-                                <Operator>{codes.operators.angle.right}</Operator>
-                            </Expression> and <Expression>
-                                <Identifier>j</Identifier>
-                                <Operator>{codes.operators.less_than}</Operator>
-                                <Identifier>i</Identifier>
-                            </Expression>, then we can let <Expression>
-                                <Identifier>a</Identifier>
-                                <Operator>{codes.operators.arrows.right.double}</Operator>
-                                <Identifier>b</Identifier>
-                            </Expression> if <Expression>
-                                <Identifier>j</Identifier>
-                                <Operator>{codes.operators.less_than}</Operator>
-                                <SubScript>
-                                    <Identifier>C</Identifier>
-                                    <Identifier>i</Identifier>
-                                </SubScript>
-                                <Operator>{codes.operators.angle.left}</Operator>
-                                <Identifier>a</Identifier>
-                                <Operator>{codes.operators.angle.right}</Operator>
-                                <Identifier>mod</Identifier>
-                                <Identifier>N</Identifier>
-                                <Operator>less-than-equal</Operator>
-                                <Identifier>i</Identifier>
-                            </Expression>, and <Expression>
-                                <Identifier>b</Identifier>
-                                <Operator>{codes.operators.arrows.right.double}</Operator>
-                                <Identifier>a</Identifier>
-                            </Expression> otherwise; where <Identifier>N</Identifier> is the total number of processes.
-                        </p>
+                        <notes.ordering.Entrance />
                     </li>
                     <li id={ids.notes.eventually}>
-                        <p>The term "eventually" should be made precise, but that would require too long a diversion from our main topic.</p>
+                        <notes.ordering.Entrance />
                     </li>
                     <li id={ids.notes.acknowledgement}>
-                        <p>
-                            This acknowledgement message need not be sent if <SubScript>
-                                <Identifier>P</Identifier>
-                                <Identifier>j</Identifier>
-                            </SubScript> has
-                            already sent a message to <SubScript>
-                                <Identifier>P</Identifier>
-                                <Identifier>i</Identifier>
-                            </SubScript> timestamped later
-                            than <SubScript>
-                                <Identifier>T</Identifier>
-                                <Identifier>m</Identifier>
-                            </SubScript>.
-                        </p>
+                        <notes.acknowledgement.Entrance />
                     </li>
                     <li id={ids.notes.receive_message}>
-                        <p>
-                            If <Expression>
-                                <SubScript>
-                                    <Identifier>P</Identifier>
-                                    <Identifier>i</Identifier>
-                                </SubScript>
-                                <Operator>{codes.operators.precedes}</Operator>
-                                <SubScript>
-                                    <Identifier>P</Identifier>
-                                    <Identifier>j</Identifier>
-                                </SubScript>
-                            </Expression>, then <SubScript>
-                                <Identifier>P</Identifier>
-                                <Identifier>i</Identifier>
-                            </SubScript> need only have received a
-                            message timestamped <Expression>
-                                <Operator>greater-than-equal</Operator>
-                                <SubScript>
-                                    <Identifier>T</Identifier>
-                                    <Identifier>m</Identifier>
-                                </SubScript>
-                            </Expression> from <SubScript>
-                                <Identifier>P</Identifier>
-                                <Identifier>j</Identifier>
-                            </SubScript>.
-                        </p>
+                        <notes.receive_message.Entrance />
                     </li>
                     <li id={ids.notes.release}>
-                        <p>
-                            If each process does not stricly alternate <em>request</em> and <em>release</em> commands,
-                            then executing a <em>release</em> command could delete zero, one, or more than one request
-                            from the queue.
-                        </p>
+                        <notes.release.Entrance />
                     </li>
                     <li id={ids.notes.time}>
-                        <p>
-                            We will assume a Newtonian space-time. If the relative motion of the clocks or gravitational effects are not
-                            negligible, then <Expression>
-                                <SubScript>
-                                    <Identifier>C</Identifier>
-                                    <Identifier>i</Identifier>
-                                </SubScript>
-                                <Operator>(</Operator>
-                                <Identifier>t</Identifier>
-                                <Operator>)</Operator>
-                            </Expression> must be deduced from the actual clock reading by transforming from proper time
-                            to the arbitrarily chosen time coordinate.
-                        </p>
+                        <notes.time.Entrance />
                     </li>
                     <li id={ids.notes.limit}>
-                        <p>
-                            <Expression display="block">
-                                <SubScript>
-                                    <Identifier>C</Identifier>
-                                    <Identifier>j</Identifier>
-                                </SubScript>
-                                <Operator>(</Operator>
-                                <Identifier>t</Identifier>
-                                <Operator>{codes.operators.prime}</Operator>
-                                <Operator>-</Operator>
-                                <Number value={0} />
-                                <Operator>)</Operator>
-                                <Operator>=</Operator>
-                                <Under>
-                                    <Identifier>lim</Identifier>
-                                    <Expression>
-                                        <Identifier>{codes.greek.delta}</Identifier>
-                                        <Operator>{codes.operators.arrows.right.single}</Operator>
-                                        <Number value={0} />
-                                    </Expression>
-                                </Under>
-                                <SubScript>
-                                    <Identifier>C</Identifier>
-                                    <Identifier>j</Identifier>
-                                </SubScript>
-                                <Operator>(</Operator>
-                                <Identifier>t</Identifier>
-                                <Operator>{codes.operators.prime}</Operator>
-                                <Operator>-</Operator>
-                                <Operator>|</Operator>
-                                <Identifier>{codes.greek.delta}</Identifier>
-                                <Operator>|</Operator>
-                                <Operator>)</Operator>
-                            </Expression>
-                        </p>
+                        <notes.limit.Entrance />
                     </li>
                 </ol>
             </section>

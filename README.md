@@ -22,3 +22,13 @@ The paper will already know the mapping but may be far away from the use of the 
 
 The math elements allow a reader to switch between the math notation and its textual representation.
 This brings the related information close together and allows the reader to understand quicker.
+
+## Expandable Text
+
+Inspiration is from [Nicky Case's Nutshell library](https://ncase.me/nutshell/).
+
+The further away a reference is from its source, the higher the mental load is on the reader.
+If they forget the source, they have to go back, read the source again, and then resume reader where they left off.
+This round-trip time grows the further away the reference is from the source.
+
+The solution is to place the source right next to its use, eliminating the travel time.
