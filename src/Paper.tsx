@@ -5,6 +5,8 @@ import { codes } from "./codes";
 import { Expression, Identifier, Operator, Number, SubScript, Fraction, SuperScript, Under } from "./Expression";
 import { Event, Message, Process, SpaceTimeDiagram, Tick, usePathSelection } from "./SpaceTimeDiagram";
 import { Inline } from "./Inline";
+import { createPortal, Portal } from "./Portal";
+import { PortalExpand } from "./ExpandPortal";
 
 
 interface AnchorProps {
@@ -20,17 +22,17 @@ function Anchor(props: AnchorProps) {
     )
 }
 
-interface NoteAnchorProps {
-    id: string;
+interface NoteProps {
+    portal: Portal;
 }
 
-function NoteAnchor(props: NoteAnchorProps) {
+function Note(props: NoteProps) {
     return (
-        <sup>
-            <Anchor id={props.id}>
+        <PortalExpand portal={props.portal}>
+            <sup>
                 [Note]
-            </Anchor>
-        </sup>
+            </sup>
+        </PortalExpand>
     )
 }
 
@@ -138,8 +140,203 @@ export function Paper() {
         off: () => {
             examplePath[1]();
             examplePath[2]();
-        }
+        },
     });
+
+    const notes = {
+        event: createPortal({
+            entrance: (content) => content,
+            exit: (content) => content,
+            content: <p>
+                The choice of what constitutes an event affects the ordering of events in a process. For example, the receipt of a message might denote
+                the setting of an interrupt bit in a computer, or the execution of a
+                subprogram to handle that interrupt. Since interrupts need not be
+                handled in the order that they occur, this choice will affect the ordering of a process' message-receiving events.
+            </p>
+        }),
+        message: createPortal({
+            entrance: (content) => content,
+            exit: (content) => content,
+            content: <p>
+                Observe that messages may be received out of order.
+                We allow the sending of several messages to be a
+                single event, but for convenience we will assume
+                that the receipt of a single message does not
+                coincide with the sending or receipt of any other message.
+            </p>,
+        }),
+        ordering: createPortal({
+            entrance: (content) => content,
+            exit: (content) => content,
+            content: <p>
+                The ordering <Operator>{codes.operators.precedes}</Operator> establishes a priority among the processes.
+                If a "fairer" method is desired, then <Operator>{codes.operators.precedes}</Operator> can be made
+                a function of the clock value. For example, if <Expression>
+                    <SubScript>
+                        <Identifier>C</Identifier>
+                        <Identifier>i</Identifier>
+                    </SubScript>
+                    <Operator>{codes.operators.angle.left}</Operator>
+                    <Identifier>a</Identifier>
+                    <Operator>{codes.operators.angle.right}</Operator>
+                    <Operator>{codes.operators.equals}</Operator>
+                    <SubScript>
+                        <Identifier>C</Identifier>
+                        <Identifier>j</Identifier>
+                    </SubScript>
+                    <Operator>{codes.operators.angle.left}</Operator>
+                    <Identifier>b</Identifier>
+                    <Operator>{codes.operators.angle.right}</Operator>
+                </Expression> and <Expression>
+                    <Identifier>j</Identifier>
+                    <Operator>{codes.operators.less_than}</Operator>
+                    <Identifier>i</Identifier>
+                </Expression>, then we can let <Expression>
+                    <Identifier>a</Identifier>
+                    <Operator>{codes.operators.arrows.right.double}</Operator>
+                    <Identifier>b</Identifier>
+                </Expression> if <Expression>
+                    <Identifier>j</Identifier>
+                    <Operator>{codes.operators.less_than}</Operator>
+                    <SubScript>
+                        <Identifier>C</Identifier>
+                        <Identifier>i</Identifier>
+                    </SubScript>
+                    <Operator>{codes.operators.angle.left}</Operator>
+                    <Identifier>a</Identifier>
+                    <Operator>{codes.operators.angle.right}</Operator>
+                    <Identifier>mod</Identifier>
+                    <Identifier>N</Identifier>
+                    <Operator>less-than-equal</Operator>
+                    <Identifier>i</Identifier>
+                </Expression>, and <Expression>
+                    <Identifier>b</Identifier>
+                    <Operator>{codes.operators.arrows.right.double}</Operator>
+                    <Identifier>a</Identifier>
+                </Expression> otherwise; where <Identifier>N</Identifier> is the total number of processes.
+            </p>
+        }),
+        eventually: createPortal({
+            entrance: (content) => content,
+            exit: (content) => content,
+            content: <p>
+                The term "eventually" should be made precise, but that would require too long a diversion from our main topic.
+            </p>,
+        }),
+        acknowledgement: createPortal({
+            entrance: (content) => content,
+            exit: (content) => content,
+            content: <p>
+                This acknowledgement message need not be sent if <SubScript>
+                    <Identifier>P</Identifier>
+                    <Identifier>j</Identifier>
+                </SubScript> has
+                already sent a message to <SubScript>
+                    <Identifier>P</Identifier>
+                    <Identifier>i</Identifier>
+                </SubScript> timestamped later
+                than <SubScript>
+                    <Identifier>T</Identifier>
+                    <Identifier>m</Identifier>
+                </SubScript>.
+            </p>
+        }),
+        receive_message: createPortal({
+            entrance: (content) => content,
+            exit: (content) => content,
+            content: <p>
+                If <Expression>
+                    <SubScript>
+                        <Identifier>P</Identifier>
+                        <Identifier>i</Identifier>
+                    </SubScript>
+                    <Operator>{codes.operators.precedes}</Operator>
+                    <SubScript>
+                        <Identifier>P</Identifier>
+                        <Identifier>j</Identifier>
+                    </SubScript>
+                </Expression>, then <SubScript>
+                    <Identifier>P</Identifier>
+                    <Identifier>i</Identifier>
+                </SubScript> need only have received a
+                message timestamped <Expression>
+                    <Operator>greater-than-equal</Operator>
+                    <SubScript>
+                        <Identifier>T</Identifier>
+                        <Identifier>m</Identifier>
+                    </SubScript>
+                </Expression> from <SubScript>
+                    <Identifier>P</Identifier>
+                    <Identifier>j</Identifier>
+                </SubScript>.
+            </p>
+        }),
+        release: createPortal({
+            entrance: (content) => content,
+            exit: (content) => content,
+            content: <p>
+                If each process does not stricly alternate <em>request</em> and <em>release</em> commands,
+                then executing a <em>release</em> command could delete zero, one, or more than one request
+                from the queue.
+            </p>
+        }),
+        time: createPortal({
+            entrance: (content) => content,
+            exit: (content) => content,
+            content: <p>
+                We will assume a Newtonian space-time. If the relative motion of the clocks or gravitational effects are not
+                negligible, then <Expression>
+                    <SubScript>
+                        <Identifier>C</Identifier>
+                        <Identifier>i</Identifier>
+                    </SubScript>
+                    <Operator>(</Operator>
+                    <Identifier>t</Identifier>
+                    <Operator>)</Operator>
+                </Expression> must be deduced from the actual clock reading by transforming from proper time
+                to the arbitrarily chosen time coordinate.
+            </p>
+        }),
+        limit: createPortal({
+            entrance: (content) => content,
+            exit: (content) => content,
+            content: <p>
+                <Expression display="block">
+                    <SubScript>
+                        <Identifier>C</Identifier>
+                        <Identifier>j</Identifier>
+                    </SubScript>
+                    <Operator>(</Operator>
+                    <Identifier>t</Identifier>
+                    <Operator>{codes.operators.prime}</Operator>
+                    <Operator>-</Operator>
+                    <Number value={0} />
+                    <Operator>)</Operator>
+                    <Operator>=</Operator>
+                    <Under>
+                        <Identifier>lim</Identifier>
+                        <Expression>
+                            <Identifier>{codes.greek.delta}</Identifier>
+                            <Operator>{codes.operators.arrows.right.single}</Operator>
+                            <Number value={0} />
+                        </Expression>
+                    </Under>
+                    <SubScript>
+                        <Identifier>C</Identifier>
+                        <Identifier>j</Identifier>
+                    </SubScript>
+                    <Operator>(</Operator>
+                    <Identifier>t</Identifier>
+                    <Operator>{codes.operators.prime}</Operator>
+                    <Operator>-</Operator>
+                    <Operator>|</Operator>
+                    <Identifier>{codes.greek.delta}</Identifier>
+                    <Operator>|</Operator>
+                    <Operator>)</Operator>
+                </Expression>
+            </p>
+        }),
+    }
 
     return (
         <article>
@@ -296,7 +493,7 @@ export function Paper() {
                     In other words, a single process is
                     defined to be a set of events with an a priori total
                     ordering. This seems to be what is generally meant by a
-                    process. <NoteAnchor id={ids.notes.event} /> It would be trivial to extend our definition to
+                    process. <Note portal={notes.event} /> It would be trivial to extend our definition to
                     allow a process to split into distinct subprocesses, but we
                     will not bother to do so.
                 </p>
@@ -381,7 +578,7 @@ export function Paper() {
                     direction represents space, and the vertical direction
                     represents time &ndash; later times being higher than earlier
                     ones. The dots denote events, the vertical lines denote
-                    processes, and the wavy lines denote messages. It is easy
+                    processes, and the wavy lines denote messages. <Note portal={notes.message} /> It is easy
                     to see that <Expression description="the first event happened before the second event">
                         <Identifier description="the first event">a</Identifier>
                         <Operator description="happened before">{operators.happened_before}</Operator>
@@ -1308,7 +1505,7 @@ export function Paper() {
                         <Operator description="totally happened event">{codes.operators.arrows.right.double}</Operator>
                         <Identifier description="the other event">b</Identifier>
                     </Expression>. In other words, the relation <Operator description="total-order happened before">{codes.operators.arrows.right.double}</Operator> is a
-                    way of completing the "happened before" partial ordering to a total ordering. <NoteAnchor id={ids.notes.ordering} />
+                    way of completing the "happened before" partial ordering to a total ordering. <Note portal={notes.ordering} />
                 </p>
                 <p>
                     The ordering <Operator description="total-order happened before relation">{codes.operators.arrows.right.double}</Operator> depends upon the system of clocks <SubScript>
@@ -1365,7 +1562,7 @@ export function Paper() {
                 <p>
                     These are perfectly natural requirements. They precisely
                     specify what it means for a solution to
-                    be correct. <NoteAnchor id={ids.notes.eventually} /> Observe how the
+                    be correct. <Note portal={notes.eventually} /> Observe how the
                     conditions involve the ordering of
                     events. <Anchor id={ids.mutual_exclusion.conditions.second}>Condition II</Anchor> says nothing about which of two
                     concurrently issued requests should be granted first.
@@ -1514,7 +1711,7 @@ export function Paper() {
                             and sends a (timestamped) acknowledgement message to <SubScript>
                                 <Identifier>P</Identifier>
                                 <Identifier>i</Identifier>
-                            </SubScript>. <NoteAnchor id={ids.notes.acknowledgement} />
+                            </SubScript>. <Note portal={notes.acknowledgement} />
                         </p>
                     </li>
                     <li id={ids.mutual_exclusion.rules.third}>
@@ -1606,7 +1803,7 @@ export function Paper() {
                                     later than <SubScript>
                                         <Identifier>T</Identifier>
                                         <Identifier>m</Identifier>
-                                    </SubScript>. <NoteAnchor id={ids.notes.receive_message} />
+                                    </SubScript>. <Note portal={notes.receive_message} />
                                 </p>
                             </li>
                         </ol>
@@ -1708,7 +1905,7 @@ export function Paper() {
                     is the currently granted one. Executing a <em>request</em> command
                     adds the request to the tail of the queue, and
                     executing a <em>release</em> command removes a command from
-                    the queue. <NoteAnchor id={ids.notes.release} />
+                    the queue. <Note portal={notes.release} />
                 </p>
                 <p>
                     Each process independently simulates the execution
@@ -1847,7 +2044,7 @@ export function Paper() {
                     </Expression> denote the reading of the clock <SubScript description="a clock">
                         <Identifier>C</Identifier>
                         <Identifier>i</Identifier>
-                    </SubScript> at physical time <Identifier description="physical time">t</Identifier>. <NoteAnchor id={ids.notes.time} /> For mathematical
+                    </SubScript> at physical time <Identifier description="physical time">t</Identifier>. <Note portal={notes.time} /> For mathematical
                     convenience, we assume that the clocks run continuously rather than in discrete "ticks."
                     (A discrete clock can be thought of as a continuous one in which there is an error of up to <Fraction>
                         <Number value={1} />
@@ -2303,7 +2500,7 @@ export function Paper() {
                                             </SubScript>
                                         </Expression>
                                         <Operator>)</Operator>
-                                    </Expression>. <NoteAnchor id={ids.notes.limit} />
+                                    </Expression>. <Note portal={notes.limit} />
                                 </p>
                             </li>
                         </ol>
@@ -2510,177 +2707,31 @@ export function Paper() {
 
                 <ol>
                     <li id={ids.notes.event}>
-                        <p>
-                            The choice of what constitutes an event affects the ordering of events in a process. For example, the receipt of a message might denote
-                            the setting of an interrupt bit in a computer, or the execution of a
-                            subprogram to handle that interrupt. Since interrupts need not be
-                            handled in the order that they occur, this choice will affect the ordering of a process' message-receiving events.
-                        </p>
+                        <notes.event.Entrance />
                     </li>
                     <li id={ids.notes.message}>
-                        <p>
-                            Observe that messages may be received out of order.
-                            We allow the sending of several messages to be a
-                            single event, but for convenience we will assume
-                            that the receipt of a single message does not
-                            coincide with the sending or receipt of any other message.
-                        </p>
+                        <notes.message.Entrance />
                     </li>
                     <li id={ids.notes.ordering}>
-
-                        <p>
-                            The ordering <Operator>{codes.operators.precedes}</Operator> establishes a priority among the processes.
-                            If a "fairer" method is desired, then <Operator>{codes.operators.precedes}</Operator> can be made
-                            a function of the clock value. For example, if <Expression>
-                                <SubScript>
-                                    <Identifier>C</Identifier>
-                                    <Identifier>i</Identifier>
-                                </SubScript>
-                                <Operator>{codes.operators.angle.left}</Operator>
-                                <Identifier>a</Identifier>
-                                <Operator>{codes.operators.angle.right}</Operator>
-                                <Operator>{codes.operators.equals}</Operator>
-                                <SubScript>
-                                    <Identifier>C</Identifier>
-                                    <Identifier>j</Identifier>
-                                </SubScript>
-                                <Operator>{codes.operators.angle.left}</Operator>
-                                <Identifier>b</Identifier>
-                                <Operator>{codes.operators.angle.right}</Operator>
-                            </Expression> and <Expression>
-                                <Identifier>j</Identifier>
-                                <Operator>{codes.operators.less_than}</Operator>
-                                <Identifier>i</Identifier>
-                            </Expression>, then we can let <Expression>
-                                <Identifier>a</Identifier>
-                                <Operator>{codes.operators.arrows.right.double}</Operator>
-                                <Identifier>b</Identifier>
-                            </Expression> if <Expression>
-                                <Identifier>j</Identifier>
-                                <Operator>{codes.operators.less_than}</Operator>
-                                <SubScript>
-                                    <Identifier>C</Identifier>
-                                    <Identifier>i</Identifier>
-                                </SubScript>
-                                <Operator>{codes.operators.angle.left}</Operator>
-                                <Identifier>a</Identifier>
-                                <Operator>{codes.operators.angle.right}</Operator>
-                                <Identifier>mod</Identifier>
-                                <Identifier>N</Identifier>
-                                <Operator>less-than-equal</Operator>
-                                <Identifier>i</Identifier>
-                            </Expression>, and <Expression>
-                                <Identifier>b</Identifier>
-                                <Operator>{codes.operators.arrows.right.double}</Operator>
-                                <Identifier>a</Identifier>
-                            </Expression> otherwise; where <Identifier>N</Identifier> is the total number of processes.
-                        </p>
+                        <notes.ordering.Entrance />
                     </li>
                     <li id={ids.notes.eventually}>
-                        <p>The term "eventually" should be made precise, but that would require too long a diversion from our main topic.</p>
+                        <notes.ordering.Entrance />
                     </li>
                     <li id={ids.notes.acknowledgement}>
-                        <p>
-                            This acknowledgement message need not be sent if <SubScript>
-                                <Identifier>P</Identifier>
-                                <Identifier>j</Identifier>
-                            </SubScript> has
-                            already sent a message to <SubScript>
-                                <Identifier>P</Identifier>
-                                <Identifier>i</Identifier>
-                            </SubScript> timestamped later
-                            than <SubScript>
-                                <Identifier>T</Identifier>
-                                <Identifier>m</Identifier>
-                            </SubScript>.
-                        </p>
+                        <notes.acknowledgement.Entrance />
                     </li>
                     <li id={ids.notes.receive_message}>
-                        <p>
-                            If <Expression>
-                                <SubScript>
-                                    <Identifier>P</Identifier>
-                                    <Identifier>i</Identifier>
-                                </SubScript>
-                                <Operator>{codes.operators.precedes}</Operator>
-                                <SubScript>
-                                    <Identifier>P</Identifier>
-                                    <Identifier>j</Identifier>
-                                </SubScript>
-                            </Expression>, then <SubScript>
-                                <Identifier>P</Identifier>
-                                <Identifier>i</Identifier>
-                            </SubScript> need only have received a
-                            message timestamped <Expression>
-                                <Operator>greater-than-equal</Operator>
-                                <SubScript>
-                                    <Identifier>T</Identifier>
-                                    <Identifier>m</Identifier>
-                                </SubScript>
-                            </Expression> from <SubScript>
-                                <Identifier>P</Identifier>
-                                <Identifier>j</Identifier>
-                            </SubScript>.
-                        </p>
+                        <notes.receive_message.Entrance />
                     </li>
                     <li id={ids.notes.release}>
-                        <p>
-                            If each process does not stricly alternate <em>request</em> and <em>release</em> commands,
-                            then executing a <em>release</em> command could delete zero, one, or more than one request
-                            from the queue.
-                        </p>
+                        <notes.release.Entrance />
                     </li>
                     <li id={ids.notes.time}>
-                        <p>
-                            We will assume a Newtonian space-time. If the relative motion of the clocks or gravitational effects are not
-                            negligible, then <Expression>
-                                <SubScript>
-                                    <Identifier>C</Identifier>
-                                    <Identifier>i</Identifier>
-                                </SubScript>
-                                <Operator>(</Operator>
-                                <Identifier>t</Identifier>
-                                <Operator>)</Operator>
-                            </Expression> must be deduced from the actual clock reading by transforming from proper time
-                            to the arbitrarily chosen time coordinate.
-                        </p>
+                        <notes.time.Entrance />
                     </li>
                     <li id={ids.notes.limit}>
-                        <p>
-                            <Expression display="block">
-                                <SubScript>
-                                    <Identifier>C</Identifier>
-                                    <Identifier>j</Identifier>
-                                </SubScript>
-                                <Operator>(</Operator>
-                                <Identifier>t</Identifier>
-                                <Operator>{codes.operators.prime}</Operator>
-                                <Operator>-</Operator>
-                                <Number value={0} />
-                                <Operator>)</Operator>
-                                <Operator>=</Operator>
-                                <Under>
-                                    <Identifier>lim</Identifier>
-                                    <Expression>
-                                        <Identifier>{codes.greek.delta}</Identifier>
-                                        <Operator>{codes.operators.arrows.right.single}</Operator>
-                                        <Number value={0} />
-                                    </Expression>
-                                </Under>
-                                <SubScript>
-                                    <Identifier>C</Identifier>
-                                    <Identifier>j</Identifier>
-                                </SubScript>
-                                <Operator>(</Operator>
-                                <Identifier>t</Identifier>
-                                <Operator>{codes.operators.prime}</Operator>
-                                <Operator>-</Operator>
-                                <Operator>|</Operator>
-                                <Identifier>{codes.greek.delta}</Identifier>
-                                <Operator>|</Operator>
-                                <Operator>)</Operator>
-                            </Expression>
-                        </p>
+                        <notes.limit.Entrance />
                     </li>
                 </ol>
             </section>
