@@ -1,4 +1,4 @@
-export type Point = readonly [number, number];
+import { Direction, Point } from "./Point";
 
 export class SvgPathBuilder {
     public readonly nodes: PathNode[] = [];
@@ -18,10 +18,10 @@ export class SvgPathBuilder {
 
                 return this;
             },
-            relative: (point: Point): SvgPathBuilder => {
+            relative: (direction: Direction): SvgPathBuilder => {
                 this.nodes.push({
                     type: "move-relative",
-                    point,
+                    direction,
                 });
 
                 return this;
@@ -37,10 +37,10 @@ export class SvgPathBuilder {
 
                 return this;
             },
-            relative: (point: Point): SvgPathBuilder => {
+            relative: (direction: Direction): SvgPathBuilder => {
                 this.nodes.push({
                     type: "line-relative",
-                    point,
+                    direction,
                 });
 
                 return this;
@@ -95,17 +95,17 @@ export class SvgPathBuilder {
             .map(node => {
                 switch (node.type) {
                     case "line-absolute":
-                        return `L ${node.point[0]} ${node.point[1]}`;
+                        return `L ${node.point.x} ${node.point.y}`;
                     case "line-relative":
-                        return `l ${node.point[0]} ${node.point[1]}`;
+                        return `l ${node.direction.dx} ${node.direction.dy}`;
                     case "move-absolute":
-                        return `M ${node.point[0]} ${node.point[1]}`;
+                        return `M ${node.point.x} ${node.point.y}`;
                     case "move-relative":
-                        return `m ${node.point[0]} ${node.point[1]}`;
+                        return `m ${node.direction.dx} ${node.direction.dy}`;
                     case "quadratic-absolute":
-                        return `Q ${node.control[0]}, ${node.control[0]} ${node.end[0]} ${node.end[1]}`;
+                        return `Q ${node.control.x}, ${node.control.x} ${node.end.x} ${node.end.y}`;
                     case "cubic-absolute":
-                        return `C ${node.startControl[0]}, ${node.startControl[1]} ${node.endControl[0]},${node.endControl[1]} ${node.end[0]},${node.end[1]}`;
+                        return `C ${node.startControl.x}, ${node.startControl.y} ${node.endControl.x},${node.endControl.y} ${node.end.x},${node.end.y}`;
                     default:
                         throw new Error("Unknown node type");
                 }
@@ -132,7 +132,7 @@ interface MoveAbsoluteNode {
 interface MoveRelativeNode {
     type: "move-relative";
 
-    point: Point;
+    direction: Direction;
 }
 
 interface LineAbsoluteNode {
@@ -144,7 +144,7 @@ interface LineAbsoluteNode {
 interface LineRelativeNode {
     type: "line-relative";
 
-    point: Point;
+    direction: Direction;
 }
 
 interface QuadraticAbsoluteControlNode {

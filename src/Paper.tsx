@@ -1,12 +1,18 @@
-import { ComponentChildren } from "preact";
+import { ComponentChildren, createContext, JSX } from "preact";
 import { Reference, ReferenceAnchor } from "./Reference";
-import { useLink } from "./Link";
+import { LinkData, useLink } from "./Link";
 import { codes } from "./codes";
 import { Expression, Identifier, Operator, Number, SubScript, Fraction, SuperScript, Under } from "./Expression";
-import { Event, Message, Process, SpaceTimeDiagram, Tick, usePathSelection } from "./SpaceTimeDiagram";
+import { StaticSpaceTimeDiagram, usePathSelection } from "./SpaceTimeDiagram";
 import { Inline } from "./Inline";
 import { createPortal, Portal } from "./Portal";
 import { Expand } from "./Expand";
+import { Point } from "./Point";
+import * as DistributedDiagram from "./DistributedSystemDiagram";
+import { SvgPathBuilder } from "./SvgPathBuilder";
+import { toClass } from "./misc";
+import { useContext, useMemo } from "preact/hooks";
+import { edge, getPaths, Graph, Path } from "./graph";
 
 
 interface AnchorProps {
@@ -121,6 +127,109 @@ const operators = {
     not_happend_before: codes.operators.arrows.right.not_single,
 }
 
+const happenedBeforeExamples = {
+    first: [
+        <StaticSpaceTimeDiagram
+            width={50}
+            height={50}
+            processes={[{
+                events: [
+                    { time: 0, label: <Identifier>a</Identifier> },
+                    { time: 10, label: <Identifier>b</Identifier> },
+                ],
+                label: "a process",
+            }]}
+        />,
+        <StaticSpaceTimeDiagram width={50} height={50} processes={[{
+            events: [
+                { time: 0, label: <Identifier>a</Identifier> },
+                { time: 10 },
+                { time: 20 },
+                { time: 30, label: <Identifier>b</Identifier> }
+            ],
+            label: "a process",
+        }]}
+        />,
+    ],
+    second: [
+        <StaticSpaceTimeDiagram
+            width={70}
+            height={50}
+            processes={[
+                {
+                    events: [{
+                        time: 0,
+                        label: <Identifier>a</Identifier>
+                    }],
+                    label: "sender",
+                },
+                {
+                    events: [{
+                        time: 10,
+                        label: <Identifier>b</Identifier>
+                    }],
+                    label: "receiver",
+                }
+            ]}
+            messages={[
+                { from: [0, 0], to: [1, 0] }
+            ]} />,
+    ],
+    third: [
+        <StaticSpaceTimeDiagram
+            width={80}
+            height={80}
+            processes={[
+                {
+                    events: [
+                        { time: 0, label: <Identifier>a</Identifier> },
+                        { time: 10, label: <Identifier>b</Identifier> },
+                    ]
+                },
+                {
+                    events: [
+                        { time: 20, label: <Identifier>c</Identifier> }
+                    ]
+                }
+            ]}
+            messages={[
+                { from: [0, 1], to: [1, 0] }
+            ]} />,
+        <StaticSpaceTimeDiagram
+            width={80}
+            height={80}
+            processes={[
+                {
+                    events: [
+                        { time: 0, label: <Identifier>a</Identifier> },
+                    ]
+                },
+                {
+                    events: [
+                        { time: 10, label: <Identifier>b</Identifier> },
+                        { time: 20, label: <Identifier>c</Identifier> }
+                    ]
+                }
+            ]}
+            messages={[
+                { from: [0, 0], to: [1, 0] },
+            ]} />,
+        <StaticSpaceTimeDiagram
+            width={50}
+            height={50}
+            processes={[
+                {
+                    events: [
+                        { time: 0, label: <Identifier>a</Identifier> },
+                        { time: 10, label: <Identifier>b</Identifier> },
+                        { time: 20, label: <Identifier>c</Identifier> }
+                    ]
+                }
+            ]}
+        />
+    ],
+}
+
 export function Paper() {
     const p1 = useLink();
     const p2 = useLink();
@@ -135,8 +244,8 @@ export function Paper() {
     const examplePath = usePathSelection();
     const showExamplePath = useLink({
         on: () => {
-            examplePath[1]([0, 0]);
-            examplePath[2]([2, 3]);
+            examplePath[1](new Point(0, 0));
+            examplePath[2](new Point(2, 3));
         },
         off: () => {
             examplePath[1]();
@@ -1008,6 +1117,12 @@ export function Paper() {
         })
     }
 
+    const positions: { [id: number]: Point } = {
+        1: new Point(10, 10),
+        2: new Point(40, 10),
+        3: new Point(25, 40),
+    };
+
     return (
         <article>
             <header>Time, Clocks, and the Ordering of Events in a Distributed System</header>
@@ -1084,17 +1199,44 @@ export function Paper() {
                     this concept must be carefully reexamined when considering
                     events in a distributed system.
                 </p>
+                <ol class="visual">
+                    <li>
+                        <p>A distributed system consists of a collection of distinct processes which are spatially separated,</p>
+                        <figure>
+                            <svg class="distributed-system" viewBox="0 0 50 50">
+                                <DistributedDiagram.Process id={1} point={positions[1]} />
+                                <DistributedDiagram.Process id={2} point={positions[2]} />
+                                <DistributedDiagram.Process id={3} point={positions[3]} />
+                            </svg>
+                        </figure>
+                    </li>
+                    <li>
+                        <p>and which communicate with one another by exchanging messages.</p>
+                        <figure>
+                            <svg class="distributed-system" viewBox="0 0 50 50">
+                                <DistributedDiagram.Link start={positions[1]} end={positions[2]} />
+                                <DistributedDiagram.Link start={positions[1]} end={positions[3]} />
+                                <DistributedDiagram.Link start={positions[2]} end={positions[3]} />
+
+                                <DistributedDiagram.Message start={positions[1]} end={positions[2]} latency={2500} />
+                                <DistributedDiagram.Message start={positions[1]} end={positions[3]} latency={3500} />
+                                <DistributedDiagram.Message start={positions[2]} end={positions[3]} latency={4500} />
+
+                                <DistributedDiagram.Process id={1} point={positions[1]} />
+                                <DistributedDiagram.Process id={2} point={positions[2]} />
+                                <DistributedDiagram.Process id={3} point={positions[3]} />
+                            </svg>
+                        </figure>
+                    </li>
+                </ol>
                 <p>
-                    A distributed system consists of a collection of distinct
-                    processes which are spatially separated, and which communicate
-                    with one another by exchanging messages. A
-                    network of interconnected computers, such as the ARPA
+                    A network of interconnected computers, such as the ARPA
                     net, is a distributed system. A single computer can also
                     be viewed as a distributed system in which the central
                     control unit, the memory units, and the input-output
                     channels are separate processes. A system is distributed
-                    if the message transmission delay is not negligible com-
-                    pared to the time between events in a single process.
+                    if the message transmission delay is not negligible compared
+                    to the time between events in a single process.
                 </p>
                 <p>
                     We will concern ourselves primarily with systems of
@@ -1190,6 +1332,9 @@ export function Paper() {
                                 <Identifier description="the second event">b</Identifier>
                             </Expression>.
                         </p>
+                        <ul class="example visual">
+                            {happenedBeforeExamples.first.map(x => <li>{x}</li>)}
+                        </ul>
                     </li>
                     <li>
                         <p>
@@ -1201,6 +1346,9 @@ export function Paper() {
                                 <Identifier description="the event of receiving the message">b</Identifier>
                             </Expression>.
                         </p>
+                        <ul class="visual example">
+                            {happenedBeforeExamples.second.map(x => <li>{x}</li>)}
+                        </ul>
                     </li>
                     <li>
                         <p>
@@ -1218,6 +1366,11 @@ export function Paper() {
                                 <Identifier description="the third event">c</Identifier>
                             </Expression>.
                         </p>
+                        <ul class="visual example">
+                            {happenedBeforeExamples.third.map(example => {
+                                return <li>{example}</li>
+                            })}
+                        </ul>
                     </li>
                 </ol>
                 <p>
@@ -1270,115 +1423,149 @@ export function Paper() {
                 </p>
 
                 <figure id={ids.figures.first} class="space-time">
-                    <SpaceTimeDiagram path={examplePath}>
-                        <Message start={[0, 0]} end={[1, 1]} />
-                        <Message start={[1, 0]} end={[0, 1]} />
-                        <Message start={[1, 4]} end={[0, 3]} />
+                    <StaticSpaceTimeDiagram
+                        width={150}
+                        height={150}
+                        path={examplePath}
+                        processes={[
+                            {
+                                label: "process P",
+                                highlight: processP[0],
+                                events: [
+                                    {
+                                        time: 0,
+                                        highlight: p1[0],
+                                        label: <SubScript>
+                                            <Identifier>p</Identifier>
+                                            <Number value={1} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 20,
+                                        label: <SubScript>
+                                            <Identifier>p</Identifier>
+                                            <Number value={2} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 40,
+                                        highlight: p3[0],
+                                        label: <SubScript>
+                                            <Identifier>p</Identifier>
+                                            <Number value={3} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 60,
+                                        highlight: p4[0],
+                                        label: <SubScript>
+                                            <Identifier>p</Identifier>
+                                            <Number value={4} />
+                                        </SubScript>
+                                    },
+                                ]
+                            },
+                            {
+                                label: "process Q",
+                                highlight: processQ[0],
+                                events: [
+                                    {
+                                        time: 0,
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={1} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 10,
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={2} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 20,
+                                        highlight: q3[0],
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={3} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 30,
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={4} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 40,
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={5} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 50,
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={6} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 60,
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={7} />
+                                        </SubScript>
+                                    },
+                                ]
+                            },
+                            {
+                                label: "process R",
+                                events: [
+                                    {
+                                        time: 0,
+                                        label: <SubScript>
+                                            <Identifier>r</Identifier>
+                                            <Number value={1} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 20,
+                                        label: <SubScript>
+                                            <Identifier>r</Identifier>
+                                            <Number value={2} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 40,
+                                        label: <SubScript>
+                                            <Identifier>r</Identifier>
+                                            <Number value={3} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 60,
+                                        highlight: r4[0],
+                                        label: <SubScript>
+                                            <Identifier>r</Identifier>
+                                            <Number value={4} />
+                                        </SubScript>
+                                    },
+                                ]
+                            }
+                        ]}
+                        messages={[
+                            { from: [0, 0], to: [1, 1] },
+                            { from: [1, 0], to: [0, 1] },
+                            { from: [1, 4], to: [0, 3] },
 
-                        <Message start={[1, 0]} end={[2, 3]} />
-                        <Message start={[1, 3]} end={[2, 2]} />
-                        <Message start={[2, 1]} end={[1, 6]} />
-
-                        <Process id={0} target={processP}>
-                            <span>process P</span>
-                            <Event time={0} target={p1}>
-                                <SubScript>
-                                    <Identifier>p</Identifier>
-                                    <Number value={1} />
-                                </SubScript>
-                            </Event>
-                            <Event time={20}>
-                                <SubScript>
-                                    <Identifier>p</Identifier>
-                                    <Number value={2} />
-                                </SubScript>
-                            </Event>
-                            <Event time={40} target={p3} >
-                                <SubScript>
-                                    <Identifier>p</Identifier>
-                                    <Number value={3} />
-                                </SubScript>
-                            </Event>
-                            <Event time={60} target={p4} >
-                                <SubScript>
-                                    <Identifier>p</Identifier>
-                                    <Number value={4} />
-                                </SubScript>
-                            </Event>
-                        </Process>
-                        <Process id={1} target={processQ}>
-                            <span>process Q</span>
-                            <Event time={0}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={1} />
-                                </SubScript>
-                            </Event>
-                            <Event time={10}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={2} />
-                                </SubScript>
-                            </Event>
-                            <Event time={20} target={q3}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={3} />
-                                </SubScript>
-                            </Event>
-                            <Event time={30}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={4} />
-                                </SubScript>
-                            </Event>
-                            <Event time={40}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={5} />
-                                </SubScript>
-                            </Event>
-                            <Event time={50}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={6} />
-                                </SubScript>
-                            </Event>
-                            <Event time={60}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={7} />
-                                </SubScript>
-                            </Event>
-                        </Process>
-                        <Process id={2}>
-                            <span>process R</span>
-                            <Event time={0}>
-                                <SubScript>
-                                    <Identifier>r</Identifier>
-                                    <Number value={1} />
-                                </SubScript>
-                            </Event>
-                            <Event time={20}>
-                                <SubScript>
-                                    <Identifier>r</Identifier>
-                                    <Number value={2} />
-                                </SubScript>
-                            </Event>
-                            <Event time={40}>
-                                <SubScript>
-                                    <Identifier>r</Identifier>
-                                    <Number value={3} />
-                                </SubScript>
-                            </Event>
-                            <Event time={60} target={r4}>
-                                <SubScript>
-                                    <Identifier>r</Identifier>
-                                    <Number value={4} />
-                                </SubScript>
-                            </Event>
-                        </Process>
-                    </SpaceTimeDiagram>
+                            { from: [1, 0], to: [2, 3] },
+                            { from: [1, 3], to: [2, 2] },
+                            { from: [2, 1], to: [1, 6] },
+                        ]}
+                    />
                     <figcaption>Figure 1</figcaption>
                 </figure>
 
@@ -1447,47 +1634,51 @@ export function Paper() {
                     with an abstract point of view in which a clock is just a
                     way of assigning a number to an event, where the number
                     is thought of as the time at which the event occurred.
-                    More precisely, we define a clock <SubScript description="clock for process i">
+                    More precisely, we define a clock <SubScript description="a process's clock">
                         <Identifier>C</Identifier>
                         <Identifier>i</Identifier>
                     </SubScript> for each process <SubScript description="a process">
                         <Identifier>P</Identifier>
                         <Identifier>i</Identifier>
-                    </SubScript> to be a function which assigns a number <Expression>
-                        <SubScript>
+                    </SubScript> to be a function which assigns a number <Expression description="the process's timestamp of the event">
+                        <SubScript description="a process's clock">
                             <Identifier>C</Identifier>
                             <Identifier>i</Identifier>
                         </SubScript>
                         <Operator>{codes.operators.angle.left}</Operator>
-                        <Identifier>a</Identifier>
+                        <Identifier description="an event">a</Identifier>
                         <Operator>{codes.operators.angle.right}</Operator>
                     </Expression> to any
-                    event <Identifier>a</Identifier> in that process. The entire system of clocks is
+                    event <Identifier description="an event">a</Identifier> in that process. The entire system of clocks is
                     represented by the function <Identifier>C</Identifier> which assigns to
-                    any event <Identifier>b</Identifier> the number <Expression>
-                        <Identifier>C</Identifier>
+                    any event <Identifier description="an event">b</Identifier> the number <Expression description="the system's timestamp of an event">
+                        <Identifier description="the system's clock">C</Identifier>
                         <Operator>{codes.operators.angle.left}</Operator>
                         <Identifier description="event in process j">b</Identifier>
                         <Operator>{codes.operators.angle.right}</Operator>
                     </Expression>, where <Expression>
-                        <Identifier description="system of clocks for all processes">C</Identifier>
-                        <Operator>{codes.operators.angle.left}</Operator>
-                        <Identifier description="event in process j">b</Identifier>
-                        <Operator>{codes.operators.angle.right}</Operator>
+                        <Expression description="the system's timestamp of the event">
+                            <Identifier description="system of clocks for all processes">C</Identifier>
+                            <Operator>{codes.operators.angle.left}</Operator>
+                            <Identifier description="event in process j">b</Identifier>
+                            <Operator>{codes.operators.angle.right}</Operator>
+                        </Expression>
                         <Operator>{codes.operators.equals}</Operator>
-                        <SubScript description="clock for process j">
-                            <Identifier>C</Identifier>
-                            <Identifier>j</Identifier>
-                        </SubScript>
-                        <Operator>{codes.operators.angle.left}</Operator>
-                        <Identifier description="event in process j">b</Identifier>
-                        <Operator>{codes.operators.angle.right}</Operator>
-                    </Expression> if <Identifier description="event in process j">b</Identifier> is an event
-                    in process <SubScript>
+                        <Expression description="the process's timestamp of the event">
+                            <SubScript description="the event's process's clock">
+                                <Identifier>C</Identifier>
+                                <Identifier>j</Identifier>
+                            </SubScript>
+                            <Operator>{codes.operators.angle.left}</Operator>
+                            <Identifier description="event in process j">b</Identifier>
+                            <Operator>{codes.operators.angle.right}</Operator>
+                        </Expression>
+                    </Expression> if <Identifier description="an event">b</Identifier> is an event
+                    in process <SubScript description="a process">
                         <Identifier>P</Identifier>
                         <Identifier>j</Identifier>
                     </SubScript>. For now, we make no assumption about
-                    the relation of the numbers <Expression>
+                    the relation of the numbers <Expression description="the process's timestamp of an event">
                         <SubScript>
                             <Identifier>C</Identifier>
                             <Identifier>i</Identifier>
@@ -1496,7 +1687,7 @@ export function Paper() {
                         <Identifier>a</Identifier>
                         <Operator>{codes.operators.angle.right}</Operator>
                     </Expression> to physical time, so we
-                    can think of the clocks <SubScript description="clock for process i">
+                    can think of the clocks <SubScript description="a process's clock">
                         <Identifier>C</Identifier>
                         <Identifier>i</Identifier>
                     </SubScript> as logical rather than physical
@@ -1609,124 +1800,159 @@ export function Paper() {
                     </Expand>.
                 </p>
                 <figure id={ids.figures.second} class="space-time">
-                    <SpaceTimeDiagram path={examplePath}>
-                        <Tick times={[2, 2, 2]} />
-                        <Tick times={[7, 7, 7]} />
-                        <Tick times={[30, 15, 18]} />
-                        <Tick times={[42, 18, 24]} />
-                        <Tick times={[44, 25, 30]} />
-                        <Tick times={[50, 35, 38]} />
-                        <Tick times={[55, 45, 45]} />
-                        <Tick times={[65, 55, 55]} />
+                    <StaticSpaceTimeDiagram
+                        width={150}
+                        height={150}
+                        path={examplePath}
+                        processes={[
+                            {
+                                label: "process P",
+                                highlight: processP[0],
+                                events: [
+                                    {
+                                        time: 0,
+                                        highlight: p1[0],
+                                        label: <SubScript>
+                                            <Identifier>p</Identifier>
+                                            <Number value={1} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 20,
+                                        label: <SubScript>
+                                            <Identifier>p</Identifier>
+                                            <Number value={2} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 40,
+                                        highlight: p3[0],
+                                        label: <SubScript>
+                                            <Identifier>p</Identifier>
+                                            <Number value={3} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 60,
+                                        highlight: p4[0],
+                                        label: <SubScript>
+                                            <Identifier>p</Identifier>
+                                            <Number value={4} />
+                                        </SubScript>
+                                    },
+                                ]
+                            },
+                            {
+                                label: "process Q",
+                                highlight: processQ[0],
+                                events: [
+                                    {
+                                        time: 0,
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={1} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 10,
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={2} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 20,
+                                        highlight: q3[0],
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={3} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 30,
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={4} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 40,
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={5} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 50,
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={6} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 60,
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={7} />
+                                        </SubScript>
+                                    },
+                                ]
+                            },
+                            {
+                                label: "process R",
+                                events: [
+                                    {
+                                        time: 0,
+                                        label: <SubScript>
+                                            <Identifier>r</Identifier>
+                                            <Number value={1} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 20,
+                                        label: <SubScript>
+                                            <Identifier>r</Identifier>
+                                            <Number value={2} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 40,
+                                        label: <SubScript>
+                                            <Identifier>r</Identifier>
+                                            <Number value={3} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 60,
+                                        highlight: r4[0],
+                                        label: <SubScript>
+                                            <Identifier>r</Identifier>
+                                            <Number value={4} />
+                                        </SubScript>
+                                    },
+                                ]
+                            }
+                        ]}
+                        messages={[
+                            { from: [0, 0], to: [1, 1] },
+                            { from: [1, 0], to: [0, 1] },
+                            { from: [1, 4], to: [0, 3] },
 
-                        <Message start={[0, 0]} end={[1, 1]} />
-                        <Message start={[1, 0]} end={[0, 1]} />
-                        <Message start={[1, 4]} end={[0, 3]} />
-
-                        <Message start={[1, 0]} end={[2, 3]} />
-                        <Message start={[1, 3]} end={[2, 2]} />
-                        <Message start={[2, 1]} end={[1, 6]} />
-
-                        <Process id={0} target={processP}>
-                            <span>process P</span>
-                            <Event time={0} target={p1}>
-                                <SubScript>
-                                    <Identifier>p</Identifier>
-                                    <Number value={1} />
-                                </SubScript>
-                            </Event>
-                            <Event time={20}>
-                                <SubScript>
-                                    <Identifier>p</Identifier>
-                                    <Number value={2} />
-                                </SubScript>
-                            </Event>
-                            <Event time={40} target={p3} >
-                                <SubScript>
-                                    <Identifier>p</Identifier>
-                                    <Number value={3} />
-                                </SubScript>
-                            </Event>
-                            <Event time={60} target={p4} >
-                                <SubScript>
-                                    <Identifier>p</Identifier>
-                                    <Number value={4} />
-                                </SubScript>
-                            </Event>
-                        </Process>
-                        <Process id={1} target={processQ}>
-                            <span>process Q</span>
-                            <Event time={0}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={1} />
-                                </SubScript>
-                            </Event>
-                            <Event time={10}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={2} />
-                                </SubScript>
-                            </Event>
-                            <Event time={20} target={q3}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={3} />
-                                </SubScript>
-                            </Event>
-                            <Event time={30}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={4} />
-                                </SubScript>
-                            </Event>
-                            <Event time={40}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={5} />
-                                </SubScript>
-                            </Event>
-                            <Event time={50}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={6} />
-                                </SubScript>
-                            </Event>
-                            <Event time={60}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={7} />
-                                </SubScript>
-                            </Event>
-                        </Process>
-                        <Process id={2}>
-                            <span>process R</span>
-                            <Event time={0}>
-                                <SubScript>
-                                    <Identifier>r</Identifier>
-                                    <Number value={1} />
-                                </SubScript>
-                            </Event>
-                            <Event time={20}>
-                                <SubScript>
-                                    <Identifier>r</Identifier>
-                                    <Number value={2} />
-                                </SubScript>
-                            </Event>
-                            <Event time={40}>
-                                <SubScript>
-                                    <Identifier>r</Identifier>
-                                    <Number value={3} />
-                                </SubScript>
-                            </Event>
-                            <Event time={60} target={r4}>
-                                <SubScript>
-                                    <Identifier>r</Identifier>
-                                    <Number value={4} />
-                                </SubScript>
-                            </Event>
-                        </Process>
-                    </SpaceTimeDiagram>
+                            { from: [1, 0], to: [2, 3] },
+                            { from: [1, 3], to: [2, 2] },
+                            { from: [2, 1], to: [1, 6] },
+                        ]}
+                        ticks={[
+                            [2, 2, 2],
+                            [7, 7, 7],
+                            [30, 15, 18],
+                            [42, 18, 24],
+                            [44, 25, 30],
+                            [50, 35, 38],
+                            [55, 45, 45],
+                            [65, 55, 55],
+                        ]}
+                    />
                     <figcaption>Figure 2</figcaption>
                 </figure>
                 <p>
@@ -1741,124 +1967,159 @@ export function Paper() {
                     is a better representation.
                 </p>
                 <figure id={ids.figures.third} class="space-time">
-                    <SpaceTimeDiagram path={examplePath}>
-                        <Tick times={[5, 5, 5]} />
-                        <Tick times={[15, 15, 15]} />
-                        <Tick times={[25, 25, 25]} />
-                        <Tick times={[35, 35, 35]} />
-                        <Tick times={[45, 45, 45]} />
-                        <Tick times={[55, 55, 55]} />
-                        <Tick times={[65, 65, 65]} />
-                        <Tick times={[75, 75, 75]} />
+                    <StaticSpaceTimeDiagram
+                        width={150}
+                        height={150}
+                        path={examplePath}
+                        processes={[
+                            {
+                                label: "process P",
+                                highlight: processP[0],
+                                events: [
+                                    {
+                                        time: 0,
+                                        highlight: p1[0],
+                                        label: <SubScript>
+                                            <Identifier>p</Identifier>
+                                            <Number value={1} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 20,
+                                        label: <SubScript>
+                                            <Identifier>p</Identifier>
+                                            <Number value={2} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 30,
+                                        highlight: p3[0],
+                                        label: <SubScript>
+                                            <Identifier>p</Identifier>
+                                            <Number value={3} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 70,
+                                        highlight: p4[0],
+                                        label: <SubScript>
+                                            <Identifier>p</Identifier>
+                                            <Number value={4} />
+                                        </SubScript>
+                                    },
+                                ]
+                            },
+                            {
+                                label: "process Q",
+                                highlight: processQ[0],
+                                events: [
+                                    {
+                                        time: 0,
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={1} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 20,
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={2} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 40,
+                                        highlight: q3[0],
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={3} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 50,
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={4} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 60,
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={5} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 70,
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={6} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 80,
+                                        label: <SubScript>
+                                            <Identifier>q</Identifier>
+                                            <Number value={7} />
+                                        </SubScript>
+                                    },
+                                ]
+                            },
+                            {
+                                label: "process R",
+                                events: [
+                                    {
+                                        time: 0,
+                                        label: <SubScript>
+                                            <Identifier>r</Identifier>
+                                            <Number value={1} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 30,
+                                        label: <SubScript>
+                                            <Identifier>r</Identifier>
+                                            <Number value={2} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 60,
+                                        label: <SubScript>
+                                            <Identifier>r</Identifier>
+                                            <Number value={3} />
+                                        </SubScript>
+                                    },
+                                    {
+                                        time: 80,
+                                        highlight: r4[0],
+                                        label: <SubScript>
+                                            <Identifier>r</Identifier>
+                                            <Number value={4} />
+                                        </SubScript>
+                                    },
+                                ]
+                            }
+                        ]}
+                        messages={[
+                            { from: [0, 0], to: [1, 1] },
+                            { from: [1, 0], to: [0, 1] },
+                            { from: [1, 4], to: [0, 3] },
 
-                        <Message start={[0, 0]} end={[1, 1]} />
-                        <Message start={[1, 0]} end={[0, 1]} />
-                        <Message start={[1, 4]} end={[0, 3]} />
-
-                        <Message start={[1, 0]} end={[2, 3]} />
-                        <Message start={[1, 3]} end={[2, 2]} />
-                        <Message start={[2, 1]} end={[1, 6]} />
-
-                        <Process id={0} target={processP}>
-                            <span>process P</span>
-                            <Event time={0} target={p1}>
-                                <SubScript>
-                                    <Identifier>p</Identifier>
-                                    <Number value={1} />
-                                </SubScript>
-                            </Event>
-                            <Event time={20}>
-                                <SubScript>
-                                    <Identifier>p</Identifier>
-                                    <Number value={2} />
-                                </SubScript>
-                            </Event>
-                            <Event time={30} target={p3} >
-                                <SubScript>
-                                    <Identifier>p</Identifier>
-                                    <Number value={3} />
-                                </SubScript>
-                            </Event>
-                            <Event time={70} target={p4} >
-                                <SubScript>
-                                    <Identifier>p</Identifier>
-                                    <Number value={4} />
-                                </SubScript>
-                            </Event>
-                        </Process>
-                        <Process id={1} target={processQ}>
-                            <span>process Q</span>
-                            <Event time={0}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={1} />
-                                </SubScript>
-                            </Event>
-                            <Event time={20}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={2} />
-                                </SubScript>
-                            </Event>
-                            <Event time={40} target={q3}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={3} />
-                                </SubScript>
-                            </Event>
-                            <Event time={50}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={4} />
-                                </SubScript>
-                            </Event>
-                            <Event time={60}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={5} />
-                                </SubScript>
-                            </Event>
-                            <Event time={70}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={6} />
-                                </SubScript>
-                            </Event>
-                            <Event time={80}>
-                                <SubScript>
-                                    <Identifier>q</Identifier>
-                                    <Number value={7} />
-                                </SubScript>
-                            </Event>
-                        </Process>
-                        <Process id={2}>
-                            <span>process R</span>
-                            <Event time={0}>
-                                <SubScript>
-                                    <Identifier>r</Identifier>
-                                    <Number value={1} />
-                                </SubScript>
-                            </Event>
-                            <Event time={30}>
-                                <SubScript>
-                                    <Identifier>r</Identifier>
-                                    <Number value={2} />
-                                </SubScript>
-                            </Event>
-                            <Event time={60}>
-                                <SubScript>
-                                    <Identifier>r</Identifier>
-                                    <Number value={3} />
-                                </SubScript>
-                            </Event>
-                            <Event time={80} target={r4}>
-                                <SubScript>
-                                    <Identifier>r</Identifier>
-                                    <Number value={4} />
-                                </SubScript>
-                            </Event>
-                        </Process>
-                    </SpaceTimeDiagram>
+                            { from: [1, 0], to: [2, 3] },
+                            { from: [1, 3], to: [2, 2] },
+                            { from: [2, 1], to: [1, 6] },
+                        ]}
+                        ticks={[
+                            [5, 5, 5],
+                            [15, 15, 15],
+                            [25, 25, 25],
+                            [35, 35, 35],
+                            [45, 45, 45],
+                            [55, 55, 55],
+                            [65, 65, 65],
+                            [75, 75, 75],
+                        ]}
+                    />
                     <figcaption>Figure 3</figcaption>
                 </figure>
                 <p>

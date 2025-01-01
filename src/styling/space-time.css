@@ -27,13 +27,8 @@ svg.space-time {
 
     circle {
         fill: var(--font-color);
-        r: 4;
 
         &.highlight {
-            fill: var(--highlight-color);
-        }
-
-        &:hover {
             fill: var(--highlight-color);
         }
     }
@@ -79,6 +74,15 @@ svg.space-time {
                 marker-end: url(#arrow-highlight);
             }
         }
+
+        &.link {
+            fill: none;
+            marker-end: url(#arrow);
+
+            &.highlight {
+                marker-end: url(#arrow-highlight);
+            }
+        }
     }
 
     foreignObject.label {
@@ -92,6 +96,45 @@ svg.space-time {
 
     &.selection {
         circle.event {
+            cursor: pointer;
+        }
+    }
+
+    & g.message {
+        &>g.icon>path {
+            fill: var(--background-color);
+            stroke-width: 1;
+            stroke: var(--font-color);
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        &>path {
+            fill: var(--background-color);
+            stroke-width: 1;
+            stroke: var(--font-color);
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+    }
+
+    line.link {
+        fill: none;
+        stroke-width: 1;
+        stroke: var(--font-color);
+        stroke-dasharray: 4 4;
+    }
+
+    & g.event {
+        & circle {
+            &:hover {
+                fill: var(--highlight-color);
+            }
+        }
+    }
+
+    &.selectable {
+        g.event circle:hover {
             cursor: pointer;
         }
     }

@@ -1,0 +1,50 @@
+svg.distributed-system {
+    & defs {
+        & #message {
+            & rect {
+                fill: var(--background-color);
+                stroke: var(--font-color);
+                stroke-width: 1;
+            }
+
+            & path {
+                fill: none;
+                stroke: var(--font-color);
+                stroke-width: 1;
+            }
+        }
+    }
+
+    & g.process {
+        &>circle {
+            fill: var(--background-color);
+            stroke-width: 1;
+            stroke: var(--font-color);
+        }
+
+        &>text {
+            color: var(--font-color);
+            font-size: 5px;
+            text-anchor: middle;
+            vertical-align: middle;
+        }
+    }
+
+    & line.link {
+        fill: none;
+        stroke-width: 1;
+        stroke: var(--font-color);
+
+        stroke-dasharray: 4 4;
+    }
+
+    & g.message {
+        &>path {
+            fill: var(--background-color);
+            stroke-width: 1;
+            stroke: var(--font-color);
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+    }
+}
