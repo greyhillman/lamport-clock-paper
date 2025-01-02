@@ -185,3 +185,35 @@ ul.visual.example {
     flex-basis: 10em;
   }
 }
+
+ol.implementation-rule {
+  padding-inline-start: 3em;
+
+  &>li::marker {
+    /* Space is important to separate marker from text */
+    content: "IR" counter(list-item) ". ";
+  }
+}
+
+ol#clock-condition-list {
+  &>li::marker {
+    content: "C" counter(list-item) ". ";
+  }
+}
+
+ol.physical-clock {
+  padding-inline-start: 3em;
+
+  &>li::marker {
+    content: "PC" counter(list-item) ". ";
+    font-weight: bold;
+  }
+}
+
+ol#physical-implementation-rules {
+  padding-inline-start: 5em;
+
+  &>li::marker {
+    content: "IR" counter(list-item) "'. ";
+  }
+}

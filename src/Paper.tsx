@@ -46,6 +46,7 @@ function Note(props: NoteProps) {
 const ids = {
     clock_condition: {
         root: "clock-condition",
+        list: "clock-condition-list",
         first: "first-clock-condition",
         second: "second-clock-condition",
     },
@@ -614,7 +615,7 @@ export function Paper() {
                 {content}
             </>,
             content: <p>
-                IR1. Each process <SubScript description="a process">
+                Each process <SubScript description="a process">
                     <Identifier>P</Identifier>
                     <Identifier>i</Identifier>
                 </SubScript> increments <SubScript description="the clock register of the process">
@@ -922,7 +923,7 @@ export function Paper() {
             <p>{content}</p>
         </>,
         content: <>
-            <strong>PC1.</strong> There exists a constant <Expression>
+            There exists a constant <Expression>
                 <Identifier description="maximum clock rate error">{codes.greek.kappa}</Identifier>
                 <Operator>{codes.operators.much_less_than}</Operator>
                 <Number value={1} />
@@ -961,7 +962,7 @@ export function Paper() {
             <p>{content}</p>
         </>,
         content: <>
-            <strong>PC2.</strong> For all <Identifier>i</Identifier>, <Identifier>j</Identifier>: <Expression>
+            For all <Identifier>i</Identifier>, <Identifier>j</Identifier>: <Expression>
                 <Expression description="the difference between two clocks' time">
                     <Operator>|</Operator>
                     <Expression description="one clock's time">
@@ -999,7 +1000,7 @@ export function Paper() {
                 {content}
             </>,
             content: <p>
-                <strong>IR1'</strong>: For each <Identifier>i</Identifier>,
+                For each <Identifier>i</Identifier>,
                 if <SubScript description="a process">
                     <Identifier>P</Identifier>
                     <Identifier>i</Identifier>
@@ -1032,88 +1033,83 @@ export function Paper() {
                 <Anchor id={ids.physical_implementation_rules.second}>Go to definition.</Anchor>
                 {content}
             </>,
-            content: <>
-                <p>
-                    <strong>IR2'</strong>:
-                </p>
-                <ol type="a">
-                    <li>
-                        <p>
-                            If <SubScript description="a process">
-                                <Identifier>P</Identifier>
-                                <Identifier>i</Identifier>
-                            </SubScript> sends a message <Identifier description="a message">m</Identifier> at
-                            physical time <Identifier description="physical sent time">t</Identifier>, then <Identifier description="the message">m</Identifier> contains
-                            a timestamp <Expression>
-                                <SubScript description="the message's timestamp">
-                                    <Identifier>T</Identifier>
-                                    <Identifier>m</Identifier>
+            content: <ol type="a">
+                <li>
+                    <p>
+                        If <SubScript description="a process">
+                            <Identifier>P</Identifier>
+                            <Identifier>i</Identifier>
+                        </SubScript> sends a message <Identifier description="a message">m</Identifier> at
+                        physical time <Identifier description="physical sent time">t</Identifier>, then <Identifier description="the message">m</Identifier> contains
+                        a timestamp <Expression>
+                            <SubScript description="the message's timestamp">
+                                <Identifier>T</Identifier>
+                                <Identifier>m</Identifier>
+                            </SubScript>
+                            <Operator>=</Operator>
+                            <Expression description="the clock's value at sent time">
+                                <SubScript>
+                                    <Identifier>C</Identifier>
+                                    <Identifier>i</Identifier>
                                 </SubScript>
-                                <Operator>=</Operator>
-                                <Expression description="the clock's value at sent time">
-                                    <SubScript>
-                                        <Identifier>C</Identifier>
-                                        <Identifier>i</Identifier>
-                                    </SubScript>
-                                    <Operator>(</Operator>
-                                    <Identifier>t</Identifier>
-                                    <Operator>)</Operator>
-                                </Expression>
-                            </Expression>.
-                        </p>
-                    </li>
-                    <li>
-                        <p>
-                            Upon receiving a message <Identifier description="a message">m</Identifier> at
-                            time <Expression description="physical received time">
+                                <Operator>(</Operator>
+                                <Identifier>t</Identifier>
+                                <Operator>)</Operator>
+                            </Expression>
+                        </Expression>.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        Upon receiving a message <Identifier description="a message">m</Identifier> at
+                        time <Expression description="physical received time">
+                            <Identifier>t</Identifier>
+                            <Operator>{codes.operators.prime}</Operator>
+                        </Expression>, process <SubScript description="the receiving process">
+                            <Identifier>P</Identifier>
+                            <Identifier>j</Identifier>
+                        </SubScript> sets <Expression description="the receiving process's clock at the received time">
+                            <SubScript>
+                                <Identifier>C</Identifier>
+                                <Identifier>j</Identifier>
+                            </SubScript>
+                            <Operator>(</Operator>
+                            <Expression description="physical received time">
                                 <Identifier>t</Identifier>
                                 <Operator>{codes.operators.prime}</Operator>
-                            </Expression>, process <SubScript description="the receiving process">
-                                <Identifier>P</Identifier>
-                                <Identifier>j</Identifier>
-                            </SubScript> sets <Expression description="the receiving process's clock at the received time">
+                            </Expression>
+                            <Operator>)</Operator>
+                        </Expression> equal to maximum <Expression>
+                            <Operator>(</Operator>
+                            <Expression>
                                 <SubScript>
                                     <Identifier>C</Identifier>
                                     <Identifier>j</Identifier>
                                 </SubScript>
                                 <Operator>(</Operator>
-                                <Expression description="physical received time">
-                                    <Identifier>t</Identifier>
-                                    <Operator>{codes.operators.prime}</Operator>
-                                </Expression>
+                                <Identifier>t</Identifier>
+                                <Operator>{codes.operators.prime}</Operator>
+                                <Operator>-</Operator>
+                                <Number value={0} />
                                 <Operator>)</Operator>
-                            </Expression> equal to maximum <Expression>
-                                <Operator>(</Operator>
-                                <Expression>
-                                    <SubScript>
-                                        <Identifier>C</Identifier>
-                                        <Identifier>j</Identifier>
-                                    </SubScript>
-                                    <Operator>(</Operator>
-                                    <Identifier>t</Identifier>
-                                    <Operator>{codes.operators.prime}</Operator>
-                                    <Operator>-</Operator>
-                                    <Number value={0} />
-                                    <Operator>)</Operator>
-                                </Expression>
-                                <Operator>,</Operator>
-                                <Expression>
-                                    <SubScript description="the message's timestamp">
-                                        <Identifier>T</Identifier>
-                                        <Identifier>m</Identifier>
-                                    </SubScript>
-                                    <Operator>+</Operator>
-                                    <SubScript description="the message's minimum delay">
-                                        <Identifier>{codes.greek.mu}</Identifier>
-                                        <Identifier>m</Identifier>
-                                    </SubScript>
-                                </Expression>
-                                <Operator>)</Operator>
-                            </Expression>. <Note portal={notes.limit} />
-                        </p>
-                    </li>
-                </ol>
-            </>
+                            </Expression>
+                            <Operator>,</Operator>
+                            <Expression>
+                                <SubScript description="the message's timestamp">
+                                    <Identifier>T</Identifier>
+                                    <Identifier>m</Identifier>
+                                </SubScript>
+                                <Operator>+</Operator>
+                                <SubScript description="the message's minimum delay">
+                                    <Identifier>{codes.greek.mu}</Identifier>
+                                    <Identifier>m</Identifier>
+                                </SubScript>
+                            </Expression>
+                            <Operator>)</Operator>
+                        </Expression>. <Note portal={notes.limit} />
+                    </p>
+                </li>
+            </ol>
         })
     }
 
@@ -1739,7 +1735,7 @@ export function Paper() {
                     It is easy to see from our definition of the relation "<Operator description="happend before relation">{codes.operators.arrows.right.single}</Operator>"
                     that the <Expand>Clock Condition<ClockCondition.Exit /></Expand> is satisfied if the following two conditions hold.
                 </p>
-                <ol>
+                <ol id={ids.clock_condition.list}>
                     <li id={ids.clock_condition.first}>
                         <FirstClockCondition.Entrance />
                     </li>
@@ -2179,7 +2175,7 @@ export function Paper() {
                     </Expand> is simple; the processes need
                     only obey the following implementation rule:
                 </p>
-                <ol start={1}>
+                <ol start={1} class="implementation-rule">
                     <li id={ids.implementation_rules.first}>
                         <ImplementationRules.First.Entrance />
                     </li>
@@ -2201,7 +2197,7 @@ export function Paper() {
                         <Identifier description="a message">m</Identifier>
                     </SubScript>. More precisely, we have the following rule.
                 </p>
-                <ol start={2}>
+                <ol start={2} class="implementation-rule">
                     <li id={ids.implementation_rules.second.root}>
                         <ImplementationRules.Second.Root.Entrance />
                     </li>
@@ -2809,7 +2805,11 @@ export function Paper() {
                         <Number value={1} />
                     </Expression> for all <Identifier description="physical time">t</Identifier>. More precisely, we will assume that the following condition is satisfied:
                 </p>
-                <FirstPhysicalClockCondition.Entrance />
+                <ol class="physical-clock">
+                    <li>
+                        <FirstPhysicalClockCondition.Entrance />
+                    </li>
+                </ol>
                 <p>
                     For typical crystal controlled clocks, <Expression>
                         <Identifier description="maximum clock speed error">{codes.greek.kappa}</Identifier>
@@ -2846,7 +2846,11 @@ export function Paper() {
                     More precisely, there must be a sufficiently small constant <Identifier description="maximum clock drift">{codes.greek.epsilon}</Identifier> so
                     that the following condition holds:
                 </p>
-                <SecondPhysicalClockCondition.Entrance />
+                <ol start={2} class="physical-clock">
+                    <li>
+                        <SecondPhysicalClockCondition.Entrance />
+                    </li>
+                </ol>
                 <p>
                     If we consider vertical distance in <Anchor id={ids.figures.second}>Figure 2</Anchor> to
                     represent physical time, then <Expand>
@@ -3093,7 +3097,7 @@ export function Paper() {
                         <ImplementationRules.Second.Root.Exit />
                     </Expand> for our physical clocks as follows:
                 </p>
-                <ol>
+                <ol id="physical-implementation-rules">
                     <li id={ids.physical_implementation_rules.first}>
                         <PhysicalImplementationRules.First.Entrance />
                     </li>
