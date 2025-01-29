@@ -7,6 +7,7 @@
   --highlight-color: rgb(9, 255, 0);
 
   --font-family: NewComputerModern10, serif;
+  --math-font-family: NewComputerModernMath;
 }
 
 :root {
@@ -25,7 +26,7 @@ body {
   align-items: center;
 }
 
-#root {
+article {
   max-width: 35em;
 }
 

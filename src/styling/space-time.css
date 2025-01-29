@@ -1,4 +1,4 @@
-svg.space-time {
+figure.space-time svg {
     max-width: 20em;
     max-height: 20em;
 
@@ -21,7 +21,7 @@ svg.space-time {
     polyline.tick {
         stroke: var(--font-color);
         stroke-width: 1;
-        stroke-dasharray: 4 4;
+        stroke-dasharray: 2 2;
         fill: none;
     }
 
