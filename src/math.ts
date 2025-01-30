@@ -45,10 +45,12 @@ function addNotationToggle(element: HTMLElement) {
     element.addEventListener("click", onNotationClick);
 }
 
-for (const root of document.getElementsByTagName("math")) {
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
+document.addEventListener("DOMContentLoaded", event => {
+    for (const root of document.getElementsByTagName("math")) {
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
 
-    while (walker.nextNode()) {
-        addNotationToggle(walker.currentNode as HTMLElement);
+        while (walker.nextNode()) {
+            addNotationToggle(walker.currentNode as HTMLElement);
+        }
     }
-}
+});
