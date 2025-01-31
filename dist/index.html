@@ -9,9 +9,10 @@
     <link rel="stylesheet" href="https://fred-wang.github.io/MathFonts/NewComputerModern/mathfonts.css" />
 
 
+
     <title>Time, Clocks, and the Ordering of Events in a Distributed System</title>
-  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-Dw8mLVVV.js"></script>
-  <link rel="stylesheet" crossorigin href="/lamport-clock-paper/assets/index-C6INETo1.css">
+  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-DYRutJsU.js"></script>
+  <link rel="stylesheet" crossorigin href="/lamport-clock-paper/assets/index-C-gjMjJm.css">
 </head>
 
 <body>
@@ -21,6 +22,7 @@
             <span class="name">Leslie Lamport</span>
             <span class="institution">Massachusetts Computer Associates, Inc.</span>
         </address>
+
         <section id="abstract">
             <header>Abstract</header>
             <p>
@@ -258,9 +260,10 @@
                 In other words, a single process is
                 defined to be a set of events with an a priori total
                 ordering. This seems to be what is generally meant by a
-                process.<sup>
-                    <a href="#event-note">[Note]</a>
-                </sup>
+                process. <inline-details id="event-note">
+                    <span slot="summary">[Note]</span>
+                    <template-use slot="content" template-id="event-note-template"></template-use>
+                </inline-details>
                 It would be trivial to extend our definition to
                 allow a process to split into distinct subprocesses, but we
                 will not bother to do so.
@@ -302,9 +305,112 @@
                             </mrow>
                         </math>.
                     </p>
-                    <!-- <ul class="example visual">
-                        {happenedBeforeExamples.first.map(x => <li>{x}</li>)}
-                    </ul> -->
+                    <ul class="example visual">
+                        <li>
+                            <svg class="space-time" viewbox="0 0 50 50">
+                                <defs>
+                                    <marker
+                                        id="arrow"
+                                        viewBox="0 0 10 10"
+                                        refX="8"
+                                        refY="5"
+                                        markerWidth="7"
+                                        markerHeight="7"
+                                        orient="auto">
+                                        <path d="M 0 0 L 10 5 L 0 10 z" />
+                                    </marker>
+                                    <marker
+                                        id="arrow-highlight"
+                                        viewBox="0 0 10 10"
+                                        refX="8"
+                                        refY="5"
+                                        markerWidth="7"
+                                        markerHeight="7"
+                                        orient="auto">
+                                        <path d="M 0 0 L 10 5 L 0 10 z" />
+                                    </marker>
+                                </defs>
+                                <g class="process">
+                                    <text x="25" y="48" text-anchor="middle">a process</text>
+
+                                    <line class="segment" x1="25" x2="25" y1="43" y2="37" />
+                                    <line class="segment" x1="25" x2="25" y1="37" y2="15" />
+                                    <line class="segment" x1="25" x2="25" y1="15" y2="5" />
+
+                                    <g class="event">
+                                        <circle cx="25" cy="37" r="2" />
+                                        <foreignObject class="label" x="30" y="32" width="8" height="10">
+                                            <math>
+                                                <mi>a</mi>
+                                            </math>
+                                        </foreignObject>
+                                    </g>
+                                    <g class="event">
+                                        <circle cx="25" cy="15" r="2" />
+                                        <foreignObject class="label" x="30" y="10" width="8" height="10">
+                                            <math>
+                                                <mi>b</mi>
+                                            </math>
+                                        </foreignObject>
+                                    </g>
+                                </g>
+                            </svg>
+                        </li>
+                        <li>
+                            <svg class="space-time" viewbox="0 0 50 50">
+                                <defs>
+                                    <marker
+                                        id="arrow"
+                                        viewBox="0 0 10 10"
+                                        refX="8"
+                                        refY="5"
+                                        markerWidth="7"
+                                        markerHeight="7"
+                                        orient="auto">
+                                        <path d="M 0 0 L 10 5 L 0 10 z" />
+                                    </marker>
+                                    <marker
+                                        id="arrow-highlight"
+                                        viewBox="0 0 10 10"
+                                        refX="8"
+                                        refY="5"
+                                        markerWidth="7"
+                                        markerHeight="7"
+                                        orient="auto">
+                                        <path d="M 0 0 L 10 5 L 0 10 z" />
+                                    </marker>
+                                </defs>
+                                <g class="process">
+                                    <text x="25" y="48" text-anchor="middle">a process</text>
+
+                                    <line class="segment" x1="25" x2="25" y1="43" y2="5" />
+
+                                    <g class="event">
+                                        <circle cx="25" cy="37" r="2" />
+                                        <foreignObject class="label" x="30" y="32" width="8" height="10">
+                                            <math>
+                                                <mi>a</mi>
+                                            </math>
+                                        </foreignObject>
+                                    </g>
+                                    <g class="event">
+                                        <circle cx="25" cy="30" r="2" />
+                                    </g>
+                                    <g class="event">
+                                        <circle cx="25" cy="22" r="2" />
+                                    </g>
+                                    <g class="event">
+                                        <circle cx="25" cy="15" r="2" />
+                                        <foreignObject class="label" x="30" y="10" width="8" height="10">
+                                            <math>
+                                                <mi>b</mi>
+                                            </math>
+                                        </foreignObject>
+                                    </g>
+                                </g>
+                            </svg>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <p>
@@ -398,9 +504,10 @@
                 represents time &ndash; later times being higher than earlier
                 ones. The dots denote events, the vertical lines denote
                 processes, and the <del>wavy lines</del>
-                <ins>lines with messages</ins> denote messages.<sup>
-                    <a href="#message-note">[Note]</a>
-                </sup>
+                <ins>lines with messages</ins> denote messages. <inline-details id="message-note">
+                    <span slot="summary">[Note]</span>
+                    <template-use slot="content" template-id="message-note-template"></template-use>
+                </inline-details>
                 It is easy
                 to see that <math>
                     <mrow title="the first event happened before the second event">
@@ -966,34 +1073,7 @@
                 </math>. We state this condition more formally as follows.
             </p>
             <p id="clock-condition">
-                <em>Clock Condition.</em> For any events <math>
-                    <mi title="first event">a</mi>
-                </math>, <math>
-                    <mi title="second event">b</mi>
-                </math>
-                if <math>
-                    <mrow title="the first event happened before the second event">
-                        <mi title="first event">a</mi>
-                        <mo title="happened before">&#x2192;</mo>
-                        <mi title="second event">b</mi>
-                    </mrow>
-                </math> then <math>
-                    <mrow title="the logical timestamp of the first event is less than the logical timestamp of the second event">
-                        <mrow title="the logical timestamp of the first event">
-                            <mi>C</mi>
-                            <mo>&#x27E8;</mo>
-                            <mi title="first event">a</mi>
-                            <mo>&#x27E9;</mo>
-                        </mrow>
-                        <mo>&lt;</mo>
-                        <mrow title="the logical timestamp of the second event">
-                            <mi>C</mi>
-                            <mo>&#x27E8;</mo>
-                            <mi title="second event">b</mi>
-                            <mo>&#x27E9;</mo>
-                        </mrow>
-                    </mrow>
-                </math>.
+                <template-use template-id="clock-condition-template"></template-use>
             </p>
             <p>
                 Note that we cannot expect the converse condition to
@@ -1020,7 +1100,10 @@
                         <mn>3</mn>
                     </msub>
                 </math>, which would
-                contradict the <a href="#clock-condition">Clock Condition</a> because <math>
+                contradict the <inline-details>
+                    <span slot="summary">Clock Condition</span>
+                    <template-use slot="content" template-id="clock-condition-use"></template-use>
+                </inline-details> because <math>
                     <mrow title="the second event in process P happened before the third event in process P">
                         <msub title="the second event in process P">
                             <mi>p</mi>
@@ -1037,94 +1120,18 @@
             <p>
                 It is easy to see from our definition of the relation "<math>
                     <mo title="happend before relation">&#x2192;</mo>
-                </math>" that the <a href="#clock-condition">Clock Condition</a> is
+                </math>" that the <inline-details>
+                    <span slot="summary">Clock Condition</span>
+                    <template-use slot="content" template-id="clock-condition-use"></template-use>
+                </inline-details> is
                 satisfied if the following two conditions hold.
             </p>
             <ol id="clock-condition-list">
                 <li id="first-clock-condition">
-                    <p>
-                        If <math>
-                            <mi title="first event">a</mi>
-                        </math> and <math>
-                            <mi title="second event">b</mi>
-                        </math> are
-                        events in process <math>
-                            <msub title="a process">
-                                <mi>P</mi>
-                                <mi>i</mi>
-                            </msub>
-                        </math> and <math>
-                            <mi title="first event">a</mi>
-                        </math> comes
-                        before <math>
-                            <mi title="second event">b</mi>
-                        </math>, then <math>
-                            <mrow title="the first event's logical timestamp is less than the second event's logical timestamp">
-                                <mrow title="the first event's logical timestamp">
-                                    <msub>
-                                        <mi>C</mi>
-                                        <mi>i</mi>
-                                    </msub>
-                                    <mo>&#x27E8;</mo>
-                                    <mi title="the first event">a</mi>
-                                    <mo>&#x27E9;</mo>
-                                </mrow>
-                                <mo>&#x3C;</mo>
-                                <mrow title="the second event's logical timestamp">
-                                    <msub>
-                                        <mi>C</mi>
-                                        <mi>i</mi>
-                                    </msub>
-                                    <mo>&#x27E8;</mo>
-                                    <mi title="the second event">b</mi>
-                                    <mo>&#x27E9;</mo>
-                                </mrow>
-                            </mrow>
-                        </math>.
-                    </p>
+                    <template-use template-id="first-clock-condition-template"></template-use>
                 </li>
                 <li id="second-clock-condition">
-                    <p>
-                        If <math>
-                            <mi title="sending a message">a</mi>
-                        </math> is the sending of a message
-                        by process <math>
-                            <msub title="the sending process">
-                                <mi>P</mi>
-                                <mi>i</mi>
-                            </msub>
-                        </math> and <math>
-                            <mi title="receipt of the message">b</mi>
-                        </math> is
-                        the receipt of that message by process <math>
-                            <msub title="the receiving process">
-                                <mi>P</mi>
-                                <mi>j</mi>
-                            </msub>
-                        </math>, then <math>
-                            <mrow title="the logical timestamp of sending a message is less than the logical timestamp of receiving the message">
-                                <mrow title="the logical timestamp of sending a message">
-                                    <msub title="the sending process's clock">
-                                        <mi>C</mi>
-                                        <mi>i</mi>
-                                    </msub>
-                                    <mo>&#x27E8;</mo>
-                                    <mi title="sending a message">a</mi>
-                                    <mo>&#x27E9;</mo>
-                                </mrow>
-                                <mo>&#x3C;</mo>
-                                <mrow title="the logical timestamp of receiving the message">
-                                    <msub title="the receiving process's clock">
-                                        <mi>C</mi>
-                                        <mi>j</mi>
-                                    </msub>
-                                    <mo>&#x27E8;</mo>
-                                    <mi title="receiving the message">b</mi>
-                                    <mo>&#x27E9;</mo>
-                                </mrow>
-                            </mrow>
-                        </math>.
-                    </p>
+                    <template-use template-id="second-clock-condition-template"></template-use>
                 </li>
             </ol>
             <p>
@@ -1174,13 +1181,22 @@
                 We draw a dashed "tick line" through all the like-numbered
                 ticks of the different processes. The space-time
                 diagram of <a href="#figure-1">Figure 1</a> might then yield the picture in <a href="#figure-2">Figure 2</a>.
-                <a href="#first-clock-condition">Condition C1</a> means that there must be a tick
-                line between any two events on a process line, and <a href="#second-clock-condition">condition C2</a> means
+                <inline-details>
+                    <span slot="summary">Condition C1</span>
+                    <template-use slot="content" template-id="first-clock-condition-use"></template-use>
+                </inline-details> means that there must be a tick
+                line between any two events on a process line, and <inline-details>
+                    <span slot="summary">condition C2</span>
+                    <template-use slot="content" template-id="second-clock-condition-use"></template-use>
+                </inline-details> means
                 that every message line must cross
                 a tick line. From the pictorial meaning of <math>
                     <mo title="the happened-before relation">&#x2192;</mo>
                 </math>, it is easy to
-                see why these two conditions imply the <a href="#clock-condition">Clock Condition</a>.
+                see why these two conditions imply the <inline-details>
+                    <span slot="summary">Clock Condition.</span>
+                    <template-use slot="content" template-id="clock-condition-use"></template-use>
+                </inline-details>
             </p>
             <figure id="figure-2" class="space-time">
                 <svg viewbox="20 40 120 120">
@@ -1918,7 +1934,10 @@
                 Let us now assume that the processes are algorithms,
                 and the events represent certain actions during their
                 execution. We will show how to introduce clocks into the
-                processes which satisfy the <a href="#clock-condition">Clock Condition</a>. Process <math>
+                processes which satisfy the <inline-details>
+                    <span slot="summary">Clock Condition</span>
+                    <template-use slot="content" template-id="clock-condition-use"></template-use>
+                </inline-details>. Process <math>
                     <msub title="a process">
                         <mi>P</mi>
                         <mi>i</mi>
@@ -1961,30 +1980,33 @@
                 </math> does not itself constitute an event.
             </p>
             <p>
-                To guarantee that the system of clocks satisfies the <a href="#clock-condition">Clock Condition</a>,
-                we will insure that it satisfies conditions <a href="#first-clock-condition">C1</a> and <a href="#second-clock-condition">C2</a>.
-                <a href="#first-clock-condition">Condition C1</a> is simple; the processes need
+                To guarantee that the system of clocks satisfies the <inline-details>
+                    <span slot="summary">Clock Condition</span>
+                    <template-use slot="content" template-id="clock-condition-use"></template-use>
+                </inline-details>,
+                we will insure that it satisfies conditions <inline-details>
+                    <span slot="summary">C1</span>
+                    <template-use slot="content" template-id="first-clock-condition-use"></template-use>
+                </inline-details> and <inline-details>
+                    <span slot="summary">C2</span>
+                    <template-use slot="content" template-id="second-clock-condition-use"></template-use>
+                </inline-details>.
+                <inline-details>
+                    <span slot="summary">Condition C1</span>
+                    <template-use slot="content" template-id="first-clock-condition-use"></template-use>
+                </inline-details> is simple; the processes need
                 only obey the following implementation rule:
             </p>
             <ol start="1" class="implementation-rule">
                 <li id="implementation-rule-1">
-                    <p>
-                        Each process <math>
-                            <msub title="a process">
-                                <mi>P</mi>
-                                <mi>i</mi>
-                            </msub>
-                        </math> increments <math>
-                            <msub title="the process's clock register">
-                                <mi>C</mi>
-                                <mi>i</mi>
-                            </msub>
-                        </math> between any two successive events.
-                    </p>
+                    <template-use template-id="implementation-rule-1-template"></template-use>
                 </li>
             </ol>
             <p>
-                To meet <a href="#second-clock-condition">condition C2</a>, we require that each message <math>
+                To meet <inline-details>
+                    <span slot="summary">condition C2</span>
+                    <template-use slot="content" template-id="second-clock-condition-use"></template-use>
+                </inline-details>, we require that each message <math>
                     <mi title="a message">m</mi>
                 </math> contain a <em>timestamp</em> <math>
                     <msub title="the message's timestamp">
@@ -2007,71 +2029,14 @@
             </p>
             <ol start="2" class="implementation-rule">
                 <li id="implementation-rule-2">
-                    <ol type="a">
-                        <li id="implementation-rule-2-a">
-                            <p>
-                                If event <math>
-                                    <mi title="sending a message">a</mi>
-                                </math> is the sending of a message <math>
-                                    <mi title="a message">m</mi>
-                                </math> by
-                                process <math>
-                                    <msub title="the sending process">
-                                        <mi>P</mi>
-                                        <mi>i</mi>
-                                    </msub>
-                                </math>, then the message <math>
-                                    <mi title="the message">m</mi>
-                                </math> contains
-                                a timestamp <math>
-                                    <mrow title="the message's timestamp is the logical timestamp of the event">
-                                        <msub title="the timestamp of the message">
-                                            <mi>T</mi>
-                                            <mi title="the message">m</mi>
-                                        </msub>
-                                        <mo>=</mo>
-                                        <mrow title="the logical timestamp of the event in the process">
-                                            <msub>
-                                                <mi>C</mi>
-                                                <mi>i</mi>
-                                            </msub>
-                                            <mo>&#x27E8;</mo>
-                                            <mi>a</mi>
-                                            <mo>&#x27E9;</mo>
-                                        </mrow>
-                                    </mrow>
-                                </math>.
-                            </p>
-                        </li>
-                        <li id="implementation-rule-2-b">
-                            <p>
-                                Upon receiving a message <math>
-                                    <mi title="a message">m</mi>
-                                </math>, process <math>
-                                    <msub title="the receiving process">
-                                        <mi>P</mi>
-                                        <mi>j</mi>
-                                    </msub>
-                                </math> sets <math>
-                                    <msub title="the receiving process's clock register">
-                                        <mi>C</mi>
-                                        <mi>j</mi>
-                                    </msub>
-                                </math> greater
-                                than or equal to its present value and
-                                greater than <math>
-                                    <msub title="the received message's timestamp">
-                                        <mi>T</mi>
-                                        <mi title="the received message">m</mi>
-                                    </msub>
-                                </math>.
-                            </p>
-                        </li>
-                    </ol>
+                    <template-use template-id="implementation-rule-2-template"></template-use>
                 </li>
             </ol>
             <p>
-                In <a href="#implementation-rule-2-b">IR2(b)</a> we consider the event
+                In <inline-details>
+                    <span slot="summary">IR2(b)</span>
+                    <template-use slot="content" template-id="implementation-rule-2-b-use"></template-use>
+                </inline-details> we consider the event
                 which represents the receipt of the message <math>
                     <mi title="a message">m</mi>
                 </math> to
@@ -2081,10 +2046,25 @@
                         <mi>j</mi>
                     </msub>
                 </math>. (This is just a notational nuisance, and is irrelevant in any actual implementation.)
-                Obviously, <a href="#implementation-rule-2">IR2</a> insures that <a href="#second-clock-condition">C2</a> is
+                Obviously, <inline-details>
+                    <span slot="summary">IR2</span>
+                    <template-use slot="content" template-id="implementation-rule-2-use"></template-use>
+                </inline-details> insures that <inline-details>
+                    <span slot="summary">C2</span>
+                    <template-use slot="content" template-id="second-clock-condition-use"></template-use>
+                </inline-details> is
                 satisfied. Hence, the simple implementation
-                rules <a href="#implementation-rule-1">IR1</a> and <a href="#implementation-rule-2">IR2</a> imply
-                that the <a href="#clock-condition">Clock Condition</a> is satisfied, so they guarantee a correct system of logical clocks.
+                rules <inline-details>
+                    <span slot="summary">IR1</span>
+                    <template-use slot="content" template-id="implementation-rule-1-use"></template-use>
+                </inline-details> and <inline-details>
+                    <span slot="summary">IR2</span>
+                    <template-use slot="content" template-id="implementation-rule-2-use"></template-use>
+                </inline-details> imply
+                that the <inline-details>
+                    <span slot="summary">Clock Condition</span>
+                    <template-use slot="content" template-id="clock-condition-use"></template-use>
+                </inline-details> is satisfied, so they guarantee a correct system of logical clocks.
             </p>
         </section>
 
@@ -2092,7 +2072,10 @@
             <header>Ordering the Events Totally</header>
 
             <p>
-                We can use a system of clocks satisfying the <a href="#clock-condition">Clock Condition</a> to place
+                We can use a system of clocks satisfying the <inline-details>
+                    <span slot="summary">Clock Condition</span>
+                    <template-use slot="content" template-id="clock-condition-use"></template-use>
+                </inline-details> to place
                 a total ordering on the set of all system events. We simply order the events
                 by the times at which they occur. To break ties, we use any arbitrary total
                 ordering <math>
@@ -2194,7 +2177,10 @@
             </ol>
             <p>
                 It is easy to see that this defines a total ordering,
-                and that the <a href="#clock-condition">Clock Condition</a> implies that if <math>
+                and that the <inline-details>
+                    <span slot="summary">Clock Condition</span>
+                    <template-use slot="content" template-id="clock-condition-use"></template-use>
+                </inline-details> implies that if <math>
                     <mrow title="an event happened before another event">
                         <mi title="an event">a</mi>
                         <mo title="happened before">&#x2192;</mo>
@@ -2209,9 +2195,11 @@
                 </math>. In other words, the relation <math>
                     <mo title="total-order happened before">&#x21D2;</mo>
                 </math> is a
-                way of completing the "happened before" partial ordering to a total ordering.<sup>
-                    <a href="#message-ordering">[Note]</a>
-                </sup>
+                way of completing the "happened before" partial ordering to a total ordering.
+                <inline-details id="message-ordering">
+                    <span slot="summary">[Note]</span>
+                    <template-use slot="content" template-id="message-ordering-template"></template-use>
+                </inline-details>
             </p>
             <p>
                 The ordering <math>
@@ -2221,7 +2209,10 @@
                         <mi>C</mi>
                         <mi>i</mi>
                     </msub>
-                </math>, and is not unique. Different choices of clocks which satisfy the <a href="#clock-condition">Clock Condition</a> yield different
+                </math>, and is not unique. Different choices of clocks which satisfy the <inline-details>
+                    <span slot="summary">Clock Condition</span>
+                    <template-use slot="content" template-id="clock-condition-use"></template-use>
+                </inline-details> yield different
                 relations <math>
                     <mo title="total-order happened before relation">&#x21D2;</mo>
                 </math>.
@@ -2231,7 +2222,10 @@
                 extends <math>
                     <mo title="happened before relation">&#x2192;</mo>
                 </math>, there is a
-                system of clocks satisfying the <a href="#clock-condition">Clock Condition</a> which yields that relation.
+                system of clocks satisfying the <inline-details>
+                    <span slot="summary">Clock Condition</span>
+                    <template-use slot="content" template-id="clock-condition-use"></template-use>
+                </inline-details> which yields that relation.
                 It is only the partial ordering <math>
                     <mo title="happened before relation">&#x2192;</mo>
                 </math> which is
@@ -2251,41 +2245,23 @@
                 for granting the resource to a process which satisfies
                 the following three conditions:
             </p>
-            <ol type="I" id="mutual-exclusion-conditions">
-                <li id="mutual-exclusion-condition-1">
-                    <p>
-                        A process which
-                        has been granted the resource must release it before it
-                        can be granted to another process.
-                    </p>
-                </li>
-                <li id="mutual-exclusion-condition-2">
-                    <p>
-                        Different requests
-                        for the resource must be granted in the order in which
-                        they are made.
-                    </p>
-                </li>
-                <li id="mutual-exclusion-condition-3">
-                    <p>
-                        If every process which is granted the
-                        resource eventually releases it, then every request is
-                        eventually granted.
-                    </p>
-                </li>
-            </ol>
+            <template-use id="mutual-exclusion-conditions" template-id="mutual-exclusion-conditions-template"></template-use>
             <p>
                 We assume that the resource is initially granted to exactly one process.
             </p>
             <p>
                 These are perfectly natural requirements. They precisely
                 specify what it means for a solution to
-                be correct.<sup>
-                    <a href="#eventually-note">[Note]</a>
-                </sup>
+                be correct. <inline-details id="eventually-note">
+                    <span slot="summary">[Note]</span>
+                    <template-use slot="content" template-id="eventually-note-template"></template-use>
+                </inline-details>
                 Observe how the
                 conditions involve the ordering of
-                events. <a href="#mutual-exclusion-condition-2">Condition II</a> says nothing about which of two
+                events. <inline-details>
+                    <span slot="summary">Condition II</span>
+                    <template-use slot="content" template-id="mutual-exclusion-condition-2-use"></template-use>
+                </inline-details> says nothing about which of two
                 concurrently issued requests should be granted first.
             </p>
             <p>
@@ -2342,7 +2318,10 @@
                         <mi>P</mi>
                         <mn>1</mn>
                     </msub>
-                </math>'s request does. <a href="#second-clock-condition">Condition II</a> is then violated if <math>
+                </math>'s request does. <inline-details>
+                    <span slot="summary">Condition II</span>
+                    <template-use slot="content" template-id="mutual-exclusion-condition-2-use"></template-use>
+                </inline-details> is then violated if <math>
                     <msub title="the second process">
                         <mi>P</mi>
                         <mn>2</mn>
@@ -2351,7 +2330,13 @@
             </p>
             <p>
                 To solve the problem, we implement a system of clocks with
-                rules <a href="#implementation-rule-1">IR1</a> and <a href="#implementation-rule-2">IR2</a>,
+                rules <inline-details>
+                    <span slot="summary">IR1</span>
+                    <template-use slot="content" template-id="implementation-rule-1-use"></template-use>
+                </inline-details> and <inline-details>
+                    <span slot="summary">IR2</span>
+                    <template-use slot="content" template-id="implementation-rule-2-use"></template-use>
+                </inline-details>,
                 and use them to define a total ordering <math>
                     <mo title="total-order happened before">&#x21D2;</mo>
                 </math> of all events.
@@ -2451,159 +2436,23 @@
                     </p>
                 </li>
                 <li id="mutual-exclusion-rules-2">
-                    <p>
-                        When process <math>
-                            <msub title="receiving process">
-                                <mi>P</mi>
-                                <mi>j</mi>
-                            </msub>
-                        </math> receives the message <math>
-                            <mrow>
-                                <msub title="the message's timestamp">
-                                    <mi>T</mi>
-                                    <mi>m</mi>
-                                </msub>
-                                <mo>:</mo>
-                                <msub title="the requesting process">
-                                    <mi>P</mi>
-                                    <mi>i</mi>
-                                </msub>
-                                <mtext>requests resource</mtext>
-                            </mrow>
-                        </math>, it places it on its request queue
-                        and sends a (timestamped) acknowledgement message to <math>
-                            <msub title="the requesting process">
-                                <mi>P</mi>
-                                <mi>i</mi>
-                            </msub>
-                        </math>.<sup>
-                            <a href="#acknowledgement-note">[Note]</a>
-                        </sup>
-                    </p>
+                    <template-use template-id="mutual-exclusion-rules-2-template"></template-use>
                 </li>
                 <li id="mutual-exclusion-rules-3">
-                    <p>
-                        To release the resource, process <math>
-                            <msub title="the releasing process">
-                                <mi>P</mi>
-                                <mi>i</mi>
-                            </msub>
-                        </math> removes
-                        any <math>
-                            <mrow>
-                                <msub title="the message's timestamp">
-                                    <mi>T</mi>
-                                    <mi>m</mi>
-                                </msub>
-                                <mo>:</mo>
-                                <msub title="the releasing process">
-                                    <mi>P</mi>
-                                    <mi>i</mi>
-                                </msub>
-                                <mtext>requests resource</mtext>
-                            </mrow>
-                        </math> message from its request queue and sends a (timestamped) <math>
-                            <mrow>
-                                <msub title="the releasing process">
-                                    <mi>P</mi>
-                                    <mi>i</mi>
-                                </msub>
-                                <mtext>releases resource</mtext>
-                            </mrow>
-                        </math> message to every other process.
-                    </p>
+                    <template-use template-id="mutual-exclusion-rules-3-template"></template-use>
                 </li>
                 <li id="mutual-exclusion-rules-4">
-                    <p>
-                        When process <math>
-                            <msub title="the receiving process">
-                                <mi>P</mi>
-                                <mi>j</mi>
-                            </msub>
-                        </math> receives a <math>
-                            <mrow>
-                                <msub title="the releasing process">
-                                    <mi>P</mi>
-                                    <mi>i</mi>
-                                </msub>
-                                <mtext>releases resource</mtext>
-                            </mrow>
-                        </math> message,
-                        it removes any <math>
-                            <mrow>
-                                <msub title="the message's timestamp">
-                                    <mi>T</mi>
-                                    <mi>m</mi>
-                                </msub>
-                                <mo>:</mo>
-                                <msub title="the releasing process">
-                                    <mi>P</mi>
-                                    <mi>i</mi>
-                                </msub>
-                                <mtext>requests resource</mtext>
-                            </mrow>
-                        </math> message from its queue.
-                    </p>
+                    <template-use template-id="mutual-exclusion-rules-4-template"></template-use>
                 </li>
                 <li id="mutual-exclusion-rules-5">
-                    <p>
-                        Process <math>
-                            <msub title="a process">
-                                <mi>P</mi>
-                                <mi>i</mi>
-                            </msub>
-                        </math> is granted the resource when the following
-                        two conditions are satisfied:
-                    </p>
-                    <ol type="i">
-                        <li id="mutual-exclusion-rules-5-i">
-                            <p>
-                                There is a <math>
-                                    <mrow>
-                                        <msub title="the message's timestamp">
-                                            <mi>T</mi>
-                                            <mi>m</mi>
-                                        </msub>
-                                        <mo>:</mo>
-                                        <msub title="the process">
-                                            <mi>P</mi>
-                                            <mi>i</mi>
-                                        </msub>
-                                        <mtext>requests resource</mtext>
-                                    </mrow>
-                                </math> message in its request queue which is ordered before any other request
-                                in its queue by the relation <math>
-                                    <mo title="total-order happened before">&#x21D2;</mo>
-                                </math>.
-                                (To define the relation "<math>
-                                    <mo title="total-order happened before">&#x21D2;</mo>
-                                </math>" for messages,
-                                we identify a message with the event of sending it.)
-                            </p>
-                        </li>
-                        <li id="mutual-exclusion-rules-5-ii">
-                            <p>
-                                <math>
-                                    <msub title="the process">
-                                        <mi>P</mi>
-                                        <mi>i</mi>
-                                    </msub>
-                                </math> has received a message from every other process timestamped
-                                later than <math>
-                                    <msub title="the message's timestamp">
-                                        <mi>T</mi>
-                                        <mi>m</mi>
-                                    </msub>
-                                </math>.<sup>
-                                    <a href="#receive-message-note">[Note]</a>
-                                </sup>
-                            </p>
-                        </li>
-                    </ol>
+                    <template-use template-id="mutual-exclusion-rules-5-template"></template-use>
                 </li>
             </ol>
             <p>
-                Note that <a href="#mutual-exclusion-rules-5">conditions (i) and (ii) of rule 5</a> are
+                Note that <inline-details>
+                    <span slot="summary">conditions (i) and (ii) of rule 5</span>
+                    <template-use slot="content" template-id="mutual-exclusion-rules-5-use"></template-use>
+                </inline-details> are
                 tested locally by <math>
                     <msub title="a process">
                         <mi>P</mi>
@@ -2612,32 +2461,68 @@
                 </math>.
             </p>
             <p>
-                It is easy to verify that the algorithm defined by these rules satisfies <a href="#mutual-exclusion-conditions">conditions I-III</a>.
-                First of all, observe that <a href="#mutual-exclusion-rules-5-ii">condition (ii) of rule 5</a>, together with the assumption that messages
+                It is easy to verify that the algorithm defined by these rules satisfies <inline-details>
+                    <span slot="summary">conditions I-III</span>
+                    <template-use slot="content" template-id="mutual-exclusion-conditions-use"></template-use>
+                </inline-details>.
+                First of all, observe that <inline-details>
+                    <span slot="summary">condition (ii) of rule 5</span>
+                    <template-use slot="content" template-id="mutual-exclusion-rules-5-ii-use"></template-use>
+                </inline-details>, together with the assumption that messages
                 are received in order, guarantees that <math>
                     <msub title="a process">
                         <mi>P</mi>
                         <mi>i</mi>
                     </msub>
                 </math> has learned about all requests which preceded its current request.
-                Since <a href="#mutual-exclusion-rules-3">rules 3</a> and <a href="#mutual-exclusion-rules-4">4</a> are
+                Since <inline-details>
+                    <span slot="summary">rules 3</span>
+                    <template-use slot="content" template-id="mutual-exclusion-rules-3-use"></template-use>
+                </inline-details> and <inline-details>
+                    <span slot="summary">4</span>
+                    <template-use slot="content" template-id="mutual-exclusion-rules-4-use"></template-use>
+                </inline-details> are
                 the only ones which delete messages from the request queue, it
-                is then easy to see that <a href="#mutual-exclusion-condition-1">condition I</a> holds.
-                <a href="#mutual-exclusion-condition-2">Condition II</a> follows from the fact that the total ordering <math>
+                is then easy to see that <inline-details>
+                    <span slot="summary">condition I</span>
+                    <template-use slot="content" template-id="mutual-exclusion-condition-1-use"></template-use>
+                </inline-details> holds.
+                <inline-details>
+                    <span slot="summary">Condition II</span>
+                    <template-use slot="content" template-id="mutual-exclusion-condition-2-use"></template-use>
+                </inline-details> follows from the fact that the total ordering <math>
                     <mo title="total-order happened-before relation">&#x21D2;</mo>
                 </math> extends the
                 partial ordering <math>
                     <mo title="happened-before relation">&#x2192;</mo>
-                </math>. <a href="#mutual-exclusion-rules-2">Rule 2</a> guarantees that after <math>
+                </math>. <inline-details>
+                    <span slot="summary">Rule 2</span>
+                    <template-use slot="content" template-id="mutual-exclusion-rules-2-use"></template-use>
+                </inline-details> guarantees that after <math>
                     <msub title="a process">
                         <mi>P</mi>
                         <mi>i</mi>
                     </msub>
-                </math> requests the resource, <a href="#mutual-exclusion-rules-5-ii">condition (ii) of rule 5</a> will
-                eventually hold. <a href="#mutual-exclusion-rules-3">Rules 3</a> and <a href="#mutual-exclusion-rules-4">4</a> imply
+                </math> requests the resource, <inline-details>
+                    <span slot="summary">condition (ii) of rule 5</span>
+                    <template-use slot="content" template-id="mutual-exclusion-rules-5-ii-use"></template-use>
+                </inline-details> will
+                eventually hold. <inline-details>
+                    <span slot="summary">Rules 3</span>
+                    <template-use slot="content" template-id="mutual-exclusion-rules-3-use"></template-use>
+                </inline-details> and <inline-details>
+                    <span slot="summary">4</span>
+                    <template-use slot="content" template-id="mutual-exclusion-rules-4-use"></template-use>
+                </inline-details> imply
                 that if each process which is granted the resource eventually releases it,
-                then <a href="#mutual-exclusion-rules-5-i">condition (i) of rule 5</a> will
-                eventually hold, thus providing <a href="#mutual-exclusion-condition-3">condition III</a>.
+                then <inline-details>
+                    <span slot="summary">condition (i) of rule 5</span>
+                    <template-use slot="content" template-id="mutual-exclusion-rules-5-i-use"></template-use>
+                </inline-details> will
+                eventually hold, thus providing <inline-details>
+                    <span slot="summary">condition III</span>
+                    <template-use slot="content" template-id="mutual-exclusion-condition-3-use"></template-use>
+                </inline-details>.
             </p>
             <p>
                 This is a distributed algorithm. Each process independently
@@ -2711,9 +2596,10 @@
                 is the currently granted one. Executing a <em>request</em> command
                 adds the request to the tail of the queue, and
                 executing a <em>release</em> command removes a command from
-                the queue.<sup>
-                    <a href="#release-note">[Note]</a>
-                </sup>
+                the queue. <inline-details id="release-note">
+                    <span slot="summary">[Note]</span>
+                    <template-use slot="content" template-id="release-note-template"></template-use>
+                </inline-details>
             </p>
             <p>
                 Each process independently simulates the execution
@@ -2853,42 +2739,12 @@
             <p>
                 The second approach is to construct a system of clocks which satisfies the following condition.
             </p>
-            <p id="strong-clock-condition">
-                <em>Strong Clock Condition.</em> For any events <math>
-                    <mi title="an event">a</mi>
-                </math>, <math>
-                    <mi title="another event">b</mi>
-                </math> in <math>
-                    <mi title="the set of all system events">&#x3B6;</mi>
-                </math>
-                if <math>
-                    <mrow>
-                        <mi title="the first event">a</mi>
-                        <mo title="happened-before for relevant events">&#x27A1;</mo>
-                        <mi title="the second event">b</mi>
-                    </mrow>
-                </math> then <math>
-                    <mrow title="the logical timestamp of the first event is less than the logical timestamp of the second event">
-                        <mrow title="the logical timestamp of the first event">
-                            <mi>C</mi>
-                            <mo>&#x27E8;</mo>
-                            <mi>a</mi>
-                            <mo>&#x27E9;</mo>
-                        </mrow>
-                        <mo>&#x3C;</mo>
-                        <mrow title="the logical timestamp of the second event">
-                            <mi>C</mi>
-                            <mo>&#x27E8;</mo>
-                            <mi>b</mi>
-                            <mo>&#x27E9;</mo>
-                        </mrow>
-                    </mrow>
-                </math>.
-            </p>
+            <template-use id="strong-clock-condition" template-id="strong-clock-condition-template"></template-use>
             <p>
-                This is stronger than the ordinary <a href="#clock-condition">
-                    Clock Condition
-                </a> because <math>
+                This is stronger than the ordinary <inline-details>
+                    <span slot="summary">Clock Condition</span>
+                    <template-use slot="content" template-id="clock-condition-use"></template-use>
+                </inline-details> because <math>
                     <mo title="happened-before for relevant events">&#x27A1;</mo>
                 </math> is
                 a stronger relation than <math>
@@ -2904,7 +2760,10 @@
                 </math> be
                 the partial ordering of events defined by special relativity. One of the
                 mysteries of the universe is that it is possible to construct a system of physical
-                clocks which, running quite independently of one another, will satisfy the <a href="#strong-clock-condition">Strong Clock Condition</a>.
+                clocks which, running quite independently of one another, will satisfy the <inline-details>
+                    <span slot="summary">Strong Clock Condition</span>
+                    <template-use slot="content" template-id="strong-clock-condition-use"></template-use>
+                </inline-details>.
                 We can therefore use physical clocks to eliminate anomalous behavior. We now turn
                 our attention to such clocks.
             </p>
@@ -2931,9 +2790,11 @@
                     </msub>
                 </math> at physical time <math>
                     <mi title="physical time">t</mi>
-                </math>.<sup>
-                    <a href="#time-note">[Note]</a>
-                </sup> For mathematical
+                </math>. <inline-details id="time-note">
+                    <span slot="summary">[Note]</span>
+                    <template-use slot="content" template-id="release-note-template"></template-use>
+                </inline-details>
+                For mathematical
                 convenience, we assume that the clocks run continuously rather than in discrete "ticks."
                 (A discrete clock can be thought of as a continuous one in which there is an error of up to <math>
                     <mfrac>
@@ -3002,43 +2863,7 @@
             </p>
             <ol class="physical-clock">
                 <li id="physical-clock-condition-1">
-                    <p>
-                        There exists a constant <math>
-                            <mrow>
-                                <mi title="maximum clock speed error">&#x3BA;</mi>
-                                <mo>&#x226A;</mo>
-                                <mn>1</mn>
-                            </mrow>
-                        </math> such that for all <math>
-                            <mi>i</mi>
-                        </math> <math>
-                            <mrow title="the clock rate error is less than the maximum clock rate error">
-                                <mrow>
-                                    <mo>|</mo>
-                                    <mrow>
-                                        <mfrac title="the clock rate">
-                                            <mrow>
-                                                <mo>d</mo>
-                                                <msub>
-                                                    <mi>C</mi>
-                                                    <mi>i</mi>
-                                                </msub>
-                                                <mo>(</mo>
-                                                <mi>t</mi>
-                                                <mo>)</mo>
-                                            </mrow>
-                                            <mo>dt</mo>
-                                        </mfrac>
-                                        <mo>-</mo>
-                                        <mn>1</mn>
-                                    </mrow>
-                                    <mo>|</mo>
-                                </mrow>
-                                <mo>&#x3C;</mo>
-                                <mi title="the maximum clock speed error">&#x3BA;</mi>
-                            </mrow>
-                        </math>.
-                    </p>
+                    <template-use template-id="physical-clock-condition-1-template"></template-use>
                 </li>
             </ol>
             <p>
@@ -3091,46 +2916,15 @@
             </p>
             <ol start="2" class="physical-clock">
                 <li id="physical-clock-condition-2">
-                    For all <math>
-                        <mi>i</mi>
-                    </math>, <math>
-                        <mi>j</mi>
-                    </math> <math>
-                        <mrow title="the difference between two clocks' time is below the maximum clock drift">
-                            <mrow title="the difference between two clocks' time">
-                                <mo>|</mo>
-                                <mrow title="one clock's time">
-                                    <msub>
-                                        <mi>C</mi>
-                                        <mi>i</mi>
-                                    </msub>
-                                    <mo>(</mo>
-                                    <mi>t</mi>
-                                    <mo>)</mo>
-                                </mrow>
-                                <mo>-</mo>
-                                <mrow title="another clock's time">
-                                    <msub>
-                                        <mi>C</mi>
-                                        <mi>j</mi>
-                                    </msub>
-                                    <mo>(</mo>
-                                    <mi>t</mi>
-                                    <mo>)</mo>
-                                </mrow>
-                                <mo>|</mo>
-                            </mrow>
-                            <mo>&#x3C;</mo>
-                            <mi title="maximum clock drift">&#x3B5;</mi>
-                        </mrow>
-                    </math>.
+                    <template-use template-id="physical-clock-condition-2-template"></template-use>
                 </li>
             </ol>
             <p>
                 If we consider vertical distance in <a href="#figure-2">Figure 2</a> to
-                represent physical time, then <a href="#physical-clock-condition-2">
-                    PC2
-                </a> states
+                represent physical time, then <inline-details>
+                    <span slot="summary">PC2</span>
+                    <template-use slot="content" template-id="physical-clock-condition-2-use"></template-use>
+                </inline-details> states
                 that the variation in height of a single tick line is less than <math>
                     <mi title="maximum clock drift">&#x3B5;</mi>
                 </math>.
@@ -3139,7 +2933,10 @@
                 Since two different clocks will never run at exactly
                 the same rate, they will tend to drift further and further
                 apart. We must therefore devise an algorithm to insure
-                that <a href="#physical-clock-condition-2">PC2</a> always
+                that <inline-details>
+                    <span slot="summary">PC2</span>
+                    <template-use slot="content" template-id="physical-clock-condition-2-use"></template-use>
+                </inline-details> always
                 holds. First, however, let us examine how small <math>
                     <mi title="maximum clock speed error">&#x3BA;</mi>
                 </math> and <math>
@@ -3149,10 +2946,19 @@
                 We must insure that the system <math>
                     <mi title="set of all relevant events">&#x3B6;</mi>
                 </math> of relevant physical
-                events satisfies the <a href="#strong-clock-condition">Strong Clock Condition</a>.
+                events satisfies the <inline-details>
+                    <span slot="summary">Strong Clock Condition</span>
+                    <template-use slot="content" template-id="strong-clock-condition-use"></template-use>
+                </inline-details>.
                 We assume
-                that our clocks satisfy the ordinary <a href="#clock-condition">Clock Condition</a>,
-                so we need only require that the <a href="#strong-clock-condition">Strong Clock Condition</a> holds
+                that our clocks satisfy the ordinary <inline-details>
+                    <span slot="summary">Clock Condition</span>
+                    <template-use slot="content" template-id="clock-condition-use"></template-use>
+                </inline-details>,
+                so we need only require that the <inline-details>
+                    <span slot="summary">Strong Clock Condition</span>
+                    <template-use slot="content" template-id="strong-clock-condition-use"></template-use>
+                </inline-details> holds
                 when <math>
                     <mi title="an event">a</mi>
                 </math> and <math>
@@ -3245,7 +3051,13 @@
                         <mn>0</mn>
                     </mrow>
                 </math>. Combining this
-                with <a href="#physical-clock-condition-1">PC1</a> and <a href="#physical-clock-condition-2">2</a> allows
+                with <inline-details>
+                    <span slot="summary">PC1</span>
+                    <template-use slot="content" template-id="physical-clock-condition-1-use"></template-use>
+                </inline-details> and <inline-details>
+                    <span slot="summary">2</span>
+                    <template-use slot="content" template-id="physical-clock-condition-2-use"></template-use>
+                </inline-details> allows
                 us to relate the required smallness of <math>
                     <mi title="maximum clock speed error">&#x3BA;</mi>
                 </math> and <math>
@@ -3253,8 +3065,14 @@
                 </math> to the value of <math>
                     <mi title="minimum causal period?">&#x3BC;</mi>
                 </math> as follows. We assume that when a clock is reset, it is
-                always set forward and never back. (Setting it back would cause <a href="#first-clock-condition">C1</a> to
-                be violated.) <a href="#physical-clock-condition-1">PC1</a> then
+                always set forward and never back. (Setting it back would cause <inline-details>
+                    <span slot="summary">C1</span>
+                    <template-use slot="content" template-id="first-clock-condition-use"></template-use>
+                </inline-details> to
+                be violated.) <inline-details>
+                    <span slot="summary">PC1</span>
+                    <template-use slot="content" template-id="physical-clock-condition-1-use"></template-use>
+                </inline-details> then
                 implies that <math>
                     <mrow>
                         <mrow>
@@ -3288,7 +3106,10 @@
                             <mi title="minimum causal delay?">&#x3BC;</mi>
                         </mrow>
                     </mrow>
-                </math>. Using <a href="#physical-clock-condition-2">PC2</a>, it is then easy to deduce that <math>
+                </math>. Using <inline-details>
+                    <span slot="summary">PC2</span>
+                    <template-use slot="content" template-id="physical-clock-condition-2-use"></template-use>
+                </inline-details>, it is then easy to deduce that <math>
                     <mrow>
                         <mrow>
                             <msub>
@@ -3330,11 +3151,20 @@
                         <mi title="minimum causal period?">&#x3BC;</mi>
                     </mrow>
                 </math>
-                This inequality together with <a href="#physical-clock-condition-1">PC1</a> and <a href="#physical-clock-condition-2">PC2</a> implies
+                This inequality together with <inline-details>
+                    <span slot="summary">PC1</span>
+                    <template-use slot="content" template-id="physical-clock-condition-1-use"></template-use>
+                </inline-details> and <inline-details>
+                    <span slot="summary">PC2</span>
+                    <template-use slot="content" template-id="physical-clock-condition-2-use"></template-use>
+                </inline-details> implies
                 that anomalous behavior is impossible.
             </p>
             <p>
-                We now describe our algorithm for insuring that <a href="#physical-clock-condition-2">PC2</a> holds.
+                We now describe our algorithm for insuring that <inline-details>
+                    <span slot="summary">PC2</span>
+                    <template-use slot="content" template-id="physical-clock-condition-2-use"></template-use>
+                </inline-details> holds.
                 Let <math>
                     <mi title="a message">m</mi>
                 </math> be a message which is sent at physical time <math>
@@ -3406,151 +3236,21 @@
                 </math> the <em>unpredictable delay</em> of the message.
             </p>
             <p>
-                We now specialize rules <a href="#implementation-rule-1">IR1</a> and <a href="#implementation-rule-2">2</a> for
+                We now specialize rules <inline-details>
+                    <span slot="summary">IR1</span>
+                    <template-use slot="content" template-id="implementation-rule-1-use"></template-use>
+                </inline-details> and <inline-details>
+                    <span slot="summary">2</span>
+                    <template-use slot="content" template-id="implementation-rule-2-use"></template-use>
+                </inline-details> for
                 our physical clocks as follows:
             </p>
             <ol id="physical-implementation-rules">
                 <li id="physical-implementation-rule-1">
-                    <p>
-                        For each <math>
-                            <mi>i</mi>
-                        </math>,
-                        if <math>
-                            <msub title="a process">
-                                <mi>P</mi>
-                                <mi>i</mi>
-                            </msub>
-                        </math> does not receive a message at physical time <math>
-                            <mi title="physical time">t</mi>
-                        </math>,
-                        then <math>
-                            <msub title="the process's clock">
-                                <mi>C</mi>
-                                <mi>i</mi>
-                            </msub>
-                        </math> is differentiable at <math>
-                            <mi title="physical time">t</mi>
-                        </math> and <math>
-                            <mrow title="the clock speed is positive">
-                                <mfrac title="the clock speed">
-                                    <mrow>
-                                        <mo>d</mo>
-                                        <msub>
-                                            <mi>C</mi>
-                                            <mi>i</mi>
-                                        </msub>
-                                        <mo>(</mo>
-                                        <mi>t</mi>
-                                        <mo>)</mo>
-                                    </mrow>
-                                    <mo>dt</mo>
-                                </mfrac>
-                                <mo>&#x003E;</mo>
-                                <mn>0</mn>
-                            </mrow>
-                        </math>.
-                    </p>
+                    <template-use template-id="physical-implementation-rule-1-template"></template-use>
                 </li>
                 <li id="physical-implementation-rule-2">
-                    <ol type="a">
-                        <li>
-                            <p>
-                                If <math>
-                                    <msub title="a process">
-                                        <mi>P</mi>
-                                        <mi>i</mi>
-                                    </msub>
-                                </math> sends a message <math>
-                                    <mi title="a message">m</mi>
-                                </math> at
-                                physical time <math>
-                                    <mi title="physical sent time">t</mi>
-                                </math>, then <math>
-                                    <mi title="the message">m</mi>
-                                </math> contains
-                                a timestamp <math>
-                                    <mrow>
-                                        <msub title="the message's timestamp">
-                                            <mi>T</mi>
-                                            <mi>m</mi>
-                                        </msub>
-                                        <mo>=</mo>
-                                        <mrow title="the clock's value at sent time">
-                                            <msub>
-                                                <mi>C</mi>
-                                                <mi>i</mi>
-                                            </msub>
-                                            <mo>(</mo>
-                                            <mi>t</mi>
-                                            <mo>)</mo>
-                                        </mrow>
-                                    </mrow>
-                                </math>.
-                            </p>
-                        </li>
-                        <li>
-                            <p>
-                                Upon receiving a message <math>
-                                    <mi title="a message">m</mi>
-                                </math> at
-                                time <math>
-                                    <mrow title="physical received time">
-                                        <mi>t</mi>
-                                        <mo>&#x2032;</mo>
-                                    </mrow>
-                                </math>, process <math>
-                                    <msub title="the receiving process">
-                                        <mi>P</mi>
-                                        <mi>j</mi>
-                                    </msub>
-                                </math> sets <math>
-                                    <mrow title="the receiving process's clock at the received time">
-                                        <msub>
-                                            <mi>C</mi>
-                                            <mi>j</mi>
-                                        </msub>
-                                        <mo>(</mo>
-                                        <mrow title="physical received time">
-                                            <mi>t</mi>
-                                            <mo>&#x2032;</mo>
-                                        </mrow>
-                                        <mo>)</mo>
-                                    </mrow>
-                                </math> equal to maximum <math>
-                                    <mrow>
-                                        <mo>(</mo>
-                                        <mrow>
-                                            <msub>
-                                                <mi>C</mi>
-                                                <mi>j</mi>
-                                            </msub>
-                                            <mo>(</mo>
-                                            <mi>t</mi>
-                                            <mo>&#x2032;</mo>
-                                            <mo>-</mo>
-                                            <mn>0</mn>
-                                            <mo>)</mo>
-                                        </mrow>
-                                        <mo>,</mo>
-                                        <mrow>
-                                            <msub title="the message's timestamp">
-                                                <mi>T</mi>
-                                                <mi>m</mi>
-                                            </msub>
-                                            <mo>+</mo>
-                                            <msub title="the message's minimum delay">
-                                                <mi>&#x3BC;</mi>
-                                                <mi>m</mi>
-                                            </msub>
-                                        </mrow>
-                                        <mo>)</mo>
-                                    </mrow>
-                                </math>.<sup>
-                                    <a href="#limit-note">[Note]</a>
-                                </sup>
-                            </p>
-                        </li>
-                    </ol>
+                    <template-use template-id="physical-implementation-rule-2-template"></template-use>
                 </li>
             </ol>
             <p>
@@ -3561,17 +3261,32 @@
                 assuming that each event occurs at a precise instant of
                 physical time, and different events in the same process
                 occur at different times. These rules are then specializations
-                of rules <a href="#implementation-rule-1">IR1</a> and <a href="#implementation-rule-2">IR2</a>,
+                of rules <inline-details>
+                    <span slot="summary">IR1</span>
+                    <template-use slot="content" template-id="implementation-rule-1-use"></template-use>
+                </inline-details> and <inline-details>
+                    <span slot="summary">IR2</span>
+                    <template-use slot="content" template-id="implementation-rule-2-use"></template-use>
+                </inline-details>,
                 so our system of clocks
-                satisfies the <a href="#clock-condition">Clock Condition</a>. The fact that real events
+                satisfies the <inline-details>
+                    <span slot="summary">Clock Condition</span>
+                    <template-use slot="content" template-id="clock-condition-use"></template-use>
+                </inline-details>. The fact that real events
                 have a finite duration causes no difficulty in implementing
                 the algorithm. The only real concern in the implementation
                 is making sure that the discrete clock ticks are
-                frequent enough so <a href="#first-clock-condition">C1</a> is maintained.
+                frequent enough so <inline-details>
+                    <span slot="summary">C1</span>
+                    <template-use slot="content" template-id="first-clock-condition-use"></template-use>
+                </inline-details> is maintained.
             </p>
             <p>
                 We now show that this clock synchronizing algorithm can be used to
-                satisfy <a href="#physical-clock-condition-2">condition PC2</a>.
+                satisfy <inline-details>
+                    <span slot="summary">condition PC2</span>
+                    <template-use slot="content" template-id="physical-clock-condition-2-use"></template-use>
+                </inline-details>.
                 We assume that the system of processes is described by a
                 directed graph in which an arc from process <math>
                     <msub title="a process">
@@ -3646,7 +3361,10 @@
                 </math> arcs.
             </p>
             <p>
-                In addition to establishing <a href="#physical-clock-condition-2">PC2</a>,
+                In addition to establishing <inline-details>
+                    <span slot="summary">PC2</span>
+                    <template-use slot="content" template-id="physical-clock-condition-2-use"></template-use>
+                </inline-details>,
                 the following theorem bounds the length of time
                 it can take the clocks to become synchronized when the system is first started.
             </p>
@@ -3656,7 +3374,13 @@
                     with diameter <math>
                         <mi title="diameter">d</mi>
                     </math> which always
-                    obeys rules <a href="#physical-implementation-rule-1">IR1'</a> and <a href="#physical-implementation-rule-2">IR2'</a>.
+                    obeys rules <inline-details>
+                        <span slot="summary">IR1'</span>
+                        <template-use slot="content" template-id="physical-implementation-rule-1-use"></template-use>
+                    </inline-details> and <inline-details>
+                        <span slot="summary">IR2'</span>
+                        <template-use slot="content" template-id="physical-implementation-rule-2-use"></template-use>
+                    </inline-details>.
                     Assume that for any message <math>
                         <mi title="a message">m</mi>
                     </math>, <math>
@@ -3813,213 +3537,41 @@
             <header>Notes</header>
 
             <ol>
-                <li id="event-note">
-                    <p>
-                        The choice of what constitutes an event affects the ordering of events in a process. For example, the receipt of a message might denote
-                        the setting of an interrupt bit in a computer, or the execution of a
-                        subprogram to handle that interrupt. Since interrupts need not be
-                        handled in the order that they occur, this choice will affect the ordering of a process' message-receiving events.
-                    </p>
+                <li>
+                    <a href="#event-note">Go to source.</a>
+                    <template-use template-id="event-note-template"></template-use>
                 </li>
-                <li id="message-note">
-                    <p>
-                        Observe that messages may be received out of order.
-                        We allow the sending of several messages to be a
-                        single event, but for convenience we will assume
-                        that the receipt of a single message does not
-                        coincide with the sending or receipt of any other message.
-                    </p>
+                <li>
+                    <a href="#message-note">Go to source.</a>
+                    <template-use template-id="message-note-template"></template-use>
                 </li>
-                <li id="message-ordering">
-                    <p>
-                        The ordering <math>
-                            <mo>&#x227A;</mo>
-                        </math> establishes a priority among the processes.
-                        If a "fairer" method is desired, then <math>
-                            <mo>&#x227A;</mo>
-                        </math> can be made
-                        a function of the clock value. For example, if <math>
-                            <mrow>
-                                <msub>
-                                    <mi>C</mi>
-                                    <mi>i</mi>
-                                </msub>
-                                <mo>&#x27E8;</mo>
-                                <mi>a</mi>
-                                <mo>&#x27E9;</mo>
-                                <mo>=</mo>
-                                <msub>
-                                    <mi>C</mi>
-                                    <mi>j</mi>
-                                </msub>
-                                <mo>&#x27E8;</mo>
-                                <mi>b</mi>
-                                <mo>&#x27E9;</mo>
-                            </mrow>
-                        </math> and <math>
-                            <mrow>
-                                <mi>j</mi>
-                                <mo>&#x3C;</mo>
-                                <mi>i</mi>
-                            </mrow>
-                        </math>, then we can let <math>
-                            <mrow>
-                                <mi>a</mi>
-                                <mo>&#x21D2;</mo>
-                                <mi>b</mi>
-                            </mrow>
-                        </math> if <math>
-                            <mrow>
-                                <mi>j</mi>
-                                <mo>&#x3C;</mo>
-                                <msub>
-                                    <mi>C</mi>
-                                    <mi>i</mi>
-                                </msub>
-                                <mo>&#x27E8;</mo>
-                                <mi>a</mi>
-                                <mo>&#x27E9;</mo>
-                                <mi>mod</mi>
-                                <mi>N</mi>
-                                <mo>&#x2264;</mo>
-                                <mi>i</mi>
-                            </mrow>
-                        </math>, and <math>
-                            <mrow>
-                                <mi>b</mi>
-                                <mo>&#x21D2;</mo>
-                                <mi>a</mi>
-                            </mrow>
-                        </math> otherwise; where <math>
-                            <mi>N</mi>
-                        </math> is the total number of processes.
-                    </p>
+                <li>
+                    <a href="#message-ordering">Go to source.</a>
+                    <template-use template-id="message-ordering-template"></template-use>
                 </li>
-                <li id="eventually-note">
-                    <p>
-                        The term "eventually" should be made precise, but that would require too long a diversion from our main topic.
-                    </p>
+                <li>
+                    <a href="#eventually-note">Go to source.</a>
+                    <template-use template-id="eventually-note-template"></template-use>
                 </li>
-                <li id="acknowledgement-note">
-                    <p>
-                        This acknowledgement message need not be sent if <math>
-                            <msub>
-                                <mi>P</mi>
-                                <mi>j</mi>
-                            </msub>
-                        </math> has
-                        already sent a message to <math>
-                            <msub>
-                                <mi>P</mi>
-                                <mi>i</mi>
-                            </msub>
-                        </math> timestamped later
-                        than <math>
-                            <msub>
-                                <mi>T</mi>
-                                <mi>m</mi>
-                            </msub>
-                        </math>.
-                    </p>
+                <li>
+                    <a href="#acknowledgement-note">Go to source.</a>
+                    <template-use template-id="acknowledgement-note-template"></template-use>
                 </li>
-                <li id="receive-message-note">
-                    <p>
-                        If <math>
-                            <mrow>
-                                <msub>
-                                    <mi>P</mi>
-                                    <mi>i</mi>
-                                </msub>
-                                <mo>&#x227A;</mo>
-                                <msub>
-                                    <mi>P</mi>
-                                    <mi>j</mi>
-                                </msub>
-                            </mrow>
-                        </math>, then <math>
-                            <msub>
-                                <mi>P</mi>
-                                <mi>i</mi>
-                            </msub>
-                        </math> need only have received a
-                        message timestamped <math>
-                            <mrow>
-                                <mo>&ge;</mo>
-                                <msub>
-                                    <mi>T</mi>
-                                    <mi>m</mi>
-                                </msub>
-                            </mrow>
-                        </math> from <math>
-                            <msub>
-                                <mi>P</mi>
-                                <mi>j</mi>
-                            </msub>
-                        </math>.
-                    </p>
+                <li>
+                    <a href="#receive-message-note">Go to source.</a>
+                    <template-use template-id="receive-message-note-template"></template-use>
                 </li>
-                <li id="release-note">
-                    <p>
-                        If each process does not stricly alternate <em>request</em> and <em>release</em> commands,
-                        then executing a <em>release</em> command could delete zero, one, or more than one request
-                        from the queue.
-                    </p>
+                <li>
+                    <a href="#release-note">Go to source.</a>
+                    <template-use template-id="release-note-template"></template-use>
                 </li>
-                <li id="time-note">
-                    <p>
-                        We will assume a Newtonian space-time. If the relative motion of the clocks or gravitational effects are not
-                        negligible, then <math>
-                            <mrow>
-                                <msub>
-                                    <mi>C</mi>
-                                    <mi>i</mi>
-                                </msub>
-                                <mo>(</mo>
-                                <mi>t</mi>
-                                <mo>)</mo>
-                            </mrow>
-                        </math> must be deduced from the actual clock reading by transforming from proper time
-                        to the arbitrarily chosen time coordinate.
-                    </p>
+                <li>
+                    <a href="#time-note">Go to source.</a>
+                    <template-use template-id="time-note-template"></template-use>
                 </li>
-                <li id="limit-note">
-                    <p>
-                        <math display="block">
-                            <mrow>
-                                <msub>
-                                    <mi>C</mi>
-                                    <mi>j</mi>
-                                </msub>
-                                <mo>(</mo>
-                                <mi>t</mi>
-                                <mo>&#x2032;</mo>
-                                <mo>-</mo>
-                                <mn>0</mn>
-                                <mo>)</mo>
-                                <mo>=</mo>
-                                <munder>
-                                    <mi>lim</mi>
-                                    <mrow>
-                                        <mi>&#x3B4;</mi>
-                                        <mo>&#x2192;</mo>
-                                        <mn>0</mn>
-                                    </mrow>
-                                </munder>
-                                <msub>
-                                    <mi>C</mi>
-                                    <mi>j</mi>
-                                </msub>
-                                <mo>(</mo>
-                                <mi>t</mi>
-                                <mo>&#x2032;</mo>
-                                <mo>-</mo>
-                                <mo>|</mo>
-                                <mi>&#x3B4;</mi>
-                                <mo>|</mo>
-                                <mo>)</mo>
-                            </mrow>
-                        </math>
-                    </p>
+                <li>
+                    <a href="#limit-note">Go to source.</a>
+                    <template-use template-id="limit-note-template"></template-use>
                 </li>
             </ol>
         </section>
@@ -4064,6 +3616,978 @@
             </ol>
         </section>
     </article>
+
+    <template id="event-note-template">
+        <p>
+            The choice of what constitutes an event affects the ordering of events in a process. For example, the receipt of a message might denote
+            the setting of an interrupt bit in a computer, or the execution of a
+            subprogram to handle that interrupt. Since interrupts need not be
+            handled in the order that they occur, this choice will affect the ordering of a process' message-receiving events.
+        </p>
+    </template>
+
+    <template id="message-note-template">
+        <p>
+            Observe that messages may be received out of order.
+            We allow the sending of several messages to be a
+            single event, but for convenience we will assume
+            that the receipt of a single message does not
+            coincide with the sending or receipt of any other message.
+        </p>
+    </template>
+
+    <template id="message-ordering-template">
+        <p>
+            The ordering <math>
+                <mo>&#x227A;</mo>
+            </math> establishes a priority among the processes.
+            If a "fairer" method is desired, then <math>
+                <mo>&#x227A;</mo>
+            </math> can be made
+            a function of the clock value. For example, if <math>
+                <mrow>
+                    <msub>
+                        <mi>C</mi>
+                        <mi>i</mi>
+                    </msub>
+                    <mo>&#x27E8;</mo>
+                    <mi>a</mi>
+                    <mo>&#x27E9;</mo>
+                    <mo>=</mo>
+                    <msub>
+                        <mi>C</mi>
+                        <mi>j</mi>
+                    </msub>
+                    <mo>&#x27E8;</mo>
+                    <mi>b</mi>
+                    <mo>&#x27E9;</mo>
+                </mrow>
+            </math> and <math>
+                <mrow>
+                    <mi>j</mi>
+                    <mo>&#x3C;</mo>
+                    <mi>i</mi>
+                </mrow>
+            </math>, then we can let <math>
+                <mrow>
+                    <mi>a</mi>
+                    <mo>&#x21D2;</mo>
+                    <mi>b</mi>
+                </mrow>
+            </math> if <math>
+                <mrow>
+                    <mi>j</mi>
+                    <mo>&#x3C;</mo>
+                    <msub>
+                        <mi>C</mi>
+                        <mi>i</mi>
+                    </msub>
+                    <mo>&#x27E8;</mo>
+                    <mi>a</mi>
+                    <mo>&#x27E9;</mo>
+                    <mi>mod</mi>
+                    <mi>N</mi>
+                    <mo>&#x2264;</mo>
+                    <mi>i</mi>
+                </mrow>
+            </math>, and <math>
+                <mrow>
+                    <mi>b</mi>
+                    <mo>&#x21D2;</mo>
+                    <mi>a</mi>
+                </mrow>
+            </math> otherwise; where <math>
+                <mi>N</mi>
+            </math> is the total number of processes.
+        </p>
+    </template>
+
+    <template id="eventually-note-template">
+        <p>
+            The term "eventually" should be made precise, but that would require too long a diversion from our main topic.
+        </p>
+    </template>
+
+    <template id="acknowledgement-note-template">
+        <p>
+            This acknowledgement message need not be sent if <math>
+                <msub>
+                    <mi>P</mi>
+                    <mi>j</mi>
+                </msub>
+            </math> has
+            already sent a message to <math>
+                <msub>
+                    <mi>P</mi>
+                    <mi>i</mi>
+                </msub>
+            </math> timestamped later
+            than <math>
+                <msub>
+                    <mi>T</mi>
+                    <mi>m</mi>
+                </msub>
+            </math>.
+        </p>
+    </template>
+
+    <template id="receive-message-note-template">
+        <p>
+            If <math>
+                <mrow>
+                    <msub>
+                        <mi>P</mi>
+                        <mi>i</mi>
+                    </msub>
+                    <mo>&#x227A;</mo>
+                    <msub>
+                        <mi>P</mi>
+                        <mi>j</mi>
+                    </msub>
+                </mrow>
+            </math>, then <math>
+                <msub>
+                    <mi>P</mi>
+                    <mi>i</mi>
+                </msub>
+            </math> need only have received a
+            message timestamped <math>
+                <mrow>
+                    <mo>&ge;</mo>
+                    <msub>
+                        <mi>T</mi>
+                        <mi>m</mi>
+                    </msub>
+                </mrow>
+            </math> from <math>
+                <msub>
+                    <mi>P</mi>
+                    <mi>j</mi>
+                </msub>
+            </math>.
+        </p>
+    </template>
+
+    <template id="release-note-template">
+        <p>
+            If each process does not stricly alternate <em>request</em> and <em>release</em> commands,
+            then executing a <em>release</em> command could delete zero, one, or more than one request
+            from the queue.
+        </p>
+    </template>
+
+    <template id="time-note-template">
+        <p>
+            We will assume a Newtonian space-time. If the relative motion of the clocks or gravitational effects are not
+            negligible, then <math>
+                <mrow>
+                    <msub>
+                        <mi>C</mi>
+                        <mi>i</mi>
+                    </msub>
+                    <mo>(</mo>
+                    <mi>t</mi>
+                    <mo>)</mo>
+                </mrow>
+            </math> must be deduced from the actual clock reading by transforming from proper time
+            to the arbitrarily chosen time coordinate.
+        </p>
+    </template>
+
+    <template id="limit-note-template">
+        <p>
+            <math display="block">
+                <mrow>
+                    <msub>
+                        <mi>C</mi>
+                        <mi>j</mi>
+                    </msub>
+                    <mo>(</mo>
+                    <mi>t</mi>
+                    <mo>&#x2032;</mo>
+                    <mo>-</mo>
+                    <mn>0</mn>
+                    <mo>)</mo>
+                    <mo>=</mo>
+                    <munder>
+                        <mi>lim</mi>
+                        <mrow>
+                            <mi>&#x3B4;</mi>
+                            <mo>&#x2192;</mo>
+                            <mn>0</mn>
+                        </mrow>
+                    </munder>
+                    <msub>
+                        <mi>C</mi>
+                        <mi>j</mi>
+                    </msub>
+                    <mo>(</mo>
+                    <mi>t</mi>
+                    <mo>&#x2032;</mo>
+                    <mo>-</mo>
+                    <mo>|</mo>
+                    <mi>&#x3B4;</mi>
+                    <mo>|</mo>
+                    <mo>)</mo>
+                </mrow>
+            </math>
+        </p>
+    </template>
+
+    <template id="clock-condition-template">
+        <em>Clock Condition.</em> For any events <math>
+            <mi title="first event">a</mi>
+        </math>, <math>
+            <mi title="second event">b</mi>
+        </math>
+        if <math>
+            <mrow title="the first event happened before the second event">
+                <mi title="first event">a</mi>
+                <mo title="happened before">&#x2192;</mo>
+                <mi title="second event">b</mi>
+            </mrow>
+        </math> then <math>
+            <mrow title="the logical timestamp of the first event is less than the logical timestamp of the second event">
+                <mrow title="the logical timestamp of the first event">
+                    <mi>C</mi>
+                    <mo>&#x27E8;</mo>
+                    <mi title="first event">a</mi>
+                    <mo>&#x27E9;</mo>
+                </mrow>
+                <mo>&lt;</mo>
+                <mrow title="the logical timestamp of the second event">
+                    <mi>C</mi>
+                    <mo>&#x27E8;</mo>
+                    <mi title="second event">b</mi>
+                    <mo>&#x27E9;</mo>
+                </mrow>
+            </mrow>
+        </math>.
+    </template>
+
+    <template id="clock-condition-use">
+        <a href="#clock-condition">Go to definition.</a>
+        <p>
+            <template-use template-id="clock-condition-template"></template-use>
+        </p>
+    </template>
+
+    <template id="first-clock-condition-template">
+        <p>
+            If <math>
+                <mi title="first event">a</mi>
+            </math> and <math>
+                <mi title="second event">b</mi>
+            </math> are
+            events in process <math>
+                <msub title="a process">
+                    <mi>P</mi>
+                    <mi>i</mi>
+                </msub>
+            </math> and <math>
+                <mi title="first event">a</mi>
+            </math> comes
+            before <math>
+                <mi title="second event">b</mi>
+            </math>, then <math>
+                <mrow title="the first event's logical timestamp is less than the second event's logical timestamp">
+                    <mrow title="the first event's logical timestamp">
+                        <msub>
+                            <mi>C</mi>
+                            <mi>i</mi>
+                        </msub>
+                        <mo>&#x27E8;</mo>
+                        <mi title="the first event">a</mi>
+                        <mo>&#x27E9;</mo>
+                    </mrow>
+                    <mo>&#x3C;</mo>
+                    <mrow title="the second event's logical timestamp">
+                        <msub>
+                            <mi>C</mi>
+                            <mi>i</mi>
+                        </msub>
+                        <mo>&#x27E8;</mo>
+                        <mi title="the second event">b</mi>
+                        <mo>&#x27E9;</mo>
+                    </mrow>
+                </mrow>
+            </math>.
+        </p>
+    </template>
+    <template id="first-clock-condition-use">
+        <a href="#first-clock-condition">Go to definition.</a>
+        <template-use template-id="first-clock-condition-template"></template-use>
+    </template>
+
+    <template id="second-clock-condition-template">
+        <p>
+            If <math>
+                <mi title="sending a message">a</mi>
+            </math> is the sending of a message
+            by process <math>
+                <msub title="the sending process">
+                    <mi>P</mi>
+                    <mi>i</mi>
+                </msub>
+            </math> and <math>
+                <mi title="receipt of the message">b</mi>
+            </math> is
+            the receipt of that message by process <math>
+                <msub title="the receiving process">
+                    <mi>P</mi>
+                    <mi>j</mi>
+                </msub>
+            </math>, then <math>
+                <mrow title="the logical timestamp of sending a message is less than the logical timestamp of receiving the message">
+                    <mrow title="the logical timestamp of sending a message">
+                        <msub title="the sending process's clock">
+                            <mi>C</mi>
+                            <mi>i</mi>
+                        </msub>
+                        <mo>&#x27E8;</mo>
+                        <mi title="sending a message">a</mi>
+                        <mo>&#x27E9;</mo>
+                    </mrow>
+                    <mo>&#x3C;</mo>
+                    <mrow title="the logical timestamp of receiving the message">
+                        <msub title="the receiving process's clock">
+                            <mi>C</mi>
+                            <mi>j</mi>
+                        </msub>
+                        <mo>&#x27E8;</mo>
+                        <mi title="receiving the message">b</mi>
+                        <mo>&#x27E9;</mo>
+                    </mrow>
+                </mrow>
+            </math>.
+        </p>
+    </template>
+    <template id="second-clock-condition-use">
+        <a href="#second-clock-condition">Go to definition.</a>
+        <template-use template-id="second-clock-condition-template"></template-use>
+    </template>
+
+    <template id="implementation-rule-1-template">
+        <p>
+            Each process <math>
+                <msub title="a process">
+                    <mi>P</mi>
+                    <mi>i</mi>
+                </msub>
+            </math> increments <math>
+                <msub title="the process's clock register">
+                    <mi>C</mi>
+                    <mi>i</mi>
+                </msub>
+            </math> between any two successive events.
+        </p>
+    </template>
+    <template id="implementation-rule-1-use">
+        <a href="#implementation-rule-1">Go to definition.</a>
+        <template-use template-id="implementation-rule-1-template"></template-use>
+    </template>
+
+    <template id="implementation-rule-2-a-template">
+        <p>
+            If event <math>
+                <mi title="sending a message">a</mi>
+            </math> is the sending of a message <math>
+                <mi title="a message">m</mi>
+            </math> by
+            process <math>
+                <msub title="the sending process">
+                    <mi>P</mi>
+                    <mi>i</mi>
+                </msub>
+            </math>, then the message <math>
+                <mi title="the message">m</mi>
+            </math> contains
+            a timestamp <math>
+                <mrow title="the message's timestamp is the logical timestamp of the event">
+                    <msub title="the timestamp of the message">
+                        <mi>T</mi>
+                        <mi title="the message">m</mi>
+                    </msub>
+                    <mo>=</mo>
+                    <mrow title="the logical timestamp of the event in the process">
+                        <msub>
+                            <mi>C</mi>
+                            <mi>i</mi>
+                        </msub>
+                        <mo>&#x27E8;</mo>
+                        <mi>a</mi>
+                        <mo>&#x27E9;</mo>
+                    </mrow>
+                </mrow>
+            </math>.
+        </p>
+    </template>
+    <template id="implementation-rule-2-a-use">
+        <a href="#implementation-rule-2-a">Go to definition.</a>
+        <template-use template-id="implementation-rule-2-a-template"></template-use>
+    </template>
+    <template id="implementation-rule-2-b-template">
+        <p>
+            Upon receiving a message <math>
+                <mi title="a message">m</mi>
+            </math>, process <math>
+                <msub title="the receiving process">
+                    <mi>P</mi>
+                    <mi>j</mi>
+                </msub>
+            </math> sets <math>
+                <msub title="the receiving process's clock register">
+                    <mi>C</mi>
+                    <mi>j</mi>
+                </msub>
+            </math> greater
+            than or equal to its present value and
+            greater than <math>
+                <msub title="the received message's timestamp">
+                    <mi>T</mi>
+                    <mi title="the received message">m</mi>
+                </msub>
+            </math>.
+        </p>
+    </template>
+    <template id="implementation-rule-2-b-use">
+        <a href="#implementation-rule-2-b">Go to definition.</a>
+        <template-use template-id="implementation-rule-2-b-template"></template-use>
+    </template>
+    <template id="implementation-rule-2-template">
+        <ol type="a">
+            <li id="implementation-rule-2-a">
+                <template-use template-id="implementation-rule-2-a-template"></template-use>
+            </li>
+            <li id="implementation-rule-2-b">
+                <template-use template-id="implementation-rule-2-b-template"></template-use>
+            </li>
+        </ol>
+    </template>
+    <template id="implementation-rule-2-use">
+        <a href="#implementation-rule-2">Go to definition.</a>
+        <template-use template-id="implementation-rule-2-template"></template-use>
+    </template>
+
+    <template id="mutual-exclusion-condition-1-template">
+        <p>
+            A process which
+            has been granted the resource must release it before it
+            can be granted to another process.
+        </p>
+    </template>
+    <template id="mutual-exclusion-condition-1-use">
+        <a href="#mutual-exclusion-condition-1">Go to definition.</a>
+        <template-use template-id="mutual-exclusion-condition-1-template"></template-use>
+    </template>
+
+    <template id="mutual-exclusion-condition-2-template">
+        <p>
+            Different requests
+            for the resource must be granted in the order in which
+            they are made.
+        </p>
+    </template>
+    <template id="mutual-exclusion-condition-2-use">
+        <a href="#mutual-exclusion-condition-2">Go to definition.</a>
+        <template-use template-id="mutual-exclusion-condition-2-template"></template-use>
+    </template>
+
+    <template id="mutual-exclusion-condition-3-template">
+        <p>
+            If every process which is granted the
+            resource eventually releases it, then every request is
+            eventually granted.
+        </p>
+    </template>
+    <template id="mutual-exclusion-condition-3-use">
+        <a href="#mutual-exclusion-condition-3">Go to definition.</a>
+        <template-use template-id="mutual-exclusion-condition-3-template"></template-use>
+    </template>
+
+    <template id="mutual-exclusion-conditions-template">
+        <ol type="I">
+            <li id="mutual-exclusion-condition-1">
+                <template-use template-id="mutual-exclusion-condition-1-template"></template-use>
+            </li>
+            <li id="mutual-exclusion-condition-2">
+                <template-use template-id="mutual-exclusion-condition-2-template"></template-use>
+            </li>
+            <li id="mutual-exclusion-condition-3">
+                <template-use template-id="mutual-exclusion-condition-3-template"></template-use>
+            </li>
+        </ol>
+    </template>
+    <template id="mutual-exclusion-conditions-use">
+        <a href="#mutual-exclusion-conditions">Go to definition.</a>
+        <template-use template-id="mutual-exclusion-conditions-template"></template-use>
+    </template>
+
+    <template id="mutual-exclusion-rules-2-template">
+        <p>
+            When process <math>
+                <msub title="receiving process">
+                    <mi>P</mi>
+                    <mi>j</mi>
+                </msub>
+            </math> receives the message <math>
+                <mrow>
+                    <msub title="the message's timestamp">
+                        <mi>T</mi>
+                        <mi>m</mi>
+                    </msub>
+                    <mo>:</mo>
+                    <msub title="the requesting process">
+                        <mi>P</mi>
+                        <mi>i</mi>
+                    </msub>
+                    <mtext>requests resource</mtext>
+                </mrow>
+            </math>, it places it on its request queue
+            and sends a (timestamped) acknowledgement message to <math>
+                <msub title="the requesting process">
+                    <mi>P</mi>
+                    <mi>i</mi>
+                </msub>
+            </math>. <inline-details id="acknowledgement-note">
+                <span slot="summary">[Note]</span>
+                <template-use slot="content" template-id="acknowledgement-note-template"></template-use>
+            </inline-details>
+        </p>
+    </template>
+    <template id="mutual-exclusion-rules-2-use">
+        <a href="#mutual-exclusion-rules-2">Go to definition.</a>
+        <template-use template-id="mutual-exclusion-rules-2-template"></template-use>
+    </template>
+
+    <template id="mutual-exclusion-rules-3-template">
+        <p>
+            To release the resource, process <math>
+                <msub title="the releasing process">
+                    <mi>P</mi>
+                    <mi>i</mi>
+                </msub>
+            </math> removes
+            any <math>
+                <mrow>
+                    <msub title="the message's timestamp">
+                        <mi>T</mi>
+                        <mi>m</mi>
+                    </msub>
+                    <mo>:</mo>
+                    <msub title="the releasing process">
+                        <mi>P</mi>
+                        <mi>i</mi>
+                    </msub>
+                    <mtext>requests resource</mtext>
+                </mrow>
+            </math> message from its request queue and sends a (timestamped) <math>
+                <mrow>
+                    <msub title="the releasing process">
+                        <mi>P</mi>
+                        <mi>i</mi>
+                    </msub>
+                    <mtext>releases resource</mtext>
+                </mrow>
+            </math> message to every other process.
+        </p>
+    </template>
+    <template id="mutual-exclusion-rules-3-use">
+        <a href="#mutual-exclusion-rules-3">Go to definition.</a>
+        <template-use template-id="mutual-exclusion-rules-3-template"></template-use>
+    </template>
+
+    <template id="mutual-exclusion-rules-4-template">
+        <p>
+            When process <math>
+                <msub title="the receiving process">
+                    <mi>P</mi>
+                    <mi>j</mi>
+                </msub>
+            </math> receives a <math>
+                <mrow>
+                    <msub title="the releasing process">
+                        <mi>P</mi>
+                        <mi>i</mi>
+                    </msub>
+                    <mtext>releases resource</mtext>
+                </mrow>
+            </math> message,
+            it removes any <math>
+                <mrow>
+                    <msub title="the message's timestamp">
+                        <mi>T</mi>
+                        <mi>m</mi>
+                    </msub>
+                    <mo>:</mo>
+                    <msub title="the releasing process">
+                        <mi>P</mi>
+                        <mi>i</mi>
+                    </msub>
+                    <mtext>requests resource</mtext>
+                </mrow>
+            </math> message from its queue.
+        </p>
+    </template>
+    <template id="mutual-exclusion-rules-4-use">
+        <a href="#mutual-exclusion-rules-4">Go to definition.</a>
+        <template-use template-id="mutual-exclusion-rules-4-template"></template-use>
+    </template>
+
+    <template id="mutual-exclusion-rules-5-i-template">
+        <p>
+            There is a <math>
+                <mrow>
+                    <msub title="the message's timestamp">
+                        <mi>T</mi>
+                        <mi>m</mi>
+                    </msub>
+                    <mo>:</mo>
+                    <msub title="the process">
+                        <mi>P</mi>
+                        <mi>i</mi>
+                    </msub>
+                    <mtext>requests resource</mtext>
+                </mrow>
+            </math> message in its request queue which is ordered before any other request
+            in its queue by the relation <math>
+                <mo title="total-order happened before">&#x21D2;</mo>
+            </math>.
+            (To define the relation "<math>
+                <mo title="total-order happened before">&#x21D2;</mo>
+            </math>" for messages,
+            we identify a message with the event of sending it.)
+        </p>
+    </template>
+    <template id="mutual-exclusion-rules-5-i-use">
+        <a href="#mutual-exclusion-rules-5-i">Go to definition.</a>
+        <template-use template-id="mutual-exclusion-rules-5-i-template"></template-use>
+    </template>
+
+    <template id="mutual-exclusion-rules-5-ii-template">
+        <p>
+            <math>
+                <msub title="the process">
+                    <mi>P</mi>
+                    <mi>i</mi>
+                </msub>
+            </math> has received a message from every other process timestamped
+            later than <math>
+                <msub title="the message's timestamp">
+                    <mi>T</mi>
+                    <mi>m</mi>
+                </msub>
+            </math>. <inline-details id="receive-message-note">
+                <span slot="summary">[Note]</span>
+                <template-use slot="content" template-id="receive-message-note-template"></template-use>
+            </inline-details>
+        </p>
+    </template>
+    <template id="mutual-exclusion-rules-5-ii-use">
+        <a href="#mutual-exclusion-rules-5-ii">Go to definition.</a>
+        <template-use template-id="mutual-exclusion-rules-5-ii-template"></template-use>
+    </template>
+    <template id="mutual-exclusion-rules-5-template">
+        <p>
+            Process <math>
+                <msub title="a process">
+                    <mi>P</mi>
+                    <mi>i</mi>
+                </msub>
+            </math> is granted the resource when the following
+            two conditions are satisfied:
+        </p>
+        <ol type="i">
+            <li id="mutual-exclusion-rules-5-i">
+                <template-use template-id="mutual-exclusion-rules-5-i-template"></template-use>
+            </li>
+            <li id="mutual-exclusion-rules-5-ii">
+                <template-use template-id="mutual-exclusion-rules-5-ii-template"></template-use>
+            </li>
+        </ol>
+    </template>
+    <template id="mutual-exclusion-rules-5-use">
+        <a href="#mutual-exclusion-rules-5">Go to definition.</a>
+        <template-use template-id="mutual-exclusion-rules-5-template"></template-use>
+    </template>
+
+    <template id="strong-clock-condition-template">
+        <p>
+            <em>Strong Clock Condition.</em> For any events <math>
+                <mi title="an event">a</mi>
+            </math>, <math>
+                <mi title="another event">b</mi>
+            </math> in <math>
+                <mi title="the set of all system events">&#x3B6;</mi>
+            </math>
+            if <math>
+                <mrow>
+                    <mi title="the first event">a</mi>
+                    <mo title="happened-before for relevant events">&#x27A1;</mo>
+                    <mi title="the second event">b</mi>
+                </mrow>
+            </math> then <math>
+                <mrow title="the logical timestamp of the first event is less than the logical timestamp of the second event">
+                    <mrow title="the logical timestamp of the first event">
+                        <mi>C</mi>
+                        <mo>&#x27E8;</mo>
+                        <mi>a</mi>
+                        <mo>&#x27E9;</mo>
+                    </mrow>
+                    <mo>&#x3C;</mo>
+                    <mrow title="the logical timestamp of the second event">
+                        <mi>C</mi>
+                        <mo>&#x27E8;</mo>
+                        <mi>b</mi>
+                        <mo>&#x27E9;</mo>
+                    </mrow>
+                </mrow>
+            </math>.
+        </p>
+    </template>
+    <template id="strong-clock-condition-use">
+        <a href="#strong-clock-condition">Go to definition.</a>
+        <template-use template-id="strong-clock-condition-template"></template-use>
+    </template>
+
+    <template id="physical-clock-condition-1-template">
+        <p>
+            There exists a constant <math>
+                <mrow>
+                    <mi title="maximum clock speed error">&#x3BA;</mi>
+                    <mo>&#x226A;</mo>
+                    <mn>1</mn>
+                </mrow>
+            </math> such that for all <math>
+                <mi>i</mi>
+            </math> <math>
+                <mrow title="the clock rate error is less than the maximum clock rate error">
+                    <mrow>
+                        <mo>|</mo>
+                        <mrow>
+                            <mfrac title="the clock rate">
+                                <mrow>
+                                    <mo>d</mo>
+                                    <msub>
+                                        <mi>C</mi>
+                                        <mi>i</mi>
+                                    </msub>
+                                    <mo>(</mo>
+                                    <mi>t</mi>
+                                    <mo>)</mo>
+                                </mrow>
+                                <mo>dt</mo>
+                            </mfrac>
+                            <mo>-</mo>
+                            <mn>1</mn>
+                        </mrow>
+                        <mo>|</mo>
+                    </mrow>
+                    <mo>&#x3C;</mo>
+                    <mi title="the maximum clock speed error">&#x3BA;</mi>
+                </mrow>
+            </math>.
+        </p>
+    </template>
+    <template id="physical-clock-condition-1-use">
+        <a href="#physical-clock-condition-1">Go to definition.</a>
+        <template-use template-id="physical-clock-condition-1-template"></template-use>
+    </template>
+
+    <template id="physical-clock-condition-2-template">
+        <p>
+            For all <math>
+                <mi>i</mi>
+            </math>, <math>
+                <mi>j</mi>
+            </math> <math>
+                <mrow title="the difference between two clocks' time is below the maximum clock drift">
+                    <mrow title="the difference between two clocks' time">
+                        <mo>|</mo>
+                        <mrow title="one clock's time">
+                            <msub>
+                                <mi>C</mi>
+                                <mi>i</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <mi>t</mi>
+                            <mo>)</mo>
+                        </mrow>
+                        <mo>-</mo>
+                        <mrow title="another clock's time">
+                            <msub>
+                                <mi>C</mi>
+                                <mi>j</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <mi>t</mi>
+                            <mo>)</mo>
+                        </mrow>
+                        <mo>|</mo>
+                    </mrow>
+                    <mo>&#x3C;</mo>
+                    <mi title="maximum clock drift">&#x3B5;</mi>
+                </mrow>
+            </math>.
+        </p>
+    </template>
+    <template id="physical-clock-condition-2-use">
+        <a href="#physical-clock-condition-2">Go to definition.</a>
+        <template-use template-id="physical-clock-condition-2-template"></template-use>
+    </template>
+
+    <template id="physical-implementation-rule-1-template">
+        <p>
+            For each <math>
+                <mi>i</mi>
+            </math>,
+            if <math>
+                <msub title="a process">
+                    <mi>P</mi>
+                    <mi>i</mi>
+                </msub>
+            </math> does not receive a message at physical time <math>
+                <mi title="physical time">t</mi>
+            </math>,
+            then <math>
+                <msub title="the process's clock">
+                    <mi>C</mi>
+                    <mi>i</mi>
+                </msub>
+            </math> is differentiable at <math>
+                <mi title="physical time">t</mi>
+            </math> and <math>
+                <mrow title="the clock speed is positive">
+                    <mfrac title="the clock speed">
+                        <mrow>
+                            <mo>d</mo>
+                            <msub>
+                                <mi>C</mi>
+                                <mi>i</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <mi>t</mi>
+                            <mo>)</mo>
+                        </mrow>
+                        <mo>dt</mo>
+                    </mfrac>
+                    <mo>&#x003E;</mo>
+                    <mn>0</mn>
+                </mrow>
+            </math>.
+        </p>
+    </template>
+    <template id="physical-implementation-rule-1-use">
+        <a href="#physical-implementation-rule-1">Go to definition.</a>
+        <template-use template-id="physical-implementation-rule-1-template"></template-use>
+    </template>
+
+    <template id="physical-implementation-rule-2-template">
+        <ol type="a">
+            <li>
+                <p>
+                    If <math>
+                        <msub title="a process">
+                            <mi>P</mi>
+                            <mi>i</mi>
+                        </msub>
+                    </math> sends a message <math>
+                        <mi title="a message">m</mi>
+                    </math> at
+                    physical time <math>
+                        <mi title="physical sent time">t</mi>
+                    </math>, then <math>
+                        <mi title="the message">m</mi>
+                    </math> contains
+                    a timestamp <math>
+                        <mrow>
+                            <msub title="the message's timestamp">
+                                <mi>T</mi>
+                                <mi>m</mi>
+                            </msub>
+                            <mo>=</mo>
+                            <mrow title="the clock's value at sent time">
+                                <msub>
+                                    <mi>C</mi>
+                                    <mi>i</mi>
+                                </msub>
+                                <mo>(</mo>
+                                <mi>t</mi>
+                                <mo>)</mo>
+                            </mrow>
+                        </mrow>
+                    </math>.
+                </p>
+            </li>
+            <li>
+                <p>
+                    Upon receiving a message <math>
+                        <mi title="a message">m</mi>
+                    </math> at
+                    time <math>
+                        <mrow title="physical received time">
+                            <mi>t</mi>
+                            <mo>&#x2032;</mo>
+                        </mrow>
+                    </math>, process <math>
+                        <msub title="the receiving process">
+                            <mi>P</mi>
+                            <mi>j</mi>
+                        </msub>
+                    </math> sets <math>
+                        <mrow title="the receiving process's clock at the received time">
+                            <msub>
+                                <mi>C</mi>
+                                <mi>j</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <mrow title="physical received time">
+                                <mi>t</mi>
+                                <mo>&#x2032;</mo>
+                            </mrow>
+                            <mo>)</mo>
+                        </mrow>
+                    </math> equal to maximum <math>
+                        <mrow>
+                            <mo>(</mo>
+                            <mrow>
+                                <msub>
+                                    <mi>C</mi>
+                                    <mi>j</mi>
+                                </msub>
+                                <mo>(</mo>
+                                <mi>t</mi>
+                                <mo>&#x2032;</mo>
+                                <mo>-</mo>
+                                <mn>0</mn>
+                                <mo>)</mo>
+                            </mrow>
+                            <mo>,</mo>
+                            <mrow>
+                                <msub title="the message's timestamp">
+                                    <mi>T</mi>
+                                    <mi>m</mi>
+                                </msub>
+                                <mo>+</mo>
+                                <msub title="the message's minimum delay">
+                                    <mi>&#x3BC;</mi>
+                                    <mi>m</mi>
+                                </msub>
+                            </mrow>
+                            <mo>)</mo>
+                        </mrow>
+                    </math>. <inline-details id="limit-note">
+                        <span slot="summary">[Note]</span>
+                        <template-use slot="content" template-id="limit-note-template"></template-use>
+                    </inline-details>
+                </p>
+            </li>
+        </ol>
+    </template>
+    <template id="physical-implementation-rule-2-use">
+        <a href="#physical-implementation-rule-2">Go to definition.</a>
+        <template-use template-id="physical-implementation-rule-2-template"></template-use>
+    </template>
 </body>
 
 </html>
