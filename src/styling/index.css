@@ -59,7 +59,8 @@ figure {
   align-items: center;
 }
 
-span.link {
+span.link,
+span[data-process] {
   text-decoration: underline dotted;
 }
 

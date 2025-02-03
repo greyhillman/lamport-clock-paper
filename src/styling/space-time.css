@@ -26,13 +26,34 @@ svg.space-time {
         fill: none;
     }
 
-    circle {
-        fill: var(--font-color);
+    g.process.highlight {
+        & g.event {
+            circle {
+                fill: var(--highlight-color);
+            }
+        }
 
-        &.highlight {
-            fill: var(--highlight-color);
+        & line.segment {
+            stroke: var(--highlight-color);
+
+            &:last-of-type {
+                marker-end: url(#arrow-highlight);
+            }
         }
     }
+
+    g.event {
+        circle {
+            fill: var(--font-color);
+        }
+
+        &.highlight {
+            circle {
+                fill: var(--highlight-color);
+            }
+        }
+    }
+
 
     defs {
         marker#arrow {
