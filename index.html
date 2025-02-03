@@ -313,7 +313,7 @@
                     </p>
                     <ul class="example visual">
                         <li>
-                            <svg class="space-time" viewbox="0 0 50 50">
+                            <svg class="space-time" viewBox="0 0 50 50">
                                 <defs>
                                     <marker
                                         id="arrow"
@@ -363,7 +363,7 @@
                             </svg>
                         </li>
                         <li>
-                            <svg class="space-time" viewbox="0 0 50 50">
+                            <svg class="space-time" viewBox="0 0 50 50">
                                 <defs>
                                     <marker
                                         id="arrow"
@@ -434,9 +434,61 @@
                             </mrow>
                         </math>.
                     </p>
-                    <!-- <ul class="visual example">
-                        {happenedBeforeExamples.second.map(x => <li>{x}</li>)}
-                    </ul> -->
+                    <ul class="visual example">
+                        <li>
+                            <svg class="space-time" viewBox="0 0 60 50">
+                                <g class="process">
+                                    <text x="10" y="48" text-anchor="middle">sender</text>
+
+                                    <line class="segment" x1="10" x2="10" y1="40" y2="5" />
+
+                                    <g class="event">
+                                        <circle cx="10" cy="35" r="2" />
+                                        <foreignObject class="label" x="3" y="30" width="8" height="10">
+                                            <math>
+                                                <mi>a</mi>
+                                            </math>
+                                        </foreignObject>
+                                    </g>
+                                </g>
+                                <g class="process">
+                                    <text x="50" y="48" text-anchor="middle">receiver</text>
+
+                                    <line class="segment" x1="50" x2="50" y1="40" y2="5" />
+
+                                    <g class="event">
+                                        <circle cx="50" cy="15" r="2" />
+                                        <foreignObject class="label" x="53" y="10" width="8" height="10">
+                                            <math>
+                                                <mi>b</mi>
+                                            </math>
+                                        </foreignObject>
+                                    </g>
+                                </g>
+
+                                <g class="message">
+                                    <path class="link" d="M 10,35 L 50,15" />
+                                    <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
+                                        <animateMotion
+                                            dur="2000ms"
+                                            keyPoints="0.1; 0.9"
+                                            keyTimes="0; 1"
+                                            repeatCount="indefinite"
+                                            calcMode="linear"
+                                            fill="freeze"
+                                            rotate="auto"
+                                            path="M 10,35 L 50,15" />
+                                        <animate
+                                            attributeName="opacity"
+                                            values="0; 1; 1; 0"
+                                            keyTimes="0; 0.3; 0.7; 1"
+                                            dur="2000ms"
+                                            repeatCount="indefinite" />
+                                    </path>
+                                </g>
+                            </svg>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <p>
@@ -460,11 +512,122 @@
                             </mrow>
                         </math>.
                     </p>
-                    <!-- <ul class="visual example">
-                        {happenedBeforeExamples.third.map(example => {
-                        return <li>{example}</li>
-                        })}
-                    </ul> -->
+                    <ul class="visual example">
+                        <li>
+                            <svg class="space-time" viewBox="0 0 60 60">
+                                <g class="process">
+                                    <line class="segment" x1="10" x2="10" y1="60" y2="5" />
+
+                                    <g class="event">
+                                        <circle cx="10" cy="55" r="2" />
+                                        <foreignObject class="label" x="3" y="50" width="8" height="10">
+                                            <math>
+                                                <mi>a</mi>
+                                            </math>
+                                        </foreignObject>
+                                    </g>
+                                    <g class="event">
+                                        <circle cx="10" cy="35" r="2" />
+                                        <foreignObject class="label" x="3" y="30" width="8" height="10">
+                                            <math>
+                                                <mi>b</mi>
+                                            </math>
+                                        </foreignObject>
+                                    </g>
+                                </g>
+                                <g class="process">
+                                    <line class="segment" x1="50" x2="50" y1="60" y2="5" />
+
+                                    <g class="event">
+                                        <circle cx="50" cy="15" r="2" />
+                                        <foreignObject class="label" x="53" y="10" width="8" height="10">
+                                            <math>
+                                                <mi>c</mi>
+                                            </math>
+                                        </foreignObject>
+                                    </g>
+                                </g>
+
+                                <g class="message">
+                                    <path class="link" d="M 10,35 L 50,15" />
+                                    <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
+                                        <animateMotion
+                                            dur="2000ms"
+                                            keyPoints="0.1; 0.9"
+                                            keyTimes="0; 1"
+                                            repeatCount="indefinite"
+                                            calcMode="linear"
+                                            fill="freeze"
+                                            rotate="auto"
+                                            path="M 10,35 L 50,15" />
+                                        <animate
+                                            attributeName="opacity"
+                                            values="0; 1; 1; 0"
+                                            keyTimes="0; 0.3; 0.7; 1"
+                                            dur="2000ms"
+                                            repeatCount="indefinite" />
+                                    </path>
+                                </g>
+                            </svg>
+                        </li>
+                        <li>
+                            <svg class="space-time" viewBox="0 0 60 60">
+                                <g class="process">
+                                    <line class="segment" x1="10" x2="10" y1="60" y2="5" />
+
+                                    <g class="event">
+                                        <circle cx="10" cy="55" r="2" />
+                                        <foreignObject class="label" x="3" y="50" width="8" height="10">
+                                            <math>
+                                                <mi>a</mi>
+                                            </math>
+                                        </foreignObject>
+                                    </g>
+                                </g>
+                                <g class="process">
+                                    <line class="segment" x1="50" x2="50" y1="60" y2="5" />
+
+                                    <g class="event">
+                                        <circle cx="50" cy="35" r="2" />
+                                        <foreignObject class="label" x="53" y="30" width="8" height="10">
+                                            <math>
+                                                <mi>b</mi>
+                                            </math>
+                                        </foreignObject>
+                                    </g>
+                                    <g class="event">
+                                        <circle cx="50" cy="15" r="2" />
+                                        <foreignObject class="label" x="53" y="10" width="8" height="10">
+                                            <math>
+                                                <mi>c</mi>
+                                            </math>
+                                        </foreignObject>
+                                    </g>
+                                </g>
+
+                                <g class="message">
+                                    <path class="link" d="M 10,55 L 50,35" />
+                                    <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
+                                        <animateMotion
+                                            dur="2000ms"
+                                            keyPoints="0.1; 0.9"
+                                            keyTimes="0; 1"
+                                            repeatCount="indefinite"
+                                            calcMode="linear"
+                                            fill="freeze"
+                                            rotate="auto"
+                                            path="M 10,55 L 50,35" />
+                                        <animate
+                                            attributeName="opacity"
+                                            values="0; 1; 1; 0"
+                                            keyTimes="0; 0.3; 0.7; 1"
+                                            dur="2000ms"
+                                            repeatCount="indefinite" />
+                                    </path>
+                                </g>
+                            </svg>
+                        </li>
+                    </ul>
                 </li>
             </ol>
             <p>
