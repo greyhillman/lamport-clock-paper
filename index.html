@@ -693,7 +693,8 @@
                 </math> in
                 the diagram by moving forward in time along process
                 and message lines. For example, we have <math>
-                    <mrow title="the first event in process P happened before the fourth event in process R">
+                    <mrow title="the first event in process P happened before the fourth event in process R"
+                        data-event-from="p1" data-event-to="r4">
                         <msub title="the first event in process P" data-event="p1">
                             <mi>p</mi>
                             <mn>1</mn>
@@ -735,9 +736,9 @@
                         <text x="40" y="150" text-anchor="middle">process P</text>
 
                         <line class="segment" x1="40" y1="140" x2="40" y2="130" />
-                        <line class="segment" x1="40" y1="130" x2="40" y2="110" />
-                        <line class="segment" x1="40" y1="110" x2="40" y2="90" />
-                        <line class="segment" x1="40" y1="90" x2="40" y2="70" />
+                        <line class="segment" x1="40" y1="130" x2="40" y2="110" data-event-from="p1" data-event-to="p2" />
+                        <line class="segment" x1="40" y1="110" x2="40" y2="90" data-event-from="p2" data-event-to="p3" />
+                        <line class="segment" x1="40" y1="90" x2="40" y2="70" data-event-from="p3" data-event-to="p4" />
                         <line class="segment" x1="40" y1="70" x2="40" y2="50" />
 
                         <g class="event" data-event="p1">
@@ -789,12 +790,12 @@
                         <text x="80" y="150" text-anchor="middle">process Q</text>
 
                         <line class="segment" x1="80" y1="140" x2="80" y2="130" />
-                        <line class="segment" x1="80" y1="130" x2="80" y2="120" />
-                        <line class="segment" x1="80" y1="120" x2="80" y2="110" />
-                        <line class="segment" x1="80" y1="110" x2="80" y2="100" />
-                        <line class="segment" x1="80" y1="100" x2="80" y2="90" />
-                        <line class="segment" x1="80" y1="90" x2="80" y2="80" />
-                        <line class="segment" x1="80" y1="80" x2="80" y2="70" />
+                        <line class="segment" x1="80" y1="130" x2="80" y2="120" data-event-from="q1" data-event-to="q2" />
+                        <line class="segment" x1="80" y1="120" x2="80" y2="110" data-event-from="q2" data-event-to="q3" />
+                        <line class="segment" x1="80" y1="110" x2="80" y2="100" data-event-from="q3" data-event-to="q4" />
+                        <line class="segment" x1="80" y1="100" x2="80" y2="90" data-event-from="q4" data-event-to="q5" />
+                        <line class="segment" x1="80" y1="90" x2="80" y2="80" data-event-from="q5" data-event-to="q6" />
+                        <line class="segment" x1="80" y1="80" x2="80" y2="70" data-event-from="q6" data-event-to="q7" />
                         <line class="segment" x1="80" y1="70" x2="80" y2="50" />
 
                         <g class="event" data-event="q1">
@@ -879,9 +880,9 @@
                         <text x="120" y="150" text-anchor="middle">process R</text>
 
                         <line class="segment" x1="120" y1="140" x2="120" y2="130" />
-                        <line class="segment" x1="120" y1="130" x2="120" y2="110" />
-                        <line class="segment" x1="120" y1="110" x2="120" y2="90" />
-                        <line class="segment" x1="120" y1="90" x2="120" y2="70" />
+                        <line class="segment" x1="120" y1="130" x2="120" y2="110" data-event-from="r1" data-event-to="r2" />
+                        <line class="segment" x1="120" y1="110" x2="120" y2="90" data-event-from="r2" data-event-to="r3" />
+                        <line class="segment" x1="120" y1="90" x2="120" y2="70" data-event-from="r3" data-event-to="r4" />
                         <line class="segment" x1="120" y1="70" x2="120" y2="50" />
 
                         <g class="event" data-event="r1">
@@ -930,7 +931,7 @@
                         </g>
                     </g>
 
-                    <g class="message">
+                    <g class="message" data-event-from="p1" data-event-to="q2">
                         <path class="link" d="M 40,130 L 80,120" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -950,7 +951,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="q1" data-event-to="p2">
                         <path class="link" d="M 80,130 L 40,110" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -970,7 +971,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="q5" data-event-to="p4">
                         <path class="link" d="M 80,90 L 40,70" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -991,7 +992,7 @@
                         </path>
                     </g>
 
-                    <g class="message">
+                    <g class="message" data-event-from="q1" data-event-to="r4">
                         <path class="link" d="M 80,130 L 120,70" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1011,7 +1012,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="q4" data-event-to="r3">
                         <path class="link" d="M 80,100 L 120,90" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1031,7 +1032,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="r2" data-event-to="q7">
                         <path class="link" d="M 120,110 L 80,70" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1274,7 +1275,8 @@
                     <span slot="summary">Clock Condition</span>
                     <template-use slot="content" template-id="clock-condition-use"></template-use>
                 </inline-details> because <math>
-                    <mrow title="the second event in process P happened before the third event in process P">
+                    <mrow title="the second event in process P happened before the third event in process P"
+                        data-event-from="p2" data-event-to="p3">
                         <msub title="the second event in process P" data-event="p2">
                             <mi>p</mi>
                             <mn>2</mn>
@@ -1406,9 +1408,9 @@
                         <text x="40" y="150" text-anchor="middle">process P</text>
 
                         <line class="segment" x1="40" y1="140" x2="40" y2="130" />
-                        <line class="segment" x1="40" y1="130" x2="40" y2="110" />
-                        <line class="segment" x1="40" y1="110" x2="40" y2="90" />
-                        <line class="segment" x1="40" y1="90" x2="40" y2="70" />
+                        <line class="segment" x1="40" y1="130" x2="40" y2="110" data-event-from="p1" data-event-to="p2" />
+                        <line class="segment" x1="40" y1="110" x2="40" y2="90" data-event-from="p2" data-event-to="p3" />
+                        <line class="segment" x1="40" y1="90" x2="40" y2="70" data-event-from="p3" data-event-to="p4" />
                         <line class="segment" x1="40" y1="70" x2="40" y2="50" />
 
                         <g class="event" data-event="p1">
@@ -1460,12 +1462,12 @@
                         <text x="80" y="150" text-anchor="middle">process Q</text>
 
                         <line class="segment" x1="80" y1="140" x2="80" y2="130" />
-                        <line class="segment" x1="80" y1="130" x2="80" y2="120" />
-                        <line class="segment" x1="80" y1="120" x2="80" y2="110" />
-                        <line class="segment" x1="80" y1="110" x2="80" y2="100" />
-                        <line class="segment" x1="80" y1="100" x2="80" y2="90" />
-                        <line class="segment" x1="80" y1="90" x2="80" y2="80" />
-                        <line class="segment" x1="80" y1="80" x2="80" y2="70" />
+                        <line class="segment" x1="80" y1="130" x2="80" y2="120" data-event-from="q1" data-event-to="q2" />
+                        <line class="segment" x1="80" y1="120" x2="80" y2="110" data-event-from="q2" data-event-to="q3" />
+                        <line class="segment" x1="80" y1="110" x2="80" y2="100" data-event-from="q3" data-event-to="q4" />
+                        <line class="segment" x1="80" y1="100" x2="80" y2="90" data-event-from="q4" data-event-to="q5" />
+                        <line class="segment" x1="80" y1="90" x2="80" y2="80" data-event-from="q5" data-event-to="q6" />
+                        <line class="segment" x1="80" y1="80" x2="80" y2="70" data-event-from="q6" data-event-to="q7" />
                         <line class="segment" x1="80" y1="70" x2="80" y2="50" />
 
                         <g class="event" data-event="q1">
@@ -1550,9 +1552,9 @@
                         <text x="120" y="150" text-anchor="middle">process R</text>
 
                         <line class="segment" x1="120" y1="140" x2="120" y2="130" />
-                        <line class="segment" x1="120" y1="130" x2="120" y2="110" />
-                        <line class="segment" x1="120" y1="110" x2="120" y2="90" />
-                        <line class="segment" x1="120" y1="90" x2="120" y2="70" />
+                        <line class="segment" x1="120" y1="130" x2="120" y2="110" data-event-from="r1" data-event-from="r2" />
+                        <line class="segment" x1="120" y1="110" x2="120" y2="90" data-event-from="r2" data-event-from="r3" />
+                        <line class="segment" x1="120" y1="90" x2="120" y2="70" data-event-from="r3" data-event-from="r4" />
                         <line class="segment" x1="120" y1="70" x2="120" y2="50" />
 
                         <g class="event" data-event="r1">
@@ -1601,7 +1603,7 @@
                         </g>
                     </g>
 
-                    <g class="message">
+                    <g class="message" data-event-from="p1" data-event-to="q2">
                         <path class="link" d="M 40,130 L 80,120" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1621,7 +1623,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="q1" data-event-to="p2">
                         <path class="link" d="M 80,130 L 40,110" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1641,7 +1643,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="q5" data-event-to="p4">
                         <path class="link" d="M 80,90 L 40,70" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1662,7 +1664,7 @@
                         </path>
                     </g>
 
-                    <g class="message">
+                    <g class="message" data-event-from="q1" data-event-to="r4">
                         <path class="link" d="M 80,130 L 120,70" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1682,7 +1684,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="q4" data-event-to="r3">
                         <path class="link" d="M 80,100 L 120,90" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1702,7 +1704,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="r2" data-event-to="q7">
                         <path class="link" d="M 120,110 L 80,70" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1774,9 +1776,9 @@
                         <text x="40" y="150" text-anchor="middle">process P</text>
 
                         <line class="segment" x1="40" y1="140" x2="40" y2="130" />
-                        <line class="segment" x1="40" y1="130" x2="40" y2="110" />
-                        <line class="segment" x1="40" y1="110" x2="40" y2="90" />
-                        <line class="segment" x1="40" y1="90" x2="40" y2="70" />
+                        <line class="segment" x1="40" y1="130" x2="40" y2="110" data-event-from="p1" data-event-to="p2" />
+                        <line class="segment" x1="40" y1="110" x2="40" y2="90" data-event-from="p2" data-event-to="p3" />
+                        <line class="segment" x1="40" y1="90" x2="40" y2="70" data-event-from="p3" data-event-to="p4" />
                         <line class="segment" x1="40" y1="70" x2="40" y2="45" />
 
                         <g class="event" data-event="p1">
@@ -1828,12 +1830,12 @@
                         <text x="80" y="150" text-anchor="middle">process Q</text>
 
                         <line class="segment" x1="80" y1="140" x2="80" y2="130" />
-                        <line class="segment" x1="80" y1="130" x2="80" y2="120" />
-                        <line class="segment" x1="80" y1="120" x2="80" y2="110" />
-                        <line class="segment" x1="80" y1="110" x2="80" y2="100" />
-                        <line class="segment" x1="80" y1="100" x2="80" y2="90" />
-                        <line class="segment" x1="80" y1="90" x2="80" y2="80" />
-                        <line class="segment" x1="80" y1="80" x2="80" y2="70" />
+                        <line class="segment" x1="80" y1="130" x2="80" y2="120" data-event-from="q1" data-event-to="q2" />
+                        <line class="segment" x1="80" y1="120" x2="80" y2="110" data-event-from="q2" data-event-to="q3" />
+                        <line class="segment" x1="80" y1="110" x2="80" y2="100" data-event-from="q3" data-event-to="q4" />
+                        <line class="segment" x1="80" y1="100" x2="80" y2="90" data-event-from="q4" data-event-to="q5" />
+                        <line class="segment" x1="80" y1="90" x2="80" y2="80" data-event-from="q5" data-event-to="q6" />
+                        <line class="segment" x1="80" y1="80" x2="80" y2="70" data-event-from="q6" data-event-to="q7" />
                         <line class="segment" x1="80" y1="70" x2="80" y2="45" />
 
                         <g class="event" data-event="q1">
@@ -1918,9 +1920,9 @@
                         <text x="120" y="150" text-anchor="middle">process R</text>
 
                         <line class="segment" x1="120" y1="140" x2="120" y2="130" />
-                        <line class="segment" x1="120" y1="130" x2="120" y2="110" />
-                        <line class="segment" x1="120" y1="110" x2="120" y2="90" />
-                        <line class="segment" x1="120" y1="90" x2="120" y2="70" />
+                        <line class="segment" x1="120" y1="130" x2="120" y2="110" data-event-from="r1" data-event-to="r2" />
+                        <line class="segment" x1="120" y1="110" x2="120" y2="90" data-event-from="r2" data-event-to="r3" />
+                        <line class="segment" x1="120" y1="90" x2="120" y2="70" data-event-from="r3" data-event-to="r4" />
                         <line class="segment" x1="120" y1="70" x2="120" y2="45" />
 
                         <g class="event" data-event="r1">
@@ -1969,7 +1971,7 @@
                         </g>
                     </g>
 
-                    <g class="message">
+                    <g class="message" data-event-from="p1" data-event-to="q2">
                         <path class="link" d="M 40,135 L 80,115" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1989,7 +1991,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="q1" data-event-to="p2">
                         <path class="link" d="M 80,135 L 40,115" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -2009,7 +2011,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="q5" data-event-to="p4">
                         <path class="link" d="M 80,75 L 40,65" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -2030,7 +2032,7 @@
                         </path>
                     </g>
 
-                    <g class="message">
+                    <g class="message" data-event-from="q1" data-event-to="r4">
                         <path class="link" d="M 80,135 L 120,55" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -2050,7 +2052,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="q4" data-event-to="r3">
                         <path class="link" d="M 80,85 L 120,75" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -2070,7 +2072,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="r2" data-event-to="q7">
                         <path class="link" d="M 120,105 L 80,55" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion

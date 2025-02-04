@@ -54,6 +54,16 @@ svg.space-time {
         }
     }
 
+    g.message.highlight {
+        & path {
+            stroke: var(--highlight-color);
+
+            &.link {
+                marker-end: url(#arrow-highlight);
+            }
+        }
+    }
+
 
     defs {
         marker#arrow {
