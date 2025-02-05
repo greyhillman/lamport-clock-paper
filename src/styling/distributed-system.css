@@ -1,6 +1,8 @@
 svg.distributed-system {
     & defs {
-        & #message {
+
+        & #message,
+        #message-reverse {
             & rect {
                 fill: var(--background-color);
                 stroke: var(--font-color);
@@ -8,7 +10,7 @@ svg.distributed-system {
             }
 
             & path {
-                fill: none;
+                fill: var(--background-color);
                 stroke: var(--font-color);
                 stroke-width: 1;
             }
@@ -38,6 +40,18 @@ svg.distributed-system {
         stroke-dasharray: 4 4;
     }
 
+    & line.message {
+        fill: none;
+        stroke-width: 1;
+        stroke: var(--font-color);
+
+        marker-end: url(#message);
+
+        &.reverse {
+            marker-end: url(#message-reverse);
+        }
+    }
+
     & g.message {
         &>path {
             fill: var(--background-color);
@@ -46,5 +60,11 @@ svg.distributed-system {
             stroke-linecap: round;
             stroke-linejoin: round;
         }
+    }
+
+    & circle.process {
+        stroke-width: 2;
+        fill: none;
+        stroke: var(--font-color);
     }
 }

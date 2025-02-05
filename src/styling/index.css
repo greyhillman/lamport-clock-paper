@@ -143,27 +143,31 @@ details {
   }
 }
 
-ol.visual {
+ol.visual,
+ul.visual {
   list-style: none;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-
   margin-block-start: 0;
   margin-block-end: 0;
   padding-inline: 0;
 
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+
+  column-gap: 1em;
+
   & li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-template-columns: subgrid;
+
+    grid-column: span 1;
+    grid-row: span 2;
+
+    justify-content: center;
+    justify-items: center;
 
     flex-basis: 10em;
     flex-grow: 1;
-  }
-
-  & figure {
-    width: 10em;
   }
 
   & p,
@@ -239,4 +243,16 @@ dialog {
 
 li>template-use {
   display: block;
+}
+
+ul.visual svg.space-time {
+  width: 10em;
+}
+
+ol.visual svg.distributed-system {
+  width: 10em;
+}
+
+ol.visual directed-graph {
+  width: 10em;
 }

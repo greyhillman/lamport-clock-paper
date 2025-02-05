@@ -19,6 +19,19 @@ svg.space-time {
         }
     }
 
+    line {
+        stroke: var(--font-color);
+    }
+
+    & line.tick {
+        stroke-dasharray: 2 2;
+    }
+
+    & polyline.period {
+        fill: none;
+        stroke: var(--font-color);
+    }
+
     polyline.tick {
         stroke: var(--font-color);
         stroke-width: 1;
@@ -39,6 +52,13 @@ svg.space-time {
             &:last-of-type {
                 marker-end: url(#arrow-highlight);
             }
+        }
+    }
+
+    & g.event.ghost {
+        & circle {
+            fill: var(--background-color);
+            stroke: var(--font-color);
         }
     }
 
