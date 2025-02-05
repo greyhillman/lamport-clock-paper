@@ -11,8 +11,8 @@
 
 
     <title>Time, Clocks, and the Ordering of Events in a Distributed System</title>
-  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-DYRutJsU.js"></script>
-  <link rel="stylesheet" crossorigin href="/lamport-clock-paper/assets/index-C-gjMjJm.css">
+  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-B-ybnwjD.js"></script>
+  <link rel="stylesheet" crossorigin href="/lamport-clock-paper/assets/index-DO4vQB7S.css">
 </head>
 
 <body>
@@ -98,6 +98,33 @@
                         separated,</p>
                     <figure>
                         <svg class="distributed-system" viewBox="0 0 50 50">
+                            <defs>
+                                <marker
+                                    id="message"
+                                    viewBox="-5 -5 10 10"
+                                    refX="0"
+                                    refY="0"
+                                    markerWidth="7"
+                                    markerHeight="7"
+                                    orient="auto">
+                                    <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3" />
+                                </marker>
+                                <marker
+                                    id="message-reverse"
+                                    viewBox="-5 -5 10 10"
+                                    refX="0"
+                                    refY="0"
+                                    markerWidth="7"
+                                    markerHeight="7"
+                                    orient="auto">
+                                    <path d="M 4,3 h -8 v -6 h 8 v 6 l -4,-3 l -4,3" />
+                                </marker>
+                            </defs>
+
+                            <line class="link" x1="10" y1="10" x2="40" y2="10" />
+                            <line class="link" x1="10" y1="10" x2="25" y2="40" />
+                            <line class="link" x1="25" y1="40" x2="40" y2="10" />
+
                             <g class="process">
                                 <circle cx="10" cy="10" r="5" />
                                 <text x="10" y="10" dominant-baseline="middle">
@@ -307,7 +334,7 @@
                     </p>
                     <ul class="example visual">
                         <li>
-                            <svg class="space-time" viewbox="0 0 50 50">
+                            <svg class="space-time" viewBox="0 0 50 50">
                                 <defs>
                                     <marker
                                         id="arrow"
@@ -357,7 +384,7 @@
                             </svg>
                         </li>
                         <li>
-                            <svg class="space-time" viewbox="0 0 50 50">
+                            <svg class="space-time" viewBox="0 0 50 50">
                                 <defs>
                                     <marker
                                         id="arrow"
@@ -428,9 +455,61 @@
                             </mrow>
                         </math>.
                     </p>
-                    <!-- <ul class="visual example">
-                        {happenedBeforeExamples.second.map(x => <li>{x}</li>)}
-                    </ul> -->
+                    <ul class="visual example">
+                        <li>
+                            <svg class="space-time" viewBox="0 0 60 50">
+                                <g class="process">
+                                    <text x="10" y="48" text-anchor="middle">sender</text>
+
+                                    <line class="segment" x1="10" x2="10" y1="40" y2="5" />
+
+                                    <g class="event">
+                                        <circle cx="10" cy="35" r="2" />
+                                        <foreignObject class="label" x="3" y="30" width="8" height="10">
+                                            <math>
+                                                <mi>a</mi>
+                                            </math>
+                                        </foreignObject>
+                                    </g>
+                                </g>
+                                <g class="process">
+                                    <text x="50" y="48" text-anchor="middle">receiver</text>
+
+                                    <line class="segment" x1="50" x2="50" y1="40" y2="5" />
+
+                                    <g class="event">
+                                        <circle cx="50" cy="15" r="2" />
+                                        <foreignObject class="label" x="53" y="10" width="8" height="10">
+                                            <math>
+                                                <mi>b</mi>
+                                            </math>
+                                        </foreignObject>
+                                    </g>
+                                </g>
+
+                                <g class="message">
+                                    <path class="link" d="M 10,35 L 50,15" />
+                                    <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
+                                        <animateMotion
+                                            dur="2000ms"
+                                            keyPoints="0.1; 0.9"
+                                            keyTimes="0; 1"
+                                            repeatCount="indefinite"
+                                            calcMode="linear"
+                                            fill="freeze"
+                                            rotate="auto"
+                                            path="M 10,35 L 50,15" />
+                                        <animate
+                                            attributeName="opacity"
+                                            values="0; 1; 1; 0"
+                                            keyTimes="0; 0.3; 0.7; 1"
+                                            dur="2000ms"
+                                            repeatCount="indefinite" />
+                                    </path>
+                                </g>
+                            </svg>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <p>
@@ -454,11 +533,122 @@
                             </mrow>
                         </math>.
                     </p>
-                    <!-- <ul class="visual example">
-                        {happenedBeforeExamples.third.map(example => {
-                        return <li>{example}</li>
-                        })}
-                    </ul> -->
+                    <ul class="visual example">
+                        <li>
+                            <svg class="space-time" viewBox="0 0 60 60">
+                                <g class="process">
+                                    <line class="segment" x1="10" x2="10" y1="60" y2="5" />
+
+                                    <g class="event">
+                                        <circle cx="10" cy="55" r="2" />
+                                        <foreignObject class="label" x="3" y="50" width="8" height="10">
+                                            <math>
+                                                <mi>a</mi>
+                                            </math>
+                                        </foreignObject>
+                                    </g>
+                                    <g class="event">
+                                        <circle cx="10" cy="35" r="2" />
+                                        <foreignObject class="label" x="3" y="30" width="8" height="10">
+                                            <math>
+                                                <mi>b</mi>
+                                            </math>
+                                        </foreignObject>
+                                    </g>
+                                </g>
+                                <g class="process">
+                                    <line class="segment" x1="50" x2="50" y1="60" y2="5" />
+
+                                    <g class="event">
+                                        <circle cx="50" cy="15" r="2" />
+                                        <foreignObject class="label" x="53" y="10" width="8" height="10">
+                                            <math>
+                                                <mi>c</mi>
+                                            </math>
+                                        </foreignObject>
+                                    </g>
+                                </g>
+
+                                <g class="message">
+                                    <path class="link" d="M 10,35 L 50,15" />
+                                    <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
+                                        <animateMotion
+                                            dur="2000ms"
+                                            keyPoints="0.1; 0.9"
+                                            keyTimes="0; 1"
+                                            repeatCount="indefinite"
+                                            calcMode="linear"
+                                            fill="freeze"
+                                            rotate="auto"
+                                            path="M 10,35 L 50,15" />
+                                        <animate
+                                            attributeName="opacity"
+                                            values="0; 1; 1; 0"
+                                            keyTimes="0; 0.3; 0.7; 1"
+                                            dur="2000ms"
+                                            repeatCount="indefinite" />
+                                    </path>
+                                </g>
+                            </svg>
+                        </li>
+                        <li>
+                            <svg class="space-time" viewBox="0 0 60 60">
+                                <g class="process">
+                                    <line class="segment" x1="10" x2="10" y1="60" y2="5" />
+
+                                    <g class="event">
+                                        <circle cx="10" cy="55" r="2" />
+                                        <foreignObject class="label" x="3" y="50" width="8" height="10">
+                                            <math>
+                                                <mi>a</mi>
+                                            </math>
+                                        </foreignObject>
+                                    </g>
+                                </g>
+                                <g class="process">
+                                    <line class="segment" x1="50" x2="50" y1="60" y2="5" />
+
+                                    <g class="event">
+                                        <circle cx="50" cy="35" r="2" />
+                                        <foreignObject class="label" x="53" y="30" width="8" height="10">
+                                            <math>
+                                                <mi>b</mi>
+                                            </math>
+                                        </foreignObject>
+                                    </g>
+                                    <g class="event">
+                                        <circle cx="50" cy="15" r="2" />
+                                        <foreignObject class="label" x="53" y="10" width="8" height="10">
+                                            <math>
+                                                <mi>c</mi>
+                                            </math>
+                                        </foreignObject>
+                                    </g>
+                                </g>
+
+                                <g class="message">
+                                    <path class="link" d="M 10,55 L 50,35" />
+                                    <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
+                                        <animateMotion
+                                            dur="2000ms"
+                                            keyPoints="0.1; 0.9"
+                                            keyTimes="0; 1"
+                                            repeatCount="indefinite"
+                                            calcMode="linear"
+                                            fill="freeze"
+                                            rotate="auto"
+                                            path="M 10,55 L 50,35" />
+                                        <animate
+                                            attributeName="opacity"
+                                            values="0; 1; 1; 0"
+                                            keyTimes="0; 0.3; 0.7; 1"
+                                            dur="2000ms"
+                                            repeatCount="indefinite" />
+                                    </path>
+                                </g>
+                            </svg>
+                        </li>
+                    </ul>
                 </li>
             </ol>
             <p>
@@ -504,7 +694,7 @@
                 represents time &ndash; later times being higher than earlier
                 ones. The dots denote events, the vertical lines denote
                 processes, and the <del>wavy lines</del>
-                <ins>lines with messages</ins> denote messages. <inline-details id="message-note">
+                <ins>lines with letters</ins> denote messages. <inline-details id="message-note">
                     <span slot="summary">[Note]</span>
                     <template-use slot="content" template-id="message-note-template"></template-use>
                 </inline-details>
@@ -523,13 +713,14 @@
                 </math> in
                 the diagram by moving forward in time along process
                 and message lines. For example, we have <math>
-                    <mrow title="the first event in process P happened before the fourth event in process R">
-                        <msub title="the first event in process P">
+                    <mrow title="the first event in process P happened before the fourth event in process R"
+                        data-event-from="p1" data-event-to="r4">
+                        <msub title="the first event in process P" data-event="p1">
                             <mi>p</mi>
                             <mn>1</mn>
                         </msub>
                         <mo title="happened before">&#x2192;</mo>
-                        <msub title="the fourth event in process R">
+                        <msub title="the fourth event in process R" data-event="r4">
                             <mi>r</mi>
                             <mn>4</mn>
                         </msub>
@@ -561,16 +752,16 @@
                             <path d="M 0 0 L 10 5 L 0 10 z" />
                         </marker>
                     </defs>
-                    <g class="process">
+                    <g class="process" data-process="P">
                         <text x="40" y="150" text-anchor="middle">process P</text>
 
                         <line class="segment" x1="40" y1="140" x2="40" y2="130" />
-                        <line class="segment" x1="40" y1="130" x2="40" y2="110" />
-                        <line class="segment" x1="40" y1="110" x2="40" y2="90" />
-                        <line class="segment" x1="40" y1="90" x2="40" y2="70" />
+                        <line class="segment" x1="40" y1="130" x2="40" y2="110" data-event-from="p1" data-event-to="p2" />
+                        <line class="segment" x1="40" y1="110" x2="40" y2="90" data-event-from="p2" data-event-to="p3" />
+                        <line class="segment" x1="40" y1="90" x2="40" y2="70" data-event-from="p3" data-event-to="p4" />
                         <line class="segment" x1="40" y1="70" x2="40" y2="50" />
 
-                        <g class="event">
+                        <g class="event" data-event="p1">
                             <circle cx="40" cy="130" r="2" />
                             <foreignObject class="label" x="30" y="125" width="8" height="10">
                                 <math>
@@ -581,7 +772,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="p2">
                             <circle cx="40" cy="110" r="2" />
                             <foreignObject class="label" x="30" y="105" width="8" height="10">
                                 <math>
@@ -592,7 +783,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="p3">
                             <circle cx="40" cy="90" r="2" />
                             <foreignObject class="label" x="30" y="85" width="8" height="10">
                                 <math>
@@ -603,7 +794,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="p4">
                             <circle cx="40" cy="70" r="2" />
                             <foreignObject class="label" x="30" y="65" width="8" height="10">
                                 <math>
@@ -615,19 +806,19 @@
                             </foreignObject>
                         </g>
                     </g>
-                    <g class="process">
+                    <g class="process" data-process="Q">
                         <text x="80" y="150" text-anchor="middle">process Q</text>
 
                         <line class="segment" x1="80" y1="140" x2="80" y2="130" />
-                        <line class="segment" x1="80" y1="130" x2="80" y2="120" />
-                        <line class="segment" x1="80" y1="120" x2="80" y2="110" />
-                        <line class="segment" x1="80" y1="110" x2="80" y2="100" />
-                        <line class="segment" x1="80" y1="100" x2="80" y2="90" />
-                        <line class="segment" x1="80" y1="90" x2="80" y2="80" />
-                        <line class="segment" x1="80" y1="80" x2="80" y2="70" />
+                        <line class="segment" x1="80" y1="130" x2="80" y2="120" data-event-from="q1" data-event-to="q2" />
+                        <line class="segment" x1="80" y1="120" x2="80" y2="110" data-event-from="q2" data-event-to="q3" />
+                        <line class="segment" x1="80" y1="110" x2="80" y2="100" data-event-from="q3" data-event-to="q4" />
+                        <line class="segment" x1="80" y1="100" x2="80" y2="90" data-event-from="q4" data-event-to="q5" />
+                        <line class="segment" x1="80" y1="90" x2="80" y2="80" data-event-from="q5" data-event-to="q6" />
+                        <line class="segment" x1="80" y1="80" x2="80" y2="70" data-event-from="q6" data-event-to="q7" />
                         <line class="segment" x1="80" y1="70" x2="80" y2="50" />
 
-                        <g class="event">
+                        <g class="event" data-event="q1">
                             <circle cx="80" cy="130" r="2" />
                             <foreignObject class="label" x="85" y="125" width="8" height="10">
                                 <math>
@@ -638,7 +829,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="q2">
                             <circle cx="80" cy="120" r="2" />
                             <foreignObject class="label" x="85" y="115" width="8" height="10">
                                 <math>
@@ -649,7 +840,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="q3">
                             <circle cx="80" cy="110" r="2" />
                             <foreignObject class="label" x="85" y="105" width="8" height="10">
                                 <math>
@@ -660,7 +851,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="q4">
                             <circle cx="80" cy="100" r="2" />
                             <foreignObject class="label" x="85" y="95" width="8" height="10">
                                 <math>
@@ -671,7 +862,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="q5">
                             <circle cx="80" cy="90" r="2" />
                             <foreignObject class="label" x="85" y="85" width="8" height="10">
                                 <math>
@@ -682,7 +873,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="q6">
                             <circle cx="80" cy="80" r="2" />
                             <foreignObject class="label" x="85" y="75" width="8" height="10">
                                 <math>
@@ -693,7 +884,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="q7">
                             <circle cx="80" cy="70" r="2" />
                             <foreignObject class="label" x="85" y="65" width="8" height="10">
                                 <math>
@@ -705,16 +896,16 @@
                             </foreignObject>
                         </g>
                     </g>
-                    <g class="process">
+                    <g class="process" data-process="R">
                         <text x="120" y="150" text-anchor="middle">process R</text>
 
                         <line class="segment" x1="120" y1="140" x2="120" y2="130" />
-                        <line class="segment" x1="120" y1="130" x2="120" y2="110" />
-                        <line class="segment" x1="120" y1="110" x2="120" y2="90" />
-                        <line class="segment" x1="120" y1="90" x2="120" y2="70" />
+                        <line class="segment" x1="120" y1="130" x2="120" y2="110" data-event-from="r1" data-event-to="r2" />
+                        <line class="segment" x1="120" y1="110" x2="120" y2="90" data-event-from="r2" data-event-to="r3" />
+                        <line class="segment" x1="120" y1="90" x2="120" y2="70" data-event-from="r3" data-event-to="r4" />
                         <line class="segment" x1="120" y1="70" x2="120" y2="50" />
 
-                        <g class="event">
+                        <g class="event" data-event="r1">
                             <circle cx="120" cy="130" r="2" />
                             <foreignObject class="label" x="125" y="125" width="8" height="10">
                                 <math>
@@ -725,7 +916,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="r2">
                             <circle cx="120" cy="110" r="2" />
                             <foreignObject class="label" x="125" y="105" width="8" height="10">
                                 <math>
@@ -736,7 +927,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="r3">
                             <circle cx="120" cy="90" r="2" />
                             <foreignObject class="label" x="125" y="85" width="8" height="10">
                                 <math>
@@ -747,7 +938,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="r4">
                             <circle cx="120" cy="70" r="2" />
                             <foreignObject class="label" x="125" y="65" width="8" height="10">
                                 <math>
@@ -760,7 +951,7 @@
                         </g>
                     </g>
 
-                    <g class="message">
+                    <g class="message" data-event-from="p1" data-event-to="q2">
                         <path class="link" d="M 40,130 L 80,120" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -780,7 +971,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="q1" data-event-to="p2">
                         <path class="link" d="M 80,130 L 40,110" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -800,7 +991,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="q5" data-event-to="p4">
                         <path class="link" d="M 80,90 L 40,70" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -821,7 +1012,7 @@
                         </path>
                     </g>
 
-                    <g class="message">
+                    <g class="message" data-event-from="q1" data-event-to="r4">
                         <path class="link" d="M 80,130 L 120,70" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -841,7 +1032,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="q4" data-event-to="r3">
                         <path class="link" d="M 80,100 L 120,90" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -861,7 +1052,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="r2" data-event-to="q7">
                         <path class="link" d="M 120,110 L 80,70" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -903,49 +1094,49 @@
                 Two events are concurrent if neither
                 can causally affect the other. For example,
                 events <math>
-                    <msub title="the third event in process P">
+                    <msub title="the third event in process P" data-event="p3">
                         <mi>p</mi>
                         <mn>3</mn>
                     </msub>
                 </math> and <math>
-                    <msub title="the third event in process Q">
+                    <msub title="the third event in process Q" data-event="q3">
                         <mi>q</mi>
                         <mn>3</mn>
                     </msub>
                 </math> of <a href="#figure-1">Figure 1</a> are
                 concurrent. Even though we have drawn the diagram to imply
                 that <math>
-                    <msub title="the third event in process Q">
+                    <msub title="the third event in process Q" data-event="q3">
                         <mi>q</mi>
                         <mn>3</mn>
                     </msub>
                 </math> occurs at an earlier
                 physical time than <math>
-                    <msub title="the third event in process P">
+                    <msub title="the third event in process P" data-event="p3">
                         <mi>p</mi>
                         <mn>3</mn>
                     </msub>
-                </math>, process P cannot know
-                what process Q did at <math>
-                    <msub title="the third event in process Q">
+                </math>, <span data-process="P">process P</span> cannot know
+                what <span data-process="Q">process Q</span> did at <math>
+                    <msub title="the third event in process Q" data-event="q3">
                         <mi>q</mi>
                         <mn>3</mn>
                     </msub>
                 </math> until it receives the message
                 at <math>
-                    <msub title="the fourth event in process P">
+                    <msub title="the fourth event in process P" data-event="p4">
                         <mi>p</mi>
                         <mn>4</mn>
                     </msub>
                 </math>.
                 (Before event <math>
-                    <msub title="the fourth event in process P">
+                    <msub title="the fourth event in process P" data-event="p4">
                         <mi>p</mi>
                         <mn>4</mn>
                     </msub>
-                </math>, P could at most know what Q was <em>planning</em> to
+                </math>, <span data-process="P">P</span> could at most know what <span data-process="Q">Q</span> was <em>planning</em> to
                 do at <math>
-                    <msub title="the third event in process Q">
+                    <msub title="the third event in process Q" data-event="q3">
                         <mi>q</mi>
                         <mn>3</mn>
                     </msub>
@@ -985,7 +1176,7 @@
                         <mi>i</mi>
                     </msub>
                 </math> to be a function which assigns a number <math>
-                    <mrow title="the process's timestamp of the event">
+                    <mrow title="the process's time of the event">
                         <msub title="a process's clock">
                             <mi>C</mi>
                             <mi>i</mi>
@@ -1002,33 +1193,33 @@
                 </math> which assigns to any event <math>
                     <mi title="an event">b</mi>
                 </math> the number <math>
-                    <mrow title="the system's timestamp of an event">
+                    <mrow title="the system's time of an event">
                         <mi title="the system's clock">C</mi>
                         <mo>&#x27E8;</mo>
                         <mi title="event in process j">b</mi>
                         <mo>&#x27E9;</mo>
                     </mrow>
                 </math>, where <math>
-                    <mrow title="the systems' timestamp of an event is equal to the process's timestamp of the event">
-                        <mrow title="the system's timestamp of the event">
+                    <mrow title="the systems' time of an event is equal to the event's process's time of the event">
+                        <mrow title="the system's time of the event">
                             <mi title="system of clocks for all processes">C</mi>
                             <mo>&#x27E8;</mo>
-                            <mi title="event in process j">b</mi>
+                            <mi title="the event">b</mi>
                             <mo>&#x27E9;</mo>
                         </mrow>
                         <mo>=</mo>
-                        <mrow title="the process's timestamp of the event">
+                        <mrow title="the process's time of the event">
                             <msub title="the event's process's clock">
                                 <mi>C</mi>
                                 <mi>j</mi>
                             </msub>
                             <mo>&#x27E8;</mo>
-                            <mi title="event in process j">b</mi>
+                            <mi title="the event">b</mi>
                             <mo>&#x27E9;</mo>
                         </mrow>
                     </mrow>
                 </math> if <math>
-                    <mi title="an event">b</mi>
+                    <mi title="the event">b</mi>
                 </math> is an event in process <math>
                     <msub title="a process">
                         <mi>P</mi>
@@ -1036,7 +1227,7 @@
                     </msub>
                 </math>. For now, we make no assumption about
                 the relation of the numbers <math>
-                    <mrow title="the process's timestamp of an event">
+                    <mrow title="the process's time of an event">
                         <msub title="the process's clock">
                             <mi>C</mi>
                             <mi>i</mi>
@@ -1079,23 +1270,23 @@
                 Note that we cannot expect the converse condition to
                 hold as well, since that would imply that any two concurrent
                 events must occur at the same time. In <a href="#figure-1">Figure 1</a>, <math>
-                    <msub title="the second event in process P">
+                    <msub title="the second event in process P" data-event="p2">
                         <mi>p</mi>
                         <mn>2</mn>
                     </msub>
                 </math> and <math>
-                    <msub title="the third event in process P">
+                    <msub title="the third event in process P" data-event="p3">
                         <mi>p</mi>
                         <mn>3</mn>
                     </msub>
                 </math> are both concurrent with <math>
-                    <msub title="the third event in process Q">
+                    <msub title="the third event in process Q" data-event="q3">
                         <mi>q</mi>
                         <mn>3</mn>
                     </msub>
                 </math>, so this would
                 mean that they both must occur at the same time as <math>
-                    <msub title="the third event in process Q">
+                    <msub title="the third event in process Q" data-event="q3">
                         <mi>q</mi>
                         <mn>3</mn>
                     </msub>
@@ -1104,13 +1295,14 @@
                     <span slot="summary">Clock Condition</span>
                     <template-use slot="content" template-id="clock-condition-use"></template-use>
                 </inline-details> because <math>
-                    <mrow title="the second event in process P happened before the third event in process P">
-                        <msub title="the second event in process P">
+                    <mrow title="the second event in process P happened before the third event in process P"
+                        data-event-from="p2" data-event-to="p3">
+                        <msub title="the second event in process P" data-event="p2">
                             <mi>p</mi>
                             <mn>2</mn>
                         </msub>
                         <mo title="happend before">&#x2192;</mo>
-                        <msub title="the third event in process P">
+                        <msub title="the third event in process P" data-event="p3">
                             <mi>p</mi>
                             <mn>3</mn>
                         </msub>
@@ -1232,16 +1424,16 @@
                     <polyline class="tick" points="40,75  80,85  120,80" />
                     <polyline class="tick" points="40,60  80,77  120,75" />
 
-                    <g class="process">
+                    <g class="process" data-process="P">
                         <text x="40" y="150" text-anchor="middle">process P</text>
 
                         <line class="segment" x1="40" y1="140" x2="40" y2="130" />
-                        <line class="segment" x1="40" y1="130" x2="40" y2="110" />
-                        <line class="segment" x1="40" y1="110" x2="40" y2="90" />
-                        <line class="segment" x1="40" y1="90" x2="40" y2="70" />
+                        <line class="segment" x1="40" y1="130" x2="40" y2="110" data-event-from="p1" data-event-to="p2" />
+                        <line class="segment" x1="40" y1="110" x2="40" y2="90" data-event-from="p2" data-event-to="p3" />
+                        <line class="segment" x1="40" y1="90" x2="40" y2="70" data-event-from="p3" data-event-to="p4" />
                         <line class="segment" x1="40" y1="70" x2="40" y2="50" />
 
-                        <g class="event">
+                        <g class="event" data-event="p1">
                             <circle cx="40" cy="130" r="2" />
                             <foreignObject class="label" x="30" y="125" width="8" height="10">
                                 <math>
@@ -1252,7 +1444,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="p2">
                             <circle cx="40" cy="110" r="2" />
                             <foreignObject class="label" x="30" y="105" width="8" height="10">
                                 <math>
@@ -1263,7 +1455,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="p3">
                             <circle cx="40" cy="90" r="2" />
                             <foreignObject class="label" x="30" y="85" width="8" height="10">
                                 <math>
@@ -1274,7 +1466,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="p4">
                             <circle cx="40" cy="70" r="2" />
                             <foreignObject class="label" x="30" y="65" width="8" height="10">
                                 <math>
@@ -1286,19 +1478,19 @@
                             </foreignObject>
                         </g>
                     </g>
-                    <g class="process">
+                    <g class="process" data-process="Q">
                         <text x="80" y="150" text-anchor="middle">process Q</text>
 
                         <line class="segment" x1="80" y1="140" x2="80" y2="130" />
-                        <line class="segment" x1="80" y1="130" x2="80" y2="120" />
-                        <line class="segment" x1="80" y1="120" x2="80" y2="110" />
-                        <line class="segment" x1="80" y1="110" x2="80" y2="100" />
-                        <line class="segment" x1="80" y1="100" x2="80" y2="90" />
-                        <line class="segment" x1="80" y1="90" x2="80" y2="80" />
-                        <line class="segment" x1="80" y1="80" x2="80" y2="70" />
+                        <line class="segment" x1="80" y1="130" x2="80" y2="120" data-event-from="q1" data-event-to="q2" />
+                        <line class="segment" x1="80" y1="120" x2="80" y2="110" data-event-from="q2" data-event-to="q3" />
+                        <line class="segment" x1="80" y1="110" x2="80" y2="100" data-event-from="q3" data-event-to="q4" />
+                        <line class="segment" x1="80" y1="100" x2="80" y2="90" data-event-from="q4" data-event-to="q5" />
+                        <line class="segment" x1="80" y1="90" x2="80" y2="80" data-event-from="q5" data-event-to="q6" />
+                        <line class="segment" x1="80" y1="80" x2="80" y2="70" data-event-from="q6" data-event-to="q7" />
                         <line class="segment" x1="80" y1="70" x2="80" y2="50" />
 
-                        <g class="event">
+                        <g class="event" data-event="q1">
                             <circle cx="80" cy="130" r="2" />
                             <foreignObject class="label" x="85" y="125" width="8" height="10">
                                 <math>
@@ -1309,7 +1501,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="q2">
                             <circle cx="80" cy="120" r="2" />
                             <foreignObject class="label" x="85" y="115" width="8" height="10">
                                 <math>
@@ -1320,7 +1512,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="q3">
                             <circle cx="80" cy="110" r="2" />
                             <foreignObject class="label" x="85" y="105" width="8" height="10">
                                 <math>
@@ -1331,7 +1523,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="q4">
                             <circle cx="80" cy="100" r="2" />
                             <foreignObject class="label" x="85" y="95" width="8" height="10">
                                 <math>
@@ -1342,7 +1534,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="q5">
                             <circle cx="80" cy="90" r="2" />
                             <foreignObject class="label" x="85" y="85" width="8" height="10">
                                 <math>
@@ -1353,7 +1545,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="q6">
                             <circle cx="80" cy="80" r="2" />
                             <foreignObject class="label" x="85" y="75" width="8" height="10">
                                 <math>
@@ -1364,7 +1556,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="q7">
                             <circle cx="80" cy="70" r="2" />
                             <foreignObject class="label" x="85" y="65" width="8" height="10">
                                 <math>
@@ -1376,16 +1568,16 @@
                             </foreignObject>
                         </g>
                     </g>
-                    <g class="process">
+                    <g class="process" data-process="R">
                         <text x="120" y="150" text-anchor="middle">process R</text>
 
                         <line class="segment" x1="120" y1="140" x2="120" y2="130" />
-                        <line class="segment" x1="120" y1="130" x2="120" y2="110" />
-                        <line class="segment" x1="120" y1="110" x2="120" y2="90" />
-                        <line class="segment" x1="120" y1="90" x2="120" y2="70" />
+                        <line class="segment" x1="120" y1="130" x2="120" y2="110" data-event-from="r1" data-event-from="r2" />
+                        <line class="segment" x1="120" y1="110" x2="120" y2="90" data-event-from="r2" data-event-from="r3" />
+                        <line class="segment" x1="120" y1="90" x2="120" y2="70" data-event-from="r3" data-event-from="r4" />
                         <line class="segment" x1="120" y1="70" x2="120" y2="50" />
 
-                        <g class="event">
+                        <g class="event" data-event="r1">
                             <circle cx="120" cy="130" r="2" />
                             <foreignObject class="label" x="125" y="125" width="8" height="10">
                                 <math>
@@ -1396,7 +1588,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="r2">
                             <circle cx="120" cy="110" r="2" />
                             <foreignObject class="label" x="125" y="105" width="8" height="10">
                                 <math>
@@ -1407,7 +1599,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="r3">
                             <circle cx="120" cy="90" r="2" />
                             <foreignObject class="label" x="125" y="85" width="8" height="10">
                                 <math>
@@ -1418,7 +1610,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="r4">
                             <circle cx="120" cy="70" r="2" />
                             <foreignObject class="label" x="125" y="65" width="8" height="10">
                                 <math>
@@ -1431,7 +1623,7 @@
                         </g>
                     </g>
 
-                    <g class="message">
+                    <g class="message" data-event-from="p1" data-event-to="q2">
                         <path class="link" d="M 40,130 L 80,120" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1451,7 +1643,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="q1" data-event-to="p2">
                         <path class="link" d="M 80,130 L 40,110" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1471,7 +1663,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="q5" data-event-to="p4">
                         <path class="link" d="M 80,90 L 40,70" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1492,7 +1684,7 @@
                         </path>
                     </g>
 
-                    <g class="message">
+                    <g class="message" data-event-from="q1" data-event-to="r4">
                         <path class="link" d="M 80,130 L 120,70" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1512,7 +1704,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="q4" data-event-to="r3">
                         <path class="link" d="M 80,100 L 120,90" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1532,7 +1724,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="r2" data-event-to="q7">
                         <path class="link" d="M 120,110 L 80,70" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1600,16 +1792,16 @@
                     <polyline class="tick" points="40,70  80,70  120,70" />
                     <polyline class="tick" points="40,60  80,60  120,60" />
 
-                    <g class="process">
+                    <g class="process" data-process="P">
                         <text x="40" y="150" text-anchor="middle">process P</text>
 
                         <line class="segment" x1="40" y1="140" x2="40" y2="130" />
-                        <line class="segment" x1="40" y1="130" x2="40" y2="110" />
-                        <line class="segment" x1="40" y1="110" x2="40" y2="90" />
-                        <line class="segment" x1="40" y1="90" x2="40" y2="70" />
+                        <line class="segment" x1="40" y1="130" x2="40" y2="110" data-event-from="p1" data-event-to="p2" />
+                        <line class="segment" x1="40" y1="110" x2="40" y2="90" data-event-from="p2" data-event-to="p3" />
+                        <line class="segment" x1="40" y1="90" x2="40" y2="70" data-event-from="p3" data-event-to="p4" />
                         <line class="segment" x1="40" y1="70" x2="40" y2="45" />
 
-                        <g class="event">
+                        <g class="event" data-event="p1">
                             <circle cx="40" cy="135" r="2" />
                             <foreignObject class="label" x="30" y="130" width="8" height="10">
                                 <math>
@@ -1620,7 +1812,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="p2">
                             <circle cx="40" cy="115" r="2" />
                             <foreignObject class="label" x="30" y="110" width="8" height="10">
                                 <math>
@@ -1631,7 +1823,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="p3">
                             <circle cx="40" cy="105" r="2" />
                             <foreignObject class="label" x="30" y="100" width="8" height="10">
                                 <math>
@@ -1642,7 +1834,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="p4">
                             <circle cx="40" cy="65" r="2" />
                             <foreignObject class="label" x="30" y="60" width="8" height="10">
                                 <math>
@@ -1654,19 +1846,19 @@
                             </foreignObject>
                         </g>
                     </g>
-                    <g class="process">
+                    <g class="process" data-process="Q">
                         <text x="80" y="150" text-anchor="middle">process Q</text>
 
                         <line class="segment" x1="80" y1="140" x2="80" y2="130" />
-                        <line class="segment" x1="80" y1="130" x2="80" y2="120" />
-                        <line class="segment" x1="80" y1="120" x2="80" y2="110" />
-                        <line class="segment" x1="80" y1="110" x2="80" y2="100" />
-                        <line class="segment" x1="80" y1="100" x2="80" y2="90" />
-                        <line class="segment" x1="80" y1="90" x2="80" y2="80" />
-                        <line class="segment" x1="80" y1="80" x2="80" y2="70" />
+                        <line class="segment" x1="80" y1="130" x2="80" y2="120" data-event-from="q1" data-event-to="q2" />
+                        <line class="segment" x1="80" y1="120" x2="80" y2="110" data-event-from="q2" data-event-to="q3" />
+                        <line class="segment" x1="80" y1="110" x2="80" y2="100" data-event-from="q3" data-event-to="q4" />
+                        <line class="segment" x1="80" y1="100" x2="80" y2="90" data-event-from="q4" data-event-to="q5" />
+                        <line class="segment" x1="80" y1="90" x2="80" y2="80" data-event-from="q5" data-event-to="q6" />
+                        <line class="segment" x1="80" y1="80" x2="80" y2="70" data-event-from="q6" data-event-to="q7" />
                         <line class="segment" x1="80" y1="70" x2="80" y2="45" />
 
-                        <g class="event">
+                        <g class="event" data-event="q1">
                             <circle cx="80" cy="135" r="2" />
                             <foreignObject class="label" x="85" y="130" width="8" height="10">
                                 <math>
@@ -1677,7 +1869,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="q2">
                             <circle cx="80" cy="115" r="2" />
                             <foreignObject class="label" x="85" y="110" width="8" height="10">
                                 <math>
@@ -1688,7 +1880,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="q3">
                             <circle cx="80" cy="95" r="2" />
                             <foreignObject class="label" x="85" y="90" width="8" height="10">
                                 <math>
@@ -1699,7 +1891,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="q4">
                             <circle cx="80" cy="85" r="2" />
                             <foreignObject class="label" x="85" y="80" width="8" height="10">
                                 <math>
@@ -1710,7 +1902,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="q5">
                             <circle cx="80" cy="75" r="2" />
                             <foreignObject class="label" x="85" y="70" width="8" height="10">
                                 <math>
@@ -1721,7 +1913,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="q6">
                             <circle cx="80" cy="65" r="2" />
                             <foreignObject class="label" x="85" y="60" width="8" height="10">
                                 <math>
@@ -1732,7 +1924,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="q7">
                             <circle cx="80" cy="55" r="2" />
                             <foreignObject class="label" x="85" y="50" width="8" height="10">
                                 <math>
@@ -1744,16 +1936,16 @@
                             </foreignObject>
                         </g>
                     </g>
-                    <g class="process">
+                    <g class="process" data-process="R">
                         <text x="120" y="150" text-anchor="middle">process R</text>
 
                         <line class="segment" x1="120" y1="140" x2="120" y2="130" />
-                        <line class="segment" x1="120" y1="130" x2="120" y2="110" />
-                        <line class="segment" x1="120" y1="110" x2="120" y2="90" />
-                        <line class="segment" x1="120" y1="90" x2="120" y2="70" />
+                        <line class="segment" x1="120" y1="130" x2="120" y2="110" data-event-from="r1" data-event-to="r2" />
+                        <line class="segment" x1="120" y1="110" x2="120" y2="90" data-event-from="r2" data-event-to="r3" />
+                        <line class="segment" x1="120" y1="90" x2="120" y2="70" data-event-from="r3" data-event-to="r4" />
                         <line class="segment" x1="120" y1="70" x2="120" y2="45" />
 
-                        <g class="event">
+                        <g class="event" data-event="r1">
                             <circle cx="120" cy="135" r="2" />
                             <foreignObject class="label" x="125" y="130" width="8" height="10">
                                 <math>
@@ -1764,7 +1956,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="r2">
                             <circle cx="120" cy="105" r="2" />
                             <foreignObject class="label" x="125" y="100" width="8" height="10">
                                 <math>
@@ -1775,7 +1967,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="r3">
                             <circle cx="120" cy="75" r="2" />
                             <foreignObject class="label" x="125" y="70" width="8" height="10">
                                 <math>
@@ -1786,7 +1978,7 @@
                                 </math>
                             </foreignObject>
                         </g>
-                        <g class="event">
+                        <g class="event" data-event="r4">
                             <circle cx="120" cy="55" r="2" />
                             <foreignObject class="label" x="125" y="50" width="8" height="10">
                                 <math>
@@ -1799,7 +1991,7 @@
                         </g>
                     </g>
 
-                    <g class="message">
+                    <g class="message" data-event-from="p1" data-event-to="q2">
                         <path class="link" d="M 40,135 L 80,115" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1819,7 +2011,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="q1" data-event-to="p2">
                         <path class="link" d="M 80,135 L 40,115" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1839,7 +2031,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="q5" data-event-to="p4">
                         <path class="link" d="M 80,75 L 40,65" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1860,7 +2052,7 @@
                         </path>
                     </g>
 
-                    <g class="message">
+                    <g class="message" data-event-from="q1" data-event-to="r4">
                         <path class="link" d="M 80,135 L 120,55" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1880,7 +2072,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="q4" data-event-to="r3">
                         <path class="link" d="M 80,85 L 120,75" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -1900,7 +2092,7 @@
                                 repeatCount="indefinite" />
                         </path>
                     </g>
-                    <g class="message">
+                    <g class="message" data-event-from="r2" data-event-to="q7">
                         <path class="link" d="M 120,105 L 80,55" />
                         <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
                             <animateMotion
@@ -2268,41 +2460,178 @@
                 It is important to realize that this is a nontrivial problem.
                 Using a central scheduling process which grants requests in the order
                 they are received will not work, unless additional assumptions are made.
-                To see this, let <math>
-                    <msub title="the scheduling process">
-                        <mi>P</mi>
-                        <mn>0</mn>
-                    </msub>
-                </math> be the scheduling
-                process. Suppose <math>
-                    <msub title="the first process">
-                        <mi>P</mi>
-                        <mn>1</mn>
-                    </msub>
-                </math> sends a request
-                to <math>
-                    <msub title="the scheduling process">
-                        <mi>P</mi>
-                        <mn>0</mn>
-                    </msub>
-                </math> and then sends
-                a message to <math>
-                    <msub title="the second process">
-                        <mi>P</mi>
-                        <mn>2</mn>
-                    </msub>
-                </math>. Upon receiving the
-                latter message, <math>
-                    <msub title="the second process">
-                        <mi>P</mi>
-                        <mn>2</mn>
-                    </msub>
-                </math> sends a request to <math>
-                    <msub title="the scheduling process">
-                        <mi>P</mi>
-                        <mn>0</mn>
-                    </msub>
-                </math>. It
+            </p>
+            <ol class="visual">
+                <li>
+                    <p>
+                        To see this, let <math>
+                            <msub title="the scheduling process">
+                                <mi>P</mi>
+                                <mn>0</mn>
+                            </msub>
+                        </math> be the scheduling
+                        process.
+                    </p>
+                    <figure>
+                        <svg class="distributed-system" viewBox="0 0 50 50">
+                            <line class="link" x1="7" y1="43" x2="25" y2="15" />
+                            <line class="link" x1="43" y1="43" x2="25" y2="15" />
+                            <line class="link" x1="7" y1="43" x2="43" y2="43" />
+
+                            <g class="process">
+                                <circle cx="25" cy="15" r="5" />
+                                <text x="25" y="7" dominant-baseline="middle">
+                                    Scheduler
+                                </text>
+                            </g>
+                            <g class="process">
+                                <circle cx="7" cy="43" r="5" />
+                                <text x="7" y="43" dominant-baseline="middle">
+                                    1
+                                </text>
+                            </g>
+                            <g class="process">
+                                <circle cx="43" cy="43" r="5" />
+                                <text x="43" y="43" dominant-baseline="middle">
+                                    2
+                                </text>
+                            </g>
+                        </svg>
+                    </figure>
+                </li>
+                <li>
+                    <p>
+                        Suppose <math>
+                            <msub title="the first process">
+                                <mi>P</mi>
+                                <mn>1</mn>
+                            </msub>
+                        </math> sends a request
+                        to <math>
+                            <msub title="the scheduling process">
+                                <mi>P</mi>
+                                <mn>0</mn>
+                            </msub>
+                        </math> and then sends
+                        a message to <math>
+                            <msub title="the second process">
+                                <mi>P</mi>
+                                <mn>2</mn>
+                            </msub>
+                        </math>.
+                    </p>
+                    <figure>
+                        <svg class="distributed-system" viewBox="0 0 50 50">
+                            <defs>
+                                <marker
+                                    id="message"
+                                    viewBox="-5 -5 10 10"
+                                    refX="0"
+                                    refY="0"
+                                    markerWidth="7"
+                                    markerHeight="7"
+                                    orient="auto">
+                                    <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3" />
+                                </marker>
+                            </defs>
+                            <line class="link" x1="7" y1="43" x2="25" y2="15" />
+                            <line class="link" x1="43" y1="43" x2="25" y2="15" />
+                            <line class="link" x1="7" y1="43" x2="43" y2="43" />
+
+                            <line class="message" x1="7" y1="43" x2="12" y2="35" />
+                            <line class="message" x1="7" y1="43" x2="30" y2="43" />
+
+                            <g class="process">
+                                <circle cx="25" cy="15" r="5" />
+                                <text x="25" y="7" dominant-baseline="middle">
+                                    Scheduler
+                                </text>
+                            </g>
+                            <g class="process">
+                                <circle cx="7" cy="43" r="5" />
+                                <text x="7" y="43" dominant-baseline="middle">
+                                    1
+                                </text>
+                            </g>
+                            <g class="process">
+                                <circle cx="43" cy="43" r="5" />
+                                <text x="43" y="43" dominant-baseline="middle">
+                                    2
+                                </text>
+                            </g>
+                        </svg>
+                    </figure>
+                </li>
+                <li>
+                    <p>
+                        Upon receiving the
+                        latter message, <math>
+                            <msub title="the second process">
+                                <mi>P</mi>
+                                <mn>2</mn>
+                            </msub>
+                        </math> sends a request to <math>
+                            <msub title="the scheduling process">
+                                <mi>P</mi>
+                                <mn>0</mn>
+                            </msub>
+                        </math>.
+                    </p>
+                    <figure>
+                        <svg class="distributed-system" viewBox="0 0 50 50">
+                            <defs>
+                                <marker
+                                    id="message"
+                                    viewBox="-5 -5 10 10"
+                                    refX="0"
+                                    refY="0"
+                                    markerWidth="7"
+                                    markerHeight="7"
+                                    orient="auto">
+                                    <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3" />
+                                </marker>
+                                <marker
+                                    id="message-reverse"
+                                    viewBox="-5 -5 10 10"
+                                    refX="0"
+                                    refY="0"
+                                    markerWidth="7"
+                                    markerHeight="7"
+                                    orient="auto">
+                                    <path d="M 4,3 h -8 v -6 h 8 v 6 l -4,-3 l -4,3" />
+                                </marker>
+                            </defs>
+                            <line class="link" x1="7" y1="43" x2="25" y2="15" />
+                            <line class="link" x1="43" y1="43" x2="25" y2="15" />
+                            <line class="link" x1="7" y1="43" x2="43" y2="43" />
+
+                            <line class="message" x1="7" y1="43" x2="15" y2="30" />
+                            <line class="message reverse" x1="43" y1="43" x2="30" y2="23" />
+
+                            <g class="process">
+                                <circle cx="25" cy="15" r="5" />
+                                <text x="25" y="7" dominant-baseline="middle">
+                                    Scheduler
+                                </text>
+                            </g>
+                            <g class="process">
+                                <circle cx="7" cy="43" r="5" />
+                                <text x="7" y="43" dominant-baseline="middle">
+                                    1
+                                </text>
+                            </g>
+                            <g class="process">
+                                <circle cx="43" cy="43" r="5" />
+                                <text x="43" y="43" dominant-baseline="middle">
+                                    2
+                                </text>
+                            </g>
+                        </svg>
+                    </figure>
+                </li>
+            </ol>
+            <p>
+                It
                 is possible for <math>
                     <msub title="the second process">
                         <mi>P</mi>
@@ -2975,32 +3304,114 @@
                 </math>.
                 Hence, we need only consider events occurring in different processes.
             </p>
+            <ul class="visual">
+                <li>
+                    <p>
+                        Let <math>
+                            <mi title="minimum causal period?">&#x3BC;</mi>
+                        </math> be a number such that if event <math>
+                            <mi title="the first event">a</mi>
+                        </math> occurs
+                        at physical time <math>
+                            <mi title="physical time when the first event occurred">t</mi>
+                        </math> and event <math>
+                            <mi title="the second event">b</mi>
+                        </math> in another
+                        process satisfies <math>
+                            <mrow>
+                                <mi title="the first event">a</mi>
+                                <mo title="relevant happened-before">&#x27A1;</mo>
+                                <mi title="the second event">b</mi>
+                            </mrow>
+                        </math>, then <math>
+                            <mi title="the second event">b</mi>
+                        </math> occurs later than physical time <math>
+                            <mrow title="the minimum physical time for the second event to occur">
+                                <mi title="the physical time when the first even happened">t</mi>
+                                <mo>+</mo>
+                                <mi title="the minimum causal period?">&#x3BC;</mi>
+                            </mrow>
+                        </math>.
+                    </p>
+                    <figure>
+                        <svg class="space-time" viewBox="0 0 65 60">
+                            <line class="tick" x1="10" y1="45" x2="50" y2="45" />
+
+                            <g class="process">
+                                <text x="10" y="58" text-anchor="middle">sender</text>
+
+                                <line class="segment" x1="10" x2="10" y1="50" y2="5" />
+
+                                <g class="event">
+                                    <circle cx="10" cy="45" r="2" />
+                                    <foreignObject class="label" x="3" y="40" width="8" height="10">
+                                        <math>
+                                            <mi>a</mi>
+                                        </math>
+                                    </foreignObject>
+                                </g>
+                            </g>
+                            <g class="process">
+                                <text x="50" y="58" text-anchor="middle">receiver</text>
+
+                                <line class="segment" x1="50" x2="50" y1="50" y2="5" />
+
+                                <g class="event ghost">
+                                    <circle cx="50" cy="45" r="2" />
+                                    <foreignObject class="label" x="57" y="40" width="8" height="10">
+                                        <math>
+                                            <mi>t</mi>
+                                        </math>
+                                    </foreignObject>
+                                </g>
+
+                                <g class="event">
+                                    <circle cx="50" cy="15" r="2" />
+                                    <foreignObject class="label" x="53" y="10" width="8" height="10">
+                                        <math>
+                                            <mi>b</mi>
+                                        </math>
+                                    </foreignObject>
+                                </g>
+
+                                <foreignObject class="label" x="58" y="29" width="8" height="10">
+                                    <math>
+                                        <mi>&#x3BC;</mi>
+                                    </math>
+                                </foreignObject>
+
+                                <polyline class="period" points="
+                                    52,25 55,25
+                                    55,35 57,35 55,35
+                                    55,45 52,45" />
+                            </g>
+
+                            <g class="message">
+                                <path class="link" d="M 10,45 L 50,15" />
+                                <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
+                                    <animateMotion
+                                        dur="2000ms"
+                                        keyPoints="0.1; 0.9"
+                                        keyTimes="0; 1"
+                                        repeatCount="indefinite"
+                                        calcMode="linear"
+                                        fill="freeze"
+                                        rotate="auto"
+                                        path="M 10,45 L 50,15" />
+                                    <animate
+                                        attributeName="opacity"
+                                        values="0; 1; 1; 0"
+                                        keyTimes="0; 0.3; 0.7; 1"
+                                        dur="2000ms"
+                                        repeatCount="indefinite" />
+                                </path>
+                            </g>
+                        </svg>
+                    </figure>
+                </li>
+            </ul>
             <p>
-                Let <math>
-                    <mi title="minimum causal period?">&#x3BC;</mi>
-                </math> be a number such that if event <math>
-                    <mi title="the first event">a</mi>
-                </math> occurs
-                at physical time <math>
-                    <mi title="physical time when the first event occurred">t</mi>
-                </math> and event <math>
-                    <mi title="the second event">b</mi>
-                </math> in another
-                process satisfies <math>
-                    <mrow>
-                        <mi title="the first event">a</mi>
-                        <mo title="relevant happened-before">&#x27A1;</mo>
-                        <mi title="the second event">b</mi>
-                    </mrow>
-                </math>, then <math>
-                    <mi title="the second event">b</mi>
-                </math> occurs later than physical time <math>
-                    <mrow title="the minimum physical time for the second event to occur">
-                        <mi title="the physical time when the first even happened">t</mi>
-                        <mo>+</mo>
-                        <mi title="the minimum causal period?">&#x3BC;</mi>
-                    </mrow>
-                </math>. In other words, <math>
+                In other words, <math>
                     <mi title="the minimum causal period?">&#x3BC;</mi>
                 </math> is less
                 than the shortest transmission time for interprocess messages. We
@@ -3171,8 +3582,8 @@
                     <mi title="physical time">t</mi>
                 </math> and
                 received at time <math>
-                    <mrow>
-                        <mi title="physical time">t</mi>
+                    <mrow title="received physical time">
+                        <mi>t</mi>
                         <mo>&#x2032;</mo>
                     </mrow>
                 </math>. We define <math>
@@ -3287,79 +3698,117 @@
                     <span slot="summary">condition PC2</span>
                     <template-use slot="content" template-id="physical-clock-condition-2-use"></template-use>
                 </inline-details>.
-                We assume that the system of processes is described by a
-                directed graph in which an arc from process <math>
-                    <msub title="a process">
-                        <mi>P</mi>
-                        <mi>i</mi>
-                    </msub>
-                </math> to process <math>
-                    <msub title="a neighbour process">
-                        <mi>P</mi>
-                        <mi>j</mi>
-                    </msub>
-                </math> represents a communication line over which messages are sent
-                directly from <math>
-                    <msub title="the process">
-                        <mi>P</mi>
-                        <mi>i</mi>
-                    </msub>
-                </math> to <math>
-                    <msub title="the neighbour process">
-                        <mi>P</mi>
-                        <mi>j</mi>
-                    </msub>
-                </math>. We say that a message is sent over this arc
-                every <math>
-                    <mi title="neighbour period">&#x1D70F;</mi>
-                </math> seconds if
-                for any <math>
-                    <mi title="physical time">t</mi>
-                </math>, <math>
-                    <msub title="the process">
-                        <mi>P</mi>
-                        <mi>i</mi>
-                    </msub>
-                </math> sends at least one message to <math>
-                    <msub title="the neighbour process">
-                        <mi>P</mi>
-                        <mi>j</mi>
-                    </msub>
-                </math> between physical times <math>
-                    <mi title="physical time">t</mi>
-                </math> and <math>
-                    <mrow>
-                        <mi title="physical time">t</mi>
-                        <mo>+</mo>
-                        <mi title="neighbour period">&#x1D70F;</mi>
-                    </mrow>
-                </math>. The <em>diameter</em> of the directed graph is the smallest
-                number <math>
-                    <mi title="diameter">d</mi>
-                </math> such that for any pair of distinct processes <math>
-                    <msub title="the start process">
-                        <mi>P</mi>
-                        <mi>j</mi>
-                    </msub>
-                </math>, <math>
-                    <msub title="the target process">
-                        <mi>P</mi>
-                        <mi>k</mi>
-                    </msub>
-                </math>, there is a path from <math>
-                    <msub title="the start process">
-                        <mi>P</mi>
-                        <mi>j</mi>
-                    </msub>
-                </math> to <math>
-                    <msub title="the target process">
-                        <mi>P</mi>
-                        <mi>k</mi>
-                    </msub>
-                </math> having at most <math>
-                    <mi title="diameter">d</mi>
-                </math> arcs.
             </p>
+            <ol class="visual">
+                <li>
+                    <p>
+                        We assume that the system of processes is described by a
+                        directed graph in which an arc from process <math>
+                            <msub title="a process">
+                                <mi>P</mi>
+                                <mi>i</mi>
+                            </msub>
+                        </math> to process <math>
+                            <msub title="a neighbour process">
+                                <mi>P</mi>
+                                <mi>j</mi>
+                            </msub>
+                        </math> represents a communication line over which messages are sent
+                        directly from <math>
+                            <msub title="the process">
+                                <mi>P</mi>
+                                <mi>i</mi>
+                            </msub>
+                        </math> to <math>
+                            <msub title="the neighbour process">
+                                <mi>P</mi>
+                                <mi>j</mi>
+                            </msub>
+                        </math>.
+                    </p>
+                    <figure>
+                        <directed-graph id="physical-clock-directed-graph" node-radius="10"></directed-graph>
+                    </figure>
+                </li>
+                <li>
+                    <p>
+                        We say that a message is sent over this arc
+                        every <math>
+                            <mi title="neighbour period">&#x1D70F;</mi>
+                        </math> seconds if
+                        for any <math>
+                            <mi title="physical time">t</mi>
+                        </math>, <math>
+                            <msub title="the process">
+                                <mi>P</mi>
+                                <mi>i</mi>
+                            </msub>
+                        </math> sends at least one message to <math>
+                            <msub title="the neighbour process">
+                                <mi>P</mi>
+                                <mi>j</mi>
+                            </msub>
+                        </math> between physical times <math>
+                            <mi title="physical time">t</mi>
+                        </math> and <math>
+                            <mrow>
+                                <mi title="physical time">t</mi>
+                                <mo>+</mo>
+                                <mi title="neighbour period">&#x1D70F;</mi>
+                            </mrow>
+                        </math>.
+                    </p>
+                    <figure>
+                        <label>
+                            <math>
+                                <mi title="neighbour period">&#x1D70F;</mi>
+                            </math>
+                            <input id="physical-clock-directed-graph-health-period" type="range" min="1" max="10" value="2" step="0.1" />
+                        </label>
+                        <directed-graph id="physical-clock-directed-graph-health" node-radius="10" health-period="2">
+                        </directed-graph>
+                    </figure>
+                </li>
+                <li>
+                    <p>
+                        The <em>diameter</em> of the directed graph is the smallest
+                        number <math>
+                            <mi title="diameter">d</mi>
+                        </math> such that for any pair of distinct processes <math>
+                            <msub title="the start process">
+                                <mi>P</mi>
+                                <mi>j</mi>
+                            </msub>
+                        </math>, <math>
+                            <msub title="the target process">
+                                <mi>P</mi>
+                                <mi>k</mi>
+                            </msub>
+                        </math>, there is a path from <math>
+                            <msub title="the start process">
+                                <mi>P</mi>
+                                <mi>j</mi>
+                            </msub>
+                        </math> to <math>
+                            <msub title="the target process">
+                                <mi>P</mi>
+                                <mi>k</mi>
+                            </msub>
+                        </math> having at most <math>
+                            <mi title="diameter">d</mi>
+                        </math> arcs.
+                    </p>
+                    <figure>
+                        <math>
+                            <mi title="diameter">d</mi>
+                            <mo>=</mo>
+                            <mn>5</mn>
+                        </math>
+                        <directed-graph id="diameter-graph" node-radius="10">
+                        </directed-graph>
+                    </figure>
+                </li>
+            </ol>
             <p>
                 In addition to establishing <inline-details>
                     <span slot="summary">PC2</span>
