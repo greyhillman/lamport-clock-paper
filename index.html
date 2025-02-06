@@ -961,7 +961,14 @@
             </p>
             <ol start="2" class="implementation-rule">
                 <li id="implementation-rule-2">
-                    <template-use template-id="implementation-rule-2-template"></template-use>
+                    <ol type="a">
+                        <li id="implementation-rule-2-a">
+                            <template-use template-id="implementation-rule-2-a-template"></template-use>
+                        </li>
+                        <li id="implementation-rule-2-b">
+                            <template-use template-id="implementation-rule-2-b-template"></template-use>
+                        </li>
+                    </ol>
                 </li>
             </ol>
             <p>
@@ -1177,7 +1184,17 @@
                 for granting the resource to a process which satisfies
                 the following three conditions:
             </p>
-            <template-use id="mutual-exclusion-conditions" template-id="mutual-exclusion-conditions-template"></template-use>
+            <ol type="I" id="mutual-exclusion-conditions">
+                <li id="mutual-exclusion-condition-1">
+                    <template-use template-id="mutual-exclusion-condition-1-template"></template-use>
+                </li>
+                <li id="mutual-exclusion-condition-2">
+                    <template-use template-id="mutual-exclusion-condition-2-template"></template-use>
+                </li>
+                <li id="mutual-exclusion-condition-3">
+                    <template-use template-id="mutual-exclusion-condition-3-template"></template-use>
+                </li>
+            </ol>
             <p>
                 We assume that the resource is initially granted to exactly one process.
             </p>
@@ -1515,6 +1532,14 @@
                 </li>
                 <li id="mutual-exclusion-rules-5">
                     <template-use template-id="mutual-exclusion-rules-5-template"></template-use>
+                    <ol type="i">
+                        <li id="mutual-exclusion-rules-5-i">
+                            <template-use template-id="mutual-exclusion-rules-5-i-template"></template-use>
+                        </li>
+                        <li id="mutual-exclusion-rules-5-ii">
+                            <template-use template-id="mutual-exclusion-rules-5-ii-template"></template-use>
+                        </li>
+                    </ol>
                 </li>
             </ol>
             <p>
@@ -3243,19 +3268,17 @@
         <a href="#implementation-rule-2-b">Go to definition.</a>
         <template-use template-id="implementation-rule-2-b-template"></template-use>
     </template>
-    <template id="implementation-rule-2-template">
+
+    <template id="implementation-rule-2-use">
+        <a href="#implementation-rule-2">Go to definition.</a>
         <ol type="a">
-            <li id="implementation-rule-2-a">
+            <li>
                 <template-use template-id="implementation-rule-2-a-template"></template-use>
             </li>
-            <li id="implementation-rule-2-b">
+            <li>
                 <template-use template-id="implementation-rule-2-b-template"></template-use>
             </li>
         </ol>
-    </template>
-    <template id="implementation-rule-2-use">
-        <a href="#implementation-rule-2">Go to definition.</a>
-        <template-use template-id="implementation-rule-2-template"></template-use>
     </template>
 
     <template id="mutual-exclusion-condition-1-template">
@@ -3294,22 +3317,19 @@
         <template-use template-id="mutual-exclusion-condition-3-template"></template-use>
     </template>
 
-    <template id="mutual-exclusion-conditions-template">
+    <template id="mutual-exclusion-conditions-use">
+        <a href="#mutual-exclusion-conditions">Go to definition.</a>
         <ol type="I">
-            <li id="mutual-exclusion-condition-1">
+            <li>
                 <template-use template-id="mutual-exclusion-condition-1-template"></template-use>
             </li>
-            <li id="mutual-exclusion-condition-2">
+            <li>
                 <template-use template-id="mutual-exclusion-condition-2-template"></template-use>
             </li>
-            <li id="mutual-exclusion-condition-3">
+            <li>
                 <template-use template-id="mutual-exclusion-condition-3-template"></template-use>
             </li>
         </ol>
-    </template>
-    <template id="mutual-exclusion-conditions-use">
-        <a href="#mutual-exclusion-conditions">Go to definition.</a>
-        <template-use template-id="mutual-exclusion-conditions-template"></template-use>
     </template>
 
     <template id="mutual-exclusion-rules-2-template">
@@ -3486,18 +3506,18 @@
             </math> is granted the resource when the following
             two conditions are satisfied:
         </p>
-        <ol type="i">
-            <li id="mutual-exclusion-rules-5-i">
-                <template-use template-id="mutual-exclusion-rules-5-i-template"></template-use>
-            </li>
-            <li id="mutual-exclusion-rules-5-ii">
-                <template-use template-id="mutual-exclusion-rules-5-ii-template"></template-use>
-            </li>
-        </ol>
     </template>
     <template id="mutual-exclusion-rules-5-use">
         <a href="#mutual-exclusion-rules-5">Go to definition.</a>
         <template-use template-id="mutual-exclusion-rules-5-template"></template-use>
+        <ol type="i">
+            <li>
+                <template-use template-id="mutual-exclusion-rules-5-i-template"></template-use>
+            </li>
+            <li>
+                <template-use template-id="mutual-exclusion-rules-5-ii-template"></template-use>
+            </li>
+        </ol>
     </template>
 
     <template id="strong-clock-condition-template">
