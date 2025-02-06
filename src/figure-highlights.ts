@@ -1,86 +1,111 @@
-for (const node of document.querySelectorAll("msub[data-event]")) {
-    const element = node as HTMLElement;
+import { SpaceTime } from "./SpaceTime";
 
-    console.log(element.dataset.event);
+document.addEventListener("DOMContentLoaded", () => {
+    for (const element of document.querySelectorAll<HTMLElement>("msub[data-event]")) {
+        const targets = document.querySelectorAll(`space-time`);
 
-    const targets = document.querySelectorAll(`figure svg g[data-event="${element.dataset.event}"]`);
+        const eventId = element.dataset.event!;
 
-    element.addEventListener("mouseenter", (event) => {
-        for (const node of targets) {
-            node.classList.add("highlight");
-        }
-    });
-    element.addEventListener("mouseleave", (event) => {
-        for (const node of targets) {
-            node.classList.remove("highlight");
-        }
-    });
-}
-
-for (const node of document.querySelectorAll("span[data-process]")) {
-    const element = node as HTMLElement;
-
-    console.log(element.dataset.process);
-
-    const targets = document.querySelectorAll(`figure svg g[data-process="${element.dataset.process}"]`);
-
-    element.addEventListener("mouseenter", (event) => {
-        for (const node of targets) {
-            node.classList.add("highlight");
-        }
-    });
-    element.addEventListener("mouseleave", (event) => {
-        for (const node of targets) {
-            node.classList.remove("highlight");
-        }
-    });
-}
-
-function addHighlightToPath(start: string, end: string, edges: [string, string][]) {
-    const vertices = new Set<string>();
-    edges.forEach(edge => {
-        vertices.add(edge[0]);
-        vertices.add(edge[1]);
-    });
-
-    const node = document.querySelector(`mrow[data-event-from="${start}"][data-event-to="${end}"]`);
-    const element = node as HTMLElement;
-
-    element.addEventListener("mouseenter", event => {
-        for (const vertex of vertices) {
-            for (const node of document.querySelectorAll(`[data-event="${vertex}"]`)) {
-                node.classList.add("highlight");
+        element.addEventListener("mouseenter", (event) => {
+            for (const target of targets) {
+                target.highlightEvent = [eventId];
+                target.highlightMessage = [];
+                target.highlightProcess = undefined;
+                target.highlightSegment = [];
             }
+        });
+        element.addEventListener("mouseleave", (event) => {
+            for (const target of targets) {
+                target.highlightEvent = [];
+                target.highlightMessage = [];
+                target.highlightProcess = undefined;
+                target.highlightSegment = [];
+            }
+        });
+    }
+
+    for (const element of document.querySelectorAll<HTMLElement>("span[data-process]")) {
+        const targets = document.querySelectorAll("space-time");
+
+        element.addEventListener("mouseenter", (event) => {
+            for (const target of targets) {
+                target.highlightEvent = [];
+                target.highlightMessage = [];
+                target.highlightSegment = [];
+                target.highlightProcess = element.dataset.process;
+            }
+        });
+        element.addEventListener("mouseout", (event) => {
+            for (const target of targets) {
+                target.highlightEvent = [];
+                target.highlightMessage = [];
+                target.highlightSegment = [];
+                target.highlightProcess = undefined;
+            }
+        });
+    }
+
+    function addHighlightToPath(start: string, end: string, options: {
+        messages?: [string, string][],
+        segments?: [string, string][],
+    }) {
+        const vertices = new Set<string>();
+        (options.messages || []).forEach(edge => {
+            vertices.add(edge[0]);
+            vertices.add(edge[1]);
+        });
+        (options.segments || []).forEach(edge => {
+            vertices.add(edge[0]);
+            vertices.add(edge[1]);
+        });
+
+        const element = document.querySelector<HTMLElement>(`mrow[data-event-from="${start}"][data-event-to="${end}"]`);
+        if (!element) {
+            return;
         }
 
-        for (const edge of edges) {
-            for (const node of document.querySelectorAll(`[data-event-from="${edge[0]}"][data-event-to="${edge[1]}"]`)) {
-                node.classList.add("highlight");
+        const targets = document.querySelectorAll("space-time");
+
+        element.addEventListener("mouseenter", event => {
+            for (const target of targets) {
+                target.highlightEvent = [...vertices];
+                target.highlightMessage = options.messages || [];
+                target.highlightSegment = options.segments || [];
             }
+        });
+        element.addEventListener("mouseleave", event => {
+            for (const target of targets) {
+                target.highlightEvent = [];
+                target.highlightMessage = [];
+                target.highlightSegment = [];
+            }
+        });
+
+        for (const child of element.querySelectorAll<HTMLElement>("[data-event]")) {
+            child.addEventListener("mouseleave", event => {
+                for (const target of targets) {
+                    target.highlightEvent = [...vertices];
+                    target.highlightMessage = options.messages || [];
+                    target.highlightSegment = options.segments || [];
+                }
+            });
         }
+    }
+
+    addHighlightToPath("p1", "r4", {
+        messages: [
+            ["p1", "q2"],
+            ["q4", "r3"],
+        ],
+        segments: [
+            ["q2", "q3"],
+            ["q3", "q4"],
+            ["r3", "r4"],
+        ],
     });
-    element.addEventListener("mouseleave", event => {
-        for (const vertex of vertices) {
-            for (const node of document.querySelectorAll(`[data-event="${vertex}"]`)) {
-                node.classList.remove("highlight");
-            }
-        }
-
-        for (const edge of edges) {
-            for (const node of document.querySelectorAll(`[data-event-from="${edge[0]}"][data-event-to="${edge[1]}"]`)) {
-                node.classList.remove("highlight");
-            }
-        }
+    addHighlightToPath("p2", "p3", {
+        segments: [
+            ["p2", "p3"],
+        ]
     });
-}
-
-addHighlightToPath("p1", "r4", [
-    ["p1", "q2"],
-    ["q2", "q3"],
-    ["q3", "q4"],
-    ["q4", "r3"],
-    ["r3", "r4"],
-]);
-addHighlightToPath("p2", "p3", [
-    ["p2", "p3"],
-]);
+});
