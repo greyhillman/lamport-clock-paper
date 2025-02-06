@@ -1,6 +1,6 @@
 import { css, CSSResultGroup, html, HTMLTemplateResult, LitElement, svg, SVGTemplateResult } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { Point } from "./Point";
+import { Direction, Point } from "./Point";
 import { classMap } from "lit/directives/class-map.js";
 import { SvgPathBuilder } from "./SvgPathBuilder";
 
@@ -38,29 +38,29 @@ function placeBetween(start: number, end: number, fraction: number): number {
     return start + fraction * length;
 }
 
-interface ProcessEvent {
+export interface ProcessEvent {
     id?: string;
     time: number;
     label?: HTMLTemplateResult;
 }
 
-interface Process {
+export interface Process {
     id?: string;
     events: ProcessEvent[];
     label?: string;
 }
 
-interface GlobalEventIndex {
+export interface GlobalEventIndex {
     processIndex: number;
     eventIndex: number;
 }
 
-interface Message {
+export interface Message {
     from: GlobalEventIndex;
     to: GlobalEventIndex;
 }
 
-interface Tick {
+export interface Tick {
     times: number[];
 }
 
@@ -118,17 +118,15 @@ export class SpaceTime extends LitElement {
         const width = this.width;
         const height = this.height;
 
-        const eventMaxTime = this.processes
-            .reduce((prev, process) => {
-                const processMaxTime = process.events.reduce((prev, event) => {
-                    return Math.max(prev, event.time);
-                }, 0);
+        const possibleTimes = this.processes.flatMap(process => process.events.map(event => event.time))
+            .concat(this.ticks.flatMap(x => x.times));
 
-                return Math.max(prev, processMaxTime);
-            }, 0);
-        const tickMaxTime = this.ticks?.flatMap(x => x.times).reduce((prev, curr) => Math.max(prev, curr), 0);
-
-        const maxTime = Math.max(eventMaxTime, tickMaxTime ?? 0);
+        const maxTime = possibleTimes.length > 0
+            ? possibleTimes.reduce((prev, x) => Math.max(prev, x), 0)
+            : 10; // to at least show something
+        const minTime = possibleTimes.length > 0
+            ? possibleTimes.reduce((prev, x) => Math.min(prev, x), Number.MAX_SAFE_INTEGER)
+            : 0;
 
         const processPosition = spaceBetween(this.processes.length, width * 0.7)
             .map(x => x + width * 0.15);
@@ -136,9 +134,11 @@ export class SpaceTime extends LitElement {
         const toPoint = (process: number, time: number) => {
             const x = processPosition[process];
 
-            const preY = placeBetween(12, height - 12, time / maxTime);
+            const relativePosition = maxTime === minTime
+                ? 0
+                : (time - minTime) / (maxTime - minTime);
 
-            const y = height - preY;
+            const y = placeBetween(10, height - 10, 1 - relativePosition);
 
             return new Point(x, y);
         }
@@ -341,14 +341,27 @@ export class SpaceTime extends LitElement {
         });
 
         const ticks = this.ticks.map(tick => {
-            const points = tick.times
-                .map((time, index) => toPoint(index, time))
-                .map(point => `${point.x},${point.y}`);
+            let points: Point[] = [];
+
+            if (tick.times.length <= 1) {
+                const left = new Direction(-5, 0);
+                const right = left.negate();
+
+                points = tick.times
+                    .flatMap((time, index) => {
+                        const center = toPoint(index, time);
+
+                        return [center.add(left), center.add(right)]
+                    })
+            } else {
+                points = tick.times
+                    .map((time, index) => toPoint(index, time));
+            }
 
             return svg`
                 <polyline
                     class="tick"
-                    points=${points.join(" ")}
+                    points=${points.map(p => `${p.x},${p.y}`).join(" ")}
                 />
             `;
         });

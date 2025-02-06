@@ -16,6 +16,7 @@
     <script type="module" src="./src/math.ts"></script>
     <script type="module" src="./src/figure-highlights.ts"></script>
     <script type="module" src="./src/figures.ts"></script>
+    <script type="module" src="./src/simulations.ts"></script>
 
     <script type="module" src="./src/InlineDetails.ts"></script>
     <script type="module" src="./src/TemplateUse.ts"></script>
@@ -932,6 +933,24 @@
             <ol start="1" class="implementation-rule">
                 <li id="implementation-rule-1">
                     <template-use template-id="implementation-rule-1-template"></template-use>
+                    <figure>
+                        <space-time
+                            width="50"
+                            height="50"></space-time>
+                        <form method="none">
+                            <button type="button" name="event">Add event</button>
+                            <button type="button" name="counter">Increment counter</button>
+
+                            <math>
+                                <msub title="the process's clock register">
+                                    <mi>C</mi>
+                                    <mi>i</mi>
+                                </msub>
+                                <mo>=</mo>
+                                <mn>4</mn>
+                            </math>
+                        </form>
+                    </figure>
                 </li>
             </ol>
             <p>
