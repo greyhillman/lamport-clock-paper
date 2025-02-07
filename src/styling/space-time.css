@@ -3,7 +3,7 @@ svg.space-time {
     max-width: 20em;
     max-height: 20em;
 
-    .process line {
+    & g.process line.segment {
         stroke: var(--font-color);
 
         &.highlight {
@@ -12,15 +12,31 @@ svg.space-time {
 
         &:last-of-type {
             marker-end: url(#arrow);
-
-            &.highlight {
-                marker-end: url(#arrow-highlight);
-            }
         }
     }
 
-    line {
+    & g.process line.segment:last-of-type {
+        marker-end: url(#arrow);
+    }
+
+    & g.message line {
         stroke: var(--font-color);
+        stroke-width: 1;
+
+        fill: none;
+
+        marker-end: url(#message);
+    }
+
+    & g.message.receive line {
+        marker-start: url(#message);
+        marker-end: url(#arrow);
+    }
+
+    & g.tick polyline {
+        stroke: var(--font-color);
+        stroke-width: 1;
+        stroke-dasharray: 2 2;
     }
 
     & line.tick {
@@ -48,10 +64,6 @@ svg.space-time {
 
         & line.segment {
             stroke: var(--highlight-color);
-
-            &:last-of-type {
-                marker-end: url(#arrow-highlight);
-            }
         }
     }
 
@@ -141,7 +153,7 @@ svg.space-time {
         color: var(--font-color);
         font-size: 6px;
 
-        mn {
+        msub> :not(:first-child) {
             font-size: 4px;
         }
     }
