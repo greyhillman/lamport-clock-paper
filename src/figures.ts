@@ -719,3 +719,72 @@ example.ticks = [
     { times: [65, 65, 65] },
     { times: [75, 75, 75] },
 ]
+
+
+{
+    const element = document.getElementById("total-ordering-simulation")!;
+    const diagram = element.querySelector("space-time")!;
+
+    diagram.processes = [
+        {
+            label: "P1",
+            events: [
+                {
+                    time: 0,
+                    label: html`<math>
+                        <mi>a</mi>
+                    </math>`
+                },
+                {
+                    time: 30,
+                    label: html`<math>
+                        <mi>b</mi>
+                    </math>`
+                },
+            ]
+        },
+        {
+            label: "P2",
+            events: [
+                {
+                    time: 0,
+                    label: html`<math>
+                        <mi>c</mi>
+                    </math>`
+                },
+                {
+                    time: 10,
+                    label: html`<math>
+                        <mi>d</mi>
+                    </math>`
+                },
+            ],
+        },
+        {
+            label: "P3",
+            events: [{
+                time: 20,
+                label: html`<math>
+                    <mi>e</mi>
+                </math>`
+            },],
+        },
+    ];
+    diagram.messages = [
+        {
+            from: { processIndex: 1, eventIndex: 1 },
+            to: { processIndex: 2, eventIndex: 0 },
+        }
+    ];
+    diagram.ticks = [
+        {
+            times: [5, 5, 5],
+        },
+        {
+            times: [15, 15, 15],
+        },
+        {
+            times: [25, 25, 25],
+        },
+    ]
+}

@@ -303,3 +303,7 @@ ol.visual directed-graph {
     }
   }
 }
+
+#total-ordering-simulation {
+  row-gap: 0.5em;
+}
