@@ -307,3 +307,17 @@ ol.visual directed-graph {
 #total-ordering-simulation {
   row-gap: 0.5em;
 }
+
+.reference {
+  & .book.title {
+    font-style: italic;
+  }
+
+  & .journal {
+    font-style: italic;
+  }
+
+  & .volume {
+    font-style: italic;
+  }
+}
