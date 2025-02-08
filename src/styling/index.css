@@ -39,6 +39,10 @@ address {
   margin-bottom: 1em;
 }
 
+section#copyright {
+  font-size: 0.5em;
+}
+
 article>header {
   font-weight: bold;
   font-size: 2em;
@@ -48,8 +52,13 @@ article>header {
   margin-bottom: 0.5em;
 }
 
-section>header {
+article>section>header {
   font-size: 1.5em;
+  font-weight: bold;
+}
+
+article>section>section>header {
+  font-size: 1em;
   font-weight: bold;
 }
 
