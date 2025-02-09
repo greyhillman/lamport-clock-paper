@@ -4,6 +4,24 @@ WORK IN PROGRESS
 
 An interactive version, in the style of Bret Victor's [Collective dynamics of 'small-world' networks](https://worrydream.com/ScientificCommunicationAsSequentialArt/), for Leslie Lamport's ["Time, Clocks, and the Ordering of Events in a Distributed System"](https://lamport.azurewebsites.net/pubs/time-clocks.pdf).
 
+Additional words from the author on the paper: https://lamport.azurewebsites.net/pubs/pubs.html#time-clocks
+
+
+## Changes from the Original
+
+The "Ordering the Events Totally" has 2 subsection titles added: "Distributed Mutual Exclusion Problem" and "State Machines".
+As Lamport wrote:
+
+> This is my most often cited paper.
+> Many computer scientists claim to have read it.
+> But I have rarely encountered anyone who was aware that the paper said anything about state machines.
+> People seem to think that it is about either the causality relation on events in a distributed system, or the distributed mutual exclusion problem.
+> People have insisted that there is nothing about state machines in the paper.
+> I've even had to go back and reread it to convince myself that I really did remember what I had written.
+
+Adding those subsection titles should help assuage the problem.
+
+
 ## Elements
 
 This section describes the various elements the paper has and why they are how they are.

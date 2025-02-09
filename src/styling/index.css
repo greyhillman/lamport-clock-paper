@@ -7,6 +7,7 @@
   --highlight-color: rgb(9, 255, 0);
 
   --font-family: NewComputerModern10, serif;
+  --math-font-family: NewComputerModernMath;
 }
 
 :root {
@@ -25,7 +26,7 @@ body {
   align-items: center;
 }
 
-#root {
+article {
   max-width: 35em;
 }
 
@@ -38,6 +39,10 @@ address {
   margin-bottom: 1em;
 }
 
+section#copyright {
+  font-size: 0.5em;
+}
+
 article>header {
   font-weight: bold;
   font-size: 2em;
@@ -47,8 +52,13 @@ article>header {
   margin-bottom: 0.5em;
 }
 
-section>header {
+article>section>header {
   font-size: 1.5em;
+  font-weight: bold;
+}
+
+article>section>section>header {
+  font-size: 1em;
   font-weight: bold;
 }
 
@@ -56,9 +66,15 @@ figure {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  max-width: 20em;
+
+  margin-left: auto;
+  margin-right: auto;
 }
 
-span.link {
+span.link,
+span[data-process] {
   text-decoration: underline dotted;
 }
 
@@ -135,38 +151,37 @@ div.details {
 }
 
 details {
-  display: inline;
-
   &>summary {
     text-decoration: dotted underline;
-  }
-
-  &[open] {
-    display: block;
+    cursor: pointer;
   }
 }
 
-ol.visual {
+ol.visual,
+ul.visual {
   list-style: none;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-
   margin-block-start: 0;
   margin-block-end: 0;
   padding-inline: 0;
 
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+
+  column-gap: 1em;
+
   & li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-template-columns: subgrid;
+
+    grid-column: span 1;
+    grid-row: span 2;
+
+    justify-content: center;
+    justify-items: center;
 
     flex-basis: 10em;
     flex-grow: 1;
-  }
-
-  & figure {
-    width: 10em;
   }
 
   & p,
@@ -215,5 +230,103 @@ ol#physical-implementation-rules {
 
   &>li::marker {
     content: "IR" counter(list-item) "'. ";
+  }
+}
+
+button[popovertarget] {
+  font-family: var(--font-family);
+  cursor: pointer;
+}
+
+dialog {
+  border: solid black 2px;
+  border-radius: 0.5em;
+  padding: 1em;
+
+  max-width: min(30em, 100vw);
+  max-height: 80vh;
+  overflow-y: auto;
+
+  color: var(--font-color);
+  background-color: var(--background-color);
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+  }
+}
+
+li>template-use {
+  display: block;
+}
+
+ul.visual svg.space-time,
+ul.visual space-time {
+  width: 10em;
+}
+
+ol.visual svg.distributed-system {
+  width: 10em;
+}
+
+ol.visual directed-graph {
+  width: 10em;
+}
+
+#implementation-rule-1 {
+  &>figure {
+    display: flex;
+    flex-direction: row;
+
+    &>space-time {
+      max-width: 10em;
+    }
+
+    &>form {
+      display: flex;
+      flex-direction: column;
+      align-items: left;
+
+      row-gap: 0.5em;
+    }
+  }
+}
+
+#implementation-rule-2 {
+  &>figure {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    max-width: none;
+
+    &>space-time {
+      max-width: 15em;
+    }
+
+    &>form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      row-gap: 0.5em;
+    }
+  }
+}
+
+#total-ordering-simulation {
+  row-gap: 0.5em;
+}
+
+.reference {
+  & .book.title {
+    font-style: italic;
+  }
+
+  & .journal {
+    font-style: italic;
+  }
+
+  & .volume {
+    font-style: italic;
   }
 }
