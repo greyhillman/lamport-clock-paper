@@ -11,8 +11,8 @@
 
 
     <title>Time, Clocks, and the Ordering of Events in a Distributed System</title>
-  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-Cf_7QdZx.js"></script>
-  <link rel="stylesheet" crossorigin href="/lamport-clock-paper/assets/index-CiHRZ72u.css">
+  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-BUCFQrGS.js"></script>
+  <link rel="stylesheet" crossorigin href="/lamport-clock-paper/assets/index-BEhmvGU2.css">
 </head>
 
 <body>
@@ -22,6 +22,20 @@
             <span class="name">Leslie Lamport</span>
             <span class="institution">Massachusetts Computer Associates, Inc.</span>
         </address>
+
+        <section id="copyright">
+            <p>
+                Copyright © 1978 by the Association for Computing Machinery, Inc.
+                Permission to make digital or hard copies of part or all of this work for personal or classroom use
+                is granted without fee provided that copies are not made or distributed for profit or commercial
+                advantage and that copies bear this notice and the full citation on the first page. Copyrights for
+                components of this work owned by others than ACM must be honored. Abstracting with credit is
+                permitted. To copy otherwise, to republish, to post on servers, or to redistribute to lists, requires
+                prior specific permission and/or a fee.
+                Request permissions from Publications Dept, ACM Inc., fax +1 (212) 869-0481, or permissions@acm.org.
+                The definitive version of this paper can be found at <a href="http://www.acm.org/dl/">ACM's Digital Library</a>.
+            </p>
+        </section>
 
         <section id="abstract">
             <header>Abstract</header>
@@ -53,6 +67,14 @@
                 </li>
                 <li>
                     <a href="#total-ordering">Ordering the Events Totally</a>
+                    <ol type="i">
+                        <li>
+                            <a href="#mutual-exclusion-problem">Distributed Mutual Exclusion Problem</a>
+                        </li>
+                        <li>
+                            <a href="#state-machines">State Machines</a>
+                        </li>
+                    </ol>
                 </li>
                 <li>
                     <a href="#anomalous-behavior">Anomalous Behavior</a>
@@ -922,6 +944,69 @@
             <ol start="1" class="implementation-rule">
                 <li id="implementation-rule-1">
                     <template-use template-id="implementation-rule-1-template"></template-use>
+                    <ul class="visual example">
+                        <li>
+                            <figure>
+                                <svg class="space-time" viewBox="0 0 60 60">
+                                    <defs>
+                                        <marker
+                                            id="arrow"
+                                            viewBox="0 0 10 10"
+                                            refX="8"
+                                            refY="5"
+                                            markerWidth="5"
+                                            markerHeight="5"
+                                            orient="auto">
+                                            <path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" />
+                                        </marker>
+                                        <marker
+                                            id="message"
+                                            viewBox="-5 -5 10 10"
+                                            refX="0"
+                                            refY="0"
+                                            markerWidth="7"
+                                            markerHeight="7"
+                                            orient="auto">
+                                            <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3" stroke="context-stroke" />
+                                        </marker>
+                                    </defs>
+
+                                    <g class="tick">
+                                        <text x="20" y="15" text-anchor="middle" dominant-baseline="middle">5</text>
+                                        <polyline points="25,15 35,15" />
+                                    </g>
+                                    <g class="tick">
+                                        <text x="20" y="25" text-anchor="middle" dominant-baseline="middle">4</text>
+                                        <polyline points="25,25 35,25" />
+                                    </g>
+                                    <g class="tick">
+                                        <text x="20" y="35" text-anchor="middle" dominant-baseline="middle">3</text>
+                                        <polyline points="25,35 35,35" />
+                                    </g>
+                                    <g class="tick">
+                                        <text x="20" y="45" text-anchor="middle" dominant-baseline="middle">2</text>
+                                        <polyline points="25,45 35,45" />
+                                    </g>
+
+                                    <g class="process">
+                                        <text x="30" y="58" text-anchor="middle">sender</text>
+
+                                        <line class="segment" x1="30" y1="52" x2="30" y2="5" />
+
+                                        <g class="event">
+                                            <circle cx="30" cy="20" r="2" />
+                                        </g>
+                                        <g class="event">
+                                            <circle cx="30" cy="30" r="2" />
+                                        </g>
+                                        <g class="event">
+                                            <circle cx="30" cy="40" r="2" />
+                                        </g>
+                                    </g>
+                                </svg>
+                            </figure>
+                        </li>
+                    </ul>
                 </li>
             </ol>
             <p>
@@ -951,8 +1036,246 @@
             </p>
             <ol start="2" class="implementation-rule">
                 <li id="implementation-rule-2">
-                    <template-use template-id="implementation-rule-2-template"></template-use>
+                    <ol type="a">
+                        <li id="implementation-rule-2-a">
+                            <template-use template-id="implementation-rule-2-a-template"></template-use>
+                            <ul class="visual example">
+                                <li>
+                                    <figure>
+                                        <svg class="space-time" viewBox="0 0 60 60">
+                                            <defs>
+                                                <marker
+                                                    id="arrow"
+                                                    viewBox="0 0 10 10"
+                                                    refX="8"
+                                                    refY="5"
+                                                    markerWidth="5"
+                                                    markerHeight="5"
+                                                    orient="auto">
+                                                    <path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" />
+                                                </marker>
+                                                <marker
+                                                    id="message"
+                                                    viewBox="-5 -5 10 10"
+                                                    refX="0"
+                                                    refY="0"
+                                                    markerWidth="7"
+                                                    markerHeight="7"
+                                                    orient="auto">
+                                                    <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3" stroke="context-stroke" />
+                                                </marker>
+                                            </defs>
+
+                                            <g class="tick">
+                                                <text x="5" y="15" text-anchor="middle" dominant-baseline="middle">5</text>
+                                                <polyline points="10,15 20,15" />
+                                            </g>
+                                            <g class="tick">
+                                                <text x="5" y="25" text-anchor="middle" dominant-baseline="middle">4</text>
+                                                <polyline points="10,25 20,25" />
+                                            </g>
+                                            <g class="tick">
+                                                <text x="5" y="35" text-anchor="middle" dominant-baseline="middle">3</text>
+                                                <polyline points="10,35 20,35" />
+                                            </g>
+                                            <g class="tick">
+                                                <text x="5" y="45" text-anchor="middle" dominant-baseline="middle">2</text>
+                                                <polyline points="10,45 20,45" />
+                                            </g>
+
+                                            <g class="process">
+                                                <text x="15" y="58" text-anchor="middle">sender</text>
+
+                                                <line class="segment" x1="15" y1="52" x2="15" y2="5" />
+
+                                                <g class="event">
+                                                    <circle cx="15" cy="20" r="2" />
+                                                </g>
+                                                <g class="event">
+                                                    <circle cx="15" cy="30" r="2" />
+                                                </g>
+                                                <g class="event">
+                                                    <circle cx="15" cy="40" r="2" />
+                                                </g>
+                                            </g>
+
+                                            <g class="send message">
+                                                <line x1="15" y1="30" x2="30" y2="25" />
+                                                <foreignObject class="label" x="35" y="20" width="50" height="25">
+                                                    <math>
+                                                        <msub>
+                                                            <mi>T</mi>
+                                                            <mi>m</mi>
+                                                        </msub>
+                                                        <mo>=</mo>
+                                                        <mn>3</mn>
+                                                    </math>
+                                                </foreignObject>
+                                            </g>
+                                        </svg>
+                                    </figure>
+                                </li>
+                            </ul>
+                        </li>
+                        <li id="implementation-rule-2-b">
+                            <template-use template-id="implementation-rule-2-b-template"></template-use>
+                            <ul class="visual example">
+                                <li>
+                                    <figure>
+                                        <svg class="space-time" viewBox="0 0 60 60">
+                                            <defs>
+                                                <marker
+                                                    id="arrow"
+                                                    viewBox="0 0 10 10"
+                                                    refX="8"
+                                                    refY="5"
+                                                    markerWidth="5"
+                                                    markerHeight="5"
+                                                    orient="auto">
+                                                    <path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" />
+                                                </marker>
+                                                <marker
+                                                    id="message"
+                                                    viewBox="-5 -5 10 10"
+                                                    refX="0"
+                                                    refY="0"
+                                                    markerWidth="7"
+                                                    markerHeight="7"
+                                                    orient="auto">
+                                                    <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3" stroke="context-stroke" />
+                                                </marker>
+                                            </defs>
+
+                                            <g class="tick">
+                                                <text x="55" y="15" text-anchor="middle" dominant-baseline="middle">9</text>
+                                                <polyline points="40,15 50,15" />
+                                            </g>
+                                            <g class="tick">
+                                                <text x="55" y="25" text-anchor="middle" dominant-baseline="middle">8</text>
+                                                <polyline points="40,25 50,25" />
+                                            </g>
+                                            <g class="tick">
+                                                <text x="55" y="35" text-anchor="middle" dominant-baseline="middle">3</text>
+                                                <polyline points="40,35 50,35" />
+                                            </g>
+                                            <g class="tick">
+                                                <text x="55" y="45" text-anchor="middle" dominant-baseline="middle">2</text>
+                                                <polyline points="40,45 50,45" />
+                                            </g>
+
+                                            <g class="process">
+                                                <text x="45" y="58" text-anchor="middle">sender</text>
+
+                                                <line class="segment" x1="45" y1="52" x2="45" y2="5" />
+
+                                                <g class="event">
+                                                    <circle cx="45" cy="20" r="2" />
+                                                </g>
+                                                <g class="event">
+                                                    <circle cx="45" cy="30" r="2" />
+                                                </g>
+                                                <g class="event">
+                                                    <circle cx="45" cy="40" r="2" />
+                                                </g>
+                                            </g>
+
+                                            <g class="message receive">
+                                                <line x1="30" y1="28" x2="45" y2="30" />
+                                                <foreignObject class="label" x="5" y="20" width="50" height="25">
+                                                    <math>
+                                                        <msub>
+                                                            <mi>T</mi>
+                                                            <mi>m</mi>
+                                                        </msub>
+                                                        <mo>=</mo>
+                                                        <mn>7</mn>
+                                                    </math>
+                                                </foreignObject>
+                                            </g>
+                                        </svg>
+                                    </figure>
+                                </li>
+                                <li>
+                                    <figure>
+                                        <svg class="space-time" viewBox="0 0 60 60">
+                                            <defs>
+                                                <marker
+                                                    id="arrow"
+                                                    viewBox="0 0 10 10"
+                                                    refX="8"
+                                                    refY="5"
+                                                    markerWidth="5"
+                                                    markerHeight="5"
+                                                    orient="auto">
+                                                    <path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" />
+                                                </marker>
+                                                <marker
+                                                    id="message"
+                                                    viewBox="-5 -5 10 10"
+                                                    refX="0"
+                                                    refY="0"
+                                                    markerWidth="7"
+                                                    markerHeight="7"
+                                                    orient="auto">
+                                                    <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3" stroke="context-stroke" />
+                                                </marker>
+                                            </defs>
+
+                                            <g class="tick">
+                                                <text x="55" y="15" text-anchor="middle" dominant-baseline="middle">8</text>
+                                                <polyline points="40,15 50,15" />
+                                            </g>
+                                            <g class="tick">
+                                                <text x="55" y="25" text-anchor="middle" dominant-baseline="middle">7</text>
+                                                <polyline points="40,25 50,25" />
+                                            </g>
+                                            <g class="tick">
+                                                <text x="55" y="35" text-anchor="middle" dominant-baseline="middle">6</text>
+                                                <polyline points="40,35 50,35" />
+                                            </g>
+                                            <g class="tick">
+                                                <text x="55" y="45" text-anchor="middle" dominant-baseline="middle">5</text>
+                                                <polyline points="40,45 50,45" />
+                                            </g>
+
+                                            <g class="process">
+                                                <text x="45" y="58" text-anchor="middle">sender</text>
+
+                                                <line class="segment" x1="45" y1="52" x2="45" y2="5" />
+
+                                                <g class="event">
+                                                    <circle cx="45" cy="20" r="2" />
+                                                </g>
+                                                <g class="event">
+                                                    <circle cx="45" cy="30" r="2" />
+                                                </g>
+                                                <g class="event">
+                                                    <circle cx="45" cy="40" r="2" />
+                                                </g>
+                                            </g>
+
+                                            <g class="message receive">
+                                                <line x1="30" y1="28" x2="45" y2="30" />
+                                                <foreignObject class="label" x="5" y="20" width="50" height="25">
+                                                    <math>
+                                                        <msub>
+                                                            <mi>T</mi>
+                                                            <mi>m</mi>
+                                                        </msub>
+                                                        <mo>=</mo>
+                                                        <mn>4</mn>
+                                                    </math>
+                                                </foreignObject>
+                                            </g>
+                                        </svg>
+                                    </figure>
+                                </li>
+                            </ul>
+                        </li>
+                    </ol>
                 </li>
+            </ol>
+            </li>
             </ol>
             <p>
                 In <inline-details>
@@ -1097,6 +1420,40 @@
                     </p>
                 </li>
             </ol>
+            <figure id="total-ordering-simulation">
+                <space-time
+                    width="100"
+                    height="50"></space-time>
+                <math>
+                    <msub>
+                        <mi>P</mi>
+                        <mn>1</mn>
+                    </msub>
+                    <mo title="totally ordered before">&#x227A;</mo>
+                    <msub>
+                        <mi>P</mi>
+                        <mn>2</mn>
+                    </msub>
+                    <mo title="totally ordered before">&#x227A;</mo>
+                    <msub>
+                        <mi>P</mi>
+                        <mn>3</mn>
+                    </msub>
+                </math>
+                <math>
+                    <mrow>
+                        <mi>a</mi>
+                        <mo title="totally happened before">&#x21D2;</mo>
+                        <mi>c</mi>
+                        <mo title="totally happened before">&#x21D2;</mo>
+                        <mi>d</mi>
+                        <mo title="totally happened before">&#x21D2;</mo>
+                        <mi>e</mi>
+                        <mo title="totally happened before">&#x21D2;</mo>
+                        <mi>b</mi>
+                    </mrow>
+                </math>
+            </figure>
             <p>
                 It is easy to see that this defines a total ordering,
                 and that the <inline-details>
@@ -1153,554 +1510,578 @@
                 </math> which is
                 uniquely determined by the system of events.
             </p>
-            <p>
-                Being able to totally order the events can be very
-                useful in implementing a distributed system. In fact, the
-                reason for implementing a correct system of logical
-                clocks is to obtain such a total ordering. We will illustrate
-                the use of this total ordering of events by solving the
-                following version of the mutual exclusion problem. Consider
-                a system composed of a fixed collection of processes
-                which share a single resource. Only one process can use
-                the resource at a time, so the processes must synchronize
-                themselves to avoid conflict. We wish to find an algorithm
-                for granting the resource to a process which satisfies
-                the following three conditions:
-            </p>
-            <template-use id="mutual-exclusion-conditions" template-id="mutual-exclusion-conditions-template"></template-use>
-            <p>
-                We assume that the resource is initially granted to exactly one process.
-            </p>
-            <p>
-                These are perfectly natural requirements. They precisely
-                specify what it means for a solution to
-                be correct. <inline-details id="eventually-note">
-                    <span slot="summary">[Note]</span>
-                    <template-use slot="content" template-id="eventually-note-template"></template-use>
-                </inline-details>
-                Observe how the
-                conditions involve the ordering of
-                events. <inline-details>
-                    <span slot="summary">Condition II</span>
-                    <template-use slot="content" template-id="mutual-exclusion-condition-2-use"></template-use>
-                </inline-details> says nothing about which of two
-                concurrently issued requests should be granted first.
-            </p>
-            <p>
-                It is important to realize that this is a nontrivial problem.
-                Using a central scheduling process which grants requests in the order
-                they are received will not work, unless additional assumptions are made.
-            </p>
-            <ol class="visual">
-                <li>
-                    <p>
-                        To see this, let <math>
-                            <msub title="the scheduling process">
-                                <mi>P</mi>
-                                <mn>0</mn>
-                            </msub>
-                        </math> be the scheduling
-                        process.
-                    </p>
-                    <figure>
-                        <svg class="distributed-system" viewBox="0 0 50 50">
-                            <line class="link" x1="7" y1="43" x2="25" y2="15" />
-                            <line class="link" x1="43" y1="43" x2="25" y2="15" />
-                            <line class="link" x1="7" y1="43" x2="43" y2="43" />
+            <section id="mutual-exclusion-problem">
+                <header>Mutual Exclusion Problem</header>
+                <p>
+                    Being able to totally order the events can be very
+                    useful in implementing a distributed system. In fact, the
+                    reason for implementing a correct system of logical
+                    clocks is to obtain such a total ordering. We will illustrate
+                    the use of this total ordering of events by solving the
+                    following version of the mutual exclusion problem. Consider
+                    a system composed of a fixed collection of processes
+                    which share a single resource. Only one process can use
+                    the resource at a time, so the processes must synchronize
+                    themselves to avoid conflict. We wish to find an algorithm
+                    for granting the resource to a process which satisfies
+                    the following three conditions:
+                </p>
+                <ol type="I" id="mutual-exclusion-conditions">
+                    <li id="mutual-exclusion-condition-1">
+                        <template-use template-id="mutual-exclusion-condition-1-template"></template-use>
+                    </li>
+                    <li id="mutual-exclusion-condition-2">
+                        <template-use template-id="mutual-exclusion-condition-2-template"></template-use>
+                    </li>
+                    <li id="mutual-exclusion-condition-3">
+                        <template-use template-id="mutual-exclusion-condition-3-template"></template-use>
+                    </li>
+                </ol>
+                <p>
+                    We assume that the resource is initially granted to exactly one process.
+                </p>
+                <p>
+                    These are perfectly natural requirements. They precisely
+                    specify what it means for a solution to
+                    be correct. <inline-details id="eventually-note">
+                        <span slot="summary">[Note]</span>
+                        <template-use slot="content" template-id="eventually-note-template"></template-use>
+                    </inline-details>
+                    Observe how the
+                    conditions involve the ordering of
+                    events. <inline-details>
+                        <span slot="summary">Condition II</span>
+                        <template-use slot="content" template-id="mutual-exclusion-condition-2-use"></template-use>
+                    </inline-details> says nothing about which of two
+                    concurrently issued requests should be granted first.
+                </p>
+                <p>
+                    It is important to realize that this is a nontrivial problem.
+                    Using a central scheduling process which grants requests in the order
+                    they are received will not work, unless additional assumptions are made.
+                </p>
+                <ol class="visual">
+                    <li>
+                        <p>
+                            To see this, let <math>
+                                <msub title="the scheduling process">
+                                    <mi>P</mi>
+                                    <mn>0</mn>
+                                </msub>
+                            </math> be the scheduling
+                            process.
+                        </p>
+                        <figure>
+                            <svg class="distributed-system" viewBox="0 0 50 50">
+                                <line class="link" x1="7" y1="43" x2="25" y2="15" />
+                                <line class="link" x1="43" y1="43" x2="25" y2="15" />
+                                <line class="link" x1="7" y1="43" x2="43" y2="43" />
 
-                            <g class="process">
-                                <circle cx="25" cy="15" r="5" />
-                                <text x="25" y="7" dominant-baseline="middle">
-                                    Scheduler
-                                </text>
-                            </g>
-                            <g class="process">
-                                <circle cx="7" cy="43" r="5" />
-                                <text x="7" y="43" dominant-baseline="middle">
-                                    1
-                                </text>
-                            </g>
-                            <g class="process">
-                                <circle cx="43" cy="43" r="5" />
-                                <text x="43" y="43" dominant-baseline="middle">
-                                    2
-                                </text>
-                            </g>
-                        </svg>
-                    </figure>
-                </li>
-                <li>
-                    <p>
-                        Suppose <math>
-                            <msub title="the first process">
-                                <mi>P</mi>
-                                <mn>1</mn>
-                            </msub>
-                        </math> sends a request
-                        to <math>
-                            <msub title="the scheduling process">
-                                <mi>P</mi>
-                                <mn>0</mn>
-                            </msub>
-                        </math> and then sends
-                        a message to <math>
-                            <msub title="the second process">
-                                <mi>P</mi>
-                                <mn>2</mn>
-                            </msub>
-                        </math>.
-                    </p>
-                    <figure>
-                        <svg class="distributed-system" viewBox="0 0 50 50">
-                            <defs>
-                                <marker
-                                    id="message"
-                                    viewBox="-5 -5 10 10"
-                                    refX="0"
-                                    refY="0"
-                                    markerWidth="7"
-                                    markerHeight="7"
-                                    orient="auto">
-                                    <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3" />
-                                </marker>
-                            </defs>
-                            <line class="link" x1="7" y1="43" x2="25" y2="15" />
-                            <line class="link" x1="43" y1="43" x2="25" y2="15" />
-                            <line class="link" x1="7" y1="43" x2="43" y2="43" />
+                                <g class="process">
+                                    <circle cx="25" cy="15" r="5" />
+                                    <text x="25" y="7" dominant-baseline="middle">
+                                        Scheduler
+                                    </text>
+                                </g>
+                                <g class="process">
+                                    <circle cx="7" cy="43" r="5" />
+                                    <text x="7" y="43" dominant-baseline="middle">
+                                        1
+                                    </text>
+                                </g>
+                                <g class="process">
+                                    <circle cx="43" cy="43" r="5" />
+                                    <text x="43" y="43" dominant-baseline="middle">
+                                        2
+                                    </text>
+                                </g>
+                            </svg>
+                        </figure>
+                    </li>
+                    <li>
+                        <p>
+                            Suppose <math>
+                                <msub title="the first process">
+                                    <mi>P</mi>
+                                    <mn>1</mn>
+                                </msub>
+                            </math> sends a request
+                            to <math>
+                                <msub title="the scheduling process">
+                                    <mi>P</mi>
+                                    <mn>0</mn>
+                                </msub>
+                            </math> and then sends
+                            a message to <math>
+                                <msub title="the second process">
+                                    <mi>P</mi>
+                                    <mn>2</mn>
+                                </msub>
+                            </math>.
+                        </p>
+                        <figure>
+                            <svg class="distributed-system" viewBox="0 0 50 50">
+                                <defs>
+                                    <marker
+                                        id="message"
+                                        viewBox="-5 -5 10 10"
+                                        refX="0"
+                                        refY="0"
+                                        markerWidth="7"
+                                        markerHeight="7"
+                                        orient="auto">
+                                        <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3" />
+                                    </marker>
+                                </defs>
+                                <line class="link" x1="7" y1="43" x2="25" y2="15" />
+                                <line class="link" x1="43" y1="43" x2="25" y2="15" />
+                                <line class="link" x1="7" y1="43" x2="43" y2="43" />
 
-                            <line class="message" x1="7" y1="43" x2="12" y2="35" />
-                            <line class="message" x1="7" y1="43" x2="30" y2="43" />
+                                <line class="message" x1="7" y1="43" x2="12" y2="35" />
+                                <line class="message" x1="7" y1="43" x2="30" y2="43" />
 
-                            <g class="process">
-                                <circle cx="25" cy="15" r="5" />
-                                <text x="25" y="7" dominant-baseline="middle">
-                                    Scheduler
-                                </text>
-                            </g>
-                            <g class="process">
-                                <circle cx="7" cy="43" r="5" />
-                                <text x="7" y="43" dominant-baseline="middle">
-                                    1
-                                </text>
-                            </g>
-                            <g class="process">
-                                <circle cx="43" cy="43" r="5" />
-                                <text x="43" y="43" dominant-baseline="middle">
-                                    2
-                                </text>
-                            </g>
-                        </svg>
-                    </figure>
-                </li>
-                <li>
-                    <p>
-                        Upon receiving the
-                        latter message, <math>
-                            <msub title="the second process">
-                                <mi>P</mi>
-                                <mn>2</mn>
-                            </msub>
-                        </math> sends a request to <math>
-                            <msub title="the scheduling process">
-                                <mi>P</mi>
-                                <mn>0</mn>
-                            </msub>
-                        </math>.
-                    </p>
-                    <figure>
-                        <svg class="distributed-system" viewBox="0 0 50 50">
-                            <defs>
-                                <marker
-                                    id="message"
-                                    viewBox="-5 -5 10 10"
-                                    refX="0"
-                                    refY="0"
-                                    markerWidth="7"
-                                    markerHeight="7"
-                                    orient="auto">
-                                    <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3" />
-                                </marker>
-                                <marker
-                                    id="message-reverse"
-                                    viewBox="-5 -5 10 10"
-                                    refX="0"
-                                    refY="0"
-                                    markerWidth="7"
-                                    markerHeight="7"
-                                    orient="auto">
-                                    <path d="M 4,3 h -8 v -6 h 8 v 6 l -4,-3 l -4,3" />
-                                </marker>
-                            </defs>
-                            <line class="link" x1="7" y1="43" x2="25" y2="15" />
-                            <line class="link" x1="43" y1="43" x2="25" y2="15" />
-                            <line class="link" x1="7" y1="43" x2="43" y2="43" />
+                                <g class="process">
+                                    <circle cx="25" cy="15" r="5" />
+                                    <text x="25" y="7" dominant-baseline="middle">
+                                        Scheduler
+                                    </text>
+                                </g>
+                                <g class="process">
+                                    <circle cx="7" cy="43" r="5" />
+                                    <text x="7" y="43" dominant-baseline="middle">
+                                        1
+                                    </text>
+                                </g>
+                                <g class="process">
+                                    <circle cx="43" cy="43" r="5" />
+                                    <text x="43" y="43" dominant-baseline="middle">
+                                        2
+                                    </text>
+                                </g>
+                            </svg>
+                        </figure>
+                    </li>
+                    <li>
+                        <p>
+                            Upon receiving the
+                            latter message, <math>
+                                <msub title="the second process">
+                                    <mi>P</mi>
+                                    <mn>2</mn>
+                                </msub>
+                            </math> sends a request to <math>
+                                <msub title="the scheduling process">
+                                    <mi>P</mi>
+                                    <mn>0</mn>
+                                </msub>
+                            </math>.
+                        </p>
+                        <figure>
+                            <svg class="distributed-system" viewBox="0 0 50 50">
+                                <defs>
+                                    <marker
+                                        id="message"
+                                        viewBox="-5 -5 10 10"
+                                        refX="0"
+                                        refY="0"
+                                        markerWidth="7"
+                                        markerHeight="7"
+                                        orient="auto">
+                                        <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3" />
+                                    </marker>
+                                    <marker
+                                        id="message-reverse"
+                                        viewBox="-5 -5 10 10"
+                                        refX="0"
+                                        refY="0"
+                                        markerWidth="7"
+                                        markerHeight="7"
+                                        orient="auto">
+                                        <path d="M 4,3 h -8 v -6 h 8 v 6 l -4,-3 l -4,3" />
+                                    </marker>
+                                </defs>
+                                <line class="link" x1="7" y1="43" x2="25" y2="15" />
+                                <line class="link" x1="43" y1="43" x2="25" y2="15" />
+                                <line class="link" x1="7" y1="43" x2="43" y2="43" />
 
-                            <line class="message" x1="7" y1="43" x2="15" y2="30" />
-                            <line class="message reverse" x1="43" y1="43" x2="30" y2="23" />
+                                <line class="message" x1="7" y1="43" x2="15" y2="30" />
+                                <line class="message reverse" x1="43" y1="43" x2="30" y2="23" />
 
-                            <g class="process">
-                                <circle cx="25" cy="15" r="5" />
-                                <text x="25" y="7" dominant-baseline="middle">
-                                    Scheduler
-                                </text>
-                            </g>
-                            <g class="process">
-                                <circle cx="7" cy="43" r="5" />
-                                <text x="7" y="43" dominant-baseline="middle">
-                                    1
-                                </text>
-                            </g>
-                            <g class="process">
-                                <circle cx="43" cy="43" r="5" />
-                                <text x="43" y="43" dominant-baseline="middle">
-                                    2
-                                </text>
-                            </g>
-                        </svg>
-                    </figure>
-                </li>
-            </ol>
-            <p>
-                It
-                is possible for <math>
-                    <msub title="the second process">
-                        <mi>P</mi>
-                        <mn>2</mn>
-                    </msub>
-                </math>'s request to reach <math>
-                    <msub title="the scheduling process">
-                        <mi>P</mi>
-                        <mn>0</mn>
-                    </msub>
-                </math> before <math>
-                    <msub title="the first process">
-                        <mi>P</mi>
-                        <mn>1</mn>
-                    </msub>
-                </math>'s request does. <inline-details>
-                    <span slot="summary">Condition II</span>
-                    <template-use slot="content" template-id="mutual-exclusion-condition-2-use"></template-use>
-                </inline-details> is then violated if <math>
-                    <msub title="the second process">
-                        <mi>P</mi>
-                        <mn>2</mn>
-                    </msub>
-                </math>'s request is granted first.
-            </p>
-            <p>
-                To solve the problem, we implement a system of clocks with
-                rules <inline-details>
-                    <span slot="summary">IR1</span>
-                    <template-use slot="content" template-id="implementation-rule-1-use"></template-use>
-                </inline-details> and <inline-details>
-                    <span slot="summary">IR2</span>
-                    <template-use slot="content" template-id="implementation-rule-2-use"></template-use>
-                </inline-details>,
-                and use them to define a total ordering <math>
-                    <mo title="total-order happened before">&#x21D2;</mo>
-                </math> of all events.
-                This provides a total ordering of all request and release operations. With this ordering, finding a solution
-                becomes a straightforward exercise. It just involves making sure that each process learns about all
-                other processes' operations.
-            </p>
-            <p>
-                To simplify the problem, we make some assumptions. They are not essential, but
-                they are introduced to avoid distracting implementation details. We assume first of all
-                that any two processes <math>
-                    <msub title="a process">
-                        <mi>P</mi>
-                        <mi>i</mi>
-                    </msub>
-                </math> and <math>
-                    <msub title="another process">
-                        <mi>P</mi>
-                        <mi>j</mi>
-                    </msub>
-                </math>, the messages
-                sent from <math>
-                    <msub title="the process">
-                        <mi>P</mi>
-                        <mi>i</mi>
-                    </msub>
-                </math> to <math>
-                    <msub title="another process">
-                        <mi>P</mi>
-                        <mi>j</mi>
-                    </msub>
-                </math> are received
-                in the same order as they are sent. Moreover, we assume that every message is eventually received.
-                (These assumptions can be avoided by introducing message numbers and message acknowledgement protocols.)
-                We also assume that a process can send messages directly to every other process.
-            </p>
-            <p>
-                Each process maintains its own <em>request queue</em> which is never seen by any
-                other process. We assume that the request queues initially contain the single message <math>
-                    <mrow>
-                        <msub title="value less than the initial value of any clock">
-                            <mi>T</mi>
+                                <g class="process">
+                                    <circle cx="25" cy="15" r="5" />
+                                    <text x="25" y="7" dominant-baseline="middle">
+                                        Scheduler
+                                    </text>
+                                </g>
+                                <g class="process">
+                                    <circle cx="7" cy="43" r="5" />
+                                    <text x="7" y="43" dominant-baseline="middle">
+                                        1
+                                    </text>
+                                </g>
+                                <g class="process">
+                                    <circle cx="43" cy="43" r="5" />
+                                    <text x="43" y="43" dominant-baseline="middle">
+                                        2
+                                    </text>
+                                </g>
+                            </svg>
+                        </figure>
+                    </li>
+                </ol>
+                <p>
+                    It
+                    is possible for <math>
+                        <msub title="the second process">
+                            <mi>P</mi>
+                            <mn>2</mn>
+                        </msub>
+                    </math>'s request to reach <math>
+                        <msub title="the scheduling process">
+                            <mi>P</mi>
                             <mn>0</mn>
                         </msub>
-                        <mo>:</mo>
+                    </math> before <math>
+                        <msub title="the first process">
+                            <mi>P</mi>
+                            <mn>1</mn>
+                        </msub>
+                    </math>'s request does. <inline-details>
+                        <span slot="summary">Condition II</span>
+                        <template-use slot="content" template-id="mutual-exclusion-condition-2-use"></template-use>
+                    </inline-details> is then violated if <math>
+                        <msub title="the second process">
+                            <mi>P</mi>
+                            <mn>2</mn>
+                        </msub>
+                    </math>'s request is granted first.
+                </p>
+                <p>
+                    To solve the problem, we implement a system of clocks with
+                    rules <inline-details>
+                        <span slot="summary">IR1</span>
+                        <template-use slot="content" template-id="implementation-rule-1-use"></template-use>
+                    </inline-details> and <inline-details>
+                        <span slot="summary">IR2</span>
+                        <template-use slot="content" template-id="implementation-rule-2-use"></template-use>
+                    </inline-details>,
+                    and use them to define a total ordering <math>
+                        <mo title="total-order happened before">&#x21D2;</mo>
+                    </math> of all events.
+                    This provides a total ordering of all request and release operations. With this ordering, finding a solution
+                    becomes a straightforward exercise. It just involves making sure that each process learns about all
+                    other processes' operations.
+                </p>
+                <p>
+                    To simplify the problem, we make some assumptions. They are not essential, but
+                    they are introduced to avoid distracting implementation details. We assume first of all
+                    that any two processes <math>
+                        <msub title="a process">
+                            <mi>P</mi>
+                            <mi>i</mi>
+                        </msub>
+                    </math> and <math>
+                        <msub title="another process">
+                            <mi>P</mi>
+                            <mi>j</mi>
+                        </msub>
+                    </math>, the messages
+                    sent from <math>
+                        <msub title="the process">
+                            <mi>P</mi>
+                            <mi>i</mi>
+                        </msub>
+                    </math> to <math>
+                        <msub title="another process">
+                            <mi>P</mi>
+                            <mi>j</mi>
+                        </msub>
+                    </math> are received
+                    in the same order as they are sent. Moreover, we assume that every message is eventually received.
+                    (These assumptions can be avoided by introducing message numbers and message acknowledgement protocols.)
+                    We also assume that a process can send messages directly to every other process.
+                </p>
+                <p>
+                    Each process maintains its own <em>request queue</em> which is never seen by any
+                    other process. We assume that the request queues initially contain the single message <math>
+                        <mrow>
+                            <msub title="value less than the initial value of any clock">
+                                <mi>T</mi>
+                                <mn>0</mn>
+                            </msub>
+                            <mo>:</mo>
+                            <msub title="process initially granted the resource">
+                                <mi>P</mi>
+                                <mn>0</mn>
+                            </msub>
+                            <mtext> requests resource</mtext>
+                        </mrow>
+                    </math>, where <math>
                         <msub title="process initially granted the resource">
                             <mi>P</mi>
                             <mn>0</mn>
                         </msub>
-                        <mtext> requests resource</mtext>
-                    </mrow>
-                </math>, where <math>
-                    <msub title="process initially granted the resource">
-                        <mi>P</mi>
-                        <mn>0</mn>
-                    </msub>
-                </math> is the process initially granted
-                the resource and <math>
-                    <msub title="value less than the initial value of any clock">
-                        <mi>T</mi>
-                        <mn>0</mn>
-                    </msub>
-                </math> is less than the initial value of any clock.
-            </p>
-            <p>
-                The algorithm is then defined by the following five rules. For convenience, the actions defined
-                by each rule are assumed to form a single event.
-            </p>
-            <ol>
-                <li>
-                    <p>
-                        To request the resource, process <math>
-                            <msub>
-                                <mi>P</mi>
-                                <mi>i</mi>
-                            </msub>
-                        </math> sends
-                        the message <math>
-                            <mrow>
-                                <msub title="the message's timestamp">
-                                    <mi>T</mi>
-                                    <mi>m</mi>
-                                </msub>
-                                <mo>:</mo>
+                    </math> is the process initially granted
+                    the resource and <math>
+                        <msub title="value less than the initial value of any clock">
+                            <mi>T</mi>
+                            <mn>0</mn>
+                        </msub>
+                    </math> is less than the initial value of any clock.
+                </p>
+                <p>
+                    The algorithm is then defined by the following five rules. For convenience, the actions defined
+                    by each rule are assumed to form a single event.
+                </p>
+                <ol>
+                    <li>
+                        <p>
+                            To request the resource, process <math>
                                 <msub>
                                     <mi>P</mi>
                                     <mi>i</mi>
                                 </msub>
-                                <mtext>requests resource</mtext>
-                            </mrow>
-                        </math> to every other process, and puts that message on its request queue, where <math>
-                            <msub title="the message's timestamp">
-                                <mi>T</mi>
-                                <mi>m</mi>
-                            </msub>
-                        </math> is the timestamp of the message.
-                    </p>
-                </li>
-                <li id="mutual-exclusion-rules-2">
-                    <template-use template-id="mutual-exclusion-rules-2-template"></template-use>
-                </li>
-                <li id="mutual-exclusion-rules-3">
-                    <template-use template-id="mutual-exclusion-rules-3-template"></template-use>
-                </li>
-                <li id="mutual-exclusion-rules-4">
-                    <template-use template-id="mutual-exclusion-rules-4-template"></template-use>
-                </li>
-                <li id="mutual-exclusion-rules-5">
-                    <template-use template-id="mutual-exclusion-rules-5-template"></template-use>
-                </li>
-            </ol>
-            <p>
-                Note that <inline-details>
-                    <span slot="summary">conditions (i) and (ii) of rule 5</span>
-                    <template-use slot="content" template-id="mutual-exclusion-rules-5-use"></template-use>
-                </inline-details> are
-                tested locally by <math>
-                    <msub title="a process">
-                        <mi>P</mi>
-                        <mi>i</mi>
-                    </msub>
-                </math>.
-            </p>
-            <p>
-                It is easy to verify that the algorithm defined by these rules satisfies <inline-details>
-                    <span slot="summary">conditions I-III</span>
-                    <template-use slot="content" template-id="mutual-exclusion-conditions-use"></template-use>
-                </inline-details>.
-                First of all, observe that <inline-details>
-                    <span slot="summary">condition (ii) of rule 5</span>
-                    <template-use slot="content" template-id="mutual-exclusion-rules-5-ii-use"></template-use>
-                </inline-details>, together with the assumption that messages
-                are received in order, guarantees that <math>
-                    <msub title="a process">
-                        <mi>P</mi>
-                        <mi>i</mi>
-                    </msub>
-                </math> has learned about all requests which preceded its current request.
-                Since <inline-details>
-                    <span slot="summary">rules 3</span>
-                    <template-use slot="content" template-id="mutual-exclusion-rules-3-use"></template-use>
-                </inline-details> and <inline-details>
-                    <span slot="summary">4</span>
-                    <template-use slot="content" template-id="mutual-exclusion-rules-4-use"></template-use>
-                </inline-details> are
-                the only ones which delete messages from the request queue, it
-                is then easy to see that <inline-details>
-                    <span slot="summary">condition I</span>
-                    <template-use slot="content" template-id="mutual-exclusion-condition-1-use"></template-use>
-                </inline-details> holds.
-                <inline-details>
-                    <span slot="summary">Condition II</span>
-                    <template-use slot="content" template-id="mutual-exclusion-condition-2-use"></template-use>
-                </inline-details> follows from the fact that the total ordering <math>
-                    <mo title="total-order happened-before relation">&#x21D2;</mo>
-                </math> extends the
-                partial ordering <math>
-                    <mo title="happened-before relation">&#x2192;</mo>
-                </math>. <inline-details>
-                    <span slot="summary">Rule 2</span>
-                    <template-use slot="content" template-id="mutual-exclusion-rules-2-use"></template-use>
-                </inline-details> guarantees that after <math>
-                    <msub title="a process">
-                        <mi>P</mi>
-                        <mi>i</mi>
-                    </msub>
-                </math> requests the resource, <inline-details>
-                    <span slot="summary">condition (ii) of rule 5</span>
-                    <template-use slot="content" template-id="mutual-exclusion-rules-5-ii-use"></template-use>
-                </inline-details> will
-                eventually hold. <inline-details>
-                    <span slot="summary">Rules 3</span>
-                    <template-use slot="content" template-id="mutual-exclusion-rules-3-use"></template-use>
-                </inline-details> and <inline-details>
-                    <span slot="summary">4</span>
-                    <template-use slot="content" template-id="mutual-exclusion-rules-4-use"></template-use>
-                </inline-details> imply
-                that if each process which is granted the resource eventually releases it,
-                then <inline-details>
-                    <span slot="summary">condition (i) of rule 5</span>
-                    <template-use slot="content" template-id="mutual-exclusion-rules-5-i-use"></template-use>
-                </inline-details> will
-                eventually hold, thus providing <inline-details>
-                    <span slot="summary">condition III</span>
-                    <template-use slot="content" template-id="mutual-exclusion-condition-3-use"></template-use>
-                </inline-details>.
-            </p>
-            <p>
-                This is a distributed algorithm. Each process independently
-                follows these rules, and there is no central
-                synchronizing process or central storage. This approach
-                can be generalized to implement any desired synchronization
-                for such a distributed multiprocess system. The
-                synchronization is specified in terms of a State Machine,
-                consisting of a set <math>
-                    <mi title="the set of possible commands">&#x1D402;</mi>
-                </math> of possible commands,
-                a set <math>
-                    <mi title="the set of possible states">&#x1D412;</mi>
-                </math> of possible states, and
-                a function <math>
-                    <mrow>
-                        <mi>&#x1D41E;</mi>
-                        <mo>:</mo>
+                            </math> sends
+                            the message <math>
+                                <mrow>
+                                    <msub title="the message's timestamp">
+                                        <mi>T</mi>
+                                        <mi>m</mi>
+                                    </msub>
+                                    <mo>:</mo>
+                                    <msub>
+                                        <mi>P</mi>
+                                        <mi>i</mi>
+                                    </msub>
+                                    <mtext>requests resource</mtext>
+                                </mrow>
+                            </math> to every other process, and puts that message on its request queue, where <math>
+                                <msub title="the message's timestamp">
+                                    <mi>T</mi>
+                                    <mi>m</mi>
+                                </msub>
+                            </math> is the timestamp of the message.
+                        </p>
+                    </li>
+                    <li id="mutual-exclusion-rules-2">
+                        <template-use template-id="mutual-exclusion-rules-2-template"></template-use>
+                    </li>
+                    <li id="mutual-exclusion-rules-3">
+                        <template-use template-id="mutual-exclusion-rules-3-template"></template-use>
+                    </li>
+                    <li id="mutual-exclusion-rules-4">
+                        <template-use template-id="mutual-exclusion-rules-4-template"></template-use>
+                    </li>
+                    <li id="mutual-exclusion-rules-5">
+                        <template-use template-id="mutual-exclusion-rules-5-template"></template-use>
+                        <ol type="i">
+                            <li id="mutual-exclusion-rules-5-i">
+                                <template-use template-id="mutual-exclusion-rules-5-i-template"></template-use>
+                            </li>
+                            <li id="mutual-exclusion-rules-5-ii">
+                                <template-use template-id="mutual-exclusion-rules-5-ii-template"></template-use>
+                            </li>
+                        </ol>
+                    </li>
+                </ol>
+                <p>
+                    Note that <inline-details>
+                        <span slot="summary">conditions (i) and (ii) of rule 5</span>
+                        <template-use slot="content" template-id="mutual-exclusion-rules-5-use"></template-use>
+                    </inline-details> are
+                    tested locally by <math>
+                        <msub title="a process">
+                            <mi>P</mi>
+                            <mi>i</mi>
+                        </msub>
+                    </math>.
+                </p>
+                <p>
+                    It is easy to verify that the algorithm defined by these rules satisfies <inline-details>
+                        <span slot="summary">conditions I-III</span>
+                        <template-use slot="content" template-id="mutual-exclusion-conditions-use"></template-use>
+                    </inline-details>.
+                    First of all, observe that <inline-details>
+                        <span slot="summary">condition (ii) of rule 5</span>
+                        <template-use slot="content" template-id="mutual-exclusion-rules-5-ii-use"></template-use>
+                    </inline-details>, together with the assumption that messages
+                    are received in order, guarantees that <math>
+                        <msub title="a process">
+                            <mi>P</mi>
+                            <mi>i</mi>
+                        </msub>
+                    </math> has learned about all requests which preceded its current request.
+                    Since <inline-details>
+                        <span slot="summary">rules 3</span>
+                        <template-use slot="content" template-id="mutual-exclusion-rules-3-use"></template-use>
+                    </inline-details> and <inline-details>
+                        <span slot="summary">4</span>
+                        <template-use slot="content" template-id="mutual-exclusion-rules-4-use"></template-use>
+                    </inline-details> are
+                    the only ones which delete messages from the request queue, it
+                    is then easy to see that <inline-details>
+                        <span slot="summary">condition I</span>
+                        <template-use slot="content" template-id="mutual-exclusion-condition-1-use"></template-use>
+                    </inline-details> holds.
+                    <inline-details>
+                        <span slot="summary">Condition II</span>
+                        <template-use slot="content" template-id="mutual-exclusion-condition-2-use"></template-use>
+                    </inline-details> follows from the fact that the total ordering <math>
+                        <mo title="total-order happened-before relation">&#x21D2;</mo>
+                    </math> extends the
+                    partial ordering <math>
+                        <mo title="happened-before relation">&#x2192;</mo>
+                    </math>. <inline-details>
+                        <span slot="summary">Rule 2</span>
+                        <template-use slot="content" template-id="mutual-exclusion-rules-2-use"></template-use>
+                    </inline-details> guarantees that after <math>
+                        <msub title="a process">
+                            <mi>P</mi>
+                            <mi>i</mi>
+                        </msub>
+                    </math> requests the resource, <inline-details>
+                        <span slot="summary">condition (ii) of rule 5</span>
+                        <template-use slot="content" template-id="mutual-exclusion-rules-5-ii-use"></template-use>
+                    </inline-details> will
+                    eventually hold. <inline-details>
+                        <span slot="summary">Rules 3</span>
+                        <template-use slot="content" template-id="mutual-exclusion-rules-3-use"></template-use>
+                    </inline-details> and <inline-details>
+                        <span slot="summary">4</span>
+                        <template-use slot="content" template-id="mutual-exclusion-rules-4-use"></template-use>
+                    </inline-details> imply
+                    that if each process which is granted the resource eventually releases it,
+                    then <inline-details>
+                        <span slot="summary">condition (i) of rule 5</span>
+                        <template-use slot="content" template-id="mutual-exclusion-rules-5-i-use"></template-use>
+                    </inline-details> will
+                    eventually hold, thus providing <inline-details>
+                        <span slot="summary">condition III</span>
+                        <template-use slot="content" template-id="mutual-exclusion-condition-3-use"></template-use>
+                    </inline-details>.
+                </p>
+            </section>
+            <section id="state-machines">
+                <header>State Machines</header>
+                <p>
+                    This is a distributed algorithm. Each process independently
+                    follows these rules, and there is no central
+                    synchronizing process or central storage. This approach
+                    can be generalized to implement any desired synchronization
+                    for such a distributed multiprocess system. The
+                    synchronization is specified in terms of a State Machine,
+                    consisting of a set <math>
                         <mi title="the set of possible commands">&#x1D402;</mi>
-                        <mo>&#x2A09;</mo>
+                    </math> of possible commands,
+                    a set <math>
                         <mi title="the set of possible states">&#x1D412;</mi>
-                        <mo>&#x2192;</mo>
-                        <mi title="the set of possible states">&#x1D412;</mi>
-                    </mrow>
-                </math>. The relation <math>
-                    <mrow>
-                        <mi>&#x1D41E;</mi>
-                        <mo>(</mo>
+                    </math> of possible states, and
+                    a function <math>
+                        <mrow>
+                            <mi>&#x1D41E;</mi>
+                            <mo>:</mo>
+                            <mi title="the set of possible commands">&#x1D402;</mi>
+                            <mo>&#x2A09;</mo>
+                            <mi title="the set of possible states">&#x1D412;</mi>
+                            <mo>&#x2192;</mo>
+                            <mi title="the set of possible states">&#x1D412;</mi>
+                        </mrow>
+                    </math>. The relation <math>
+                        <mrow>
+                            <mi>&#x1D41E;</mi>
+                            <mo>(</mo>
+                            <mi title="a command">C</mi>
+                            <mo>,</mo>
+                            <mi title="a state">S</mi>
+                            <mo>)</mo>
+                            <mo>=</mo>
+                            <mrow title="a new state">
+                                <mi>S</mi>
+                                <mo>&#x2032;</mo>
+                            </mrow>
+                        </mrow>
+                    </math> means that executing the command <math>
                         <mi title="a command">C</mi>
-                        <mo>,</mo>
+                    </math> with
+                    the machine in state <math>
                         <mi title="a state">S</mi>
-                        <mo>)</mo>
-                        <mo>=</mo>
+                    </math> causes the machine state
+                    to change to <math>
                         <mrow title="a new state">
                             <mi>S</mi>
                             <mo>&#x2032;</mo>
                         </mrow>
-                    </mrow>
-                </math> means that executing the command <math>
-                    <mi title="a command">C</mi>
-                </math> with
-                the machine in state <math>
-                    <mi title="a state">S</mi>
-                </math> causes the machine state
-                to change to <math>
-                    <mrow title="a new state">
-                        <mi>S</mi>
-                        <mo>&#x2032;</mo>
-                    </mrow>
-                </math>. In our example, the set <math>
-                    <mi title="the set of possible commands">&#x1D402;</mi>
-                </math> consists
-                of all the commands <math>
-                    <mrow>
-                        <msub>
-                            <mi>P</mi>
-                            <mi>i</mi>
-                        </msub>
-                        <mtext>requests resource</mtext>
-                    </mrow>
-                </math> and <math>
-                    <mrow>
-                        <msub>
-                            <mi>P</mi>
-                            <mi>i</mi>
-                        </msub>
-                        <mtext>releases resource</mtext>
-                    </mrow>
-                </math>, and the state consists of a queue of waiting <em>request</em> commands,
-                where the request at the head of the queue
-                is the currently granted one. Executing a <em>request</em> command
-                adds the request to the tail of the queue, and
-                executing a <em>release</em> command removes a command from
-                the queue. <inline-details id="release-note">
-                    <span slot="summary">[Note]</span>
-                    <template-use slot="content" template-id="release-note-template"></template-use>
-                </inline-details>
-            </p>
-            <p>
-                Each process independently simulates the execution
-                of the State Machine, using the commands issued by all
-                the processes. Synchronization is achieved because all
-                processes order the commands according to their timestamps
-                (using the relation <math>
-                    <mo title="total-order happened-before relation">&#x21D2;</mo>
-                </math>),
-                so each process uses the same sequence of commands. A
-                process can execute a command timestamped <math>
-                    <mi title="a command's timestamp">T</mi>
-                </math> when
-                it has learned of all commands issued by all other processes
-                with timestamps less than or equal to <math>
-                    <mi title="a command's timestamp">T</mi>
-                </math>.
-                The precise algorithm is straight-forward,
-                and we will not bother to describe it.
-            </p>
-            <p>
-                This method allows one to implement any desired
-                form of multiprocess synchronization in a distributed
-                system. However, the resulting algorithm requires the
-                active participation of all the processes. A process must
-                know all the commands issued by other processes, so
-                that the failure of a single process will make it impossible
-                for any other process to execute State Machine commands,
-                thereby halting the system.
-            </p>
-            <p>
-                The problem of failure is a difficult one, and it is
-                beyond the scope of this paper to discuss it in any detail.
-                We will just observe that the entire concept of failure is
-                only meaningful in the context of physical time. Without
-                physical time, there is no way to distinguish a failed
-                process from one which is just pausing between events.
-                A user can tell that a system has "crashed" only because
-                he has been waiting too long for a response. A method
-                which works despite the failure of individual processes
-                or communication lines is described in <a href="#relativity-reference">[3]</a>.
-            </p>
+                    </math>. In our example, the set <math>
+                        <mi title="the set of possible commands">&#x1D402;</mi>
+                    </math> consists
+                    of all the commands <math>
+                        <mrow>
+                            <msub>
+                                <mi>P</mi>
+                                <mi>i</mi>
+                            </msub>
+                            <mtext>requests resource</mtext>
+                        </mrow>
+                    </math> and <math>
+                        <mrow>
+                            <msub>
+                                <mi>P</mi>
+                                <mi>i</mi>
+                            </msub>
+                            <mtext>releases resource</mtext>
+                        </mrow>
+                    </math>, and the state consists of a queue of waiting <em>request</em> commands,
+                    where the request at the head of the queue
+                    is the currently granted one. Executing a <em>request</em> command
+                    adds the request to the tail of the queue, and
+                    executing a <em>release</em> command removes a command from
+                    the queue. <inline-details id="release-note">
+                        <span slot="summary">[Note]</span>
+                        <template-use slot="content" template-id="release-note-template"></template-use>
+                    </inline-details>
+                </p>
+                <p>
+                    Each process independently simulates the execution
+                    of the State Machine, using the commands issued by all
+                    the processes. Synchronization is achieved because all
+                    processes order the commands according to their timestamps
+                    (using the relation <math>
+                        <mo title="total-order happened-before relation">&#x21D2;</mo>
+                    </math>),
+                    so each process uses the same sequence of commands. A
+                    process can execute a command timestamped <math>
+                        <mi title="a command's timestamp">T</mi>
+                    </math> when
+                    it has learned of all commands issued by all other processes
+                    with timestamps less than or equal to <math>
+                        <mi title="a command's timestamp">T</mi>
+                    </math>.
+                    The precise algorithm is straight-forward,
+                    and we will not bother to describe it.
+                </p>
+                <p>
+                    This method allows one to implement any desired
+                    form of multiprocess synchronization in a distributed
+                    system. However, the resulting algorithm requires the
+                    active participation of all the processes. A process must
+                    know all the commands issued by other processes, so
+                    that the failure of a single process will make it impossible
+                    for any other process to execute State Machine commands,
+                    thereby halting the system.
+                </p>
+                <p>
+                    The problem of failure is a difficult one, and it is
+                    beyond the scope of this paper to discuss it in any detail.
+                    We will just observe that the entire concept of failure is
+                    only meaningful in the context of physical time. Without
+                    physical time, there is no way to distinguish a failed
+                    process from one which is just pausing between events.
+                    A user can tell that a system has "crashed" only because
+                    he has been waiting too long for a response. A method
+                    which works despite the failure of individual processes
+                    or communication lines is described in <a href="#relativity-reference">[3]</a>.
+                </p>
+            </section>
         </section>
 
         <section id="anomalous-behavior">
@@ -1851,7 +2232,7 @@
                     <mi title="physical time">t</mi>
                 </math>. <inline-details id="time-note">
                     <span slot="summary">[Note]</span>
-                    <template-use slot="content" template-id="release-note-template"></template-use>
+                    <template-use slot="content" template-id="time-note-template"></template-use>
                 </inline-details>
                 For mathematical
                 convenience, we assume that the clocks run continuously rather than in discrete "ticks."
@@ -2761,35 +3142,36 @@
             <ol class="reference">
                 <li id="relativity-reference">
                     <section class="reference">
-                        <span class="name">Schwartz, J.T.</span>
-                        <span class="title">Relativity in Illustrations</span>
-                        <span class="publisher">New York U. Press, New York</span>
-                        <span class="year">1962</span>
+                        <span class="author">Schwartz, J.T.</span>
+                        <span class="book title">Relativity in Illustrations</span>.
+                        <span class="publisher">New York U. Press, New York</span>,
+                        <span class="year">1962</span>.
                     </section>
                 </li>
                 <li id="space-time-reference">
                     <section class="reference">
-                        <span class="name">Taylor, E.F.</span>
-                        <span class="name">Wheeler, J.A.</span>
-                        <span class="title">Space-Time Physics</span>
-                        <span class="publisher">W.H. Freeman, San Francisco</span>
-                        <span class="year">1966</span>
+                        <span class="author">Taylor, E.F.</span>, and <span class="author">Wheeler, J.A.</span>
+                        <span class="book title">Space-Time Physics</span>,
+                        <span class="publisher">W.H. Freeman, San Francisco</span>,
+                        <span class="year">1966</span>.
                     </section>
                 </li>
                 <li id="lamport-implementation-reference">
                     <section class="reference">
-                        <span class="name">Lamport, L.</span>
-                        <span class="title">The implementation of reliable distributed multiprocess systems</span>
-                        <span class="publisher">To appear in Computer Networks</span>
+                        <span class="author">Lamport, L.</span>
+                        <span class="title">The implementation of reliable distributed multiprocess systems</span>.
+                        To appear in <span class="journal">Computer Networks</span>.
                     </section>
                 </li>
                 <li id="system-time-reference">
                     <section class="reference">
-                        <span class="name">Ellingson, C.</span>
-                        <span class="name">Kulpinski, R.J.</span>
-                        <span class="title">Dissemination of system-time</span>
-                        <span class="publisher">IEEE Trans. Comm</span>
-                        <span>Com-23, 5 (May 1973), 605-624</span>
+                        <span class="author">Ellingson, C.</span>, and <span class="author">Kulpinski, R.J.</span>
+                        <span class="title">Dissemination of system-time</span>.
+                        <span class="journal">IEEE Trans. Comm.</span>
+                        <span class="volume">Com-23</span>,
+                        <span class="number">5</span>
+                        <span class="date">(May 1973)</span>,
+                        <span class="page">605-624</span>.
                     </section>
                 </li>
             </ol>
@@ -3233,19 +3615,17 @@
         <a href="#implementation-rule-2-b">Go to definition.</a>
         <template-use template-id="implementation-rule-2-b-template"></template-use>
     </template>
-    <template id="implementation-rule-2-template">
+
+    <template id="implementation-rule-2-use">
+        <a href="#implementation-rule-2">Go to definition.</a>
         <ol type="a">
-            <li id="implementation-rule-2-a">
+            <li>
                 <template-use template-id="implementation-rule-2-a-template"></template-use>
             </li>
-            <li id="implementation-rule-2-b">
+            <li>
                 <template-use template-id="implementation-rule-2-b-template"></template-use>
             </li>
         </ol>
-    </template>
-    <template id="implementation-rule-2-use">
-        <a href="#implementation-rule-2">Go to definition.</a>
-        <template-use template-id="implementation-rule-2-template"></template-use>
     </template>
 
     <template id="mutual-exclusion-condition-1-template">
@@ -3284,22 +3664,19 @@
         <template-use template-id="mutual-exclusion-condition-3-template"></template-use>
     </template>
 
-    <template id="mutual-exclusion-conditions-template">
+    <template id="mutual-exclusion-conditions-use">
+        <a href="#mutual-exclusion-conditions">Go to definition.</a>
         <ol type="I">
-            <li id="mutual-exclusion-condition-1">
+            <li>
                 <template-use template-id="mutual-exclusion-condition-1-template"></template-use>
             </li>
-            <li id="mutual-exclusion-condition-2">
+            <li>
                 <template-use template-id="mutual-exclusion-condition-2-template"></template-use>
             </li>
-            <li id="mutual-exclusion-condition-3">
+            <li>
                 <template-use template-id="mutual-exclusion-condition-3-template"></template-use>
             </li>
         </ol>
-    </template>
-    <template id="mutual-exclusion-conditions-use">
-        <a href="#mutual-exclusion-conditions">Go to definition.</a>
-        <template-use template-id="mutual-exclusion-conditions-template"></template-use>
     </template>
 
     <template id="mutual-exclusion-rules-2-template">
@@ -3476,18 +3853,18 @@
             </math> is granted the resource when the following
             two conditions are satisfied:
         </p>
-        <ol type="i">
-            <li id="mutual-exclusion-rules-5-i">
-                <template-use template-id="mutual-exclusion-rules-5-i-template"></template-use>
-            </li>
-            <li id="mutual-exclusion-rules-5-ii">
-                <template-use template-id="mutual-exclusion-rules-5-ii-template"></template-use>
-            </li>
-        </ol>
     </template>
     <template id="mutual-exclusion-rules-5-use">
         <a href="#mutual-exclusion-rules-5">Go to definition.</a>
         <template-use template-id="mutual-exclusion-rules-5-template"></template-use>
+        <ol type="i">
+            <li>
+                <template-use template-id="mutual-exclusion-rules-5-i-template"></template-use>
+            </li>
+            <li>
+                <template-use template-id="mutual-exclusion-rules-5-ii-template"></template-use>
+            </li>
+        </ol>
     </template>
 
     <template id="strong-clock-condition-template">
