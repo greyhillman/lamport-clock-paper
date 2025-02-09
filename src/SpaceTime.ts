@@ -432,6 +432,7 @@ export class SpaceTime extends LitElement {
 
     g.process text {
         font-size: 0.3em;
+        fill: var(--font-color);
     }
 
     g.event circle {

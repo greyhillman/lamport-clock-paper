@@ -10,6 +10,15 @@
   --math-font-family: NewComputerModernMath;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --font-color: white;
+    --muted-font-color: #ccc;
+    --link-color: #9b9bff;
+    --background-color: black;
+  }
+}
+
 :root {
   font-size: 21px;
   font-family: var(--font-family);

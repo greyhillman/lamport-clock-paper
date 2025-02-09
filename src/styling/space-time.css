@@ -117,6 +117,7 @@ svg.space-time {
 
     text {
         font-size: 0.30em;
+        fill: var(--font-color);
 
         &.highlight {
             fill: var(--highlight-color);

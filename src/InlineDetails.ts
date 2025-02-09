@@ -52,7 +52,7 @@ export class InlineDetails extends LitElement {
 
     div {
         padding: 0em 1em;
-        border: solid black 2px;
+        border: solid var(--font-color) 2px;
         border-radius: 0.5em;
     }
     `;

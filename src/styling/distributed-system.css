@@ -25,7 +25,7 @@ svg.distributed-system {
         }
 
         &>text {
-            color: var(--font-color);
+            fill: var(--font-color);
             font-size: 5px;
             text-anchor: middle;
             vertical-align: middle;

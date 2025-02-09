@@ -194,6 +194,7 @@ export class DirectedGraph extends LitElement {
 
     svg g.vertex text {
         font-size: 0.6em;
+        fill: var(--font-color);
     }
 
     svg #message {
