@@ -49,6 +49,10 @@ mi.set {
     -webkit-font-feature-settings: "ss01";
 }
 
+mi.underline {
+    text-decoration: underline;
+}
+
 msub>mtext:nth-child(2) {
     font-size: 0.7rem;
 }

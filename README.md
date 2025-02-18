@@ -9,6 +9,8 @@ Additional words from the author on the paper: https://lamport.azurewebsites.net
 
 ## Changes from the Original
 
+### New Subsections
+
 The "Ordering the Events Totally" has 2 subsection titles added: "Distributed Mutual Exclusion Problem" and "State Machines".
 As Lamport wrote:
 
@@ -20,6 +22,13 @@ As Lamport wrote:
 > I've even had to go back and reread it to convince myself that I really did remember what I had written.
 
 Adding those subsection titles should help assuage the problem.
+
+### Set of System Events
+
+The original symbol for the set of system events defined in "Anomalous Behavior" appears to be the "\mathscr{S}" symbol.
+We also have the set of relevant events which is "\mathscr{S}" but with an underline (which looks like it was drawn on after print).
+The closest unicode symbol is the [mathmatical script capital S](https://unicodeplus.com/U+1D4AE) and there is no symbol with a dedicated underline.
+Therefore, I went with the [mathmatical script lowercase s](https://unicodeplus.com/U+1D4C8) for the system events and the capital for relevant events (capital is bigger than lowercase and the relevant events contains the system events).
 
 
 ## Elements

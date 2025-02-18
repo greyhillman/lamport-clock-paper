@@ -12,8 +12,8 @@
 
 
     <title>Time, Clocks, and the Ordering of Events in a Distributed System</title>
-  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-CsyIzT_N.js"></script>
-  <link rel="stylesheet" crossorigin href="/lamport-clock-paper/assets/index-w1ASF2ak.css">
+  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-CqqmuWK6.js"></script>
+  <link rel="stylesheet" crossorigin href="/lamport-clock-paper/assets/index-DOp5FOuO.css">
 </head>
 
 <body>
@@ -2115,18 +2115,18 @@
             </p>
             <p>
                 Let us examine the source of the problem more closely. Let <math>
-                    <mi title="the set of all system events">&#x3B6;</mi>
+                    <mi title="the set of system events">&#x1D4C8;</mi>
                 </math> be the
                 set of all system events. Let us introduce a set of events
                 which contains the events in <math>
-                    <mi title="the set of all system events">&#x3B6;</mi>
+                    <mi title="the set of system events">&#x1D4C8;</mi>
                 </math> together
                 with all other relevant external events, such as the phone calls in our example.
                 Let <math>
                     <mo title="the happen-before relation for all relevant events">&#x27A1;</mo>
                 </math> denote
                 the "happened before" relation for <math>
-                    <mi title="the set of all relevant events">&#x3B6;</mi>
+                    <mi class="set" title="the set of relevant events">&#x1D4AE;</mi>
                 </math>. In our example, we had <math>
                     <mrow>
                         <mi title="the request from computer A">&#x1D670;</mi>
@@ -2140,11 +2140,11 @@
                         <mi title="the request from computer B">&#x1D671;</mi>
                     </mrow>
                 </math>. It is obvious that no algorithm based entirely upon events in <math>
-                    <mi title="the set of all system events">&#x3B6;</mi>
+                    <mi title="the set of system events">&#x1D4C8;</mi>
                 </math>,
                 and which does not relate those events in any way with the other
                 events in <math>
-                    <mi title="the set of all system events">&#x3B6;</mi>
+                    <mi title="the set of relevant events">&#x1D4AE;</mi>
                 </math>,
                 can guarantee that request <math>
                     <mi title="the request from computer A">&#x1D670;</mi>
@@ -2194,7 +2194,7 @@
             </p>
             <p>
                 Let us identify <math>
-                    <mi title="the set of relevant events">&#x3B6;</mi>
+                    <mi title="the set of relevant events">&#x1D4AE;</mi>
                 </math> with
                 some set of "real" events in physical space-time, and let <math>
                     <mo title="happened-before for relevant events">&#x27A1;</mo>
@@ -2385,7 +2385,7 @@
                 </math> must
                 be to prevent anomalous behavior.
                 We must insure that the system <math>
-                    <mi title="set of all relevant events">&#x3B6;</mi>
+                    <mi title="set of relevant events">&#x1D4AE;</mi>
                 </math> of relevant physical
                 events satisfies the <inline-details>
                     <span slot="summary">Strong Clock Condition</span>
@@ -2406,7 +2406,7 @@
                     <mi title="another event">b</mi>
                 </math> are events
                 in <math>
-                    <mi title="the set of all relevant events">&#x3B6;</mi>
+                    <mi title="the set of relevant events">&#x1D4AE; </mi>
                 </math> with <math>
                     <mrow title="the event did not happen before the other event">
                         <mi title="the event">a</mi>
@@ -2532,7 +2532,7 @@
                 </math> equal to the
                 shortest distance between processes divided by the speed of light.
                 However, depending upon how messages in <math>
-                    <mi title="the set of all relevant events">&#x3B6;</mi>
+                    <mi title="the set of relevant events">&#x1D4AE;</mi>
                 </math> are
                 transmitted, <math>
                     <mi title="the minimum causal period?">&#x3BC;</mi>
@@ -3873,7 +3873,7 @@
             </math>, <math>
                 <mi title="another event">b</mi>
             </math> in <math>
-                <mi title="the set of all system events">&#x3B6;</mi>
+                <mi title="the set of relevant events">&#x1D4AE;</mi>
             </math>
             if <math>
                 <mrow>
