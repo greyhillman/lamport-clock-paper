@@ -11,8 +11,7 @@ Additional words from the author on the paper: https://lamport.azurewebsites.net
 
 ### New Subsections
 
-The "Ordering the Events Totally" has 2 subsection titles added: "Distributed Mutual Exclusion Problem" and "State Machines".
-As Lamport wrote:
+[In his additional words about the paper](https://lamport.azurewebsites.net/pubs/pubs.html#time-clocks), Lamport wrote:
 
 > This is my most often cited paper.
 > Many computer scientists claim to have read it.
@@ -21,7 +20,8 @@ As Lamport wrote:
 > People have insisted that there is nothing about state machines in the paper.
 > I've even had to go back and reread it to convince myself that I really did remember what I had written.
 
-Adding those subsection titles should help assuage the problem.
+Therefore, the "Ordering the Events Totally" has 2 subsection titles added: "Distributed Mutual Exclusion Problem" and "State Machines" to alleviate this problem.
+
 
 ### Set of System Events
 
