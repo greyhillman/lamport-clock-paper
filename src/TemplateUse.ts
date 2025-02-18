@@ -1,4 +1,4 @@
-import { LitElement } from "lit";
+import { css, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
 declare global {

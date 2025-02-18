@@ -387,3 +387,8 @@ a.icon[href^="https://github.com/"] {
     }
   }
 }
+
+template-use {
+  width: 100%;
+  height: 100%;
+}

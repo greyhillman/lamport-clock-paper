@@ -12,8 +12,8 @@
 
 
     <title>Time, Clocks, and the Ordering of Events in a Distributed System</title>
-  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-D7fkZ8z4.js"></script>
-  <link rel="stylesheet" crossorigin href="/lamport-clock-paper/assets/index-Cy4KM1iC.css">
+  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-DEeUDQOq.js"></script>
+  <link rel="stylesheet" crossorigin href="/lamport-clock-paper/assets/index-U-Xi9f-5.css">
 </head>
 
 <body>
@@ -483,7 +483,10 @@
             </p>
             <p>
                 It is helpful to view this definition in terms of a
-                "space-time diagram" such as <a href="#figure-1">Figure 1</a>. The horizontal
+                "space-time diagram" such as <inline-details>
+                    <span slot="summary">Figure 1</span>
+                    <template-use slot="content" template-id="figure-1-use"></template-use>
+                </inline-details>. The horizontal
                 direction represents space, and the vertical direction
                 represents time &ndash; later times being higher than earlier
                 ones. The dots denote events, the vertical lines denote
@@ -519,13 +522,14 @@
                             <mn>4</mn>
                         </msub>
                     </mrow>
-                </math> in <a href="#figure-1">Figure 1</a>.
+                </math> in <inline-details>
+                    <span slot="summary">Figure 1</span>
+                    <template-use slot="content" template-id="figure-1-use"></template-use>
+                </inline-details>.
             </p>
 
             <figure id="figure-1">
-                <space-time id="figure-1-diagram"
-                    width="120"
-                    height="120"></space-time>
+                <template-use template-id="figure-1-template"></template-use>
                 <figcaption>Figure 1</figcaption>
             </figure>
 
@@ -556,7 +560,10 @@
                         <mi>q</mi>
                         <mn>3</mn>
                     </msub>
-                </math> of <a href="#figure-1">Figure 1</a> are
+                </math> of <inline-details>
+                    <span slot="summary">Figure 1</span>
+                    <template-use slot="content" template-id="figure-1-use"></template-use>
+                </inline-details> are
                 concurrent. Even though we have drawn the diagram to imply
                 that <math>
                     <msub title="the third event in process Q" data-event="q3">
@@ -722,7 +729,10 @@
             <p>
                 Note that we cannot expect the converse condition to
                 hold as well, since that would imply that any two concurrent
-                events must occur at the same time. In <a href="#figure-1">Figure 1</a>, <math>
+                events must occur at the same time. In <inline-details>
+                    <span slot="summary">Figure 1</span>
+                    <template-use slot="content" template-id="figure-1-use"></template-use>
+                </inline-details>, <math>
                     <msub title="the second event in process P" data-event="p2">
                         <mi>p</mi>
                         <mn>2</mn>
@@ -825,7 +835,13 @@
                 ticks 5, 6, and 7 occur between the two events.
                 We draw a dashed "tick line" through all the like-numbered
                 ticks of the different processes. The space-time
-                diagram of <a href="#figure-1">Figure 1</a> might then yield the picture in <a href="#figure-2">Figure 2</a>.
+                diagram of <inline-details>
+                    <span slot="summary">Figure 1</span>
+                    <template-use slot="content" template-id="figure-1-use"></template-use>
+                </inline-details> might then yield the picture in <inline-details>
+                    <span slot="summary">Figure 2</span>
+                    <template-use slot="content" template-id="figure-2-use"></template-use>
+                </inline-details>.
                 <inline-details>
                     <span slot="summary">Condition C1</span>
                     <template-use slot="content" template-id="first-clock-condition-use"></template-use>
@@ -843,29 +859,35 @@
                     <template-use slot="content" template-id="clock-condition-use"></template-use>
                 </inline-details>
             </p>
-            <figure id="figure-2" class="space-time">
-                <space-time
-                    id="figure-2-diagram"
-                    width="120"
-                    height="120"></space-time>
+            <figure id="figure-2">
+                <template-use template-id="figure-2-template"></template-use>
                 <figcaption>Figure 2</figcaption>
             </figure>
             <p>
                 We can consider the tick lines to be the time coordinate
                 lines of some Cartesian coordinate system on space-time.
-                We can redraw <a href="#figure-2">Figure 2</a> to straighten these coordinate
-                lines, thus obtaining <a href="#figure-3">Figure 3</a>. <a href="#figure-3">Figure 3</a> is a valid
+                We can redraw <inline-details>
+                    <span slot="summary">Figure 2</span>
+                    <template-use slot="content" template-id="figure-2-use"></template-use>
+                </inline-details> to straighten these coordinate
+                lines, thus obtaining <inline-details>
+                    <span slot="summary">Figure 3</span>
+                    <template-use slot="content" template-id="figure-3-use"></template-use>
+                </inline-details>. <inline-details>
+                    <span slot="summary">Figure 3</span>
+                    <template-use slot="content" template-id="figure-3-use"></template-use>
+                </inline-details> is a valid
                 alternate way of representing the same system of events
-                as <a href="#figure-2">Figure 2</a>. Without introducing the concept of physical
+                as <inline-details>
+                    <span slot="summary">Figure 2</span>
+                    <template-use slot="content" template-id="figure-2-use"></template-use>
+                </inline-details>. Without introducing the concept of physical
                 time into the system (which requires introducing physical
                 clocks), there is no way to decide which of these pictures
                 is a better representation.
             </p>
             <figure id="figure-3" class="space-time">
-                <space-time
-                    id="figure-3-diagram"
-                    width="120"
-                    height="120"></space-time>
+                <template-use template-id="figure-3-template"></template-use>
                 <figcaption>Figure 3</figcaption>
             </figure>
             <p>
@@ -2361,7 +2383,10 @@
                 </li>
             </ol>
             <p>
-                If we consider vertical distance in <a href="#figure-2">Figure 2</a> to
+                If we consider vertical distance in <inline-details>
+                    <span slot="summary">Figure 2</span>
+                    <template-use slot="content" template-id="figure-2-use"></template-use>
+                </inline-details> to
                 represent physical time, then <inline-details>
                     <span slot="summary">PC2</span>
                     <template-use slot="content" template-id="physical-clock-condition-2-use"></template-use>
@@ -4150,6 +4175,50 @@
     <template id="physical-implementation-rule-2-use">
         <a href="#physical-implementation-rule-2">Go to definition.</a>
         <template-use template-id="physical-implementation-rule-2-template"></template-use>
+    </template>
+
+    <template id="figure-1-template">
+        <space-time data-id="figure-1-diagram"
+            width="120"
+            height="120"></space-time>
+    </template>
+
+    <template id="figure-1-use">
+        <a href="#figure-1">Go to source.</a>
+        <figure>
+            <template-use template-id="figure-1-template"></template-use>
+            <figcaption>Figure 1</figcaption>
+        </figure>
+    </template>
+
+    <template id="figure-2-template">
+        <space-time
+            data-id="figure-2-diagram"
+            width="120"
+            height="120"></space-time>
+    </template>
+
+    <template id="figure-2-use">
+        <a href="#figure-2">Go to source.</a>
+        <figure>
+            <template-use template-id="figure-2-template"></template-use>
+            <figcaption>Figure 2</figcaption>
+        </figure>
+    </template>
+
+    <template id="figure-3-template">
+        <space-time
+            data-id="figure-3-diagram"
+            width="120"
+            height="120"></space-time>
+    </template>
+
+    <template id="figure-3-use">
+        <a href="#figure-3">Go to source.</a>
+        <figure>
+            <template-use template-id="figure-3-template"></template-use>
+            <figcaption>Figure 3</figcaption>
+        </figure>
     </template>
 </body>
 
