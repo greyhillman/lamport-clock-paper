@@ -39,12 +39,17 @@ body {
 body {
   display: grid;
   grid-template-areas:
-    '. article .';
+    '. article .'
+    '. footer .';
   grid-template-columns: 1fr auto 1fr;
 }
 
 body>article {
   grid-area: article;
+}
+
+body>footer {
+  grid-area: footer;
 }
 
 article {
@@ -353,6 +358,32 @@ ol.visual directed-graph {
   }
 }
 
-figure {
-  /* overflow-x: auto; */
+footer#feedback {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+a.icon[href^="https://github.com/"] {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: baseline;
+
+  column-gap: 0.25em;
+
+  &::before {
+    content: " ";
+    display: inline-block;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 1em;
+    height: 1em;
+
+    background-image: url(../icons/github-mark.svg);
+
+    @media (prefers-color-scheme: dark) {
+      background-image: url(../icons/github-mark-white.svg);
+    }
+  }
 }
