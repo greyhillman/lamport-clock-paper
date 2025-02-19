@@ -605,8 +605,14 @@
             <p>
                 This definition will appear quite natural to the reader
                 familiar with the invariant space-time formulation of
-                special relativity, as described for example in <a href="#relativity-reference">[1]</a> or the
-                first chapter of <a href="#space-time-reference">[2]</a>. In relativity,
+                special relativity, as described for example in <inline-details>
+                    <span slot="summary">[1]</span>
+                    <template-use slot="content" template-id="relativity-reference"></template-use>
+                </inline-details> or the
+                first chapter of <inline-details>
+                    <span slot="summary">[2]</span>
+                    <template-use slot="content" template-id="space-time-reference"></template-use>
+                </inline-details>. In relativity,
                 the ordering of events is
                 defined in terms of messages that could be sent. However,
                 we have taken the more pragmatic approach of only
@@ -2102,7 +2108,10 @@
                     A user can tell that a system has "crashed" only because
                     he has been waiting too long for a response. A method
                     which works despite the failure of individual processes
-                    or communication lines is described in <a href="#relativity-reference">[3]</a>.
+                    or communication lines is described in <inline-details>
+                        <span slot="summary">[3]</span>
+                        <template-use slot="content" template-id="lamport-implementation-reference"></template-use>
+                    </inline-details>.
                 </p>
             </section>
         </section>
@@ -3052,7 +3061,10 @@
             <p>
                 The proof of this theorem is surprisingly difficult, and is given in the Appendix.
                 There has been a great deal of work done on the problem of synchronizing physical
-                clocks. We refer the reader to <a href="#system-time-reference">[4]</a> for an introduction to the subject.
+                clocks. We refer the reader to <inline-details>
+                    <span slot="summary">[4]</span>
+                    <template-use slot="content" template-id="system-time-reference"></template-use>
+                </inline-details> for an introduction to the subject.
                 The methods describe in the literature are useful for estimating the message delays <math>
                     <msub title="minimum message delay">
                         <mi>&#x3BC;</mi>
@@ -3166,39 +3178,17 @@
             <header>References</header>
 
             <ol class="reference">
-                <li id="relativity-reference">
-                    <section class="reference">
-                        <span class="author">Schwartz, J.T.</span>
-                        <span class="book title">Relativity in Illustrations</span>.
-                        <span class="publisher">New York U. Press, New York</span>,
-                        <span class="year">1962</span>.
-                    </section>
+                <li>
+                    <template-use template-id="relativity-reference"></template-use>
                 </li>
-                <li id="space-time-reference">
-                    <section class="reference">
-                        <span class="author">Taylor, E.F.</span>, and <span class="author">Wheeler, J.A.</span>
-                        <span class="book title">Space-Time Physics</span>,
-                        <span class="publisher">W.H. Freeman, San Francisco</span>,
-                        <span class="year">1966</span>.
-                    </section>
+                <li>
+                    <template-use template-id="space-time-reference"></template-use>
                 </li>
-                <li id="lamport-implementation-reference">
-                    <section class="reference">
-                        <span class="author">Lamport, L.</span>
-                        <span class="title">The implementation of reliable distributed multiprocess systems</span>.
-                        To appear in <span class="journal">Computer Networks</span>.
-                    </section>
+                <li>
+                    <template-use template-id="lamport-implementation-reference"></template-use>
                 </li>
-                <li id="system-time-reference">
-                    <section class="reference">
-                        <span class="author">Ellingson, C.</span>, and <span class="author">Kulpinski, R.J.</span>
-                        <span class="title">Dissemination of system-time</span>.
-                        <span class="journal">IEEE Trans. Comm.</span>
-                        <span class="volume">Com-23</span>,
-                        <span class="number">5</span>
-                        <span class="date">(May 1973)</span>,
-                        <span class="page">605-624</span>.
-                    </section>
+                <li>
+                    <template-use template-id="system-time-reference"></template-use>
                 </li>
             </ol>
         </section>
@@ -3211,6 +3201,44 @@
         <a class="icon" href="https://github.com/greyhillman/lamport-clock-paper">Source code</a>
         <a class="icon" href="https://github.com/greyhillman/lamport-clock-paper/issues">Submit correction</a>
     </footer>
+
+    <template id="relativity-reference">
+        <section class="reference">
+            <span class="author">Schwartz, J.T.</span>
+            <span class="book title">Relativity in Illustrations</span>.
+            <span class="publisher">New York U. Press, New York</span>,
+            <span class="year">1962</span>.
+        </section>
+    </template>
+
+    <template id="space-time-reference">
+        <section class="reference">
+            <span class="author">Taylor, E.F.</span>, and <span class="author">Wheeler, J.A.</span>
+            <span class="book title">Space-Time Physics</span>,
+            <span class="publisher">W.H. Freeman, San Francisco</span>,
+            <span class="year">1966</span>.
+        </section>
+    </template>
+
+    <template id="lamport-implementation-reference">
+        <section class="reference">
+            <span class="author">Lamport, L.</span>
+            <span class="title">The implementation of reliable distributed multiprocess systems</span>.
+            To appear in <span class="journal">Computer Networks</span>.
+        </section>
+    </template>
+
+    <template id="system-time-reference">
+        <section class="reference">
+            <span class="author">Ellingson, C.</span>, and <span class="author">Kulpinski, R.J.</span>
+            <span class="title">Dissemination of system-time</span>.
+            <span class="journal">IEEE Trans. Comm.</span>
+            <span class="volume">Com-23</span>,
+            <span class="number">5</span>
+            <span class="date">(May 1973)</span>,
+            <span class="page">605-624</span>.
+        </section>
+    </template>
 
     <template id="event-note-template">
         <p>
