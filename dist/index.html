@@ -2454,7 +2454,7 @@
                 <li>
                     <p>
                         Let <math>
-                            <mi title="minimum causal period?">&#x3BC;</mi>
+                            <mi title="minimum causal delay">&#x3BC;</mi>
                         </math> be a number such that if event <math>
                             <mi title="the first event">a</mi>
                         </math> occurs
@@ -2475,7 +2475,7 @@
                             <mrow title="the minimum physical time for the second event to occur">
                                 <mi title="the physical time when the first even happened">t</mi>
                                 <mo>+</mo>
-                                <mi title="the minimum causal period?">&#x3BC;</mi>
+                                <mi title="minimum causal delay">&#x3BC;</mi>
                             </mrow>
                         </math>.
                     </p>
@@ -2558,18 +2558,18 @@
             </ul>
             <p>
                 In other words, <math>
-                    <mi title="the minimum causal period?">&#x3BC;</mi>
+                    <mi title="the minimum causal delay">&#x3BC;</mi>
                 </math> is less
                 than the shortest transmission time for interprocess messages. We
                 can always choose <math>
-                    <mi title="the minimum causal period?">&#x3BC;</mi>
+                    <mi title="the minimum causal delay">&#x3BC;</mi>
                 </math> equal to the
                 shortest distance between processes divided by the speed of light.
                 However, depending upon how messages in <math>
                     <mi title="the set of relevant events">&#x1D4AE;</mi>
                 </math> are
                 transmitted, <math>
-                    <mi title="the minimum causal period?">&#x3BC;</mi>
+                    <mi title="the minimum causal delay">&#x3BC;</mi>
                 </math> could be significantly larger.
             </p>
             <p>
@@ -2591,7 +2591,7 @@
                             <mo>(</mo>
                             <mi>t</mi>
                             <mo>+</mo>
-                            <mi title="minimum causal delay?">&#x3BC;</mi>
+                            <mi title="minimum causal delay">&#x3BC;</mi>
                             <mo>)</mo>
                         </mrow>
                         <mo>-</mo>
@@ -2620,7 +2620,7 @@
                 </math> and <math>
                     <mi title="maximum clock drift">&#x3B5;</mi>
                 </math> to the value of <math>
-                    <mi title="minimum causal period?">&#x3BC;</mi>
+                    <mi title="the minimum causal delay">&#x3BC;</mi>
                 </math> as follows. We assume that when a clock is reset, it is
                 always set forward and never back. (Setting it back would cause <inline-details>
                     <span slot="summary">C1</span>
@@ -2640,7 +2640,7 @@
                             <mo>(</mo>
                             <mi>t</mi>
                             <mo>+</mo>
-                            <mi title="minimum causal delay?">&#x3BC;</mi>
+                            <mi title="minimum causal delay">&#x3BC;</mi>
                             <mo>)</mo>
                         </mrow>
                         <mo>-</mo>
@@ -2660,7 +2660,7 @@
                             <mo>-</mo>
                             <mi title="maximum clock speed error">&#x3BA;</mi>
                             <mo>)</mo>
-                            <mi title="minimum causal delay?">&#x3BC;</mi>
+                            <mi title="minimum causal delay">&#x3BC;</mi>
                         </mrow>
                     </mrow>
                 </math>. Using <inline-details>
@@ -2676,7 +2676,7 @@
                             <mo>(</mo>
                             <mi>t</mi>
                             <mo>+</mo>
-                            <mi>&#x3BC;</mi>
+                            <mi title="minimum causal delay">&#x3BC;</mi>
                             <mo>)</mo>
                         </mrow>
                         <mo>-</mo>
@@ -2705,7 +2705,7 @@
                             </mrow>
                         </mfrac>
                         <mo>&#x2264;</mo>
-                        <mi title="minimum causal period?">&#x3BC;</mi>
+                        <mi title="minimum causal delay">&#x3BC;</mi>
                     </mrow>
                 </math>
                 This inequality together with <inline-details>
@@ -2985,10 +2985,10 @@
                                 <mi>m</mi>
                             </msub>
                             <mo>&#x2264;</mo>
-                            <mi title="maximum message delay">&#x3BC;</mi>
+                            <mi title="minimum causal delay">&#x3BC;</mi>
                         </mrow>
                     </math> for some constant <math>
-                        <mi title="maximum message delay">&#x3BC;</mi>
+                        <mi title="minimum causal delay">&#x3BC;</mi>
                     </math>,
                     and that for all <math>
                         <mrow>
@@ -3049,7 +3049,7 @@
                         </mrow>
                     </math>, where the approximations assume <math>
                         <mrow>
-                            <mi title="maximum message delay">&#x3BC;</mi>
+                            <mi title="minimum causal delay">&#x3BC;</mi>
                             <mo>+</mo>
                             <mi title="maximum unpredictable delay">&#x3BE;</mi>
                             <mo>&#x226A;</mo>
