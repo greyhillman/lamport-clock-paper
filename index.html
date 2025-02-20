@@ -2817,7 +2817,14 @@
                     <template-use template-id="physical-implementation-rule-1-template"></template-use>
                 </li>
                 <li id="physical-implementation-rule-2">
-                    <template-use template-id="physical-implementation-rule-2-template"></template-use>
+                    <ol type="a">
+                        <li id="physical-implementation-rule-2a">
+                            <template-use template-id="physical-implementation-rule-2a-template"></template-use>
+                        </li>
+                        <li id="physical-implementation-rule-2b">
+                            <template-use template-id="physical-implementation-rule-2b-template"></template-use>
+                        </li>
+                    </ol>
                 </li>
             </ol>
             <p>
@@ -3132,7 +3139,1633 @@
         <section id="appendix">
             <header>Appendix</header>
 
-            <p>See the paper for details.</p>
+            <section>
+                <header>Proof of the Theorem</header>
+
+                <p>
+                    For any <math>
+                        <mi>i</mi>
+                    </math>, and <math>
+                        <mi>t</mi>
+                    </math>, let us define <math>
+                        <msubsup>
+                            <mi>C</mi>
+                            <mi>i</mi>
+                            <mi>t</mi>
+                        </msubsup>
+                    </math> to be a clock which is set equal to <math>
+                        <msub>
+                            <mi>C</mi>
+                            <mi>i</mi>
+                        </msub>
+                    </math> at time <math>
+                        <mi>t</mi>
+                    </math> and runs at the same rate as <math>
+                        <msub>
+                            <mi>C</mi>
+                            <mi>i</mi>
+                        </msub>
+                    </math>, but is never reset. In order words,
+                </p>
+                <section class="equation" id="proof-1">
+                    <span class="identifier">(1)</span>
+                    <template-use template-id="proof-1-template"></template-use>
+                </section>
+                <p>
+                    for all <math>
+                        <mrow>
+                            <mi>t</mi>
+                            <mo>&#x2032;</mo>
+                        </mrow>
+                        <mo>&#x2265;</mo>
+                        <mi>t</mi>
+                    </math>. Note that
+                </p>
+                <section class="equation" id="proof-2">
+                    <span class="identifier">(2)</span>
+                    <template-use template-id="proof-2-template"></template-use>
+                </section>
+                <p>
+                    Suppose process <math>
+                        <msub>
+                            <mi>P</mi>
+                            <mn>1</mn>
+                        </msub>
+                    </math> at time <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>1</mn>
+                        </msub>
+                    </math> sends a message to process <math>
+                        <msub>
+                            <mi>P</mi>
+                            <mn>2</mn>
+                        </msub>
+                    </math> which is received at <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>2</mn>
+                        </msub>
+                    </math> with an unpredictable delay <math>
+                        <mo>&#x2264;</mo>
+                        <mi>&#x3BE;</mi>
+                    </math>, where <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>0</mn>
+                        </msub>
+                        <mo>&#x2264;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>1</mn>
+                        </msub>
+                        <mo>&#x2264;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>2</mn>
+                        </msub>
+                    </math>. Then for all <math>
+                        <mi>t</mi>
+                        <mo>&#x2265;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>2</mn>
+                        </msub>
+                    </math> we have:
+                </p>
+                <ol class="math derivation">
+                    <li>
+                        <math>
+                            <mrow>
+                                <msubsup>
+                                    <mi>C</mi>
+                                    <mn>2</mn>
+                                    <msub>
+                                        <mi>t</mi>
+                                        <mn>2</mn>
+                                    </msub>
+                                </msubsup>
+                                <mo>(</mo>
+                                <mi>t</mi>
+                                <mo>)</mo>
+                            </mrow>
+                        </math>
+                        <math>
+                            <mo>&#x2265;</mo>
+                            <mrow>
+                                <msubsup>
+                                    <mi>C</mi>
+                                    <mn>2</mn>
+                                    <msub>
+                                        <mi>t</mi>
+                                        <mn>2</mn>
+                                    </msub>
+                                </msubsup>
+                                <mo>(</mo>
+                                <msub>
+                                    <mi>t</mi>
+                                    <mn>2</mn>
+                                </msub>
+                                <mo>)</mo>
+                            </mrow>
+                            <mo>+</mo>
+                            <mrow>
+                                <mo>(</mo>
+                                <mn>1</mn>
+                                <mo>-</mo>
+                                <mi>&#x3BA;</mi>
+                                <mo>)</mo>
+                            </mrow>
+                            <mrow>
+                                <mo>(</mo>
+                                <mn>t</mn>
+                                <mo>-</mo>
+                                <msub>
+                                    <mi>t</mi>
+                                    <mn>2</mn>
+                                </msub>
+                                <mo>)</mo>
+                            </mrow>
+                        </math>
+                        <span class="reason">
+                            by <inline-details>
+                                <span slot="summary">(1)</span>
+                                <template-use slot="content" template-id="proof-1-use"></template-use>
+                            </inline-details> and <inline-details>
+                                <span slot="summary">PC1</span>
+                                <template-use slot="content" template-id="physical-clock-condition-2-use"></template-use>
+                            </inline-details>
+                        </span>
+                    </li>
+                    <li>
+                        <math>
+                            <mo>&#x2265;</mo>
+                            <mrow>
+                                <msub>
+                                    <mi>C</mi>
+                                    <mn>1</mn>
+                                </msub>
+                                <mo>(</mo>
+                                <msub>
+                                    <mi>t</mi>
+                                    <mn>1</mn>
+                                </msub>
+                                <mo>)</mo>
+                            </mrow>
+                            <mo>+</mo>
+                            <msub>
+                                <mi>&#x3BC;</mi>
+                                <mi>m</mi>
+                            </msub>
+                            <mo>+</mo>
+                            <mrow>
+                                <mo>(</mo>
+                                <mn>1</mn>
+                                <mo>-</mo>
+                                <mi>&#x3BA;</mi>
+                                <mo>)</mo>
+                            </mrow>
+                            <mrow>
+                                <mo>(</mo>
+                                <mn>t</mn>
+                                <mo>-</mo>
+                                <msub>
+                                    <mi>t</mi>
+                                    <mn>2</mn>
+                                </msub>
+                                <mo>)</mo>
+                            </mrow>
+                        </math>
+                        <span class="reason">
+                            by <inline-details>
+                                <span slot="summary">IR2' (b)</span>
+                                <template-use slot="content" template-id="physical-implementation-rule-2b-use"></template-use>
+                            </inline-details>
+                        </span>
+                    </li>
+                    <li>
+                        <math>
+                            <mo>=</mo>
+                            <mrow>
+                                <msub>
+                                    <mi>C</mi>
+                                    <mn>1</mn>
+                                </msub>
+                                <mo>(</mo>
+                                <msub>
+                                    <mi>t</mi>
+                                    <mn>1</mn>
+                                </msub>
+                                <mo>)</mo>
+                            </mrow>
+                            <mo>+</mo>
+                            <mrow>
+                                <mrow>
+                                    <mo>(</mo>
+                                    <mn>1</mn>
+                                    <mo>-</mo>
+                                    <mi>&#x3BA;</mi>
+                                    <mo>)</mo>
+                                </mrow>
+                                <mrow>
+                                    <mo>(</mo>
+                                    <mi>t</mi>
+                                    <mo>-</mo>
+                                    <msub>
+                                        <mi>t</mi>
+                                        <mn>1</mn>
+                                    </msub>
+                                    <mo>)</mo>
+                                </mrow>
+                            </mrow>
+                            <mo>-</mo>
+                            <mrow>
+                                <mo>(</mo>
+                                <mrow>
+                                    <mo>(</mo>
+                                    <msub>
+                                        <mi>t</mi>
+                                        <mn>2</mn>
+                                    </msub>
+                                    <mo>-</mo>
+                                    <msub>
+                                        <mi>t</mi>
+                                        <mn>1</mn>
+                                    </msub>
+                                    <mo>)</mo>
+                                </mrow>
+                                <mo>-</mo>
+                                <msub>
+                                    <mi>&#x3BC;</mi>
+                                    <mi>m</mi>
+                                </msub>
+                                <mo>)</mo>
+                            </mrow>
+                            <mo>+</mo>
+                            <mrow>
+                                <mi>&#x3BA;</mi>
+                                <mrow>
+                                    <mo>(</mo>
+                                    <msub>
+                                        <mi>t</mi>
+                                        <mn>2</mn>
+                                    </msub>
+                                    <mo>-</mo>
+                                    <msub>
+                                        <mi>t</mi>
+                                        <mn>1</mn>
+                                    </msub>
+                                    <mo>)</mo>
+                                </mrow>
+                            </mrow>
+                        </math>
+                    </li>
+                    <li>
+                        <math>
+                            <mo>&#x2265;</mo>
+                            <msub>
+                                <mi>C</mi>
+                                <mn>1</mn>
+                            </msub>
+                            <mo>(</mo>
+                            <msub>
+                                <mi>t</mi>
+                                <mn>1</mn>
+                            </msub>
+                            <mo>)</mo>
+                            <mo>+</mo>
+                            <mrow>
+                                <mo>(</mo>
+                                <mn>1</mn>
+                                <mo>-</mo>
+                                <mi>&#x3BA;</mi>
+                                <mo>)</mo>
+                            </mrow>
+                            <mrow>
+                                <mo>(</mo>
+                                <mi>t</mi>
+                                <mo>-</mo>
+                                <msub>
+                                    <mi>t</mi>
+                                    <mn>1</mn>
+                                </msub>
+                                <mo>)</mo>
+                            </mrow>
+                            <mo>-</mo>
+                            <mi>&#x3BE;</mi>
+                        </math>
+                    </li>
+                </ol>
+                <p>
+                    Hence, with these assumptions, for all <math>
+                        <mi>t</mi>
+                        <mo>&#x2265;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>2</mn>
+                        </msub>
+                    </math> we have:
+                </p>
+                <section class="equation" id="proof-3">
+                    <span class="identifier">(3)</span>
+                    <template-use template-id="proof-3-template"></template-use>
+                </section>
+                <p>
+                    Now suppose that for <math>
+                        <mi>i</mi>
+                        <mo>=</mo>
+                        <mn>1</mn>
+                        <mo>,</mo>
+                        <mo>...</mo>
+                        <mo>,</mo>
+                        <mi>n</mi>
+                    </math> we have <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mi>i</mi>
+                        </msub>
+                        <mo>&#x2264;</mo>
+                        <msubsup>
+                            <mi>t</mi>
+                            <mi>i</mi>
+                            <mo>&#x2032;</mo>
+                        </msubsup>
+                        <mo>&#x3C;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mrow>
+                                <mi>i</mi>
+                                <mo>+</mo>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                    </math>, <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>0</mn>
+                        </msub>
+                        <mo>&#x2264;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>1</mn>
+                        </msub>
+                    </math>, and that at time <math>
+                        <msubsup>
+                            <mi>t</mi>
+                            <mi>i</mi>
+                            <mo>&#x2032;</mo>
+                        </msubsup>
+                    </math> process <math>
+                        <msub>
+                            <mi>P</mi>
+                            <mi>i</mi>
+                        </msub>
+                    </math> sends a message to process <math>
+                        <msub>
+                            <mi>P</mi>
+                            <mrow>
+                                <mi>i</mi>
+                                <mo>+</mo>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                    </math> which is received at time <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mrow>
+                                <mi>i</mi>
+                                <mo>+</mo>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                    </math> with an unpredictable delay less than <math>
+                        <mi>&#x3BE;</mi>
+                    </math>. Then repeated application of the inequality <inline-details>
+                        <span slot="summary">(3)</span>
+                        <template-use slot="content" template-id="proof-3-use"></template-use>
+                    </inline-details> yields the following result for <math>
+                        <mi>t</mi>
+                        <mo>&#x2265;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mrow>
+                                <mi>n</mi>
+                                <mo>+</mo>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                    </math>.
+                </p>
+                <section class="equation" id="proof-4">
+                    <span class="identifier">(4)</span>
+                    <template-use template-id="proof-4-template"></template-use>
+                </section>
+                <p>
+                    From <inline-details>
+                        <span slot="summary">PC1</span>
+                        <template-use slot="content" template-id="physical-clock-condition-2-use"></template-use>
+                    </inline-details>, <inline-details>
+                        <span slot="summary">IR1'</span>
+                        <template-use slot="content" template-id="physical-implementation-rule-1-use"></template-use>
+                    </inline-details> and <inline-details>
+                        <span slot="summary">2'</span>
+                        <template-use slot="content" template-id="physical-implementation-rule-2-use"></template-use>
+                    </inline-details> we deduce that
+                </p>
+                <section class="equation">
+                    <math display="block">
+                        <msub>
+                            <mi>C</mi>
+                            <mn>1</mn>
+                        </msub>
+                        <mo>(</mo>
+                        <msubsup>
+                            <mi>t</mi>
+                            <mn>1</mn>
+                            <mo>&#x2032;</mo>
+                        </msubsup>
+                        <mo>)</mo>
+                        <mo>&#x2265;</mo>
+                        <msub>
+                            <mi>C</mi>
+                            <mn>1</mn>
+                        </msub>
+                        <mo>(</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>1</mn>
+                        </msub>
+                        <mo>)</mo>
+                        <mo>+</mo>
+                        <mrow>
+                            <mo>(</mo>
+                            <mn>1</mn>
+                            <mo>-</mo>
+                            <mi>&#x3BA;</mi>
+                            <mo>)</mo>
+                        </mrow>
+                        <mrow>
+                            <mo>(</mo>
+                            <msubsup>
+                                <mi>t</mi>
+                                <mn>1</mn>
+                                <mo>&#x2032;</mo>
+                            </msubsup>
+                            <mo>-</mo>
+                            <msub>
+                                <mi>t</mi>
+                                <mn>1</mn>
+                            </msub>
+                            <mo>)</mo>
+                        </mrow>
+                    </math>
+                </section>
+                <p>
+                    Combining this with <inline-details>
+                        <span slot="summary">(4)</span>
+                        <template-use slot="content" template-id="proof-4-use"></template-use>
+                    </inline-details> and using <inline-details>
+                        <span slot="summary">(2)</span>
+                        <template-use slot="content" template-id="proof-2-use"></template-use>
+                    </inline-details>, we get
+                </p>
+                <section class="equation" id="proof-5">
+                    <span class="identifier">(5)</span>
+                    <template-use template-id="proof-5-template"></template-use>
+                </section>
+                <p>
+                    for <math>
+                        <mi>t</mi>
+                        <mo>&#x2265;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mrow>
+                                <mi>n</mi>
+                                <mo>+</mo>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                    </math>.
+                </p>
+                <p>
+                    For any two processes <math>
+                        <mi>P</mi>
+                    </math> and <math>
+                        <msup>
+                            <mi>P</mi>
+                            <mo>&#x2032;</mo>
+                        </msup>
+                    </math>, we can find a sequence of processes <math>
+                        <mi>P</mi>
+                        <mo>=</mo>
+                        <msub>
+                            <mi>P</mi>
+                            <mn>0</mn>
+                        </msub>
+                        <mo>,</mo>
+                        <msub>
+                            <mi>P</mi>
+                            <mn>1</mn>
+                        </msub>
+                        <mo>,</mo>
+                        <mo>...</mo>
+                        <mo>,</mo>
+                        <msub>
+                            <mi>P</mi>
+                            <mrow>
+                                <mi>n</mi>
+                                <mo>+</mo>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                        <mo>=</mo>
+                        <msup>
+                            <mi>P</mi>
+                            <mo>&#x2032;</mo>
+                        </msup>
+                    </math>, <math>
+                        <mi>n</mi>
+                        <mo>&#x2264;</mo>
+                        <mi>d</mi>
+                    </math>, with communication arcs from each <math>
+                        <msub>
+                            <mi>P</mi>
+                            <mi>i</mi>
+                        </msub>
+                    </math> to <math>
+                        <msub>
+                            <mi>P</mi>
+                            <mrow>
+                                <mi>i</mi>
+                                <mo>+</mo>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                    </math>. By hypothesis (b) we can find times <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mi>i</mi>
+                        </msub>
+                    </math>, <math>
+                        <msubsup>
+                            <mi>t</mi>
+                            <mi>i</mi>
+                            <mo>&#x2032;</mo>
+                        </msubsup>
+                    </math> with <math>
+                        <msubsup>
+                            <mi>t</mi>
+                            <mi>i</mi>
+                            <mo>&#x2032;</mo>
+                        </msubsup>
+                        <mo>-</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mi>i</mi>
+                        </msub>
+                        <mo>&#x2264;</mo>
+                        <mi>&#x3C4;</mi>
+                    </math> and <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mrow>
+                                <mi>i</mi>
+                                <mo>+</mo>
+                                <mn>1</mn>
+                            </mrow>
+                        </msub>
+                        <mo>-</mo>
+                        <msubsup>
+                            <mi>t</mi>
+                            <mi>i</mi>
+                            <mo>&#x2032;</mo>
+                        </msubsup>
+                        <mo>&#x2264;</mo>
+                        <mi>v</mi>
+                    </math>, where <math>
+                        <mi>v</mi>
+                        <mo>=</mo>
+                        <mi>&#x3BC;</mi>
+                        <mo>+</mo>
+                        <mi>&#x3BE;</mi>
+                    </math>. Hence, an inequality of the form <inline-details>
+                        <span slot="summary">(5)</span>
+                        <template-use slot="content" template-id="proof-5-use"></template-use>
+                    </inline-details> holds with <math>
+                        <mi>n</mi>
+                        <mo>&#x2264;</mo>
+                        <mi>d</mi>
+                    </math> whenever <math>
+                        <mi>t</mi>
+                        <mo>&#x2265;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>1</mn>
+                        </msub>
+                        <mo>+</mo>
+                        <mi>d</mi>
+                        <mo>(</mo>
+                        <mi>&#x3C4;</mi>
+                        <mo>+</mo>
+                        <mi>v</mi>
+                        <mo>)</mo>
+                    </math>. For any <math>
+                        <mi>i</mi>
+                    </math>, <math>
+                        <mi>j</mi>
+                    </math> and any <math>
+                        <mi>t</mi>
+                    </math>, and <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>1</mn>
+                        </msub>
+                    </math> with <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>1</mn>
+                        </msub>
+                        <mo>&#x2265;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>0</mn>
+                        </msub>
+                    </math> and <math>
+                        <mi>t</mi>
+                        <mo>&#x2265;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>1</mn>
+                        </msub>
+                        <mo>+</mo>
+                        <mi>d</mi>
+                        <mo>(</mo>
+                        <mi>&#x3C4;</mi>
+                        <mo>+</mo>
+                        <mi>v</mi>
+                        <mo>)</mo>
+                    </math> we therefore have:
+                </p>
+                <section class="equation" id="proof-6">
+                    <span class="identifier">(6)</span>
+                    <template-use template-id="proof-6-template"></template-use>
+                </section>
+                <p>
+                    Now let <math>
+                        <mi>m</mi>
+                    </math> be any message timestamped <math>
+                        <msub>
+                            <mi>T</mi>
+                            <mi>m</mi>
+                        </msub>
+                    </math>, and suppose it is sent at time <math>
+                        <mi>t</mi>
+                    </math> and received at time <math>
+                        <msup>
+                            <mi>t</mi>
+                            <mo>&#x2032;</mo>
+                        </msup>
+                    </math>. We pretend that <math>
+                        <mi>m</mi>
+                    </math> has a clock <math>
+                        <msub>
+                            <mi>C</mi>
+                            <mi>m</mi>
+                        </msub>
+                    </math> which runs at a constant rate such that <math>
+                        <msub>
+                            <mi>C</mi>
+                            <mi>m</mi>
+                        </msub>
+                        <mo>(</mo>
+                        <mi>t</mi>
+                        <mo>)</mo>
+                        <mo>=</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mi>m</mi>
+                        </msub>
+                    </math> and <math>
+                        <msub>
+                            <mi>C</mi>
+                            <mi>m</mi>
+                        </msub>
+                        <mo>(</mo>
+                        <msup>
+                            <mi>t</mi>
+                            <mo>&#x2032;</mo>
+                        </msup>
+                        <mo>)</mo>
+                        <mo>=</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mi>m</mi>
+                        </msub>
+                        <mo>+</mo>
+                        <msub>
+                            <mi>&#x03BC;</mi>
+                            <mi>m</mi>
+                        </msub>
+                    </math>. Then <math>
+                        <msub>
+                            <mi>&#x03BC;</mi>
+                            <mi>m</mi>
+                        </msub>
+                        <mo>&#x2264;</mo>
+                        <msup>
+                            <mi>t</mi>
+                            <mo>&#x2032;</mo>
+                        </msup>
+                        <mo>-</mo>
+                        <mi>t</mi>
+                    </math> implies that <math>
+                        <mfrac>
+                            <mrow>
+                                <mo>d</mo>
+                                <msub>
+                                    <mi>C</mi>
+                                    <mi>m</mi>
+                                </msub>
+                            </mrow>
+                            <mrow>
+                                <mo>d</mo>
+                                <mo>t</mo>
+                            </mrow>
+                        </mfrac>
+                        <mo>&#x2264;</mo>
+                        <mn>1</mn>
+                    </math>. <inline-details>
+                        <span slot="summary">Rule IR2' (b)</span>
+                        <template-use slot="content" template-id="physical-implementation-rule-2b-use"></template-use>
+                    </inline-details> simply set <math>
+                        <msub>
+                            <mi>C</mi>
+                            <mi>j</mi>
+                        </msub>
+                        <mo>(</mo>
+                        <msup>
+                            <mi>t</mi>
+                            <mo>&#x2032;</mo>
+                        </msup>
+                        <mo>)</mo>
+                    </math> to <math>
+                        <mo>maximum</mo>
+                        <mo>(</mo>
+                        <mrow>
+                            <msub>
+                                <mi>C</mi>
+                                <mi>j</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <msup>
+                                <mi>t</mi>
+                                <mo>&#x2032;</mo>
+                            </msup>
+                            <mo>-</mo>
+                            <mn>0</mn>
+                            <mo>)</mo>
+                        </mrow>
+                        <mo>,</mo>
+                        <mrow>
+                            <msub>
+                                <mi>C</mi>
+                                <mi>m</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <msup>
+                                <mi>t</mi>
+                                <mo>&#x2032;</mo>
+                            </msup>
+                            <mo>)</mo>
+                        </mrow>
+                        <mo>)</mo>
+                    </math>. Hence, clocks are reset only by setting them equal to other clocks.
+                </p>
+                <p>
+                    For any time <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mi>x</mi>
+                        </msub>
+                        <mo>&#x2265;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>0</mn>
+                        </msub>
+                        <mo>+</mo>
+                        <mfrac>
+                            <mi>&#x03BC;</mi>
+                            <mrow>
+                                <mo>(</mo>
+                                <mn>1</mn>
+                                <mo>-</mo>
+                                <mi>&#x03BA;</mi>
+                                <mo>)</mo>
+                            </mrow>
+                        </mfrac>
+                    </math>, let <math>
+                        <msub>
+                            <mi>C</mi>
+                            <mi>x</mi>
+                        </msub>
+                    </math> be the clock having the largest value at time <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mi>x</mi>
+                        </msub>
+                    </math>. Since all clocks run at a rate less than <math>
+                        <mn>1</mn>
+                        <mo>+</mo>
+                        <mi>&#x03BA;</mi>
+                    </math>, we have for all <math>
+                        <mi>i</mi>
+                    </math> and all <math>
+                        <mi>t</mi>
+                        <mo>&#x2265;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mi>x</mi>
+                        </msub>
+                    </math>:
+                </p>
+                <section class="equation" id="proof-7">
+                    <span class="identifier">(7)</span>
+                    <template-use template-id="proof-7-template"></template-use>
+                </section>
+                <p>
+                    We now consider the following two cases:
+                </p>
+                <ol type="i">
+                    <li id="proof-case-i">
+                        <template-use template-id="proof-case-i-template"></template-use>
+                    </li>
+                    <li id="proof-case-ii">
+                        <template-use template-id="proof-case-ii-template"></template-use>
+                    </li>
+                </ol>
+                <p>
+                    In <inline-details>
+                        <span slot="summary">case (i)</span>
+                        <template-use slot="content" template-id="proof-case-i-use"></template-use>
+                    </inline-details>, <inline-details>
+                        <span slot="summary">(7)</span>
+                        <template-use slot="content" template-id="proof-7-use"></template-use>
+                    </inline-details> simply becomes
+                </p>
+                <section class="equation" id="proof-8i">
+                    <span class="identifier">(8i)</span>
+                    <template-use template-id="proof-8i-template"></template-use>
+                </section>
+                <p>
+                    In <inline-details>
+                        <span slot="summary">case (ii)</span>
+                        <template-use slot="content" template-id="proof-case-ii-use"></template-use>
+                    </inline-details>, since <math>
+                        <msub>
+                            <mi>C</mi>
+                            <mi>m</mi>
+                        </msub>
+                        <mo>(</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>1</mn>
+                        </msub>
+                        <mo>)</mo>
+                        <mo>=</mo>
+                        <msub>
+                            <mi>C</mi>
+                            <mi>q</mi>
+                        </msub>
+                        <mo>(</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>1</mn>
+                        </msub>
+                        <mo>)</mo>
+                    </math> and <math>
+                        <mfrac>
+                            <mrow>
+                                <mo>d</mo>
+                                <msub>
+                                    <mi>C</mi>
+                                    <mi>m</mi>
+                                </msub>
+                            </mrow>
+                            <mrow>
+                                <mo>dt</mo>
+                            </mrow>
+                        </mfrac>
+                        <mo>&#x2264;</mo>
+                        <mn>1</mn>
+                    </math>, we have
+                </p>
+                <section class="equation">
+                    <math display="block">
+                        <msub>
+                            <mi>C</mi>
+                            <mi>x</mi>
+                        </msub>
+                        <mo>(</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mi>x</mi>
+                        </msub>
+                        <mo>)</mo>
+                        <mo>&#x2264;</mo>
+                        <msub>
+                            <mi>C</mi>
+                            <mi>q</mi>
+                        </msub>
+                        <mo>(</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>1</mn>
+                        </msub>
+                        <mo>)</mo>
+                        <mo>+</mo>
+                        <mrow>
+                            <mo>(</mo>
+                            <msub>
+                                <mi>t</mi>
+                                <mi>x</mi>
+                            </msub>
+                            <mo>-</mo>
+                            <msub>
+                                <mi>t</mi>
+                                <mn>1</mn>
+                            </msub>
+                            <mo>)</mo>
+                        </mrow>
+                    </math>
+                </section>
+                <p>
+                    Hence <inline-details>
+                        <span slot="summary">(7)</span>
+                        <template-use slot="content" template-id="proof-7-use"></template-use>
+                    </inline-details> yields
+                </p>
+                <section class="equation" id="proof-8ii">
+                    <span class="identifier">(8ii)</span>
+                    <template-use template-id="proof-8ii-template"></template-use>
+                </section>
+                <p>
+                    Since <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mi>x</mi>
+                        </msub>
+                        <mo>&#x2265;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>0</mn>
+                        </msub>
+                        <mo>+</mo>
+                        <mfrac>
+                            <mi>&#x03BC;</mi>
+                            <mrow>
+                                <mn>1</mn>
+                                <mo>-</mo>
+                                <mi>&#x03BA;</mi>
+                            </mrow>
+                        </mfrac>
+                    </math>, we get
+                </p>
+                <ol class="math derivation">
+                    <li>
+                        <math>
+                            <msub>
+                                <mi>C</mi>
+                                <mi>q</mi>
+                            </msub>
+                            <mrow>
+                                <mo>(</mo>
+                                <msub>
+                                    <mi>t</mi>
+                                    <mi>x</mi>
+                                </msub>
+                                <mo>-</mo>
+                                <mfrac>
+                                    <mi>&#x03BC;</mi>
+                                    <mrow>
+                                        <mn>1</mn>
+                                        <mo>-</mo>
+                                        <mi>&#x03BA;</mi>
+                                    </mrow>
+                                </mfrac>
+                                <mo>)</mo>
+                            </mrow>
+                        </math>
+                        <math>
+                            <mo>&#x2264;</mo>
+                            <msub>
+                                <mi>C</mi>
+                                <mi>q</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <msub>
+                                <mi>t</mi>
+                                <mi>x</mi>
+                            </msub>
+                            <mo>)</mo>
+                            <mo>-</mo>
+                            <mi>&#x03BC;</mi>
+                        </math>
+                        <span class="reason">
+                            by <inline-details>
+                                <span slot="summary">PC1</span>
+                                <template-use slot="content" template-id="physical-clock-condition-1-use"></template-use>
+                            </inline-details>
+                        </span>
+                    </li>
+                    <li>
+                        <math>
+                            <mo>&#x2264;</mo>
+                            <msub>
+                                <mi>C</mi>
+                                <mi>m</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <msub>
+                                <mi>t</mi>
+                                <mi>x</mi>
+                            </msub>
+                            <mo>)</mo>
+                            <mo>-</mo>
+                            <mi>&#x03BC;</mi>
+                        </math>
+                        <span class="reason">
+                            by choice of <math>
+                                <mi>m</mi>
+                            </math>
+                        </span>
+                    </li>
+                    <li>
+                        <math>
+                            <mo>&#x2264;</mo>
+                            <msub>
+                                <mi>C</mi>
+                                <mi>m</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <msub>
+                                <mi>t</mi>
+                                <mi>x</mi>
+                            </msub>
+                            <mo>)</mo>
+                            <mo>-</mo>
+                            <mfrac>
+                                <mrow>
+                                    <mo>(</mo>
+                                    <msub>
+                                        <mi>t</mi>
+                                        <mi>x</mi>
+                                    </msub>
+                                    <mo>-</mo>
+                                    <msub>
+                                        <mi>t</mi>
+                                        <mn>1</mn>
+                                    </msub>
+                                    <mo>)</mo>
+                                    <msub>
+                                        <mi>&#x03BC;</mi>
+                                        <mi>m</mi>
+                                    </msub>
+                                </mrow>
+                                <mrow>
+                                    <msub>
+                                        <mi>v</mi>
+                                        <mi>m</mi>
+                                    </msub>
+                                </mrow>
+                            </mfrac>
+                        </math>
+                        <span class="reason">
+                            <math>
+                                <mrow>
+                                    <msub>
+                                        <mi>&#x03BC;</mi>
+                                        <mi>m</mi>
+                                    </msub>
+                                    <mo>&#x2264;</mo>
+                                    <mi>&#x03BC;</mi>
+                                    <mo>,</mo>
+                                    <msub>
+                                        <mi>t</mi>
+                                        <mi>x</mi>
+                                    </msub>
+                                    <mo>-</mo>
+                                    <msub>
+                                        <mi>t</mi>
+                                        <mn>1</mn>
+                                    </msub>
+                                    <mo>&#x2264;</mo>
+                                    <msub>
+                                        <mi>v</mi>
+                                        <mi>m</mi>
+                                    </msub>
+                                </mrow>
+                            </math>
+                        </span>
+                    </li>
+                    <li>
+                        <math>
+                            <mo>=</mo>
+                            <msub>
+                                <mi>T</mi>
+                                <mi>m</mi>
+                            </msub>
+                        </math>
+                        <span class="reason">
+                            by definition of <math>
+                                <msub>
+                                    <mi>C</mi>
+                                    <mi>m</mi>
+                                </msub>
+                            </math>
+                        </span>
+                    </li>
+                    <li>
+                        <math>
+                            <mo>=</mo>
+                            <msub>
+                                <mi>C</mi>
+                                <mi>q</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <msub>
+                                <mi>t</mi>
+                                <mn>1</mn>
+                            </msub>
+                            <mo>)</mo>
+                        </math>
+                        <span class="reason">
+                            by <inline-details>
+                                <span slot="summary">IR2' (a)</span>
+                                <template-use slot="content" template-id="physical-implementation-rule-2a-use"></template-use>
+                            </inline-details>
+                        </span>
+                    </li>
+                </ol>
+                <p>
+                    Hence, <math>
+                        <msub>
+                            <mi>C</mi>
+                            <mi>q</mi>
+                        </msub>
+                        <mrow>
+                            <mo>(</mo>
+                            <msub>
+                                <mi>t</mi>
+                                <mi>x</mi>
+                            </msub>
+                            <mo>-</mo>
+                            <mfrac>
+                                <mi>&#x03BC;</mi>
+                                <mrow>
+                                    <mn>1</mn>
+                                    <mo>-</mo>
+                                    <mi>&#x03BA;</mi>
+                                </mrow>
+                            </mfrac>
+                            <mo>)</mo>
+                        </mrow>
+                        <mo>&#x2264;</mo>
+                        <msub>
+                            <mi>C</mi>
+                            <mi>q</mi>
+                        </msub>
+                        <mo>(</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>1</mn>
+                        </msub>
+                        <mo>)</mo>
+                    </math>, so <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mi>x</mi>
+                        </msub>
+                        <mo>-</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>1</mn>
+                        </msub>
+                        <mo>&#x2264;</mo>
+                        <mfrac>
+                            <mi>&#x03BC;</mi>
+                            <mrow>
+                                <mn>1</mn>
+                                <mo>-</mo>
+                                <mi>&#x03BA;</mi>
+                            </mrow>
+                        </mfrac>
+                    </math> and thus <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>1</mn>
+                        </msub>
+                        <mo>&#x2265;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>0</mn>
+                        </msub>
+                    </math>.
+                </p>
+                <p>
+                    Letting <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>1</mn>
+                        </msub>
+                        <mo>=</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mi>x</mi>
+                        </msub>
+                    </math> in case (i), we can combine <inline-details>
+                        <span slot="summary">(8i)</span>
+                        <template-use slot="content" template-id="proof-8i-use"></template-use>
+                    </inline-details> and <inline-details>
+                        <span slot="summary">(8ii)</span>
+                        <template-use slot="content" template-id="proof-8ii-use"></template-use>
+                    </inline-details> to deduce that for any <math>
+                        <mi>t</mi>
+                    </math>, <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mi>x</mi>
+                        </msub>
+                    </math> with <math>
+                        <mi>t</mi>
+                        <mo>&#x2265;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mi>x</mi>
+                        </msub>
+                        <mo>&#x2265;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>0</mn>
+                        </msub>
+                        <mo>+</mo>
+                        <mfrac>
+                            <mi>&#x03BC;</mi>
+                            <mrow>
+                                <mn>1</mn>
+                                <mo>-</mo>
+                                <mi>&#x03BA;</mi>
+                            </mrow>
+                        </mfrac>
+                    </math> there is a process <math>
+                        <msub>
+                            <mi>P</mi>
+                            <mi>q</mi>
+                        </msub>
+                    </math> and a time <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>1</mn>
+                        </msub>
+                    </math> with <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mi>x</mi>
+                        </msub>
+                        <mo>-</mo>
+                        <mfrac>
+                            <mi>&#x03BC;</mi>
+                            <mrow>
+                                <mn>1</mn>
+                                <mo>-</mo>
+                                <mi>&#x03BA;</mi>
+                            </mrow>
+                        </mfrac>
+                        <mo>&#x2264;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>1</mn>
+                        </msub>
+                        <mo>&#x2264;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mi>x</mi>
+                        </msub>
+                    </math> such that for all <math>
+                        <mi>i</mi>
+                    </math>:
+                </p>
+                <section class="equation" id="proof-9">
+                    <span class="identifier">(9)</span>
+                    <template-use template-id="proof-9-template"></template-use>
+                </section>
+                <p>
+                    Choosing <math>
+                        <mi>t</mi>
+                    </math> and <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mi>x</mi>
+                        </msub>
+                    </math> with <math>
+                        <mi>t</mi>
+                        <mo>&#x2265;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mi>x</mi>
+                        </msub>
+                        <mo>+</mo>
+                        <mi>d</mi>
+                        <mrow>
+                            <mo>(</mo>
+                            <mi>&#x03C4;</mi>
+                            <mo>+</mo>
+                            <mi>v</mi>
+                            <mo>)</mo>
+                        </mrow>
+                    </math>, we can combine <inline-details>
+                        <span slot="summary">(6)</span>
+                        <template-use slot="content" template-id="proof-6-use"></template-use>
+                    </inline-details> and <inline-details>
+                        <span slot="summary">(9)</span>
+                        <template-use slot="content" template-id="proof-9-use"></template-use>
+                    </inline-details> to conclude that there exists a <math>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>1</mn>
+                        </msub>
+                    </math> and a process <math>
+                        <msub>
+                            <mi>P</mi>
+                            <mi>q</mi>
+                        </msub>
+                    </math> such that for all <math>
+                        <mi>i</mi>
+                    </math>:
+                </p>
+                <section class="equation" id="proof-10">
+                    <span class="identifier">(10)</span>
+                    <template-use template-id="proof-10-template"></template-use>
+                </section>
+                <p>
+                    Letting <math>
+                        <mi>t</mi>
+                        <mo>=</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mi>x</mi>
+                        </msub>
+                        <mo>+</mo>
+                        <mi>d</mi>
+                        <mrow>
+                            <mo>(</mo>
+                            <mi>&#x03C4;</mi>
+                            <mo>+</mo>
+                            <mi>v</mi>
+                            <mo>)</mo>
+                        </mrow>
+                    </math>, we get
+                </p>
+                <section class="equation">
+                    <math display="block">
+                        <mi>d</mi>
+                        <mo>(</mo>
+                        <mi>&#x03C4;</mi>
+                        <mo>+</mo>
+                        <mi>v</mi>
+                        <mo>)</mo>
+                        <mo>&#x2264;</mo>
+                        <mi>t</mi>
+                        <mo>-</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>1</mn>
+                        </msub>
+                        <mo>&#x2264;</mo>
+                        <mi>d</mi>
+                        <mo>(</mo>
+                        <mi>&#x03C4;</mi>
+                        <mo>+</mo>
+                        <mi>v</mi>
+                        <mo>)</mo>
+                        <mo>+</mo>
+                        <mfrac>
+                            <mi>&#x03BC;</mi>
+                            <mrow>
+                                <mn>1</mn>
+                                <mo>-</mo>
+                                <mn>&#x03BA;</mn>
+                            </mrow>
+                        </mfrac>
+                    </math>
+                </section>
+                <p>
+                    Combining this with <inline-details>
+                        <span slot="summary">(10)</span>
+                        <template-use slot="content" template-id="proof-10-use"></template-use>
+                    </inline-details>, we get
+                </p>
+                <section class="equation" id="proof-11">
+                    <span class="identifier">(11)</span>
+                    <template-use template-id="proof-11-template"></template-use>
+                </section>
+                <p>
+                    Using the hypothesis that <math>
+                        <mi>&#x03BA;</mi>
+                        <mo>&#x226A;</mo>
+                        <mn>1</mn>
+                    </math> and <math>
+                        <mi>&#x03BC;</mi>
+                        <mo>&#x2264;</mo>
+                        <mi>v</mi>
+                        <mo>&#x226A;</mo>
+                        <mi>&#x03C4;</mi>
+                    </math>, we can rewrite <inline-details>
+                        <span slot="summary">(11)</span>
+                        <template-use slot="content" template-id="proof-11-use"></template-use>
+                    </inline-details> as the following approximate inequality.
+                </p>
+                <section class="equation">
+                    <span class="identifier">(12)</span>
+                    <math display="block">
+                        <mtable>
+                            <mtr>
+                                <mtd>
+                                    <msub>
+                                        <mi>C</mi>
+                                        <mi>q</mi>
+                                    </msub>
+                                    <mo>(</mo>
+                                    <msub>
+                                        <mi>t</mi>
+                                        <mn>1</mn>
+                                    </msub>
+                                    <mo>)</mo>
+                                    <mo>+</mo>
+                                    <mrow>
+                                        <mo>(</mo>
+                                        <mi>t</mi>
+                                        <mo>-</mo>
+                                        <msub>
+                                            <mi>t</mi>
+                                            <mn>1</mn>
+                                        </msub>
+                                        <mo>)</mo>
+                                    </mrow>
+                                    <mo>-</mo>
+                                    <mi>d</mi>
+                                    <mrow>
+                                        <mo>(</mo>
+                                        <mi>&#x03BA;</mi>
+                                        <mi>&#x03C4;</mi>
+                                        <mo>+</mo>
+                                        <mi>&#x03BE;</mi>
+                                        <mo>)</mo>
+                                    </mrow>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd>
+                                    <mo>&#x2A85;</mo>
+                                    <msub>
+                                        <mi>C</mi>
+                                        <mi>i</mi>
+                                    </msub>
+                                    <mo>(</mo>
+                                    <mi>t</mi>
+                                    <mo>)</mo>
+                                    <mo>&#x2A85;</mo>
+                                </mtd>
+                            </mtr>
+                            <mtr>
+                                <mtd>
+                                    <msub>
+                                        <mi>C</mi>
+                                        <mi>q</mi>
+                                    </msub>
+                                    <mo>(</mo>
+                                    <msub>
+                                        <mi>t</mi>
+                                        <mn>1</mn>
+                                    </msub>
+                                    <mo>)</mo>
+                                    <mo>+</mo>
+                                    <mrow>
+                                        <mo>(</mo>
+                                        <mi>t</mi>
+                                        <mo>-</mo>
+                                        <msub>
+                                            <mi>t</mi>
+                                            <mn>1</mn>
+                                        </msub>
+                                        <mo>)</mo>
+                                    </mrow>
+                                    <mo>+</mo>
+                                    <mi>d</mi>
+                                    <mi>&#x03BA;</mi>
+                                    <mi>&#x03C4;</mi>
+                                </mtd>
+                            </mtr>
+                        </mtable>
+                    </math>
+                </section>
+                <p>
+                    Since this holds for all <math>
+                        <mi>i</mi>
+                    </math>, we get
+                </p>
+                <section class="equation">
+                    <math display="block">
+                        <mrow>
+                            <mo>|</mo>
+                            <msub>
+                                <mi>C</mi>
+                                <mi>i</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <mi>t</mi>
+                            <mo>)</mo>
+                            <mo>-</mo>
+                            <msub>
+                                <mi>C</mi>
+                                <mi>j</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <mi>t</mi>
+                            <mo>)</mo>
+                            <mo>|</mo>
+                        </mrow>
+                        <mo>&#x2A85;</mo>
+                        <mi>d</mi>
+                        <mo>(</mo>
+                        <mn>2</mn>
+                        <mi>&#x03BA;</mi>
+                        <mi>&#x03C4;</mi>
+                        <mo>+</mo>
+                        <mi>&#x03BE;</mi>
+                        <mo>)</mo>
+                    </math>
+                </section>
+                <p>
+                    and this holds for all <math>
+                        <mi>t</mi>
+                        <mo>&#x2A86;</mo>
+                        <msub>
+                            <mi>t</mi>
+                            <mn>0</mn>
+                        </msub>
+                        <mo>+</mo>
+                        <mi>d</mi>
+                        <mi>&#x03C4;</mi>
+                    </math>. &#x220E;
+                </p>
+                <p>
+                    Note that relation <inline-details>
+                        <span slot="summary">(11)</span>
+                        <template-use slot="content" template-id="proof-11-use"></template-use>
+                    </inline-details> of the proof yields an exact upper bound for <math>
+                        <mrow>
+                            <mo>|</mo>
+                            <msub>
+                                <mi>C</mi>
+                                <mi>i</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <mi>t</mi>
+                            <mo>)</mo>
+                            <mo>-</mo>
+                            <msub>
+                                <mi>C</mi>
+                                <mi>j</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <mi>t</mi>
+                            <mo>)</mo>
+                            <mo>|</mo>
+                        </mrow>
+                    </math> in case the assumption <math>
+                        <mi>&#x03BC;</mi>
+                        <mo>+</mo>
+                        <mi>&#x03BE;</mi>
+                        <mo>&#x226A;</mo>
+                        <mi>&#x03C4;</mi>
+                    </math> is invalid. An examination of the proof suggests a simple method for
+                    rapidly initializing the clocks, or resynchronizing them if they should go out
+                    of synchrony for any reason. Each process sends a message which is relayed to
+                    every other process. The procedure can be initiated by any process, and requires
+                    less than <math>
+                        <mn>2</mn>
+                        <mi>d</mi>
+                        <mo>(</mo>
+                        <mi>&#x03BC;</mi>
+                        <mo>+</mo>
+                        <mi>&#x03BE;</mi>
+                        <mo>)</mo>
+                    </math> seconds to effect the synchronization, assuming each of the messages has an
+                    unpredictable delay less than <math>
+                        <mi>&#x03BE;</mi>
+                    </math>.
+                </p>
+            </section>
 
             <p>
                 <em>Acknowledgement.</em> The use of timestamps to order operations,
@@ -4108,105 +5741,121 @@
         <template-use template-id="physical-implementation-rule-1-template"></template-use>
     </template>
 
+    <template id="physical-implementation-rule-2a-template">
+        <p>
+            If <math>
+                <msub title="a process">
+                    <mi>P</mi>
+                    <mi>i</mi>
+                </msub>
+            </math> sends a message <math>
+                <mi title="a message">m</mi>
+            </math> at
+            physical time <math>
+                <mi title="physical sent time">t</mi>
+            </math>, then <math>
+                <mi title="the message">m</mi>
+            </math> contains
+            a timestamp <math>
+                <mrow>
+                    <msub title="the message's timestamp">
+                        <mi>T</mi>
+                        <mi>m</mi>
+                    </msub>
+                    <mo>=</mo>
+                    <mrow title="the clock's value at sent time">
+                        <msub>
+                            <mi>C</mi>
+                            <mi>i</mi>
+                        </msub>
+                        <mo>(</mo>
+                        <mi>t</mi>
+                        <mo>)</mo>
+                    </mrow>
+                </mrow>
+            </math>.
+        </p>
+    </template>
+    <template id="physical-implementation-rule-2a-use">
+        <a href="#physical-implementation-rule-2a">Go to definition.</a>
+        <template-use template-id="physical-implementation-rule-2a-template"></template-use>
+    </template>
+
+    <template id="physical-implementation-rule-2b-template">
+        <p>
+            Upon receiving a message <math>
+                <mi title="a message">m</mi>
+            </math> at
+            time <math>
+                <mrow title="physical received time">
+                    <mi>t</mi>
+                    <mo>&#x2032;</mo>
+                </mrow>
+            </math>, process <math>
+                <msub title="the receiving process">
+                    <mi>P</mi>
+                    <mi>j</mi>
+                </msub>
+            </math> sets <math>
+                <mrow title="the receiving process's clock at the received time">
+                    <msub>
+                        <mi>C</mi>
+                        <mi>j</mi>
+                    </msub>
+                    <mo>(</mo>
+                    <mrow title="physical received time">
+                        <mi>t</mi>
+                        <mo>&#x2032;</mo>
+                    </mrow>
+                    <mo>)</mo>
+                </mrow>
+            </math> equal to maximum <math>
+                <mrow>
+                    <mo>(</mo>
+                    <mrow>
+                        <msub>
+                            <mi>C</mi>
+                            <mi>j</mi>
+                        </msub>
+                        <mo>(</mo>
+                        <mi>t</mi>
+                        <mo>&#x2032;</mo>
+                        <mo>-</mo>
+                        <mn>0</mn>
+                        <mo>)</mo>
+                    </mrow>
+                    <mo>,</mo>
+                    <mrow>
+                        <msub title="the message's timestamp">
+                            <mi>T</mi>
+                            <mi>m</mi>
+                        </msub>
+                        <mo>+</mo>
+                        <msub title="the message's minimum delay">
+                            <mi>&#x3BC;</mi>
+                            <mi>m</mi>
+                        </msub>
+                    </mrow>
+                    <mo>)</mo>
+                </mrow>
+            </math>. <inline-details id="limit-note">
+                <span slot="summary">[Note]</span>
+                <template-use slot="content" template-id="limit-note-template"></template-use>
+            </inline-details>
+        </p>
+    </template>
+    <template id="physical-implementation-rule-2b-use">
+        <a href="#physical-implementation-rule-2b">Go to definition.</a>
+        <template-use template-id="physical-implementation-rule-2b-template"></template-use>
+    </template>
+
     <template id="physical-implementation-rule-2-template">
         <ol type="a">
             <li>
-                <p>
-                    If <math>
-                        <msub title="a process">
-                            <mi>P</mi>
-                            <mi>i</mi>
-                        </msub>
-                    </math> sends a message <math>
-                        <mi title="a message">m</mi>
-                    </math> at
-                    physical time <math>
-                        <mi title="physical sent time">t</mi>
-                    </math>, then <math>
-                        <mi title="the message">m</mi>
-                    </math> contains
-                    a timestamp <math>
-                        <mrow>
-                            <msub title="the message's timestamp">
-                                <mi>T</mi>
-                                <mi>m</mi>
-                            </msub>
-                            <mo>=</mo>
-                            <mrow title="the clock's value at sent time">
-                                <msub>
-                                    <mi>C</mi>
-                                    <mi>i</mi>
-                                </msub>
-                                <mo>(</mo>
-                                <mi>t</mi>
-                                <mo>)</mo>
-                            </mrow>
-                        </mrow>
-                    </math>.
-                </p>
+                <template-use template-id="physical-implementation-rule-2a-template"></template-use>
             </li>
             <li>
-                <p>
-                    Upon receiving a message <math>
-                        <mi title="a message">m</mi>
-                    </math> at
-                    time <math>
-                        <mrow title="physical received time">
-                            <mi>t</mi>
-                            <mo>&#x2032;</mo>
-                        </mrow>
-                    </math>, process <math>
-                        <msub title="the receiving process">
-                            <mi>P</mi>
-                            <mi>j</mi>
-                        </msub>
-                    </math> sets <math>
-                        <mrow title="the receiving process's clock at the received time">
-                            <msub>
-                                <mi>C</mi>
-                                <mi>j</mi>
-                            </msub>
-                            <mo>(</mo>
-                            <mrow title="physical received time">
-                                <mi>t</mi>
-                                <mo>&#x2032;</mo>
-                            </mrow>
-                            <mo>)</mo>
-                        </mrow>
-                    </math> equal to maximum <math>
-                        <mrow>
-                            <mo>(</mo>
-                            <mrow>
-                                <msub>
-                                    <mi>C</mi>
-                                    <mi>j</mi>
-                                </msub>
-                                <mo>(</mo>
-                                <mi>t</mi>
-                                <mo>&#x2032;</mo>
-                                <mo>-</mo>
-                                <mn>0</mn>
-                                <mo>)</mo>
-                            </mrow>
-                            <mo>,</mo>
-                            <mrow>
-                                <msub title="the message's timestamp">
-                                    <mi>T</mi>
-                                    <mi>m</mi>
-                                </msub>
-                                <mo>+</mo>
-                                <msub title="the message's minimum delay">
-                                    <mi>&#x3BC;</mi>
-                                    <mi>m</mi>
-                                </msub>
-                            </mrow>
-                            <mo>)</mo>
-                        </mrow>
-                    </math>. <inline-details id="limit-note">
-                        <span slot="summary">[Note]</span>
-                        <template-use slot="content" template-id="limit-note-template"></template-use>
-                    </inline-details>
-                </p>
+                <template-use template-id="physical-implementation-rule-2b-template"></template-use>
             </li>
         </ol>
     </template>
@@ -4257,6 +5906,771 @@
             <template-use template-id="figure-3-template"></template-use>
             <figcaption>Figure 3</figcaption>
         </figure>
+    </template>
+
+    <template id="proof-1-template">
+        <math display="block">
+            <msubsup>
+                <mi>C</mi>
+                <mi>i</mi>
+                <mi>t</mi>
+            </msubsup>
+            <mo>(</mo>
+            <mi>t</mi>
+            <mo>&#x2032;</mo>
+            <mo>)</mo>
+            <mo>=</mo>
+            <mrow>
+                <msub>
+                    <mi>C</mi>
+                    <mi>i</mi>
+                </msub>
+                <mo>(</mo>
+                <mi>t</mi>
+                <mo>)</mo>
+            </mrow>
+            <mo>+</mo>
+            <msubsup>
+                <mo>&#x222B;</mo>
+                <mi>t</mi>
+                <msup>
+                    <mi>t</mi>
+                    <mo>&#x2032;</mo>
+                </msup>
+            </msubsup>
+            <mrow>
+                <mo>(</mo>
+                <mfrac>
+                    <mrow>
+                        <mi>d</mi>
+                        <mrow>
+                            <msub>
+                                <mi>C</mi>
+                                <mi>i</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <mi>t</mi>
+                            <mo>)</mo>
+                        </mrow>
+                    </mrow>
+                    <mrow>
+                        <mi>d</mi>
+                        <mi>t</mi>
+                    </mrow>
+                </mfrac>
+                <mo>)</mo>
+            </mrow>
+            <mrow>
+                <mi>d</mi>
+                <mi>t</mi>
+            </mrow>
+        </math>
+    </template>
+    <template id="proof-1-use">
+        <a href="#proof-1">Go to definition.</a>
+        <section class="equation">
+            <template-use template-id="proof-1-template"></template-use>
+        </section>
+    </template>
+
+    <template id="proof-2-template">
+        <math display="block">
+            <msub>
+                <mi>C</mi>
+                <mi>i</mi>
+            </msub>
+            <mo>(</mo>
+            <mrow>
+                <mi>t</mi>
+                <mo>&#x2032;</mo>
+            </mrow>
+            <mo>)</mo>
+            <mo>&#x2265;</mo>
+            <msubsup>
+                <mi>C</mi>
+                <mi>i</mi>
+                <mi>t</mi>
+            </msubsup>
+            <mo>(</mo>
+            <mrow>
+                <mi>t</mi>
+                <mo>&#x2032;</mo>
+            </mrow>
+            <mo>)</mo>
+            <mtext class="separator">for all</mtext>
+            <mrow>
+                <mi>t</mi>
+                <mo>&#x2032;</mo>
+            </mrow>
+            <mo>&#x2265;</mo>
+            <mi>t</mi>
+        </math>
+    </template>
+    <template id="proof-2-use">
+        <a href="#proof-2">Go to definition.</a>
+        <section class="equation">
+            <template-use template-id="proof-2-template"></template-use>
+        </section>
+    </template>
+
+    <template id="proof-3-template">
+        <math display="block">
+            <msubsup>
+                <mi>C</mi>
+                <mn>2</mn>
+                <msub>
+                    <mi>t</mi>
+                    <mn>2</mn>
+                </msub>
+            </msubsup>
+            <mo>(</mo>
+            <mi>t</mi>
+            <mo>)</mo>
+            <mo>&#x2265;</mo>
+            <msub>
+                <mi>C</mi>
+                <mn>1</mn>
+            </msub>
+            <mo>(</mo>
+            <msub>
+                <mi>t</mi>
+                <mn>1</mn>
+            </msub>
+            <mo>)</mo>
+            <mo>+</mo>
+            <mrow>
+                <mo>(</mo>
+                <mn>1</mn>
+                <mo>-</mo>
+                <mi>&#x3BA;</mi>
+                <mo>)</mo>
+            </mrow>
+            <mrow>
+                <mo>(</mo>
+                <mi>t</mi>
+                <mo>-</mo>
+                <msub>
+                    <mi>t</mi>
+                    <mn>1</mn>
+                </msub>
+                <mo>)</mo>
+            </mrow>
+            <mo>-</mo>
+            <mi>&#x3BE;</mi>
+        </math>
+    </template>
+    <template id="proof-3-use">
+        <a href="#proof-3">Go to definition.</a>
+        <section class="equation">
+            <template-use template-id="proof-3-template"></template-use>
+        </section>
+    </template>
+
+    <template id="proof-4-template">
+        <math display="block">
+            <msubsup>
+                <mi>C</mi>
+                <mrow>
+                    <mi>n</mi>
+                    <mo>+</mo>
+                    <mn>1</mn>
+                </mrow>
+                <mrow>
+                    <msub>
+                        <mi>t</mi>
+                        <mrow>
+                            <mi>n</mi>
+                            <mo>+</mo>
+                            <mn>1</mn>
+                        </mrow>
+                    </msub>
+                </mrow>
+            </msubsup>
+            <mo>&#x2265;</mo>
+            <msub>
+                <mi>C</mi>
+                <mn>1</mn>
+            </msub>
+            <mo>(</mo>
+            <msubsup>
+                <mi>t</mi>
+                <mn>1</mn>
+                <mo>&#x2032;</mo>
+            </msubsup>
+            <mo>)</mo>
+            <mo>+</mo>
+            <mrow>
+                <mo>(</mo>
+                <mn>1</mn>
+                <mo>-</mo>
+                <mi>&#x3BA;</mi>
+                <mo>)</mo>
+            </mrow>
+            <mrow>
+                <mo>(</mo>
+                <mn>t</mn>
+                <mo>-</mo>
+                <msubsup>
+                    <mi>t</mi>
+                    <mn>1</mn>
+                    <mo>&#x2032;</mo>
+                </msubsup>
+                <mo>)</mo>
+            </mrow>
+            <mo>-</mo>
+            <mi>n</mi>
+            <mi>&#x3BE;</mi>
+        </math>
+    </template>
+    <template id="proof-4-use">
+        <a href="#proof-4">Go to definition.</a>
+        <section class="equation">
+            <template-use template-id="proof-4-template"></template-use>
+        </section>
+    </template>
+
+    <template id="proof-5-template">
+        <math display="block">
+            <msub>
+                <mi>C</mi>
+                <mrow>
+                    <mi>n</mi>
+                    <mo>+</mo>
+                    <mn>1</mn>
+                </mrow>
+            </msub>
+            <mo>(</mo>
+            <mi>t</mi>
+            <mo>)</mo>
+            <mo>&#x2265;</mo>
+            <msub>
+                <mi>C</mi>
+                <mn>1</mn>
+            </msub>
+            <mo>(</mo>
+            <msub>
+                <mi>t</mi>
+                <mn>1</mn>
+            </msub>
+            <mo>)</mo>
+            <mo>+</mo>
+            <mrow>
+                <mo>(</mo>
+                <mn>1</mn>
+                <mo>-</mo>
+                <mi>&#x3BA;</mi>
+                <mo>)</mo>
+            </mrow>
+            <mrow>
+                <mo>(</mo>
+                <mi>t</mi>
+                <mo>-</mo>
+                <msub>
+                    <mi>t</mi>
+                    <mn>1</mn>
+                </msub>
+                <mo>)</mo>
+            </mrow>
+            <mo>-</mo>
+            <mi>n</mi>
+            <mi>&#x3BE;</mi>
+        </math>
+    </template>
+    <template id="proof-5-use">
+        <a href="#proof-5">Go to definition.</a>
+        <section class="equation">
+            <template-use template-id="proof-5-template"></template-use>
+        </section>
+    </template>
+
+    <template id="proof-6-template">
+        <math display="block">
+            <msub>
+                <mi>C</mi>
+                <mi>i</mi>
+            </msub>
+            <mo>(</mo>
+            <mi>t</mi>
+            <mo>)</mo>
+            <mo>&#x2265;</mo>
+            <msub>
+                <mi>C</mi>
+                <mi>j</mi>
+            </msub>
+            <mo>(</mo>
+            <msub>
+                <mi>t</mi>
+                <mn>1</mn>
+            </msub>
+            <mo>)</mo>
+            <mo>+</mo>
+            <mrow>
+                <mo>(</mo>
+                <mn>1</mn>
+                <mo>-</mo>
+                <mi>&#x3BA;</mi>
+                <mo>)</mo>
+            </mrow>
+            <mrow>
+                <mo>(</mo>
+                <mi>t</mi>
+                <mo>-</mo>
+                <msub>
+                    <mi>t</mi>
+                    <mn>1</mn>
+                </msub>
+                <mo>)</mo>
+            </mrow>
+            <mo>-</mo>
+            <mi>d</mi>
+            <mi>&#x3BE;</mi>
+        </math>
+    </template>
+    <template id="proof-6-use">
+        <a href="#proof-6">Go to definition.</a>
+        <section class="equation">
+            <template-use template-id="proof-6-template"></template-use>
+        </section>
+    </template>
+
+    <template id="proof-7-template">
+        <math display="block">
+            <msub>
+                <mi>C</mi>
+                <mi>i</mi>
+            </msub>
+            <mo>(</mo>
+            <mi>t</mi>
+            <mo>)</mo>
+            <mo>&#x2264;</mo>
+            <msub>
+                <mi>C</mi>
+                <mi>x</mi>
+            </msub>
+            <mo>(</mo>
+            <msub>
+                <mi>t</mi>
+                <mi>x</mi>
+            </msub>
+            <mo>)</mo>
+            <mo>+</mo>
+            <mrow>
+                <mo>(</mo>
+                <mn>1</mn>
+                <mo>+</mo>
+                <mi>&#x03BA;</mi>
+                <mo>)</mo>
+            </mrow>
+            <mrow>
+                <mo>(</mo>
+                <mi>t</mi>
+                <mo>-</mo>
+                <msub>
+                    <mi>t</mi>
+                    <mi>x</mi>
+                </msub>
+                <mo>)</mo>
+            </mrow>
+        </math>
+    </template>
+    <template id="proof-7-use">
+        <a href="#proof-7">Go to definition.</a>
+        <section class="equation">
+            <template-use template-id="proof-7-template"></template-use>
+        </section>
+    </template>
+
+    <template id="proof-case-i-template">
+        <p>
+            <math>
+                <msub>
+                    <mi>C</mi>
+                    <mi>x</mi>
+                </msub>
+            </math> is the clock <math>
+                <msub>
+                    <mi>C</mi>
+                    <mi>q</mi>
+                </msub>
+            </math> of process <math>
+                <msub>
+                    <mi>P</mi>
+                    <mi>q</mi>
+                </msub>
+            </math>
+        </p>
+    </template>
+    <template id="proof-case-i-use">
+        <a href="#proof-case-i">Go to definition.</a>
+        <template-use template-id="proof-case-i-template"></template-use>
+    </template>
+
+    <template id="proof-case-ii-template">
+        <p>
+            <math>
+                <msub>
+                    <mi>C</mi>
+                    <mi>x</mi>
+                </msub>
+            </math> is the clock <math>
+                <msub>
+                    <mi>C</mi>
+                    <mi>m</mi>
+                </msub>
+            </math> of a message sent at time <math>
+                <msub>
+                    <mi>t</mi>
+                    <mn>1</mn>
+                </msub>
+            </math> by process <math>
+                <msub>
+                    <mi>P</mi>
+                    <mi>q</mi>
+                </msub>
+            </math>
+        </p>
+    </template>
+    <template id="proof-case-ii-use">
+        <a href="#proof-case-ii">Go to definition.</a>
+        <template-use template-id="proof-case-ii-template"></template-use>
+    </template>
+
+    <template id="proof-8i-template">
+        <math display="block">
+            <msub>
+                <mi>C</mi>
+                <mi>i</mi>
+            </msub>
+            <mo>(</mo>
+            <mi>t</mi>
+            <mo>)</mo>
+            <mo>&#x2264;</mo>
+            <msub>
+                <mi>C</mi>
+                <mi>q</mi>
+            </msub>
+            <mo>(</mo>
+            <msub>
+                <mi>t</mi>
+                <mi>x</mi>
+            </msub>
+            <mo>)</mo>
+            <mo>+</mo>
+            <mrow>
+                <mo>(</mo>
+                <mn>1</mn>
+                <mo>+</mo>
+                <mi>&#x03BA;</mi>
+                <mo>)</mo>
+            </mrow>
+            <mrow>
+                <mo>(</mo>
+                <mi>t</mi>
+                <mo>-</mo>
+                <msub>
+                    <mi>t</mi>
+                    <mi>x</mi>
+                </msub>
+                <mo>)</mo>
+            </mrow>
+        </math>
+    </template>
+    <template id="proof-8i-use">
+        <a href="#proof-8i">Go to definition.</a>
+        <section class="equation">
+            <template-use template-id="proof-8i-template"></template-use>
+        </section>
+    </template>
+
+    <template id="proof-8ii-template">
+        <math display="block">
+            <msub>
+                <mi>C</mi>
+                <mi>i</mi>
+            </msub>
+            <mo>(</mo>
+            <mi>t</mi>
+            <mo>)</mo>
+            <mo>&#x2264;</mo>
+            <msub>
+                <mi>C</mi>
+                <mi>q</mi>
+            </msub>
+            <mo>(</mo>
+            <msub>
+                <mi>t</mi>
+                <mn>1</mn>
+            </msub>
+            <mo>)</mo>
+            <mo>+</mo>
+            <mrow>
+                <mo>(</mo>
+                <mn>1</mn>
+                <mo>+</mo>
+                <mi>&#x03BA;</mi>
+                <mo>)</mo>
+            </mrow>
+            <mrow>
+                <mo>(</mo>
+                <mi>t</mi>
+                <mo>-</mo>
+                <msub>
+                    <mi>t</mi>
+                    <mn>1</mn>
+                </msub>
+                <mo>)</mo>
+            </mrow>
+        </math>
+    </template>
+    <template id="proof-8ii-use">
+        <a href="#proof-8ii">Go to definition.</a>
+        <section class="equation">
+            <template-use template-id="proof-8ii-template"></template-use>
+        </section>
+    </template>
+
+    <template id="proof-9-template">
+        <math display="block">
+            <msub>
+                <mi>C</mi>
+                <mi>i</mi>
+            </msub>
+            <mo>(</mo>
+            <mi>t</mi>
+            <mo>)</mo>
+            <mo>&#x2264;</mo>
+            <msub>
+                <mi>C</mi>
+                <mi>q</mi>
+            </msub>
+            <mo>(</mo>
+            <msub>
+                <mi>t</mi>
+                <mn>1</mn>
+            </msub>
+            <mo>)</mo>
+            <mo>+</mo>
+            <mrow>
+                <mo>(</mo>
+                <mn>1</mn>
+                <mo>+</mo>
+                <mi>&#x03BA;</mi>
+                <mo>)</mo>
+            </mrow>
+            <mrow>
+                <mo>(</mo>
+                <mi>t</mi>
+                <mo>-</mo>
+                <msub>
+                    <mi>t</mi>
+                    <mn>1</mn>
+                </msub>
+                <mo>)</mo>
+            </mrow>
+        </math>
+    </template>
+    <template id="proof-9-use">
+        <a href="#proof-9">Go to definition.</a>
+        <section class="equation">
+            <template-use template-id="proof-9-template"></template-use>
+        </section>
+    </template>
+
+    <template id="proof-10-template">
+        <math display="block">
+            <msub>
+                <mi>C</mi>
+                <mi>q</mi>
+            </msub>
+            <mo>(</mo>
+            <msub>
+                <mi>t</mi>
+                <mn>1</mn>
+            </msub>
+            <mo>)</mo>
+            <mo>+</mo>
+            <mrow>
+                <mo>(</mo>
+                <mn>1</mn>
+                <mo>-</mo>
+                <mi>&#x03BA;</mi>
+                <mo>)</mo>
+            </mrow>
+            <mrow>
+                <mo>(</mo>
+                <mi>t</mi>
+                <mo>-</mo>
+                <msub>
+                    <mi>t</mi>
+                    <mn>1</mn>
+                </msub>
+                <mo>)</mo>
+            </mrow>
+            <mo>-</mo>
+            <mi>d</mi>
+            <mi>&#x03BE;</mi>
+            <mo>&#x2264;</mo>
+            <msub>
+                <mi>C</mi>
+                <mi>i</mi>
+            </msub>
+            <mo>(</mo>
+            <mi>t</mi>
+            <mo>)</mo>
+            <mo>&#x2264;</mo>
+            <msub>
+                <mi>C</mi>
+                <mi>q</mi>
+            </msub>
+            <mo>(</mo>
+            <msub>
+                <mi>t</mi>
+                <mn>1</mn>
+            </msub>
+            <mo>)</mo>
+            <mo>+</mo>
+            <mrow>
+                <mo>(</mo>
+                <mn>1</mn>
+                <mo>+</mo>
+                <mi>&#x03BA;</mi>
+                <mo>)</mo>
+            </mrow>
+            <mrow>
+                <mo>(</mo>
+                <mi>t</mi>
+                <mo>-</mo>
+                <msub>
+                    <mi>t</mi>
+                    <mn>1</mn>
+                </msub>
+                <mo>)</mo>
+            </mrow>
+        </math>
+    </template>
+    <template id="proof-10-use">
+        <a href="#proof-10">Go to definition.</a>
+        <section class="equation">
+            <template-use template-id="proof-10-template"></template-use>
+        </section>
+    </template>
+
+    <template id="proof-11-template">
+        <math display="block">
+            <mtable>
+                <mtr>
+                    <mtd>
+                        <mrow>
+                            <msub>
+                                <mi>C</mi>
+                                <mi>q</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <msub>
+                                <mi>t</mi>
+                                <mn>1</mn>
+                            </msub>
+                            <mo>)</mo>
+                            <mo>+</mo>
+                            <mrow>
+                                <mo>(</mo>
+                                <mi>t</mi>
+                                <mo>-</mo>
+                                <msub>
+                                    <mi>t</mi>
+                                    <mn>1</mn>
+                                </msub>
+                                <mo>)</mo>
+                            </mrow>
+                            <mo>-</mo>
+                            <mi>&#x03BA;</mi>
+                            <mi>d</mi>
+                            <mrow>
+                                <mo>(</mo>
+                                <mi>&#x03C4;</mi>
+                                <mo>+</mo>
+                                <mi>v</mi>
+                                <mo>)</mo>
+                            </mrow>
+                            <mo>-</mo>
+                            <mi>d</mi>
+                            <mi>&#x03BE;</mi>
+                        </mrow>
+                    </mtd>
+                </mtr>
+                <mtr>
+                    <mtd>
+                        <mrow>
+                            <mo>&#x2264;</mo>
+                            <msub>
+                                <mi>C</mi>
+                                <mi>i</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <mi>t</mi>
+                            <mo>)</mo>
+                            <mo>&#x2264;</mo>
+                        </mrow>
+                    </mtd>
+                </mtr>
+                <mtr>
+                    <mtd>
+                        <mrow>
+                            <msub>
+                                <mi>C</mi>
+                                <mi>q</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <msub>
+                                <mi>t</mi>
+                                <mn>1</mn>
+                            </msub>
+                            <mo>)</mo>
+                            <mo>+</mo>
+                            <mrow>
+                                <mo>(</mo>
+                                <mi>t</mi>
+                                <mo>-</mo>
+                                <msub>
+                                    <mi>t</mi>
+                                    <mn>1</mn>
+                                </msub>
+                                <mo>)</mo>
+                            </mrow>
+                            <mo>+</mo>
+                            <mi>&#x03BA;</mi>
+                            <mrow>
+                                <mo>(</mo>
+                                <mi>d</mi>
+                                <mrow>
+                                    <mo>(</mo>
+                                    <mi>&#x03C4;</mi>
+                                    <mo>+</mo>
+                                    <mi>v</mi>
+                                    <mo>)</mo>
+                                </mrow>
+                                <mo>+</mo>
+                                <mfrac>
+                                    <mi>&#x03BC;</mi>
+                                    <mrow>
+                                        <mn>1</mn>
+                                        <mo>-</mo>
+                                        <mi>&#x03BA;</mi>
+                                    </mrow>
+                                </mfrac>
+                                <mo>)</mo>
+                            </mrow>
+                        </mrow>
+                    </mtd>
+                </mtr>
+            </mtable>
+        </math>
+    </template>
+    <template id="proof-11-use">
+        <a href="#proof-11">Go to definition.</a>
+        <section class="equation">
+            <template-use template-id="proof-11-template"></template-use>
+        </section>
     </template>
 </body>
 

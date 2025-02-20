@@ -1,5 +1,54 @@
-math[display="block"] {
+section.equation {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    align-items: center;
+
     margin: 1em 0;
+
+    &>math {
+        flex-grow: 1;
+        margin: 0;
+
+        justify-self: center;
+
+        math-style: normal;
+    }
+}
+
+ol.math.derivation {
+    list-style: none;
+
+    display: grid;
+    grid-template-columns: [lhs] auto [rhs] auto [reason] auto;
+    align-items: baseline;
+
+    row-gap: 0.25em;
+
+    &>li {
+        display: contents;
+
+        &:first-child {
+            &>math:first-of-type {
+                grid-column: lhs;
+            }
+        }
+
+        &>math {
+            grid-column-start: rhs;
+            justify-self: flex-start;
+
+            math-style: normal;
+        }
+
+        &>.reason {
+            grid-column: reason;
+        }
+    }
+
+    & math[display="block"] {
+        margin: 0;
+    }
 }
 
 math {
@@ -39,8 +88,9 @@ mtext.description {
     font-family: var(--font-family);
 }
 
-mtext:not(.description) {
-    font-style: italic;
+mtext.separator {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
 }
 
 mi.set {
