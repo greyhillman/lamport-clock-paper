@@ -1844,6 +1844,7 @@
                     Each process maintains its own <em>request queue</em> which is never seen by any
                     other process. We assume that the request queues initially contain the single message <math>
                         <mrow>
+                            <mo>"</mo>
                             <msub title="value less than the initial value of any clock">
                                 <mi>T</mi>
                                 <mn>0</mn>
@@ -1853,7 +1854,8 @@
                                 <mi>P</mi>
                                 <mn>0</mn>
                             </msub>
-                            <mtext> requests resource</mtext>
+                            <mtext>&nbsp;requests resource</mtext>
+                            <mo>"</mo>
                         </mrow>
                     </math>, where <math>
                         <msub title="process initially granted the resource">
@@ -1883,6 +1885,7 @@
                             </math> sends
                             the message <math>
                                 <mrow>
+                                    <mo>"</mo>
                                     <msub title="the message's timestamp">
                                         <mi>T</mi>
                                         <mi>m</mi>
@@ -1892,7 +1895,8 @@
                                         <mi>P</mi>
                                         <mi>i</mi>
                                     </msub>
-                                    <mtext>requests resource</mtext>
+                                    <mtext>&nbsp;requests resource</mtext>
+                                    <mo>"</mo>
                                 </mrow>
                             </math> to every other process, and puts that message on its request queue, where <math>
                                 <msub title="the message's timestamp">
@@ -4839,7 +4843,7 @@
 
     <footer id="feedback">
         <span>
-            Edited by <a href="https://github.com/greyhillman">Grey Hill</a>
+            Edited? by <a href="https://github.com/greyhillman">Grey Hill</a>
         </span>
         <a class="icon" href="https://github.com/greyhillman/lamport-clock-paper">Source code</a>
         <a class="icon" href="https://github.com/greyhillman/lamport-clock-paper/issues">Submit correction</a>
@@ -5390,6 +5394,7 @@
                     <mi>j</mi>
                 </msub>
             </math> receives the message <math>
+                <mo>"</mo>
                 <mrow>
                     <msub title="the message's timestamp">
                         <mi>T</mi>
@@ -5400,8 +5405,9 @@
                         <mi>P</mi>
                         <mi>i</mi>
                     </msub>
-                    <mtext>requests resource</mtext>
+                    <mtext>&nbsp;requests resource</mtext>
                 </mrow>
+                <mo>"</mo>
             </math>, it places it on its request queue
             and sends a (timestamped) acknowledgement message to <math>
                 <msub title="the requesting process">
@@ -5429,6 +5435,7 @@
             </math> removes
             any <math>
                 <mrow>
+                    <mo>"</mo>
                     <msub title="the message's timestamp">
                         <mi>T</mi>
                         <mi>m</mi>
@@ -5438,15 +5445,18 @@
                         <mi>P</mi>
                         <mi>i</mi>
                     </msub>
-                    <mtext>requests resource</mtext>
+                    <mtext>&nbsp;requests resource</mtext>
+                    <mo>"</mo>
                 </mrow>
             </math> message from its request queue and sends a (timestamped) <math>
                 <mrow>
+                    <mo>"</mo>
                     <msub title="the releasing process">
                         <mi>P</mi>
                         <mi>i</mi>
                     </msub>
-                    <mtext>releases resource</mtext>
+                    <mtext>&nbsp;releases resource</mtext>
+                    <mo>"</mo>
                 </mrow>
             </math> message to every other process.
         </p>
@@ -5469,11 +5479,12 @@
                         <mi>P</mi>
                         <mi>i</mi>
                     </msub>
-                    <mtext>releases resource</mtext>
+                    <mtext>&nbsp;releases resource</mtext>
                 </mrow>
             </math> message,
             it removes any <math>
                 <mrow>
+                    <mo>"</mo>
                     <msub title="the message's timestamp">
                         <mi>T</mi>
                         <mi>m</mi>
@@ -5483,7 +5494,8 @@
                         <mi>P</mi>
                         <mi>i</mi>
                     </msub>
-                    <mtext>requests resource</mtext>
+                    <mtext>&nbsp;requests resource</mtext>
+                    <mo>"</mo>
                 </mrow>
             </math> message from its queue.
         </p>
@@ -5497,6 +5509,7 @@
         <p>
             There is a <math>
                 <mrow>
+                    <mo>"</mo>
                     <msub title="the message's timestamp">
                         <mi>T</mi>
                         <mi>m</mi>
@@ -5506,7 +5519,8 @@
                         <mi>P</mi>
                         <mi>i</mi>
                     </msub>
-                    <mtext>requests resource</mtext>
+                    <mtext>&nbsp;requests resource</mtext>
+                    <mo>"</mo>
                 </mrow>
             </math> message in its request queue which is ordered before any other request
             in its queue by the relation <math>
