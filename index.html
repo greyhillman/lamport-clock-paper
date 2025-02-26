@@ -17,6 +17,7 @@
     <script type="module" src="./src/math.ts"></script>
     <script type="module" src="./src/figure-highlights.ts"></script>
     <script type="module" src="./src/figures.ts"></script>
+    <script type="module" src="./src/simulation.ts"></script>
 
     <script type="module" src="./src/InlineDetails.ts"></script>
     <script type="module" src="./src/TemplateUse.ts"></script>
@@ -983,69 +984,12 @@
             <ol start="1" class="implementation-rule">
                 <li id="implementation-rule-1">
                     <template-use template-id="implementation-rule-1-template"></template-use>
-                    <ul class="visual example">
-                        <li>
-                            <figure>
-                                <svg class="space-time" viewBox="0 0 60 60">
-                                    <defs>
-                                        <marker
-                                            id="arrow"
-                                            viewBox="0 0 10 10"
-                                            refX="8"
-                                            refY="5"
-                                            markerWidth="5"
-                                            markerHeight="5"
-                                            orient="auto">
-                                            <path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" />
-                                        </marker>
-                                        <marker
-                                            id="message"
-                                            viewBox="-5 -5 10 10"
-                                            refX="0"
-                                            refY="0"
-                                            markerWidth="7"
-                                            markerHeight="7"
-                                            orient="auto">
-                                            <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3" stroke="context-stroke" />
-                                        </marker>
-                                    </defs>
-
-                                    <g class="tick">
-                                        <text x="20" y="15" text-anchor="middle" dominant-baseline="middle">5</text>
-                                        <polyline points="25,15 35,15" />
-                                    </g>
-                                    <g class="tick">
-                                        <text x="20" y="25" text-anchor="middle" dominant-baseline="middle">4</text>
-                                        <polyline points="25,25 35,25" />
-                                    </g>
-                                    <g class="tick">
-                                        <text x="20" y="35" text-anchor="middle" dominant-baseline="middle">3</text>
-                                        <polyline points="25,35 35,35" />
-                                    </g>
-                                    <g class="tick">
-                                        <text x="20" y="45" text-anchor="middle" dominant-baseline="middle">2</text>
-                                        <polyline points="25,45 35,45" />
-                                    </g>
-
-                                    <g class="process">
-                                        <text x="30" y="58" text-anchor="middle">sender</text>
-
-                                        <line class="segment" x1="30" y1="52" x2="30" y2="5" />
-
-                                        <g class="event">
-                                            <circle cx="30" cy="20" r="2" />
-                                        </g>
-                                        <g class="event">
-                                            <circle cx="30" cy="30" r="2" />
-                                        </g>
-                                        <g class="event">
-                                            <circle cx="30" cy="40" r="2" />
-                                        </g>
-                                    </g>
-                                </svg>
-                            </figure>
-                        </li>
-                    </ul>
+                    <figure class="visual example">
+                        <div id="implementation-rule-1-clock"></div>
+                        <form id="implementation-rule-1-controls">
+                            <button name="event">Event occurs</button>
+                        </form>
+                    </figure>
                 </li>
             </ol>
             <p>
@@ -1078,238 +1022,33 @@
                     <ol type="a">
                         <li id="implementation-rule-2-a">
                             <template-use template-id="implementation-rule-2-a-template"></template-use>
-                            <ul class="visual example">
-                                <li>
-                                    <figure>
-                                        <svg class="space-time" viewBox="0 0 60 60">
-                                            <defs>
-                                                <marker
-                                                    id="arrow"
-                                                    viewBox="0 0 10 10"
-                                                    refX="8"
-                                                    refY="5"
-                                                    markerWidth="5"
-                                                    markerHeight="5"
-                                                    orient="auto">
-                                                    <path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" />
-                                                </marker>
-                                                <marker
-                                                    id="message"
-                                                    viewBox="-5 -5 10 10"
-                                                    refX="0"
-                                                    refY="0"
-                                                    markerWidth="7"
-                                                    markerHeight="7"
-                                                    orient="auto">
-                                                    <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3" stroke="context-stroke" />
-                                                </marker>
-                                            </defs>
-
-                                            <g class="tick">
-                                                <text x="5" y="15" text-anchor="middle" dominant-baseline="middle">5</text>
-                                                <polyline points="10,15 20,15" />
-                                            </g>
-                                            <g class="tick">
-                                                <text x="5" y="25" text-anchor="middle" dominant-baseline="middle">4</text>
-                                                <polyline points="10,25 20,25" />
-                                            </g>
-                                            <g class="tick">
-                                                <text x="5" y="35" text-anchor="middle" dominant-baseline="middle">3</text>
-                                                <polyline points="10,35 20,35" />
-                                            </g>
-                                            <g class="tick">
-                                                <text x="5" y="45" text-anchor="middle" dominant-baseline="middle">2</text>
-                                                <polyline points="10,45 20,45" />
-                                            </g>
-
-                                            <g class="process">
-                                                <text x="15" y="58" text-anchor="middle">sender</text>
-
-                                                <line class="segment" x1="15" y1="52" x2="15" y2="5" />
-
-                                                <g class="event">
-                                                    <circle cx="15" cy="20" r="2" />
-                                                </g>
-                                                <g class="event">
-                                                    <circle cx="15" cy="30" r="2" />
-                                                </g>
-                                                <g class="event">
-                                                    <circle cx="15" cy="40" r="2" />
-                                                </g>
-                                            </g>
-
-                                            <g class="send message">
-                                                <line x1="15" y1="30" x2="30" y2="25" />
-                                                <foreignObject class="label" x="35" y="20" width="50" height="25">
-                                                    <math>
-                                                        <msub>
-                                                            <mi>T</mi>
-                                                            <mi>m</mi>
-                                                        </msub>
-                                                        <mo>=</mo>
-                                                        <mn>3</mn>
-                                                    </math>
-                                                </foreignObject>
-                                            </g>
-                                        </svg>
-                                    </figure>
-                                </li>
-                            </ul>
+                            <figure class="visual example">
+                                <div id="implementation-rule-2a-canvas"></div>
+                                <form id="implementation-rule-2a-controls">
+                                    <button name="event">Event occurs</button>
+                                    <button name="send">Send message</button>
+                                </form>
+                            </figure>
                         </li>
                         <li id="implementation-rule-2-b">
                             <template-use template-id="implementation-rule-2-b-template"></template-use>
-                            <ul class="visual example">
-                                <li>
-                                    <figure>
-                                        <svg class="space-time" viewBox="0 0 60 60">
-                                            <defs>
-                                                <marker
-                                                    id="arrow"
-                                                    viewBox="0 0 10 10"
-                                                    refX="8"
-                                                    refY="5"
-                                                    markerWidth="5"
-                                                    markerHeight="5"
-                                                    orient="auto">
-                                                    <path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" />
-                                                </marker>
-                                                <marker
-                                                    id="message"
-                                                    viewBox="-5 -5 10 10"
-                                                    refX="0"
-                                                    refY="0"
-                                                    markerWidth="7"
-                                                    markerHeight="7"
-                                                    orient="auto">
-                                                    <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3" stroke="context-stroke" />
-                                                </marker>
-                                            </defs>
+                            <figure class="visual example">
+                                <div id="implementation-rule-2b-canvas"></div>
+                                <form id="implementation-rule-2b-controls">
+                                    <fieldset name="sender">
+                                        <legend>Sender</legend>
 
-                                            <g class="tick">
-                                                <text x="55" y="15" text-anchor="middle" dominant-baseline="middle">9</text>
-                                                <polyline points="40,15 50,15" />
-                                            </g>
-                                            <g class="tick">
-                                                <text x="55" y="25" text-anchor="middle" dominant-baseline="middle">8</text>
-                                                <polyline points="40,25 50,25" />
-                                            </g>
-                                            <g class="tick">
-                                                <text x="55" y="35" text-anchor="middle" dominant-baseline="middle">3</text>
-                                                <polyline points="40,35 50,35" />
-                                            </g>
-                                            <g class="tick">
-                                                <text x="55" y="45" text-anchor="middle" dominant-baseline="middle">2</text>
-                                                <polyline points="40,45 50,45" />
-                                            </g>
+                                        <button name="event">Event occurs</button>
+                                        <button name="send">Send message</button>
+                                    </fieldset>
+                                    <fieldset name="receiver">
+                                        <legend>Receiver</legend>
 
-                                            <g class="process">
-                                                <text x="45" y="58" text-anchor="middle">sender</text>
-
-                                                <line class="segment" x1="45" y1="52" x2="45" y2="5" />
-
-                                                <g class="event">
-                                                    <circle cx="45" cy="20" r="2" />
-                                                </g>
-                                                <g class="event">
-                                                    <circle cx="45" cy="30" r="2" />
-                                                </g>
-                                                <g class="event">
-                                                    <circle cx="45" cy="40" r="2" />
-                                                </g>
-                                            </g>
-
-                                            <g class="message receive">
-                                                <line x1="30" y1="28" x2="45" y2="30" />
-                                                <foreignObject class="label" x="5" y="20" width="50" height="25">
-                                                    <math>
-                                                        <msub>
-                                                            <mi>T</mi>
-                                                            <mi>m</mi>
-                                                        </msub>
-                                                        <mo>=</mo>
-                                                        <mn>6</mn>
-                                                    </math>
-                                                </foreignObject>
-                                            </g>
-                                        </svg>
-                                    </figure>
-                                </li>
-                                <li>
-                                    <figure>
-                                        <svg class="space-time" viewBox="0 0 60 60">
-                                            <defs>
-                                                <marker
-                                                    id="arrow"
-                                                    viewBox="0 0 10 10"
-                                                    refX="8"
-                                                    refY="5"
-                                                    markerWidth="5"
-                                                    markerHeight="5"
-                                                    orient="auto">
-                                                    <path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" />
-                                                </marker>
-                                                <marker
-                                                    id="message"
-                                                    viewBox="-5 -5 10 10"
-                                                    refX="0"
-                                                    refY="0"
-                                                    markerWidth="7"
-                                                    markerHeight="7"
-                                                    orient="auto">
-                                                    <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3" stroke="context-stroke" />
-                                                </marker>
-                                            </defs>
-
-                                            <g class="tick">
-                                                <text x="55" y="15" text-anchor="middle" dominant-baseline="middle">8</text>
-                                                <polyline points="40,15 50,15" />
-                                            </g>
-                                            <g class="tick">
-                                                <text x="55" y="25" text-anchor="middle" dominant-baseline="middle">7</text>
-                                                <polyline points="40,25 50,25" />
-                                            </g>
-                                            <g class="tick">
-                                                <text x="55" y="35" text-anchor="middle" dominant-baseline="middle">6</text>
-                                                <polyline points="40,35 50,35" />
-                                            </g>
-                                            <g class="tick">
-                                                <text x="55" y="45" text-anchor="middle" dominant-baseline="middle">5</text>
-                                                <polyline points="40,45 50,45" />
-                                            </g>
-
-                                            <g class="process">
-                                                <text x="45" y="58" text-anchor="middle">sender</text>
-
-                                                <line class="segment" x1="45" y1="52" x2="45" y2="5" />
-
-                                                <g class="event">
-                                                    <circle cx="45" cy="20" r="2" />
-                                                </g>
-                                                <g class="event">
-                                                    <circle cx="45" cy="30" r="2" />
-                                                </g>
-                                                <g class="event">
-                                                    <circle cx="45" cy="40" r="2" />
-                                                </g>
-                                            </g>
-
-                                            <g class="message receive">
-                                                <line x1="30" y1="28" x2="45" y2="30" />
-                                                <foreignObject class="label" x="5" y="20" width="50" height="25">
-                                                    <math>
-                                                        <msub>
-                                                            <mi>T</mi>
-                                                            <mi>m</mi>
-                                                        </msub>
-                                                        <mo>=</mo>
-                                                        <mn>4</mn>
-                                                    </math>
-                                                </foreignObject>
-                                            </g>
-                                        </svg>
-                                    </figure>
-                                </li>
-                            </ul>
+                                        <button name="event">Event occurs</button>
+                                        <button name="receive" disabled>Receive message</button>
+                                    </fieldset>
+                                </form>
+                            </figure>
                         </li>
                     </ol>
                 </li>

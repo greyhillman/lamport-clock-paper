@@ -7,8 +7,9 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"postcss-nesting": "^13.0.1",
-		"lit": "^3.2.1"
+		"konva": "^9.3.18",
+		"lit": "^3.2.1",
+		"postcss-nesting": "^13.0.1"
 	},
 	"devDependencies": {
 		"typescript": "^5.7.2",

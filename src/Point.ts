@@ -7,6 +7,10 @@ export class Point {
         this.y = y;
     }
 
+    static get zero() {
+        return new Point(0, 0);
+    }
+
     minus(other: Point): Direction {
         return new Direction(this.x - other.x, this.y - other.y);
     }
