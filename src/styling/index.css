@@ -376,6 +376,12 @@ template-use {
   height: 100%;
 }
 
+#implementation-rule-2a-controls {
+  display: flex;
+  flex-direction: row;
+  column-gap: 0.5em;
+}
+
 #implementation-rule-2b-controls {
   display: flex;
   flex-direction: row;
@@ -383,5 +389,40 @@ template-use {
 
   &>fieldset {
     min-inline-size: auto;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5em;
   }
+}
+
+button {
+  border: solid 2px var(--font-color);
+  border-radius: 0.25em;
+
+  padding: 0.25em;
+
+  font-family: var(--font-family);
+  font-size: 1em;
+
+  background-color: transparent;
+
+  box-shadow: 2px 2px 1px 1px var(--muted-font-color);
+
+  &:not(:disabled):hover {
+    cursor: pointer;
+    box-shadow: 2px 2px 1px 1px var(--font-color);
+  }
+
+  &:not(:disabled):active {
+    box-shadow: inset 1px 1px 1px 1px var(--font-color);
+  }
+
+  &:disabled {
+    border-color: var(--muted-font-color);
+  }
+}
+
+fieldset {
+  border-color: var(--muted-font-color);
 }
