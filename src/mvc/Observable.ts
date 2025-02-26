@@ -16,7 +16,12 @@ export class Observable<Events = {}> {
     }
 
     removeListener<K extends keyof Events>(eventName: K, func: (event: Events[K]) => void): void {
-        this._listeners[eventName].filter(f => f !== func);
+        const index = this._listeners[eventName].findIndex(f => f === func);
+        if (index < 0) {
+            return;
+        }
+
+        this._listeners[eventName].splice(index, 1);
     }
 
     protected dispatchEvent<K extends keyof Events>(name: K, event: Events[K]) {
