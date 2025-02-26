@@ -3,16 +3,18 @@ import { View } from "../mvc/View";
 import { Direction, Point } from "../Point";
 import { ClockModel } from "./ClockModel";
 
+interface Styles {
+    color: string;
+    fontFamily: string;
+}
+
 interface Options {
     model: ClockModel;
 
     container: Konva.Container;
     center: Point;
     dimensions: Direction;
-    styles: {
-        color: string;
-        fontFamily: string;
-    }
+    styles: Styles;
 }
 
 export class RegisterClockView extends View<ClockModel> {
@@ -58,5 +60,11 @@ export class RegisterClockView extends View<ClockModel> {
         this.model.addListener("update", register => {
             this._text.text(`${register}`);
         });
+    }
+
+    style(styles: Styles) {
+        this._border.stroke(styles.color);
+        this._text.fill(styles.color);
+        this._text.fontFamily(styles.fontFamily);
     }
 }

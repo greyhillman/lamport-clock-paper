@@ -29,8 +29,8 @@ export class ClockModel extends Model<ClockEvents> {
     }
 
     receive(timestamp: number) {
-        this._register = Math.max(this._register, timestamp + 1);
+        this._register = Math.max(this._register, timestamp) + 1;
 
-        this.increment();
+        this.dispatchEvent("update", this._register);
     }
 }

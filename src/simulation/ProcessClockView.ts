@@ -5,6 +5,12 @@ import { AnalogClockView } from "./AnalogClockView";
 import { ClockModel } from "./ClockModel";
 import { RegisterClockView } from "./RegisterClockView";
 
+interface Styles {
+    color: string;
+    backgroundColor: string;
+    fontFamily: string;
+}
+
 interface Options {
     model: ClockModel;
 
@@ -13,15 +19,12 @@ interface Options {
     center: Point;
     label: string;
 
-    styles: {
-        color: string;
-        backgroundColor: string;
-        fontFamily: string;
-    };
+    styles: Styles;
 }
 
 export class ProcessClockView extends View<ClockModel, {}> {
     private _group: Konva.Group;
+    private _label: Konva.Text;
 
     analog: AnalogClockView;
     register: RegisterClockView;
@@ -57,7 +60,7 @@ export class ProcessClockView extends View<ClockModel, {}> {
             }
         });
 
-        this._group.add(new Konva.Text({
+        this._label = new Konva.Text({
             x: -50,
             y: 115,
             width: 100,
@@ -67,6 +70,19 @@ export class ProcessClockView extends View<ClockModel, {}> {
             align: "center",
             verticalAlign: "middle",
             text: options.label,
-        }))
+        });
+        this._group.add(this._label);
+    }
+
+    restyle(styles: Styles) {
+        this.analog.style({
+            color: styles.color,
+            backgroundColor: styles.backgroundColor,
+        });
+        this.register.style({
+            color: styles.color,
+            fontFamily: styles.fontFamily,
+        });
+        this._label.fill(styles.color);
     }
 }

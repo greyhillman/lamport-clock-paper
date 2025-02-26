@@ -3,21 +3,25 @@ import { View } from "../mvc/View";
 import { Direction, Point } from "../Point";
 import { ClockModel } from "./ClockModel";
 
+interface Styles {
+    color: string;
+    backgroundColor: string;
+}
+
 interface Options {
     model: ClockModel;
 
     container: Konva.Container;
     center: Point;
     radius: number;
-    styles: {
-        color: string;
-        backgroundColor: string;
-    };
+    styles: Styles;
 }
 
 export class AnalogClockView extends View<ClockModel> {
-    private _secondHand: Konva.Shape;
-    private _minuteHand: Konva.Shape;
+    private _secondHand: Konva.Line;
+    private _minuteHand: Konva.Line;
+    private _pivot: Konva.Circle;
+    private _ticks: Konva.Line[];
     private _ring: Konva.Circle;
 
     private _radius: number;
@@ -48,16 +52,21 @@ export class AnalogClockView extends View<ClockModel> {
         });
         group.add(this._ring);
 
+        this._ticks = [];
         for (let i = 0; i < 12; i++) {
             const start = i % 3 === 0
                 ? 0.70
                 : 0.85;
-            group.add(new Konva.Line({
+
+            const tick = new Konva.Line({
                 points: [0, start * this._radius, 0, this._radius],
                 stroke: options.styles.color,
                 strokeWidth: this._strokeWidth,
                 rotation: i * 30,
-            }));
+            });
+
+            group.add(tick);
+            this._ticks.push(tick);
         }
 
         this._secondHand = new Konva.Line({
@@ -72,16 +81,16 @@ export class AnalogClockView extends View<ClockModel> {
             strokeWidth: this._strokeWidth,
             rotation: 0,
         });
-
-        group.add(this._secondHand);
-        group.add(this._minuteHand);
-
-        group.add(new Konva.Circle({
+        this._pivot = new Konva.Circle({
             x: 0,
             y: 0,
             radius: this._strokeWidth,
             fill: options.styles.color,
-        }));
+        });
+
+        group.add(this._secondHand);
+        group.add(this._minuteHand);
+        group.add(this._pivot);
 
         this.model.addListener("update", register => {
             this.update(register);
@@ -97,5 +106,17 @@ export class AnalogClockView extends View<ClockModel> {
 
         this._secondHand.rotation(secondDeg);
         this._minuteHand.rotation(minuteDeg);
+    }
+
+    style(styles: Styles) {
+        this._secondHand.stroke(styles.color);
+        this._minuteHand.stroke(styles.color);
+        this._ring.stroke(styles.color);
+        this._ring.fill(styles.backgroundColor);
+        this._pivot.fill(styles.color);
+
+        for (const tick of this._ticks) {
+            tick.stroke(styles.color);
+        }
     }
 }
