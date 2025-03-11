@@ -19,6 +19,7 @@
     <script type="module" src="./src/figure-highlights.ts"></script>
     <script type="module" src="./src/figures.ts"></script>
     <script type="module" src="./src/simulation.ts"></script>
+    <script type="module" src="./src/mutual-exclusion-sim.ts"></script>
 
     <script type="module" src="./src/simulation/physical/examples/example.ts"></script>
     <script type="module" src="./src/simulation/physical/examples/speed-error.ts"></script>
@@ -1685,6 +1686,15 @@
                         </msub>
                     </math>.
                 </p>
+                <figure class="visual example">
+                    <div id="mutual-exclusion-simulation"></div>
+                    <form id="mutual-exclusion-simulation-controls" method="none">
+                        <button type="reset">Reset</button>
+                    </form>
+                    <figcaption>
+                        Simulation of 3 processes in the mutual exclusion problem.
+                    </figcaption>
+                </figure>
                 <p>
                     It is easy to verify that the algorithm defined by these rules satisfies <inline-details>
                         <span slot="summary">conditions I-III</span>

@@ -1,0 +1,238 @@
+import Konva from "konva";
+import { Model } from "./mvc/Model";
+import { View } from "./mvc/View";
+import { Controller } from "./mvc/Controller";
+import { LockView } from "./simulation/mutual-exclusion/LockView";
+import { LockModel } from "./simulation/mutual-exclusion/LockModel";
+import { Point } from "./Point";
+import { LockController } from "./simulation/mutual-exclusion/LockController";
+import { ProcessModel } from "./simulation/mutual-exclusion/ProcessModel";
+import { MessageModel } from "./simulation/mutual-exclusion/MessageModel";
+import { ProcessView } from "./simulation/mutual-exclusion/ProcessView";
+import { ProcessController } from "./simulation/mutual-exclusion/ProcessController";
+import { RequestModel } from "./simulation/mutual-exclusion/RequestModel";
+import { LockShape } from "./simulation/LockShape";
+import { IdentifierView } from "./simulation/mutual-exclusion/IdentifierView";
+import { IdentifierModel } from "./simulation/mutual-exclusion/IdentifierModel";
+
+class SimulationModel extends Model {
+    processes: ProcessModel[];
+
+    private _initial_request: RequestModel;
+
+    constructor() {
+        super();
+
+        const ids = [
+            "a",
+            "b",
+            "c",
+        ];
+
+        this._initial_request = new RequestModel(-1, "a");
+
+        this.processes = ids.map(id => {
+            return new ProcessModel({
+                identifier: id,
+                locked: id === "a",
+                others: ids.filter(x => x !== id),
+                initialMessage: this._initial_request,
+            });
+        });
+
+        this.processes.forEach(process => {
+            process.addListener("send", message => {
+                const receiver = this.processes.find(other => other.identifier === message.receiver);
+                if (receiver) {
+                    receiver.addPending(message.data);
+                }
+            });
+        });
+    }
+
+    reset() {
+        this.processes[0].reset({
+            locked: true,
+            initial_message: this._initial_request,
+        });
+        this.processes[1].reset({
+            locked: false,
+            initial_message: this._initial_request,
+        });
+        this.processes[2].reset({
+            locked: false,
+            initial_message: this._initial_request,
+        });
+    }
+}
+
+interface ViewStyles {
+    color: string;
+    highlightColor: string;
+    backgroundColor: string;
+    fontFamily: string;
+}
+
+interface SimulationEvents {
+    "reset": void;
+}
+
+class SimulationView extends View<SimulationModel, SimulationEvents> {
+    private _canvas: HTMLDivElement;
+    private _stage: Konva.Stage;
+    private _layer: Konva.Layer;
+
+    private _styles: ViewStyles;
+
+    processes: ProcessView[];
+
+    constructor(model: SimulationModel) {
+        super(model);
+
+        this._canvas = document.getElementById("mutual-exclusion-simulation")! as HTMLDivElement;
+        this._styles = this._getStyle();
+
+        this._stage = new Konva.Stage({
+            container: this._canvas,
+            width: 625,
+            height: 310,
+        });
+        this._layer = new Konva.Layer();
+        this._stage.add(this._layer);
+
+        const identifierModels = {
+            "a": new IdentifierModel("a"),
+            "b": new IdentifierModel("b"),
+            "c": new IdentifierModel("c"),
+        }
+
+        const processIdentifiers: { [process: string]: (container: Konva.Container) => IdentifierView } = {
+            "a": (container) => {
+                return new IdentifierView(identifierModels.a, {
+                    container,
+                    shape: new Konva.Circle({
+                        x: 15,
+                        y: 15,
+                        radius: 15,
+                        fill: this._styles.color,
+                    }),
+                    styles: {
+                        color: this._styles.color,
+                    },
+                });
+            },
+            "b": (container) => {
+                return new IdentifierView(identifierModels.b, {
+                    container,
+                    shape: new Konva.RegularPolygon({
+                        x: 15,
+                        y: 15,
+                        sides: 3,
+                        radius: 15,
+                        fill: this._styles.color,
+                    }),
+                    styles: {
+                        color: this._styles.color,
+                    },
+                });
+            },
+            "c": (container) => {
+                return new IdentifierView(identifierModels.c, {
+                    container,
+                    shape: new Konva.Rect({
+                        width: 30,
+                        height: 30,
+                        fill: this._styles.color,
+                    }),
+                    styles: {
+                        color: this._styles.color,
+                    },
+                });
+            },
+        }
+
+        const centers = [
+            new Point(5, 80),
+            new Point(220, 80),
+            new Point(430, 80),
+        ];
+
+        this.processes = model.processes.map((process, index) => {
+            const view = new ProcessView(process, {
+                container: this._layer,
+                start: centers[index],
+                styles: this._styles,
+                identifiers: processIdentifiers,
+            });
+
+            view.lock.addListener("pointerover", () => {
+                this._stage.container().style.cursor = "pointer";
+            });
+            view.lock.addListener("pointerout", () => {
+                this._stage.container().style.cursor = "auto";
+            });
+
+            return view;
+        });
+
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+            this._updateStyle();
+        });
+
+        const formControls = document.getElementById("mutual-exclusion-simulation-controls")!;
+        formControls.addEventListener("submit", event => {
+            event.preventDefault(); // We're using JavaScript to respond
+        });
+
+        formControls.querySelector<HTMLButtonElement>("button[type='reset']")!.addEventListener("click", () => {
+            this.dispatchEvent("reset", undefined);
+        });
+    }
+
+    private _getStyle(): ViewStyles {
+        const raw = window.getComputedStyle(this._canvas);
+
+        return {
+            color: raw.getPropertyValue("--font-color"),
+            highlightColor: raw.getPropertyValue("--highlight-color"),
+            backgroundColor: raw.getPropertyValue("--background-color"),
+            fontFamily: raw.getPropertyValue("--font-family"),
+        };
+    }
+
+    private _updateStyle() {
+        this._styles = this._getStyle();
+
+        for (const process of this.processes) {
+            process.style({
+                color: this._styles.color,
+                backgroundColor: this._styles.backgroundColor,
+                fontFamily: this._styles.fontFamily,
+            });
+        }
+    }
+}
+
+class SimulationController extends Controller<SimulationModel, SimulationView> {
+    processes: ProcessController[];
+
+    constructor(model: SimulationModel, view: SimulationView) {
+        super(model, view);
+
+        this.processes = model.processes.map((model, index) => {
+            return new ProcessController(model, view.processes[index]);
+        });
+
+        view.addListener("reset", () => {
+            this.reset();
+        })
+    }
+
+    reset() {
+        this._model.reset();
+    }
+}
+
+const model = new SimulationModel();
+const view = new SimulationView(model);
+const controller = new SimulationController(model, view);

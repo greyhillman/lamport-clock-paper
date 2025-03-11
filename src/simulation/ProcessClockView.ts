@@ -49,10 +49,9 @@ export class ProcessClockView extends View<ClockModel, {}> {
             }
         });
 
-        this.register = new RegisterClockView({
-            model: this.model,
+        this.register = new RegisterClockView(this.model, {
             container: this._group,
-            center: new Point(0, 90),
+            start: new Point(-40, 60),
             dimensions: new Direction(80, 40),
             styles: {
                 color: options.styles.color,
