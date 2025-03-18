@@ -9,10 +9,14 @@ interface Events {
 export class RequestQueueModel extends Model<Events> {
     private _messages: RequestModel[];
 
-    constructor(message: RequestModel) {
+    constructor(message: RequestModel | undefined) {
         super();
 
-        this._messages = [message];
+        this._messages = [];
+
+        if (message) {
+            this._messages.push(message);
+        }
     }
 
     get messages() {

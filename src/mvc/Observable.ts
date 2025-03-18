@@ -22,6 +22,14 @@ export class Observable<Events = {}> {
         }
 
         this._listeners[eventName].splice(index, 1);
+
+        if (this._listeners[eventName].length === 0) {
+            delete this._listeners[eventName];
+        }
+    }
+
+    hasListener<K extends keyof Events>(eventName: K): boolean {
+        return eventName in this._listeners;
     }
 
     protected dispatchEvent<K extends keyof Events>(name: K, event: Events[K]): void {

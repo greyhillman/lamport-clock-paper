@@ -118,12 +118,33 @@ export class PendingMessageView extends View<MessageModel, Events> {
         }
     }
 
+    move(start: Point, end: Point, onEnd?: () => void) {
+        this.moveTo(start);
+
+        const animation = new Konva.Tween({
+            node: this._group,
+            duration: 2,
+            x: end.x,
+            y: end.y,
+            onFinish() {
+                animation.destroy();
+                if (onEnd) {
+                    onEnd();
+                }
+            },
+        });
+        animation.play();
+    }
+
     moveTo(point: Point) {
         this._group.x(point.x);
         this._group.y(point.y);
     }
 
     destroy() {
+        // In case the view was being pointed at and then destroyed
+        this.dispatchEvent("pointerout", undefined);
+
         this._group.destroy();
     }
 

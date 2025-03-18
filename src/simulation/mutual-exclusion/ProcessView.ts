@@ -18,7 +18,7 @@ interface Options {
     container: Konva.Container;
     start: Point;
 
-    identifiers: { [process: string]: (container: Konva.Container) => IdentifierView };
+    getIdentifier: (process: string, container: Konva.Container) => IdentifierView;
 
     styles: Styles;
 }
@@ -53,7 +53,7 @@ export class ProcessView extends View<ProcessModel, Events> {
         });
         options.container.add(this._group);
 
-        this._identifier = options.identifiers[model.identifier](this._group);
+        this._identifier = options.getIdentifier(model.identifier, this._group);
         this._identifier.x(25);
         this._identifier.y(0);
 
@@ -61,7 +61,7 @@ export class ProcessView extends View<ProcessModel, Events> {
             container: this._group,
             end: new Point(40, 0),
             styles: options.styles,
-            identifiers: options.identifiers,
+            getIdentifier: options.getIdentifier,
         });
 
         this.lock = new LockView({
@@ -86,7 +86,7 @@ export class ProcessView extends View<ProcessModel, Events> {
         this.requestQueue = new RequestQueueView(model.requests, {
             container: this._group,
             start: new Point(90, 0),
-            getIdentifier: (process, container) => options.identifiers[process](container),
+            getIdentifier: options.getIdentifier,
             styles: {
                 color: options.styles.color,
                 backgroundColor: options.styles.backgroundColor,

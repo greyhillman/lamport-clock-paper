@@ -13,7 +13,7 @@ interface Options {
     container: Konva.Container;
     end: Point;
 
-    identifiers: { [process: string]: (container: Konva.Container) => IdentifierView };
+    getIdentifier: (process: string, container: Konva.Container) => IdentifierView;
 
     styles: Styles;
 }
@@ -30,8 +30,6 @@ export class PendingQueueView extends View<PendingQueueModel, Events> {
 
     messages: { [process: string]: PendingMessageView };
 
-    private _identifiers: { [process: string]: (container: Konva.Container) => IdentifierView };
-
     constructor(model: PendingQueueModel, options: Options) {
         super(model);
 
@@ -44,15 +42,13 @@ export class PendingQueueView extends View<PendingQueueModel, Events> {
 
         this.messages = {};
 
-        this._identifiers = options.identifiers;
-
         model.addListener("latest", data => {
             if (data.message) {
                 const view = new PendingMessageView(data.message, {
                     container: this._group,
                     start: new Point(0, 0),
                     styles: this._styles,
-                    getIdentifier: (process, container) => this._getIdentifier(process, container),
+                    getIdentifier: options.getIdentifier,
                 });
 
                 if (data.process in this.messages) {
@@ -74,10 +70,6 @@ export class PendingQueueView extends View<PendingQueueModel, Events> {
 
             this._reorder();
         });
-    }
-
-    private _getIdentifier(process: string, container: Konva.Container): IdentifierView {
-        return this._identifiers[process](container);
     }
 
     _reorder() {

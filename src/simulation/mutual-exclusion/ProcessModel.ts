@@ -22,7 +22,7 @@ interface Options {
 
     others: string[];
 
-    initialMessage: RequestModel;
+    initialMessage: RequestModel | undefined;
 }
 
 export class ProcessModel extends Model<Events> {
@@ -160,7 +160,7 @@ export class ProcessModel extends Model<Events> {
         }
     }
 
-    reset(options: { locked: boolean, initial_message: RequestModel }) {
+    reset(options: { locked: boolean, initial_message: RequestModel | undefined }) {
         this.clock.reset();
 
         if (options.locked) {
@@ -170,7 +170,9 @@ export class ProcessModel extends Model<Events> {
         }
 
         this.requests.clear();
-        this.requests.add(options.initial_message);
+        if (options.initial_message) {
+            this.requests.add(options.initial_message);
+        }
 
         this.pending.clear();
 

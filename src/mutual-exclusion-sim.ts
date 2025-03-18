@@ -14,6 +14,9 @@ import { RequestModel } from "./simulation/mutual-exclusion/RequestModel";
 import { LockShape } from "./simulation/LockShape";
 import { IdentifierView } from "./simulation/mutual-exclusion/IdentifierView";
 import { IdentifierModel } from "./simulation/mutual-exclusion/IdentifierModel";
+import { MessageView } from "./simulation/MessageView";
+import { PendingMessageView } from "./simulation/mutual-exclusion/PendingMessageView";
+import { identifierViews, ViewStyles } from "./simulation/mutual-exclusion/rules/common";
 
 class SimulationModel extends Model {
     processes: ProcessModel[];
@@ -66,15 +69,13 @@ class SimulationModel extends Model {
     }
 }
 
-interface ViewStyles {
-    color: string;
-    highlightColor: string;
-    backgroundColor: string;
-    fontFamily: string;
-}
-
 interface SimulationEvents {
     "reset": void;
+}
+
+interface ViewOptions {
+    canvasId: string;
+    controlsId: string;
 }
 
 class SimulationView extends View<SimulationModel, SimulationEvents> {
@@ -86,10 +87,10 @@ class SimulationView extends View<SimulationModel, SimulationEvents> {
 
     processes: ProcessView[];
 
-    constructor(model: SimulationModel) {
+    constructor(model: SimulationModel, options: ViewOptions) {
         super(model);
 
-        this._canvas = document.getElementById("mutual-exclusion-simulation")! as HTMLDivElement;
+        this._canvas = document.getElementById(options.canvasId)! as HTMLDivElement;
         this._styles = this._getStyle();
 
         this._stage = new Konva.Stage({
@@ -99,57 +100,6 @@ class SimulationView extends View<SimulationModel, SimulationEvents> {
         });
         this._layer = new Konva.Layer();
         this._stage.add(this._layer);
-
-        const identifierModels = {
-            "a": new IdentifierModel("a"),
-            "b": new IdentifierModel("b"),
-            "c": new IdentifierModel("c"),
-        }
-
-        const processIdentifiers: { [process: string]: (container: Konva.Container) => IdentifierView } = {
-            "a": (container) => {
-                return new IdentifierView(identifierModels.a, {
-                    container,
-                    shape: new Konva.Circle({
-                        x: 15,
-                        y: 15,
-                        radius: 15,
-                        fill: this._styles.color,
-                    }),
-                    styles: {
-                        color: this._styles.color,
-                    },
-                });
-            },
-            "b": (container) => {
-                return new IdentifierView(identifierModels.b, {
-                    container,
-                    shape: new Konva.RegularPolygon({
-                        x: 15,
-                        y: 15,
-                        sides: 3,
-                        radius: 15,
-                        fill: this._styles.color,
-                    }),
-                    styles: {
-                        color: this._styles.color,
-                    },
-                });
-            },
-            "c": (container) => {
-                return new IdentifierView(identifierModels.c, {
-                    container,
-                    shape: new Konva.Rect({
-                        width: 30,
-                        height: 30,
-                        fill: this._styles.color,
-                    }),
-                    styles: {
-                        color: this._styles.color,
-                    },
-                });
-            },
-        }
 
         const centers = [
             new Point(5, 80),
@@ -162,7 +112,9 @@ class SimulationView extends View<SimulationModel, SimulationEvents> {
                 container: this._layer,
                 start: centers[index],
                 styles: this._styles,
-                identifiers: processIdentifiers,
+                getIdentifier: (process, container) => {
+                    return identifierViews[process](container, this._styles.color);
+                },
             });
 
             view.lock.addListener("pointerover", () => {
@@ -179,7 +131,7 @@ class SimulationView extends View<SimulationModel, SimulationEvents> {
             this._updateStyle();
         });
 
-        const formControls = document.getElementById("mutual-exclusion-simulation-controls")!;
+        const formControls = document.getElementById(options.controlsId)!;
         formControls.addEventListener("submit", event => {
             event.preventDefault(); // We're using JavaScript to respond
         });
@@ -234,5 +186,8 @@ class SimulationController extends Controller<SimulationModel, SimulationView> {
 }
 
 const model = new SimulationModel();
-const view = new SimulationView(model);
+const view = new SimulationView(model, {
+    canvasId: "mutual-exclusion-simulation",
+    controlsId: "mutual-exclusion-simulation-controls",
+});
 const controller = new SimulationController(model, view);
