@@ -7,6 +7,8 @@
 
   --highlight-color: rgb(9, 255, 0);
 
+  --clock-drift-color: blue;
+
   --font-family: NewComputerModern10, serif;
   --math-font-family: NewComputerModernMath;
 }
@@ -17,6 +19,8 @@
     --muted-font-color: #ccc;
     --link-color: #9b9bff;
     --background-color: black;
+
+    --clock-drift-color: lightblue;
   }
 }
 
@@ -408,6 +412,7 @@ button {
   background-color: transparent;
 
   box-shadow: 2px 2px 1px 1px var(--muted-font-color);
+  margin: 0 3px 3px 0;
 
   &:not(:disabled):hover {
     cursor: pointer;
@@ -425,4 +430,57 @@ button {
 
 fieldset {
   border-color: var(--muted-font-color);
+}
+
+figure#physical-clock-example,
+figure#physical-clock-speed-error,
+figure#physical-clock-system {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  &>form {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+  }
+}
+
+figure#physical-clock-system {
+  --timestamp-color: lightgrey;
+  --min-future-color: blue;
+  --current-color: var(--highlight-color);
+}
+
+figure#real-clock-theorem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#real-clock-theorem>section:first-of-type {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &>form {
+    display: flex;
+    flex-direction: row;
+    column-gap: 1em;
+    align-items: baseline;
+  }
+}
+
+form label.variable {
+  display: flex;
+  flex-direction: row;
+}
+
+form label.variable.range {
+  display: grid;
+  grid-template-areas: 'math input';
+  grid-template-columns: auto 1fr;
+  column-gap: 0.5em;
 }

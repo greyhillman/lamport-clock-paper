@@ -56,6 +56,10 @@ export class Direction {
         return Math.atan2(this.dy, this.dx);
     }
 
+    get angleDegrees(): number {
+        return this.angle * 180 / Math.PI;
+    }
+
     rotate(angle: number): Direction {
         const dx = this.dx * Math.cos(angle) - this.dy * Math.sin(angle);
         const dy = this.dx * Math.sin(angle) + this.dy * Math.cos(angle);
@@ -69,5 +73,13 @@ export class Direction {
 
     negate(): Direction {
         return new Direction(-this.dx, -this.dy);
+    }
+
+    get normal(): Direction {
+        return new Direction(-this.dy, this.dx);
+    }
+
+    normalize(): Direction {
+        return new Direction(this.dx / this.length, this.dy / this.length);
     }
 }

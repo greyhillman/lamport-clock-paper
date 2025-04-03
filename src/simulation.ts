@@ -115,7 +115,7 @@ import { ProcessClockView } from "./simulation/ProcessClockView";
         send() {
             const timestamp = this.clock.send();
 
-            const message = new MessageModel(timestamp);
+            const message = new MessageModel(timestamp, 0);
             this.messages.push(message);
 
             this.dispatchEvent("send", message);
@@ -306,7 +306,7 @@ import { ProcessClockView } from "./simulation/ProcessClockView";
         send() {
             const timestamp = this.sender.send();
 
-            this.message = new MessageModel(timestamp);
+            this.message = new MessageModel(timestamp, 0);
 
             this.dispatchEvent("send", this.message);
         }

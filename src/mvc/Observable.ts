@@ -24,7 +24,7 @@ export class Observable<Events = {}> {
         this._listeners[eventName].splice(index, 1);
     }
 
-    protected dispatchEvent<K extends keyof Events>(name: K, event: Events[K]) {
+    protected dispatchEvent<K extends keyof Events>(name: K, event: Events[K]): void {
         if (!(name in this._listeners)) {
             return;
         }
@@ -32,5 +32,9 @@ export class Observable<Events = {}> {
         for (const listener of this._listeners[name]) {
             listener(event);
         }
+    }
+
+    removeAllListeners(): void {
+        this._listeners = {} as EventListeners<Events>;
     }
 }
