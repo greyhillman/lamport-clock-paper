@@ -7,8 +7,11 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"postcss-nesting": "^13.0.1",
-		"lit": "^3.2.1"
+		"chart.js": "^4.4.8",
+		"chartjs-plugin-annotation": "^3.1.0",
+		"konva": "^9.3.18",
+		"lit": "^3.2.1",
+		"postcss-nesting": "^13.0.1"
 	},
 	"devDependencies": {
 		"typescript": "^5.7.2",

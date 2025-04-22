@@ -11,9 +11,10 @@
 
 
 
+
     <title>Time, Clocks, and the Ordering of Events in a Distributed System</title>
-  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-vbGBTBki.js"></script>
-  <link rel="stylesheet" crossorigin href="/lamport-clock-paper/assets/index-De0oOJ1U.css">
+  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-DRJ2zSIS.js"></script>
+  <link rel="stylesheet" crossorigin href="/lamport-clock-paper/assets/index-CncOAhcA.css">
 </head>
 
 <body>
@@ -973,69 +974,12 @@
             <ol start="1" class="implementation-rule">
                 <li id="implementation-rule-1">
                     <template-use template-id="implementation-rule-1-template"></template-use>
-                    <ul class="visual example">
-                        <li>
-                            <figure>
-                                <svg class="space-time" viewBox="0 0 60 60">
-                                    <defs>
-                                        <marker
-                                            id="arrow"
-                                            viewBox="0 0 10 10"
-                                            refX="8"
-                                            refY="5"
-                                            markerWidth="5"
-                                            markerHeight="5"
-                                            orient="auto">
-                                            <path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" />
-                                        </marker>
-                                        <marker
-                                            id="message"
-                                            viewBox="-5 -5 10 10"
-                                            refX="0"
-                                            refY="0"
-                                            markerWidth="7"
-                                            markerHeight="7"
-                                            orient="auto">
-                                            <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3" stroke="context-stroke" />
-                                        </marker>
-                                    </defs>
-
-                                    <g class="tick">
-                                        <text x="20" y="15" text-anchor="middle" dominant-baseline="middle">5</text>
-                                        <polyline points="25,15 35,15" />
-                                    </g>
-                                    <g class="tick">
-                                        <text x="20" y="25" text-anchor="middle" dominant-baseline="middle">4</text>
-                                        <polyline points="25,25 35,25" />
-                                    </g>
-                                    <g class="tick">
-                                        <text x="20" y="35" text-anchor="middle" dominant-baseline="middle">3</text>
-                                        <polyline points="25,35 35,35" />
-                                    </g>
-                                    <g class="tick">
-                                        <text x="20" y="45" text-anchor="middle" dominant-baseline="middle">2</text>
-                                        <polyline points="25,45 35,45" />
-                                    </g>
-
-                                    <g class="process">
-                                        <text x="30" y="58" text-anchor="middle">sender</text>
-
-                                        <line class="segment" x1="30" y1="52" x2="30" y2="5" />
-
-                                        <g class="event">
-                                            <circle cx="30" cy="20" r="2" />
-                                        </g>
-                                        <g class="event">
-                                            <circle cx="30" cy="30" r="2" />
-                                        </g>
-                                        <g class="event">
-                                            <circle cx="30" cy="40" r="2" />
-                                        </g>
-                                    </g>
-                                </svg>
-                            </figure>
-                        </li>
-                    </ul>
+                    <figure class="visual example">
+                        <div id="implementation-rule-1-clock"></div>
+                        <form id="implementation-rule-1-controls">
+                            <button name="event">Event occurs</button>
+                        </form>
+                    </figure>
                 </li>
             </ol>
             <p>
@@ -1068,238 +1012,33 @@
                     <ol type="a">
                         <li id="implementation-rule-2-a">
                             <template-use template-id="implementation-rule-2-a-template"></template-use>
-                            <ul class="visual example">
-                                <li>
-                                    <figure>
-                                        <svg class="space-time" viewBox="0 0 60 60">
-                                            <defs>
-                                                <marker
-                                                    id="arrow"
-                                                    viewBox="0 0 10 10"
-                                                    refX="8"
-                                                    refY="5"
-                                                    markerWidth="5"
-                                                    markerHeight="5"
-                                                    orient="auto">
-                                                    <path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" />
-                                                </marker>
-                                                <marker
-                                                    id="message"
-                                                    viewBox="-5 -5 10 10"
-                                                    refX="0"
-                                                    refY="0"
-                                                    markerWidth="7"
-                                                    markerHeight="7"
-                                                    orient="auto">
-                                                    <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3" stroke="context-stroke" />
-                                                </marker>
-                                            </defs>
-
-                                            <g class="tick">
-                                                <text x="5" y="15" text-anchor="middle" dominant-baseline="middle">5</text>
-                                                <polyline points="10,15 20,15" />
-                                            </g>
-                                            <g class="tick">
-                                                <text x="5" y="25" text-anchor="middle" dominant-baseline="middle">4</text>
-                                                <polyline points="10,25 20,25" />
-                                            </g>
-                                            <g class="tick">
-                                                <text x="5" y="35" text-anchor="middle" dominant-baseline="middle">3</text>
-                                                <polyline points="10,35 20,35" />
-                                            </g>
-                                            <g class="tick">
-                                                <text x="5" y="45" text-anchor="middle" dominant-baseline="middle">2</text>
-                                                <polyline points="10,45 20,45" />
-                                            </g>
-
-                                            <g class="process">
-                                                <text x="15" y="58" text-anchor="middle">sender</text>
-
-                                                <line class="segment" x1="15" y1="52" x2="15" y2="5" />
-
-                                                <g class="event">
-                                                    <circle cx="15" cy="20" r="2" />
-                                                </g>
-                                                <g class="event">
-                                                    <circle cx="15" cy="30" r="2" />
-                                                </g>
-                                                <g class="event">
-                                                    <circle cx="15" cy="40" r="2" />
-                                                </g>
-                                            </g>
-
-                                            <g class="send message">
-                                                <line x1="15" y1="30" x2="30" y2="25" />
-                                                <foreignObject class="label" x="35" y="20" width="50" height="25">
-                                                    <math>
-                                                        <msub>
-                                                            <mi>T</mi>
-                                                            <mi>m</mi>
-                                                        </msub>
-                                                        <mo>=</mo>
-                                                        <mn>3</mn>
-                                                    </math>
-                                                </foreignObject>
-                                            </g>
-                                        </svg>
-                                    </figure>
-                                </li>
-                            </ul>
+                            <figure class="visual example">
+                                <div id="implementation-rule-2a-canvas"></div>
+                                <form id="implementation-rule-2a-controls">
+                                    <button name="event">Event occurs</button>
+                                    <button name="send">Send message</button>
+                                </form>
+                            </figure>
                         </li>
                         <li id="implementation-rule-2-b">
                             <template-use template-id="implementation-rule-2-b-template"></template-use>
-                            <ul class="visual example">
-                                <li>
-                                    <figure>
-                                        <svg class="space-time" viewBox="0 0 60 60">
-                                            <defs>
-                                                <marker
-                                                    id="arrow"
-                                                    viewBox="0 0 10 10"
-                                                    refX="8"
-                                                    refY="5"
-                                                    markerWidth="5"
-                                                    markerHeight="5"
-                                                    orient="auto">
-                                                    <path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" />
-                                                </marker>
-                                                <marker
-                                                    id="message"
-                                                    viewBox="-5 -5 10 10"
-                                                    refX="0"
-                                                    refY="0"
-                                                    markerWidth="7"
-                                                    markerHeight="7"
-                                                    orient="auto">
-                                                    <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3" stroke="context-stroke" />
-                                                </marker>
-                                            </defs>
+                            <figure class="visual example">
+                                <div id="implementation-rule-2b-canvas"></div>
+                                <form id="implementation-rule-2b-controls">
+                                    <fieldset name="sender">
+                                        <legend>Sender</legend>
 
-                                            <g class="tick">
-                                                <text x="55" y="15" text-anchor="middle" dominant-baseline="middle">9</text>
-                                                <polyline points="40,15 50,15" />
-                                            </g>
-                                            <g class="tick">
-                                                <text x="55" y="25" text-anchor="middle" dominant-baseline="middle">8</text>
-                                                <polyline points="40,25 50,25" />
-                                            </g>
-                                            <g class="tick">
-                                                <text x="55" y="35" text-anchor="middle" dominant-baseline="middle">3</text>
-                                                <polyline points="40,35 50,35" />
-                                            </g>
-                                            <g class="tick">
-                                                <text x="55" y="45" text-anchor="middle" dominant-baseline="middle">2</text>
-                                                <polyline points="40,45 50,45" />
-                                            </g>
+                                        <button name="event">Event occurs</button>
+                                        <button name="send">Send message</button>
+                                    </fieldset>
+                                    <fieldset name="receiver">
+                                        <legend>Receiver</legend>
 
-                                            <g class="process">
-                                                <text x="45" y="58" text-anchor="middle">sender</text>
-
-                                                <line class="segment" x1="45" y1="52" x2="45" y2="5" />
-
-                                                <g class="event">
-                                                    <circle cx="45" cy="20" r="2" />
-                                                </g>
-                                                <g class="event">
-                                                    <circle cx="45" cy="30" r="2" />
-                                                </g>
-                                                <g class="event">
-                                                    <circle cx="45" cy="40" r="2" />
-                                                </g>
-                                            </g>
-
-                                            <g class="message receive">
-                                                <line x1="30" y1="28" x2="45" y2="30" />
-                                                <foreignObject class="label" x="5" y="20" width="50" height="25">
-                                                    <math>
-                                                        <msub>
-                                                            <mi>T</mi>
-                                                            <mi>m</mi>
-                                                        </msub>
-                                                        <mo>=</mo>
-                                                        <mn>6</mn>
-                                                    </math>
-                                                </foreignObject>
-                                            </g>
-                                        </svg>
-                                    </figure>
-                                </li>
-                                <li>
-                                    <figure>
-                                        <svg class="space-time" viewBox="0 0 60 60">
-                                            <defs>
-                                                <marker
-                                                    id="arrow"
-                                                    viewBox="0 0 10 10"
-                                                    refX="8"
-                                                    refY="5"
-                                                    markerWidth="5"
-                                                    markerHeight="5"
-                                                    orient="auto">
-                                                    <path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" />
-                                                </marker>
-                                                <marker
-                                                    id="message"
-                                                    viewBox="-5 -5 10 10"
-                                                    refX="0"
-                                                    refY="0"
-                                                    markerWidth="7"
-                                                    markerHeight="7"
-                                                    orient="auto">
-                                                    <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3" stroke="context-stroke" />
-                                                </marker>
-                                            </defs>
-
-                                            <g class="tick">
-                                                <text x="55" y="15" text-anchor="middle" dominant-baseline="middle">8</text>
-                                                <polyline points="40,15 50,15" />
-                                            </g>
-                                            <g class="tick">
-                                                <text x="55" y="25" text-anchor="middle" dominant-baseline="middle">7</text>
-                                                <polyline points="40,25 50,25" />
-                                            </g>
-                                            <g class="tick">
-                                                <text x="55" y="35" text-anchor="middle" dominant-baseline="middle">6</text>
-                                                <polyline points="40,35 50,35" />
-                                            </g>
-                                            <g class="tick">
-                                                <text x="55" y="45" text-anchor="middle" dominant-baseline="middle">5</text>
-                                                <polyline points="40,45 50,45" />
-                                            </g>
-
-                                            <g class="process">
-                                                <text x="45" y="58" text-anchor="middle">sender</text>
-
-                                                <line class="segment" x1="45" y1="52" x2="45" y2="5" />
-
-                                                <g class="event">
-                                                    <circle cx="45" cy="20" r="2" />
-                                                </g>
-                                                <g class="event">
-                                                    <circle cx="45" cy="30" r="2" />
-                                                </g>
-                                                <g class="event">
-                                                    <circle cx="45" cy="40" r="2" />
-                                                </g>
-                                            </g>
-
-                                            <g class="message receive">
-                                                <line x1="30" y1="28" x2="45" y2="30" />
-                                                <foreignObject class="label" x="5" y="20" width="50" height="25">
-                                                    <math>
-                                                        <msub>
-                                                            <mi>T</mi>
-                                                            <mi>m</mi>
-                                                        </msub>
-                                                        <mo>=</mo>
-                                                        <mn>4</mn>
-                                                    </math>
-                                                </foreignObject>
-                                            </g>
-                                        </svg>
-                                    </figure>
-                                </li>
-                            </ul>
+                                        <button name="event">Event occurs</button>
+                                        <button name="receive" disabled>Receive message</button>
+                                    </fieldset>
+                                </form>
+                            </figure>
                         </li>
                     </ol>
                 </li>
@@ -1834,6 +1573,7 @@
                     Each process maintains its own <em>request queue</em> which is never seen by any
                     other process. We assume that the request queues initially contain the single message <math>
                         <mrow>
+                            <mo>"</mo>
                             <msub title="value less than the initial value of any clock">
                                 <mi>T</mi>
                                 <mn>0</mn>
@@ -1843,7 +1583,8 @@
                                 <mi>P</mi>
                                 <mn>0</mn>
                             </msub>
-                            <mtext> requests resource</mtext>
+                            <mtext>&nbsp;requests resource</mtext>
+                            <mo>"</mo>
                         </mrow>
                     </math>, where <math>
                         <msub title="process initially granted the resource">
@@ -1873,6 +1614,7 @@
                             </math> sends
                             the message <math>
                                 <mrow>
+                                    <mo>"</mo>
                                     <msub title="the message's timestamp">
                                         <mi>T</mi>
                                         <mi>m</mi>
@@ -1882,7 +1624,8 @@
                                         <mi>P</mi>
                                         <mi>i</mi>
                                     </msub>
-                                    <mtext>requests resource</mtext>
+                                    <mtext>&nbsp;requests resource</mtext>
+                                    <mo>"</mo>
                                 </mrow>
                             </math> to every other process, and puts that message on its request queue, where <math>
                                 <msub title="the message's timestamp">
@@ -2304,6 +2047,44 @@
                     <mi title="a physical time">t</mi>
                 </math>.
             </p>
+            <figure id="physical-clock-example" class="visual example">
+                <div class="konva canvas"></div>
+                <form>
+                    <label>
+                        <math>
+                            <mfrac title="the clock speed">
+                                <mrow>
+                                    <mo>d</mo>
+                                    <msub>
+                                        <mi>C</mi>
+                                        <mi>i</mi>
+                                    </msub>
+                                    <mo>(</mo>
+                                    <mi title="physical time">t</mi>
+                                    <mo>)</mo>
+                                </mrow>
+                                <mo>dt</mo>
+                            </mfrac>
+                            <mo>=</mo>
+                            <mn data-var="speed">1.0</mn>
+                        </math>
+                        <input name="speed" type="range" min="0.8" max="1.2" step="0.01" value="1.0" />
+                    </label>
+                    <label>
+                        <math>
+                            <mi title="physical time">t</mi>
+                            <mo>=</mo>
+                            <mn data-var="time">0.0s</mn>
+                        </math>
+                    </label>
+                    <fieldset>
+                        <button name="play">Play</button>
+                        <button disabled name="pause">Pause</button>
+                        <button type="reset">Reset</button>
+                    </fieldset>
+                </form>
+                <figcaption>Example of a physical clock</figcaption>
+            </figure>
             <p>
                 In order for the clock <math>
                     <msub title="a clock">
@@ -2350,6 +2131,52 @@
                     </mrow>
                 </math>.
             </p>
+            <figure id="physical-clock-speed-error" class="visual example">
+                <div class="konva canvas"></div>
+                <form>
+                    <label>
+                        <math>
+                            <mfrac title="the clock speed">
+                                <mrow>
+                                    <mo>d</mo>
+                                    <msub>
+                                        <mi>C</mi>
+                                        <mi>i</mi>
+                                    </msub>
+                                    <mo>(</mo>
+                                    <mi title="physical time">t</mi>
+                                    <mo>)</mo>
+                                </mrow>
+                                <mo>dt</mo>
+                            </mfrac>
+                            <mo>=</mo>
+                            <mn data-var="speed">1.0</mn>
+                        </math>
+                        <input name="speed" type="range" min="0.8" max="1.2" step="0.01" value="1.0" />
+                    </label>
+                    <label>
+                        <math>
+                            <mi title="maximum clock speed error">&#x3BA;</mi>
+                            <mo>=</mo>
+                            <mn data-var="speed error">0.2</mn>
+                        </math>
+                        <input name="speed error" type="range" min="0" max="0.5" step="0.01" value="0.2" />
+                    </label>
+                    <label>
+                        <math>
+                            <mi title="physical time">t</mi>
+                            <mo>=</mo>
+                            <mn data-var="time">0.0s</mn>
+                        </math>
+                    </label>
+                    <fieldset>
+                        <button name="play">Play</button>
+                        <button disabled name="pause">Pause</button>
+                        <button type="reset">Reset</button>
+                    </fieldset>
+                </form>
+                <figcaption>Example of a physical clock</figcaption>
+            </figure>
             <p>
                 It is not enough for the clocks individually to run at approximately the correct rate. They must
                 be synchronized so that <math>
@@ -2404,6 +2231,81 @@
                     <mi title="maximum clock drift">&#x3B5;</mi>
                 </math>.
             </p>
+            <figure id="physical-clock-simple-system" class="visaul example">
+                <div class="konva canvas"></div>
+                <form>
+                    <fieldset>
+                        <legend>Clock 1</legend>
+                        <label>
+                            <math>
+                                <mfrac title="the first clock speed">
+                                    <mrow>
+                                        <mo>d</mo>
+                                        <msub>
+                                            <mi>C</mi>
+                                            <mn>1</mn>
+                                        </msub>
+                                        <mo>(</mo>
+                                        <mi>t</mi>
+                                        <mo>)</mo>
+                                    </mrow>
+                                    <mo>dt</mo>
+                                </mfrac>
+                                <mo>=</mo>
+                                <mn data-var="speed-1">1.00</mn>
+                            </math>
+                            <input name="speed-1" type="range" min="0.8" max="1.2" step="0.01" value="1.00" />
+                        </label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Clock 2</legend>
+                        <label>
+                            <math>
+                                <mfrac title="the second clock speed">
+                                    <mrow>
+                                        <mo>d</mo>
+                                        <msub>
+                                            <mi>C</mi>
+                                            <mn>2</mn>
+                                        </msub>
+                                        <mo>(</mo>
+                                        <mi>t</mi>
+                                        <mo>)</mo>
+                                    </mrow>
+                                    <mo>dt</mo>
+                                </mfrac>
+                                <mo>=</mo>
+                                <mn data-var="speed-2">1.00</mn>
+                            </math>
+                            <input name="speed-2" type="range" min="0.8" max="1.2" step="0.01" value="1.00" />
+                        </label>
+                    </fieldset>
+                    <label>
+                        <math>
+                            <mi title="maximum clock speed error">&#x3BA;</mi>
+                            <mo>=</mo>
+                            <mn data-var="speed error">0.2</mn>
+                        </math>
+                        <input name="speed error" type="range" min="0" max="0.5" step="0.01" value="0.2" />
+                    </label>
+                    <label>
+                        <math>
+                            <mi title="physical time">t</mi>
+                            <mo>=</mo>
+                            <mn data-var="time">0.0s</mn>
+                        </math>
+                    </label>
+                    <fieldset>
+                        <button name="play">Play</button>
+                        <button disabled name="pause">Pause</button>
+                        <button type="reset">Reset</button>
+                    </fieldset>
+                </form>
+                <figcaption>
+                    Example of two independent physical clocks.
+                    Hover over a clock to see the other's time.
+                </figcaption>
+            </figure>
             <p>
                 Since two different clocks will never run at exactly
                 the same rate, they will tend to drift further and further
@@ -2450,112 +2352,108 @@
                 </math>.
                 Hence, we need only consider events occurring in different processes.
             </p>
-            <ul class="visual">
-                <li>
-                    <p>
-                        Let <math>
-                            <mi title="minimum causal delay">&#x3BC;</mi>
-                        </math> be a number such that if event <math>
-                            <mi title="the first event">a</mi>
-                        </math> occurs
-                        at physical time <math>
-                            <mi title="physical time when the first event occurred">t</mi>
-                        </math> and event <math>
-                            <mi title="the second event">b</mi>
-                        </math> in another
-                        process satisfies <math>
-                            <mrow>
-                                <mi title="the first event">a</mi>
-                                <mo title="relevant happened-before">&#x27A1;</mo>
-                                <mi title="the second event">b</mi>
-                            </mrow>
-                        </math>, then <math>
-                            <mi title="the second event">b</mi>
-                        </math> occurs later than physical time <math>
-                            <mrow title="the minimum physical time for the second event to occur">
-                                <mi title="the physical time when the first even happened">t</mi>
-                                <mo>+</mo>
-                                <mi title="minimum causal delay">&#x3BC;</mi>
-                            </mrow>
-                        </math>.
-                    </p>
-                    <figure>
-                        <svg class="space-time" viewBox="0 0 65 60">
-                            <line class="tick" x1="10" y1="45" x2="50" y2="45" />
+            <p>
+                Let <math>
+                    <mi title="minimum causal delay">&#x3BC;</mi>
+                </math> be a number such that if event <math>
+                    <mi title="the first event">a</mi>
+                </math> occurs
+                at physical time <math>
+                    <mi title="physical time when the first event occurred">t</mi>
+                </math> and event <math>
+                    <mi title="the second event">b</mi>
+                </math> in another
+                process satisfies <math>
+                    <mrow>
+                        <mi title="the first event">a</mi>
+                        <mo title="relevant happened-before">&#x27A1;</mo>
+                        <mi title="the second event">b</mi>
+                    </mrow>
+                </math>, then <math>
+                    <mi title="the second event">b</mi>
+                </math> occurs later than physical time <math>
+                    <mrow title="the minimum physical time for the second event to occur">
+                        <mi title="the physical time when the first even happened">t</mi>
+                        <mo>+</mo>
+                        <mi title="minimum causal delay">&#x3BC;</mi>
+                    </mrow>
+                </math>.
+            </p>
+            <figure>
+                <svg class="space-time" viewBox="0 0 65 60">
+                    <line class="tick" x1="10" y1="45" x2="50" y2="45" />
 
-                            <g class="process">
-                                <text x="10" y="58" text-anchor="middle">sender</text>
+                    <g class="process">
+                        <text x="10" y="58" text-anchor="middle">sender</text>
 
-                                <line class="segment" x1="10" x2="10" y1="50" y2="5" />
+                        <line class="segment" x1="10" x2="10" y1="50" y2="5" />
 
-                                <g class="event">
-                                    <circle cx="10" cy="45" r="2" />
-                                    <foreignObject class="label" x="3" y="40" width="8" height="10">
-                                        <math>
-                                            <mi>a</mi>
-                                        </math>
-                                    </foreignObject>
-                                </g>
-                            </g>
-                            <g class="process">
-                                <text x="50" y="58" text-anchor="middle">receiver</text>
+                        <g class="event">
+                            <circle cx="10" cy="45" r="2" />
+                            <foreignObject class="label" x="3" y="40" width="8" height="10">
+                                <math>
+                                    <mi>a</mi>
+                                </math>
+                            </foreignObject>
+                        </g>
+                    </g>
+                    <g class="process">
+                        <text x="50" y="58" text-anchor="middle">receiver</text>
 
-                                <line class="segment" x1="50" x2="50" y1="50" y2="5" />
+                        <line class="segment" x1="50" x2="50" y1="50" y2="5" />
 
-                                <g class="event ghost">
-                                    <circle cx="50" cy="45" r="2" />
-                                    <foreignObject class="label" x="57" y="40" width="8" height="10">
-                                        <math>
-                                            <mi>t</mi>
-                                        </math>
-                                    </foreignObject>
-                                </g>
+                        <g class="event ghost">
+                            <circle cx="50" cy="45" r="2" />
+                            <foreignObject class="label" x="57" y="40" width="8" height="10">
+                                <math>
+                                    <mi>t</mi>
+                                </math>
+                            </foreignObject>
+                        </g>
 
-                                <g class="event">
-                                    <circle cx="50" cy="15" r="2" />
-                                    <foreignObject class="label" x="53" y="10" width="8" height="10">
-                                        <math>
-                                            <mi>b</mi>
-                                        </math>
-                                    </foreignObject>
-                                </g>
+                        <g class="event">
+                            <circle cx="50" cy="15" r="2" />
+                            <foreignObject class="label" x="53" y="10" width="8" height="10">
+                                <math>
+                                    <mi>b</mi>
+                                </math>
+                            </foreignObject>
+                        </g>
 
-                                <foreignObject class="label" x="58" y="29" width="8" height="10">
-                                    <math>
-                                        <mi>&#x3BC;</mi>
-                                    </math>
-                                </foreignObject>
+                        <foreignObject class="label" x="58" y="29" width="8" height="10">
+                            <math>
+                                <mi>&#x3BC;</mi>
+                            </math>
+                        </foreignObject>
 
-                                <polyline class="period" points="
-                                    52,25 55,25
-                                    55,35 57,35 55,35
-                                    55,45 52,45" />
-                            </g>
+                        <polyline class="period" points="
+                            52,25 55,25
+                            55,35 57,35 55,35
+                            55,45 52,45" />
+                    </g>
 
-                            <g class="message">
-                                <path class="link" d="M 10,45 L 50,15" />
-                                <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
-                                    <animateMotion
-                                        dur="2000ms"
-                                        keyPoints="0.1; 0.9"
-                                        keyTimes="0; 1"
-                                        repeatCount="indefinite"
-                                        calcMode="linear"
-                                        fill="freeze"
-                                        rotate="auto"
-                                        path="M 10,45 L 50,15" />
-                                    <animate
-                                        attributeName="opacity"
-                                        values="0; 1; 1; 0"
-                                        keyTimes="0; 0.3; 0.7; 1"
-                                        dur="2000ms"
-                                        repeatCount="indefinite" />
-                                </path>
-                            </g>
-                        </svg>
-                    </figure>
-                </li>
-            </ul>
+                    <g class="message">
+                        <path class="link" d="M 10,45 L 50,15" />
+                        <path d="M -4,-3 h 8 v 6 h -8 v -6 l 4,3 l 4,-3">
+                            <animateMotion
+                                dur="2000ms"
+                                keyPoints="0.1; 0.9"
+                                keyTimes="0; 1"
+                                repeatCount="indefinite"
+                                calcMode="linear"
+                                fill="freeze"
+                                rotate="auto"
+                                path="M 10,45 L 50,15" />
+                            <animate
+                                attributeName="opacity"
+                                values="0; 1; 1; 0"
+                                keyTimes="0; 0.3; 0.7; 1"
+                                dur="2000ms"
+                                repeatCount="indefinite" />
+                        </path>
+                    </g>
+                </svg>
+            </figure>
             <p>
                 In other words, <math>
                     <mi title="the minimum causal delay">&#x3BC;</mi>
@@ -2792,6 +2690,56 @@
                     </mrow>
                 </math> the <em>unpredictable delay</em> of the message.
             </p>
+            <figure class="visual example">
+                <svg viewBox="0 20 100 65">
+                    <line x1="0" x2="100" y1="50" y2="50" />
+                    <circle cx="10" cy="50" r="3" />
+                    <circle cx="90" cy="50" r="3" />
+
+                    <path d="M 10,40 v -10 h 80 v 10" />
+                    <path d="M 10,60 v 10 h 50 v -10" />
+                    <path d="M 60,60 v 10 h 30 v -10" />
+
+                    <foreignObject x="5" y="38" width="10" height="10">
+                        <math>
+                            <mi>t</mi>
+                        </math>
+                    </foreignObject>
+                    <foreignObject x="93" y="38" width="10" height="10">
+                        <math>
+                            <mi>t</mi>
+                            <mo>&#x2032;</mo>
+                        </math>
+                    </foreignObject>
+
+                    <foreignObject x="45" y="18" width="10" height="10">
+                        <math>
+                            <msub>
+                                <mi>v</mi>
+                                <mi>m</mi>
+                            </msub>
+                        </math>
+                    </foreignObject>
+
+                    <foreignObject x="75" y="70" width="10" height="10">
+                        <math>
+                            <msub>
+                                <mi>&#x3BE;</mi>
+                                <mi>m</mi>
+                            </msub>
+                        </math>
+                    </foreignObject>
+
+                    <foreignObject x="35" y="70" width="10" height="10">
+                        <math>
+                            <msub>
+                                <mi>&#x3BC;</mi>
+                                <mi>m</mi>
+                            </msub>
+                        </math>
+                    </foreignObject>
+                </svg>
+            </figure>
             <p>
                 We now specialize rules <inline-details>
                     <span slot="summary">IR1</span>
@@ -2817,6 +2765,99 @@
                     </ol>
                 </li>
             </ol>
+            <figure class="visual example" id="physical-clock-system">
+                <div class="konva canvas"></div>
+                <form>
+                    <fieldset>
+                        <legend>Clock 1</legend>
+                        <math>
+                            <mfrac title="the first clock speed">
+                                <mrow>
+                                    <mo>d</mo>
+                                    <msub>
+                                        <mi>C</mi>
+                                        <mn>1</mn>
+                                    </msub>
+                                    <mo>(</mo>
+                                    <mi>t</mi>
+                                    <mo>)</mo>
+                                </mrow>
+                                <mo>dt</mo>
+                            </mfrac>
+                            <mo>=</mo>
+                            <mn data-var="speed 1">1.00</mn>
+                        </math>
+                        <button name="send 1">Send message</button>
+                        <button name="receive 1">Receive message</button>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Clock 2</legend>
+                        <math>
+                            <mfrac title="the second clock speed">
+                                <mrow>
+                                    <mo>d</mo>
+                                    <msub>
+                                        <mi>C</mi>
+                                        <mn>2</mn>
+                                    </msub>
+                                    <mo>(</mo>
+                                    <mi>t</mi>
+                                    <mo>)</mo>
+                                </mrow>
+                                <mo>dt</mo>
+                            </mfrac>
+                            <mo>=</mo>
+                            <mn data-var="speed 2">1.20</mn>
+                        </math>
+                        <button name="send 2">Send message</button>
+                        <button name="receive 2">Receive message</button>
+                    </fieldset>
+                    <label>
+                        <math>
+                            <msub title="the minimum delay of a message">
+                                <mi>&#x3BC;</mi>
+                                <mi>m</mi>
+                            </msub>
+                            <mo>=</mo>
+                            <mn data-var="min delay">0.20s</mn>
+                        </math>
+                        <input name="min delay" type="range" min="0" max="1" step="0.01" value="0.2" />
+                    </label>
+                    <label>
+                        <math>
+                            <msub title="the unpredictable delay of a message">
+                                <mi>&#x3BE;</mi>
+                                <mi>m</mi>
+                            </msub>
+                            <mo>=</mo>
+                            <mn data-var="unpredictable delay">0.20s</mn>
+                        </math>
+                        <input name="unpredictable delay" type="range" min="0" max="1" step="0.01" value="0.2" />
+                    </label>
+                    <label>
+                        <math>
+                            <mi title="physical time">t</mi>
+                            <mo>=</mo>
+                            <mn data-var="time">0.0s</mn>
+                        </math>
+                    </label>
+                    <label>
+                        <math>
+                            <mi title="maximum clock speed error">&#x3BA;</mi>
+                            <mo>=</mo>
+                            <mn>0.2</mn>
+                        </math>
+                    </label>
+                    <fieldset>
+                        <button name="play">Play</button>
+                        <button name="pause" disabled>Pause</button>
+                        <button type="reset">Reset</button>
+                    </fieldset>
+                </form>
+                <figcaption>
+                    Simulation of two physical clocks sending & receiving messages.
+                </figcaption>
+            </figure>
             <p>
                 Although the rules are formally specified in terms of
                 the physical time parameter, a process only needs to
@@ -3065,6 +3106,115 @@
                     </math>.
                 </p>
             </section>
+            <figure class="visual example" id="real-clock-theorem">
+                <section>
+                    <div class="konva canvas"></div>
+                    <form>
+                        <button name="randomize">Randomize</button>
+                        <math>
+                            <mi>d</mi>
+                            <mo>=</mo>
+                            <mn data-var="diameter">0</mn>
+                        </math>
+                    </form>
+                </section>
+
+                <section>
+                    <form>
+                        <fieldset>
+                            <label class="variable range">
+                                <math>
+                                    <mi title="maximum minimum message delay">&#x3BC;</mi>
+                                    <mo>=</mo>
+                                    <mn data-var="maximum minimum message delay">0.20s</mn>
+                                </math>
+                                <input name="minimum delay" type="range" value="0.20" min="0" max="3" step="0.01" />
+                            </label>
+                            <label class="variable range">
+                                <math>
+                                    <mi title="neighbour period">&#x1D70F;</mi>
+                                    <mo>=</mo>
+                                    <mn data-var="neighbour period">1.0s</mn>
+                                </math>
+                                <input name="neighbour period" type="range" value="1.0" min="0.1" max="10.0" step="0.1" />
+                            </label>
+                            <label class="variable range">
+                                <math>
+                                    <mi title="maximum unpredictable delay">&#x3BE;</mi>
+                                    <mo>=</mo>
+                                    <mn data-var="unpredictable delay">1.0s</mn>
+                                </math>
+                                <input name="unpredictable delay" type="range" value="1.0" min="0.0" max="10.0" step="0.1" />
+                            </label>
+                            <label class="variable range">
+                                <math>
+                                    <mi title="maximum clock speed error">&#x3BA;</mi>
+                                    <mo>=</mo>
+                                    <mn data-var="maximum clock speed error">0.20</mn>
+                                </math>
+                                <input name="maximum clock speed error" type="range" value="0.20" min="0" max="0.99" step="0.01" />
+                            </label>
+                        </fieldset>
+
+                        <section>
+                            <math>
+                                <mrow>
+                                    <mi title="maximum clock drift">&#x3B5;</mi>
+                                    <mo>&#x2248;</mo>
+                                    <mi title="diameter">d</mi>
+                                    <mo>(</mo>
+                                    <mn>2</mn>
+                                    <mi title="maximum clock speed error">&#x3BA;</mi>
+                                    <mi title="neighbour period">&#x1D70F;</mi>
+                                    <mo>+</mo>
+                                    <mi title="maximum unpredictable delay">&#x3BE;</mi>
+                                    <mo>)</mo>
+                                    <mo>=</mo>
+                                    <mn data-var="expected clock drift">0.00</mn>
+                                </mrow>
+                            </math> for all <math>
+                                <mrow>
+                                    <mi title="physical time">t</mi>
+                                    <mo>&#x2265;</mo>
+                                    <msub title="initial physical time">
+                                        <mi>t</mi>
+                                        <mn>0</mn>
+                                    </msub>
+                                    <mo>+</mo>
+                                    <mi title="neighbour period">&#x1D70F;</mi>
+                                    <mi title="diameter">d</mi>
+                                    <mo>=</mo>
+                                    <mn data-var="convergence time">0.00</mn>
+                                </mrow>
+                            </math>, where the approximations assume <math>
+                                <mrow>
+                                    <mi title="minimum causal delay">&#x3BC;</mi>
+                                    <mo>+</mo>
+                                    <mi title="maximum unpredictable delay">&#x3BE;</mi>
+                                    <mo>&#x226A;</mo>
+                                    <mi title="neighbour period">&#x1D70F;</mi>
+                                </mrow>
+                            </math>.
+                        </section>
+
+                        <fieldset class="button">
+                            <button name="play">Play</button>
+                            <button name="pause" disabled>Pause</button>
+                            <button name="reset" type="reset">Reset</button>
+
+                            <math>
+                                <mi>t</mi>
+                                <mo>=</mo>
+                                <mn data-var="time">0.0s</mn>
+                            </math>
+                        </fieldset>
+                    </form>
+
+                    <canvas id="real-clock-theorem-drift" class="chart" width="500px"></canvas>
+                </section>
+
+                <figcaption>Simulation of a network of clocks synchronizing.</figcaption>
+            </figure>
             <p>
                 The proof of this theorem is surprisingly difficult, and is given in the Appendix.
                 There has been a great deal of work done on the problem of synchronizing physical
@@ -4829,7 +4979,7 @@
 
     <footer id="feedback">
         <span>
-            Edited by <a href="https://github.com/greyhillman">Grey Hill</a>
+            Edited? by <a href="https://github.com/greyhillman">Grey Hill</a>
         </span>
         <a class="icon" href="https://github.com/greyhillman/lamport-clock-paper">Source code</a>
         <a class="icon" href="https://github.com/greyhillman/lamport-clock-paper/issues">Submit correction</a>
@@ -5380,6 +5530,7 @@
                     <mi>j</mi>
                 </msub>
             </math> receives the message <math>
+                <mo>"</mo>
                 <mrow>
                     <msub title="the message's timestamp">
                         <mi>T</mi>
@@ -5390,8 +5541,9 @@
                         <mi>P</mi>
                         <mi>i</mi>
                     </msub>
-                    <mtext>requests resource</mtext>
+                    <mtext>&nbsp;requests resource</mtext>
                 </mrow>
+                <mo>"</mo>
             </math>, it places it on its request queue
             and sends a (timestamped) acknowledgement message to <math>
                 <msub title="the requesting process">
@@ -5419,6 +5571,7 @@
             </math> removes
             any <math>
                 <mrow>
+                    <mo>"</mo>
                     <msub title="the message's timestamp">
                         <mi>T</mi>
                         <mi>m</mi>
@@ -5428,15 +5581,18 @@
                         <mi>P</mi>
                         <mi>i</mi>
                     </msub>
-                    <mtext>requests resource</mtext>
+                    <mtext>&nbsp;requests resource</mtext>
+                    <mo>"</mo>
                 </mrow>
             </math> message from its request queue and sends a (timestamped) <math>
                 <mrow>
+                    <mo>"</mo>
                     <msub title="the releasing process">
                         <mi>P</mi>
                         <mi>i</mi>
                     </msub>
-                    <mtext>releases resource</mtext>
+                    <mtext>&nbsp;releases resource</mtext>
+                    <mo>"</mo>
                 </mrow>
             </math> message to every other process.
         </p>
@@ -5459,11 +5615,12 @@
                         <mi>P</mi>
                         <mi>i</mi>
                     </msub>
-                    <mtext>releases resource</mtext>
+                    <mtext>&nbsp;releases resource</mtext>
                 </mrow>
             </math> message,
             it removes any <math>
                 <mrow>
+                    <mo>"</mo>
                     <msub title="the message's timestamp">
                         <mi>T</mi>
                         <mi>m</mi>
@@ -5473,7 +5630,8 @@
                         <mi>P</mi>
                         <mi>i</mi>
                     </msub>
-                    <mtext>requests resource</mtext>
+                    <mtext>&nbsp;requests resource</mtext>
+                    <mo>"</mo>
                 </mrow>
             </math> message from its queue.
         </p>
@@ -5487,6 +5645,7 @@
         <p>
             There is a <math>
                 <mrow>
+                    <mo>"</mo>
                     <msub title="the message's timestamp">
                         <mi>T</mi>
                         <mi>m</mi>
@@ -5496,7 +5655,8 @@
                         <mi>P</mi>
                         <mi>i</mi>
                     </msub>
-                    <mtext>requests resource</mtext>
+                    <mtext>&nbsp;requests resource</mtext>
+                    <mo>"</mo>
                 </mrow>
             </math> message in its request queue which is ordered before any other request
             in its queue by the relation <math>

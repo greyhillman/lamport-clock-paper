@@ -1,0 +1,23 @@
+svg {
+    & line {
+        stroke: var(--font-color);
+    }
+
+    & path {
+        stroke: var(--font-color);
+        fill: none;
+    }
+
+    & circle {
+        fill: var(--font-color);
+    }
+
+    & foreignObject {
+        color: var(--font-color);
+        font-size: 6px;
+
+        msub> :not(:first-child) {
+            font-size: 4px;
+        }
+    }
+}
