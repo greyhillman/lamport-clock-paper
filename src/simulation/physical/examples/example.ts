@@ -8,6 +8,7 @@ import { Point } from "../../../Point";
 import { IFrame } from "konva/lib/types";
 import { StringModel } from "../../StringModel";
 import { NumberModel } from "../../NumberModel";
+import { attachPropertyValue } from "../../css";
 
 class SimulationModel extends Model<ModelEvents> {
     clock: PhysicalClockModel;
@@ -148,24 +149,10 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
     private _getStyles(): Styles {
         const container = this._stage.container();
 
-        const raw = window.getComputedStyle(container);
-
-        const color = new StringModel(raw.getPropertyValue("--font-color"));
-        const backgroundColor = new StringModel(raw.getPropertyValue("--background-color"));
-
-        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-            const container = this._stage.container();
-
-            const raw = window.getComputedStyle(container);
-
-            color.value = raw.getPropertyValue("--font-color");
-            backgroundColor.value = raw.getPropertyValue("--background-color");
-        });
-
         return {
-            color: color,
-            backgroundColor: backgroundColor,
-        }
+            color: attachPropertyValue(container, "--font-color"),
+            backgroundColor: attachPropertyValue(container, "--background-color"),
+        };
     }
 
     private _renderTime(time: number): void {

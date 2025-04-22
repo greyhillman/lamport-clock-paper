@@ -12,6 +12,7 @@ import { NumberSliderController } from "../../NumberSlideController";
 import { NumberModel } from "../../NumberModel";
 import { StringModel } from "../../StringModel";
 import { PhysicalClockArmView } from "../PhysicalClockArmView";
+import { attachPropertyValue } from "../../css";
 
 interface ModelEvents {
     play: void;
@@ -263,39 +264,11 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
     getStyles(): Styles {
         const container = this._stage.container();
 
-        const raw = window.getComputedStyle(container);
-
-        const getValues = (raw: CSSStyleDeclaration) => {
-            return {
-                color: raw.getPropertyValue("--font-color"),
-                highlightColor: raw.getPropertyValue("--highlight-color"),
-                backgroundColor: raw.getPropertyValue("--background-color"),
-            };
-        }
-
-        const values = getValues(raw);
-
-        const color = new StringModel(values.color);
-        const highlightColor = new StringModel(values.highlightColor);
-        const backgroundColor = new StringModel(values.backgroundColor);
-
-        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-            const container = this._stage.container();
-
-            const raw = window.getComputedStyle(container);
-
-            const values = getValues(raw);
-
-            color.value = values.color;
-            highlightColor.value = values.highlightColor;
-            backgroundColor.value = values.backgroundColor;
-        });
-
         return {
-            color: color,
-            highlightColor: highlightColor,
-            backgroundColor: backgroundColor,
-        }
+            color: attachPropertyValue(container, "--font-color"),
+            highlightColor: attachPropertyValue(container, "--highlight-color"),
+            backgroundColor: attachPropertyValue(container, "--background-color"),
+        };
     }
 
     private _renderTime(time: number): void {

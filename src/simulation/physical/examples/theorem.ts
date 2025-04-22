@@ -22,6 +22,7 @@ import annotationPlugin, { AnnotationOptions } from "chartjs-plugin-annotation";
 import { calculateDiameter, random } from "../graph";
 import { getPointsInRadius } from "../circle";
 import { StringModel } from "../../StringModel";
+import { attachPropertyValue } from "../../css";
 
 Chart.register(annotationPlugin);
 
@@ -639,52 +640,14 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
     getStyles(): Styles {
         const container = this._stage.container();
 
-        const raw = window.getComputedStyle(container);
-
-        const getValues = (raw: CSSStyleDeclaration) => {
-            return {
-                color: {
-                    text: raw.getPropertyValue("--font-color"),
-                    background: raw.getPropertyValue("--background-color"),
-                    mutedText: raw.getPropertyValue("--muted-font-color"),
-                    clockDrift: raw.getPropertyValue("--clock-drift-color"),
-                },
-                fontFamily: raw.getPropertyValue("--font-family"),
-            }
-        }
-
-        const values = getValues(raw);
-
-        const textColor = new StringModel(values.color.text);
-        const backgroundColor = new StringModel(values.color.background);
-        const mutedTextColor = new StringModel(values.color.mutedText);
-        const clockDrift = new StringModel(values.color.clockDrift);
-
-        const fontFamily = new StringModel(values.fontFamily);
-
-        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-            const container = this._stage.container();
-
-            const raw = window.getComputedStyle(container);
-
-            const values = getValues(raw);
-
-            textColor.value = values.color.text;
-            backgroundColor.value = values.color.background;
-            mutedTextColor.value = values.color.mutedText;
-            clockDrift.value = values.color.clockDrift;
-
-            fontFamily.value = values.fontFamily;
-        });
-
         return {
             color: {
-                text: textColor,
-                background: backgroundColor,
-                mutedText: mutedTextColor,
-                clockDrift: clockDrift,
+                text: attachPropertyValue(container, "--font-color"),
+                background: attachPropertyValue(container, "--background-color"),
+                mutedText: attachPropertyValue(container, "--muted-font-color"),
+                clockDrift: attachPropertyValue(container, "--clock-drift-color"),
             },
-            fontFamily: fontFamily,
+            fontFamily: attachPropertyValue(container, "--font-family"),
         };
     }
 

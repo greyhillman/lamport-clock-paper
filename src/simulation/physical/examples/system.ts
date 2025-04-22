@@ -16,6 +16,7 @@ import { NumberModel } from "../../NumberModel";
 import { NumberSliderController } from "../../NumberSlideController";
 import { PhysicalClockArmView } from "../PhysicalClockArmView";
 import { StringModel } from "../../StringModel";
+import { attachPropertyValue } from "../../css";
 
 interface ModelEvents {
     play: void;
@@ -512,58 +513,16 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
     getStyles(): Styles {
         const container = this._stage.container();
 
-        const raw = window.getComputedStyle(container);
-
-        const getValues = (raw: CSSStyleDeclaration) => {
-            return {
-                color: {
-                    text: raw.getPropertyValue("--font-color"),
-                    background: raw.getPropertyValue("--background-color"),
-                    timestamp: raw.getPropertyValue("--timestamp-color"),
-                    minFuture: raw.getPropertyValue("--min-future-color"),
-                    current: raw.getPropertyValue("--current-color"),
-                },
-                fontFamily: raw.getPropertyValue("--font-family"),
-            }
-        }
-
-        const values = getValues(raw);
-
-        const textColor = new StringModel(values.color.text);
-        const backgroundColor = new StringModel(values.color.background);
-        const currentColor = new StringModel(values.color.current);
-        const minFutureColor = new StringModel(values.color.minFuture);
-        const timestampColor = new StringModel(values.color.timestamp);
-
-        const fontFamily = new StringModel(values.fontFamily);
-
-        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-            const container = this._stage.container();
-
-            const raw = window.getComputedStyle(container);
-
-            const values = getValues(raw);
-
-            textColor.value = values.color.text;
-            backgroundColor.value = values.color.background;
-            currentColor.value = values.color.current;
-            minFutureColor.value = values.color.minFuture;
-            timestampColor.value = values.color.timestamp;
-
-            fontFamily.value = values.fontFamily;
-        });
-
         return {
             color: {
-                text: textColor,
-                background: backgroundColor,
-
-                current: currentColor,
-                minFuture: minFutureColor,
-                timestamp: timestampColor,
+                text: attachPropertyValue(container, "--font-color"),
+                background: attachPropertyValue(container, "--background-color"),
+                timestamp: attachPropertyValue(container, "--timestamp-color"),
+                minFuture: attachPropertyValue(container, "--min-future-color"),
+                current: attachPropertyValue(container, "--current-color"),
             },
-            fontFamily: fontFamily,
-        }
+            fontFamily: attachPropertyValue(container, "--font-family"),
+        };
     }
 
     private _renderTime(time: number): void {
