@@ -33,4 +33,9 @@ export class ClockModel extends Model<ClockEvents> {
 
         this.dispatchEvent("update", this._register);
     }
+
+    reset() {
+        this._register = 0;
+        this.dispatchEvent("update", this._register);
+    }
 }

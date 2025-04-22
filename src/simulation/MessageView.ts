@@ -2,6 +2,7 @@ import Konva from "konva";
 import { View } from "../mvc/View";
 import { MessageModel } from "./MessageModel";
 import { Direction, Point } from "../Point";
+import { GOLDEN_RATIO } from "../constants";
 
 interface Styles {
     color: string;
@@ -15,8 +16,6 @@ interface Options {
     center: Point;
     styles: Styles;
 }
-
-const GOLDEN_RATIO = 1.618033989;
 
 export class MessageView extends View<MessageModel> {
     private _group: Konva.Group;

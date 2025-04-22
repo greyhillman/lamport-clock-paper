@@ -47,10 +47,9 @@ import { ProcessClockView } from "./simulation/ProcessClockView";
         }
     });
 
-    const digitalView = new RegisterClockView({
-        model,
+    const digitalView = new RegisterClockView(model, {
         container: layer,
-        center: new Point(55, 145),
+        start: new Point(15, 120),
         dimensions: new Direction(80, 40),
         styles: {
             color: styles.textColor,
@@ -155,10 +154,9 @@ import { ProcessClockView } from "./simulation/ProcessClockView";
                 }
             });
 
-            this.register = new RegisterClockView({
-                model: model.clock,
+            this.register = new RegisterClockView(model.clock, {
                 container: this._layer,
-                center: new Point(55, 145),
+                start: new Point(15, 120),
                 dimensions: new Direction(80, 40),
                 styles: {
                     color: styles.textColor,

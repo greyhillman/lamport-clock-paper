@@ -13,7 +13,7 @@
 
 
     <title>Time, Clocks, and the Ordering of Events in a Distributed System</title>
-  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-DRJ2zSIS.js"></script>
+  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-DPkAZZI6.js"></script>
   <link rel="stylesheet" crossorigin href="/lamport-clock-paper/assets/index-CncOAhcA.css">
 </head>
 
@@ -1634,15 +1634,51 @@
                                 </msub>
                             </math> is the timestamp of the message.
                         </p>
+                        <figure class="visual example">
+                            <div id="mutual-exclusion-condition-1-simulation"></div>
+                            <form id="mutual-exclusion-condition-1-simulation-controls">
+                                <button type="reset">Reset</button>
+                            </form>
+                            <figcaption>
+                                Click the lock to request the resource.
+                            </figcaption>
+                        </figure>
                     </li>
                     <li id="mutual-exclusion-rules-2">
                         <template-use template-id="mutual-exclusion-rules-2-template"></template-use>
+                        <figure class="visual example">
+                            <div id="mutual-exclusion-condition-2-simulation"></div>
+                            <form id="mutual-exclusion-condition-2-simulation-controls">
+                                <button type="reset">Reset</button>
+                            </form>
+                            <figcaption>
+                                Click the letter icon to receive the message.
+                            </figcaption>
+                        </figure>
                     </li>
                     <li id="mutual-exclusion-rules-3">
                         <template-use template-id="mutual-exclusion-rules-3-template"></template-use>
+                        <figure class="visual example">
+                            <div id="mutual-exclusion-condition-3-simulation"></div>
+                            <form id="mutual-exclusion-condition-3-simulation-controls">
+                                <button type="reset">Reset</button>
+                            </form>
+                            <figcaption>
+                                Click the lock to release the resource.
+                            </figcaption>
+                        </figure>
                     </li>
                     <li id="mutual-exclusion-rules-4">
                         <template-use template-id="mutual-exclusion-rules-4-template"></template-use>
+                        <figure class="visual example">
+                            <div id="mutual-exclusion-condition-4-simulation"></div>
+                            <form id="mutual-exclusion-condition-4-simulation-controls">
+                                <button type="reset">Reset</button>
+                            </form>
+                            <figcaption>
+                                Click the letter icon to receive the message.
+                            </figcaption>
+                        </figure>
                     </li>
                     <li id="mutual-exclusion-rules-5">
                         <template-use template-id="mutual-exclusion-rules-5-template"></template-use>
@@ -1668,6 +1704,15 @@
                         </msub>
                     </math>.
                 </p>
+                <figure class="visual example">
+                    <div id="mutual-exclusion-simulation"></div>
+                    <form id="mutual-exclusion-simulation-controls" method="none">
+                        <button type="reset">Reset</button>
+                    </form>
+                    <figcaption>
+                        Simulation of 3 processes in the mutual exclusion problem.
+                    </figcaption>
+                </figure>
                 <p>
                     It is easy to verify that the algorithm defined by these rules satisfies <inline-details>
                         <span slot="summary">conditions I-III</span>

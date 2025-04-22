@@ -9,11 +9,10 @@ interface Styles {
 }
 
 interface Options {
-    model: ClockModel;
-
     container: Konva.Container;
-    center: Point;
+    start: Point;
     dimensions: Direction;
+
     styles: Styles;
 }
 
@@ -22,20 +21,16 @@ export class RegisterClockView extends View<ClockModel> {
     private _border: Konva.Rect;
     private _text: Konva.Text;
 
-    constructor(options: Options) {
-        super(options.model);
+    constructor(model: ClockModel, options: Options) {
+        super(model);
 
         this._group = new Konva.Group({
-            x: options.center.x,
-            y: options.center.y,
+            x: options.start.x,
+            y: options.start.y,
         });
         options.container.add(this._group);
 
-        const borderStart = Point.zero.add(options.dimensions.scale(-0.5));
-
         this._border = new Konva.Rect({
-            x: borderStart.x,
-            y: borderStart.y,
             width: options.dimensions.dx,
             height: options.dimensions.dy,
             stroke: options.styles.color,
@@ -44,8 +39,6 @@ export class RegisterClockView extends View<ClockModel> {
         this._group.add(this._border);
 
         this._text = new Konva.Text({
-            x: borderStart.x,
-            y: borderStart.y,
             text: "0",
             fontSize: 25,
             fontFamily: options.styles.fontFamily,
@@ -65,6 +58,5 @@ export class RegisterClockView extends View<ClockModel> {
     style(styles: Styles) {
         this._border.stroke(styles.color);
         this._text.fill(styles.color);
-        this._text.fontFamily(styles.fontFamily);
     }
 }
