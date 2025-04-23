@@ -9,22 +9,20 @@ import { RegisterClockView } from "./simulation/RegisterClockView";
 import { MessageModel } from "./simulation/MessageModel";
 import { MessageView } from "./simulation/MessageView";
 import { ProcessClockView } from "./simulation/ProcessClockView";
+import { attachPropertyValue } from "./simulation/css";
+import { StringModel } from "./simulation/StringModel";
 
 
 // Implementation Rule 1 Example
 {
     const element = document.getElementById("implementation-rule-1-clock") as HTMLDivElement;
 
-    const rawStyles = window.getComputedStyle(element);
-    const computeStyles = (rawStyles: CSSStyleDeclaration) => {
-        return {
-            textColor: rawStyles.getPropertyValue("--font-color"),
-            highlightColor: rawStyles.getPropertyValue("--highlight-color"),
-            backgroundColor: rawStyles.getPropertyValue("--background-color"),
-            fontFamily: rawStyles.getPropertyValue("--font-family"),
-        }
-    }
-    const styles = computeStyles(rawStyles);
+    const styles = {
+        textColor: attachPropertyValue(element, "--font-color"),
+        highlightColor: attachPropertyValue(element, "--highlight-color"),
+        backgroundColor: attachPropertyValue(element, "--background-color"),
+        fontFamily: attachPropertyValue(element, "--font-family"),
+    };
 
     const stage = new Konva.Stage({
         container: element,
@@ -66,30 +64,15 @@ import { ProcessClockView } from "./simulation/ProcessClockView";
     addEventButton.addEventListener("click", () => {
         model.increment();
     });
-
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-        const rawStyles = window.getComputedStyle(element);
-
-        const styles = computeStyles(rawStyles);
-
-        analogView.style({
-            color: styles.textColor,
-            backgroundColor: styles.backgroundColor,
-        });
-        digitalView.style({
-            color: styles.textColor,
-            fontFamily: styles.fontFamily,
-        });
-    });
 }
 
 // Implementation Rule 2a example
 {
     interface Styles {
-        textColor: string;
-        highlightColor: string;
-        backgroundColor: string;
-        fontFamily: string;
+        textColor: StringModel;
+        highlightColor: StringModel;
+        backgroundColor: StringModel;
+        fontFamily: StringModel;
     }
 
     interface SimulationEvents {
@@ -208,23 +191,6 @@ import { ProcessClockView } from "./simulation/ProcessClockView";
                 },
             });
         }
-
-        style(styles: Styles) {
-            this._styles = styles;
-
-            this.analog.style({
-                color: styles.textColor,
-                backgroundColor: styles.backgroundColor,
-            });
-            this.register.style({
-                color: styles.textColor,
-                fontFamily: styles.fontFamily,
-            });
-            this.message?.style({
-                color: styles.textColor,
-                fontFamily: styles.fontFamily,
-            });
-        }
     }
 
     class SimulationController extends Controller<SimulationModel, SimulationView> {
@@ -242,16 +208,12 @@ import { ProcessClockView } from "./simulation/ProcessClockView";
 
     const canvas = document.getElementById("implementation-rule-2a-canvas") as HTMLDivElement;
 
-    const rawStyles = window.getComputedStyle(canvas);
-    const computeStyles = (rawStyles: CSSStyleDeclaration): Styles => {
-        return {
-            textColor: rawStyles.getPropertyValue("--font-color"),
-            highlightColor: rawStyles.getPropertyValue("--highlight-color"),
-            backgroundColor: rawStyles.getPropertyValue("--background-color"),
-            fontFamily: rawStyles.getPropertyValue("--font-family"),
-        }
-    }
-    const styles = computeStyles(rawStyles);
+    const styles = {
+        textColor: attachPropertyValue(canvas, "--font-color"),
+        highlightColor: attachPropertyValue(canvas, "--highlight-color"),
+        backgroundColor: attachPropertyValue(canvas, "--background-color"),
+        fontFamily: attachPropertyValue(canvas, "--font-family"),
+    };
 
     const stage = new Konva.Stage({
         container: canvas,
@@ -262,23 +224,15 @@ import { ProcessClockView } from "./simulation/ProcessClockView";
     const model = new SimulationModel();
     const view = new SimulationView(stage, styles, model);
     const controller = new SimulationController(model, view);
-
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-        const rawStyles = window.getComputedStyle(canvas);
-
-        const styles = computeStyles(rawStyles);
-
-        view.style(styles);
-    });
 }
 
 // Implementation Rule 2b example
 {
     interface Styles {
-        textColor: string;
-        highlightColor: string;
-        backgroundColor: string;
-        fontFamily: string;
+        textColor: StringModel;
+        highlightColor: StringModel;
+        backgroundColor: StringModel;
+        fontFamily: StringModel;
     }
 
     interface SimulationEvents {
@@ -433,25 +387,6 @@ import { ProcessClockView } from "./simulation/ProcessClockView";
                 },
             });
         }
-
-        style(styles: Styles) {
-            this._styles = styles;
-
-            this.sender.restyle({
-                color: styles.textColor,
-                backgroundColor: styles.backgroundColor,
-                fontFamily: styles.fontFamily,
-            });
-            this.receiver.restyle({
-                color: styles.textColor,
-                backgroundColor: styles.backgroundColor,
-                fontFamily: styles.fontFamily,
-            });
-            this.message?.style({
-                color: styles.textColor,
-                fontFamily: styles.fontFamily,
-            });
-        }
     }
 
     class SimulationController extends Controller<SimulationModel, SimulationView> {
@@ -476,16 +411,12 @@ import { ProcessClockView } from "./simulation/ProcessClockView";
 
     const canvas = document.getElementById("implementation-rule-2b-canvas") as HTMLDivElement;
 
-    const rawStyles = window.getComputedStyle(canvas);
-    const computeStyles = (raw: CSSStyleDeclaration): Styles => {
-        return {
-            textColor: rawStyles.getPropertyValue("--font-color"),
-            highlightColor: rawStyles.getPropertyValue("--highlight-color"),
-            backgroundColor: rawStyles.getPropertyValue("--background-color"),
-            fontFamily: rawStyles.getPropertyValue("--font-family"),
-        };
-    }
-    const styles = computeStyles(rawStyles);
+    const styles = {
+        textColor: attachPropertyValue(canvas, "--font-color"),
+        highlightColor: attachPropertyValue(canvas, "--highlight-color"),
+        backgroundColor: attachPropertyValue(canvas, "--background-color"),
+        fontFamily: attachPropertyValue(canvas, "--font-family"),
+    };
 
     const stage = new Konva.Stage({
         container: canvas,
@@ -496,12 +427,4 @@ import { ProcessClockView } from "./simulation/ProcessClockView";
     const model = new SimulationModel();
     const view = new SimulationView(stage, styles, model);
     const controller = new SimulationController(model, view);
-
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-        const rawStyles = window.getComputedStyle(canvas);
-
-        const styles = computeStyles(rawStyles);
-
-        view.style(styles);
-    });
 }

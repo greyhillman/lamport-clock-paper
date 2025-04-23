@@ -4,6 +4,7 @@ import { RequestQueueModel } from "./RequestQueueModel";
 import { Direction, Point } from "../../Point";
 import { RequestView } from "./RequestView";
 import { IdentifierView } from "./IdentifierView";
+import { StringModel } from "../StringModel";
 
 interface Options {
     container: Konva.Container;
@@ -15,9 +16,9 @@ interface Options {
 }
 
 interface Styles {
-    color: string;
-    backgroundColor: string;
-    fontFamily: string;
+    color: StringModel;
+    backgroundColor: StringModel;
+    fontFamily: StringModel;
 }
 
 export class RequestQueueView extends View<RequestQueueModel> {
@@ -48,7 +49,7 @@ export class RequestQueueView extends View<RequestQueueModel> {
         this._border = new Konva.Rect({
             width: 100,
             height: 200,
-            stroke: options.styles.color,
+            stroke: options.styles.color.value,
             strokeWidth: 2,
         });
 
@@ -57,10 +58,10 @@ export class RequestQueueView extends View<RequestQueueModel> {
             y: 205,
             width: 100,
             height: 40,
-            fontFamily: options.styles.fontFamily,
+            fontFamily: options.styles.fontFamily.value,
             fontSize: 25,
             text: "Requests",
-            fill: options.styles.color,
+            fill: options.styles.color.value,
         });
 
         this._group.add(this._border);
@@ -77,6 +78,11 @@ export class RequestQueueView extends View<RequestQueueModel> {
         });
         model.addListener("remove", () => {
             this._updateView();
+        });
+
+        options.styles.color.addListener("value", color => {
+            this._border.stroke(color);
+            this._label.fill(color);
         });
     }
 
@@ -100,17 +106,6 @@ export class RequestQueueView extends View<RequestQueueModel> {
             this._messages.push(view);
 
             currentCenter = currentCenter.add(diff);
-        }
-    }
-
-    style(styles: Styles) {
-        this._styles = styles;
-
-        this._border.stroke(styles.color);
-        this._label.fill(styles.color);
-
-        for (const view of this._messages) {
-            view.style(styles);
         }
     }
 }

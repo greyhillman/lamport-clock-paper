@@ -8,6 +8,7 @@ import { Point } from "../../../Point";
 import { PendingMessageView } from "../PendingMessageView";
 import { Controller } from "../../../mvc/Controller";
 import { identifierViews, ViewStyles } from "./common";
+import { attachPropertyValue } from "../../css";
 
 interface ModelEvents {
     "send": {
@@ -65,15 +66,13 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
     private _stage: Konva.Stage;
     private _layer: Konva.Layer;
 
-    private _styles: ViewStyles;
-
     process: ProcessView;
 
     constructor(model: SimulationModel, options: ViewOptions) {
         super(model);
 
         this._canvas = document.getElementById(options.canvasId)! as HTMLDivElement;
-        this._styles = this._getStyle();
+        const styles = this._getStyle(this._canvas);
 
         this._stage = new Konva.Stage({
             container: this._canvas,
@@ -86,9 +85,9 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
         this.process = new ProcessView(model.process, {
             container: this._layer,
             start: new Point(200, 10),
-            styles: this._styles,
+            styles: styles,
             getIdentifier: (process, container) => {
-                return identifierViews[process](container, this._styles.color);
+                return identifierViews[process](container, styles.color);
             },
         });
 
@@ -110,10 +109,6 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             this.dispatchEvent("reset", undefined);
         });
 
-        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-            this._updateStyle();
-        });
-
         model.addListener("send", message => {
             if (message.data.request === "request") {
                 return;
@@ -122,9 +117,9 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             const view = new PendingMessageView(message.data, {
                 container: this._layer,
                 start: new Point(0, 0),
-                styles: this._styles,
+                styles: styles,
                 getIdentifier: (process, container) => {
-                    return identifierViews[process](container, this._styles.color);
+                    return identifierViews[process](container, styles.color);
                 },
             });
 
@@ -142,21 +137,13 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
         });
     }
 
-    private _getStyle(): ViewStyles {
-        const raw = window.getComputedStyle(this._canvas);
-
+    private _getStyle(element: HTMLElement): ViewStyles {
         return {
-            color: raw.getPropertyValue("--font-color"),
-            highlightColor: raw.getPropertyValue("--highlight-color"),
-            backgroundColor: raw.getPropertyValue("--background-color"),
-            fontFamily: raw.getPropertyValue("--font-family"),
+            color: attachPropertyValue(element, "--font-color"),
+            highlightColor: attachPropertyValue(element, "--highlight-color"),
+            backgroundColor: attachPropertyValue(element, "--background-color"),
+            fontFamily: attachPropertyValue(element, "--font-family"),
         };
-    }
-
-    private _updateStyle() {
-        this._styles = this._getStyle();
-
-        this.process.style(this._styles);
     }
 }
 

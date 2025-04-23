@@ -104,8 +104,6 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
 
     private _animation: Konva.Animation;
 
-    private _styles: Styles;
-
     private _figure: HTMLElement;
 
     private _playButton: HTMLButtonElement;
@@ -154,13 +152,13 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             }
         }, this._layer);
 
-        this._styles = this.getStyles();
+        const styles = this._getStyles(this._stage.container());
 
         this.first = new PhysicalClockView(model.first, {
             container: this._layer,
             center: new Point(60, 60),
             radius: 50,
-            styles: this._styles,
+            styles: styles,
         });
         this.secondOverlay = new PhysicalClockArmView(model.second.time, {
             container: this._layer,
@@ -169,7 +167,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             strokeWidth: this.first.strokeWidth,
             opacity: 0,
             styles: {
-                color: this._styles.highlightColor,
+                color: styles.highlightColor,
             },
         });
 
@@ -177,7 +175,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             container: this._layer,
             center: new Point(170, 60),
             radius: 50,
-            styles: this._styles,
+            styles: styles,
         });
         this.firstOverlay = new PhysicalClockArmView(model.first.time, {
             container: this._layer,
@@ -186,7 +184,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             strokeWidth: this.second.strokeWidth,
             opacity: 0,
             styles: {
-                color: this._styles.highlightColor,
+                color: styles.highlightColor,
             },
         });
 
@@ -261,13 +259,11 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
         this._renderTime(frame!.time / 1000);
     }
 
-    getStyles(): Styles {
-        const container = this._stage.container();
-
+    private _getStyles(element: HTMLElement): Styles {
         return {
-            color: attachPropertyValue(container, "--font-color"),
-            highlightColor: attachPropertyValue(container, "--highlight-color"),
-            backgroundColor: attachPropertyValue(container, "--background-color"),
+            color: attachPropertyValue(element, "--font-color"),
+            highlightColor: attachPropertyValue(element, "--highlight-color"),
+            backgroundColor: attachPropertyValue(element, "--background-color"),
         };
     }
 

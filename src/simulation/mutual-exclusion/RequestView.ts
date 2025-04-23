@@ -7,6 +7,7 @@ import { MessageShape } from "../MessageShape";
 import { LockShape } from "../LockShape";
 import { RequestModel } from "./RequestModel";
 import { IdentifierView } from "./IdentifierView";
+import { StringModel } from "../StringModel";
 
 interface Options {
     container: Konva.Container;
@@ -18,9 +19,9 @@ interface Options {
 }
 
 interface Styles {
-    color: string;
-    backgroundColor: string;
-    fontFamily: string;
+    color: StringModel;
+    backgroundColor: StringModel;
+    fontFamily: StringModel;
 }
 
 export class RequestView extends View<RequestModel> {
@@ -44,10 +45,10 @@ export class RequestView extends View<RequestModel> {
             height: 20,
             align: "right",
             verticalAlign: "middle",
-            fontFamily: options.styles.fontFamily,
+            fontFamily: options.styles.fontFamily.value,
             fontSize: 25,
             text: `${this.model.timestamp}:`,
-            fill: options.styles.color,
+            fill: options.styles.color.value,
         });
         this._group.add(this._timestamp);
 
@@ -66,6 +67,10 @@ export class RequestView extends View<RequestModel> {
             styles: options.styles,
         });
         this._lock.lock();
+
+        options.styles.color.addListener("value", color => {
+            this._timestamp.fill(color);
+        });
     }
 
     moveTo(point: Point) {
@@ -75,11 +80,5 @@ export class RequestView extends View<RequestModel> {
 
     destroy() {
         this._group.destroy();
-    }
-
-    style(styles: Styles) {
-        this._timestamp.fill(styles.color);
-        this._lock.style(styles);
-        this._identifier.style(styles);
     }
 }

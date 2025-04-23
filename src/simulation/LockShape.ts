@@ -1,6 +1,7 @@
 import Konva from "konva";
 import { Observable } from "../mvc/Observable";
 import { Point } from "../Point";
+import { StringModel } from "./StringModel";
 
 interface Events {
     "click": void;
@@ -18,8 +19,8 @@ interface Options {
 }
 
 interface Styles {
-    color: string;
-    backgroundColor: string;
+    color: StringModel;
+    backgroundColor: StringModel;
 }
 
 export class LockShape extends Observable<Events> {
@@ -48,7 +49,7 @@ export class LockShape extends Observable<Events> {
             y: 50,
             width: 50,
             height: 50,
-            fill: options.styles.color,
+            fill: options.styles.color.value,
             cornerRadius: 5,
         });
         this._group.add(this._pad);
@@ -57,14 +58,14 @@ export class LockShape extends Observable<Events> {
             x: 25,
             y: 72,
             radius: 8,
-            fill: options.styles.backgroundColor,
+            fill: options.styles.backgroundColor.value,
         });
         this._group.add(this._hole);
         this._lowerHole = new Konva.Circle({
             x: 25,
             y: 72 + 8,
             radius: 5,
-            fill: options.styles.backgroundColor,
+            fill: options.styles.backgroundColor.value,
         });
         this._group.add(this._lowerHole);
 
@@ -75,21 +76,21 @@ export class LockShape extends Observable<Events> {
             outerRadius: 20,
             angle: 180,
             rotation: 180,
-            fill: options.styles.color,
+            fill: options.styles.color.value,
         });
         this._ringArm = new Konva.Rect({
             x: 35,
             y: 30,
             width: 10,
             height: 20,
-            fill: options.styles.color,
+            fill: options.styles.color.value,
         });
         this._ringHook = new Konva.Rect({
             x: 5,
             y: 30,
             width: 10,
             height: 5,
-            fill: options.styles.color,
+            fill: options.styles.color.value,
         });
         this._group.add(this._ringHook);
         this._group.add(this._ringArm);
@@ -104,6 +105,17 @@ export class LockShape extends Observable<Events> {
         this._group.on("click", () => {
             this.dispatchEvent("click", undefined);
         });
+
+        options.styles.color.addListener("value", color => {
+            this._pad.fill(color);
+            this._ring.fill(color);
+            this._ringArm.fill(color);
+            this._ringHook.fill(color);
+        });
+        options.styles.backgroundColor.addListener("value", color => {
+            this._hole.fill(color);
+            this._lowerHole.fill(color);
+        });
     }
 
     lock() {
@@ -116,14 +128,5 @@ export class LockShape extends Observable<Events> {
         this._ring.y(30);
         this._ringHook.y(30);
         this._ringArm.y(30);
-    }
-
-    style(styles: Styles) {
-        this._pad.fill(styles.color);
-        this._hole.fill(styles.backgroundColor);
-        this._lowerHole.fill(styles.backgroundColor);
-        this._ring.fill(styles.color);
-        this._ringArm.fill(styles.color);
-        this._ringHook.fill(styles.color);
     }
 }

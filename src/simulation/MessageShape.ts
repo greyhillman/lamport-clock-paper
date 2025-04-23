@@ -2,6 +2,7 @@ import Konva from "konva";
 import { Point } from "../Point";
 import { GOLDEN_RATIO } from "../constants";
 import { Observable } from "../mvc/Observable";
+import { StringModel } from "./StringModel";
 
 interface Events {
     "pointerover": void;
@@ -23,8 +24,8 @@ interface Options {
 }
 
 interface Styles {
-    color: string;
-    backgroundColor: string;
+    color: StringModel;
+    backgroundColor: StringModel;
 }
 
 export class MessageShape extends Observable<Events> {
@@ -52,20 +53,20 @@ export class MessageShape extends Observable<Events> {
         this._messageBorder = new Konva.Rect({
             width: this._width,
             height: this._height,
-            stroke: options.styles.color,
-            fill: options.styles.backgroundColor,
+            stroke: options.styles.color.value,
+            fill: options.styles.backgroundColor.value,
             strokeWidth: options.strokeWidth ?? 3,
         });
 
         this._messageFold = new Konva.Line({
             points: [0, 0, this._width * 0.5, this._height * 0.5, this._width, 0],
-            stroke: options.styles.color,
+            stroke: options.styles.color.value,
             strokeWidth: options.strokeWidth ?? 3,
         });
         this._messageCutout = new Konva.Line({
             points: [0, 0, this._width * 0.5, this._height * 0.5, this._width, 0],
             // stroke: options.styles.color,
-            fill: options.styles.color,
+            fill: options.styles.color.value,
             // strokeWidth: options.strokeWidth ?? 3,
             closed: true,
             opacity: 0,
@@ -83,6 +84,15 @@ export class MessageShape extends Observable<Events> {
         });
         this._group.on("click", () => {
             this.dispatchEvent("click", undefined);
+        });
+
+        options.styles.color.addListener("value", color => {
+            this._messageBorder.stroke(color);
+            this._messageFold.stroke(color);
+            this._messageCutout.fill(color);
+        });
+        options.styles.backgroundColor.addListener("value", color => {
+            this._messageBorder.fill(color);
         });
     }
 
@@ -102,12 +112,5 @@ export class MessageShape extends Observable<Events> {
             this._width, 0,
         ]);
         this._messageCutout.opacity(0);
-    }
-
-    style(styles: Styles) {
-        this._messageBorder.stroke(styles.color);
-        this._messageBorder.fill(styles.backgroundColor);
-        this._messageFold.stroke(styles.color);
-        this._messageCutout.fill(styles.color);
     }
 }

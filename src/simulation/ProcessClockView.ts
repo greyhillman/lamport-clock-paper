@@ -4,11 +4,12 @@ import { Direction, Point } from "../Point";
 import { AnalogClockView } from "./AnalogClockView";
 import { ClockModel } from "./ClockModel";
 import { RegisterClockView } from "./RegisterClockView";
+import { StringModel } from "./StringModel";
 
 interface Styles {
-    color: string;
-    backgroundColor: string;
-    fontFamily: string;
+    color: StringModel;
+    backgroundColor: StringModel;
+    fontFamily: StringModel;
 }
 
 interface Options {
@@ -64,24 +65,17 @@ export class ProcessClockView extends View<ClockModel, {}> {
             y: 115,
             width: 100,
             height: 30,
-            fontFamily: options.styles.fontFamily,
+            fontFamily: options.styles.fontFamily.value,
             fontSize: 25,
             align: "center",
             verticalAlign: "middle",
             text: options.label,
+            fill: options.styles.color.value,
         });
         this._group.add(this._label);
-    }
 
-    restyle(styles: Styles) {
-        this.analog.style({
-            color: styles.color,
-            backgroundColor: styles.backgroundColor,
+        options.styles.color.addListener("value", color => {
+            this._label.fill(color);
         });
-        this.register.style({
-            color: styles.color,
-            fontFamily: styles.fontFamily,
-        });
-        this._label.fill(styles.color);
     }
 }

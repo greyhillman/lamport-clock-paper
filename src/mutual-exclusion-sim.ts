@@ -17,6 +17,7 @@ import { IdentifierModel } from "./simulation/mutual-exclusion/IdentifierModel";
 import { MessageView } from "./simulation/MessageView";
 import { PendingMessageView } from "./simulation/mutual-exclusion/PendingMessageView";
 import { identifierViews, ViewStyles } from "./simulation/mutual-exclusion/rules/common";
+import { attachPropertyValue } from "./simulation/css";
 
 class SimulationModel extends Model {
     processes: ProcessModel[];
@@ -83,15 +84,13 @@ class SimulationView extends View<SimulationModel, SimulationEvents> {
     private _stage: Konva.Stage;
     private _layer: Konva.Layer;
 
-    private _styles: ViewStyles;
-
     processes: ProcessView[];
 
     constructor(model: SimulationModel, options: ViewOptions) {
         super(model);
 
         this._canvas = document.getElementById(options.canvasId)! as HTMLDivElement;
-        this._styles = this._getStyle();
+        const styles = this._getStyle();
 
         this._stage = new Konva.Stage({
             container: this._canvas,
@@ -111,9 +110,9 @@ class SimulationView extends View<SimulationModel, SimulationEvents> {
             const view = new ProcessView(process, {
                 container: this._layer,
                 start: centers[index],
-                styles: this._styles,
+                styles: styles,
                 getIdentifier: (process, container) => {
-                    return identifierViews[process](container, this._styles.color);
+                    return identifierViews[process](container, styles.color);
                 },
             });
 
@@ -127,10 +126,6 @@ class SimulationView extends View<SimulationModel, SimulationEvents> {
             return view;
         });
 
-        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-            this._updateStyle();
-        });
-
         const formControls = document.getElementById(options.controlsId)!;
         formControls.addEventListener("submit", event => {
             event.preventDefault(); // We're using JavaScript to respond
@@ -142,26 +137,12 @@ class SimulationView extends View<SimulationModel, SimulationEvents> {
     }
 
     private _getStyle(): ViewStyles {
-        const raw = window.getComputedStyle(this._canvas);
-
         return {
-            color: raw.getPropertyValue("--font-color"),
-            highlightColor: raw.getPropertyValue("--highlight-color"),
-            backgroundColor: raw.getPropertyValue("--background-color"),
-            fontFamily: raw.getPropertyValue("--font-family"),
+            color: attachPropertyValue(this._canvas, "--font-color"),
+            highlightColor: attachPropertyValue(this._canvas, "--highlight-color"),
+            backgroundColor: attachPropertyValue(this._canvas, "--background-color"),
+            fontFamily: attachPropertyValue(this._canvas, "--font-family"),
         };
-    }
-
-    private _updateStyle() {
-        this._styles = this._getStyle();
-
-        for (const process of this.processes) {
-            process.style({
-                color: this._styles.color,
-                backgroundColor: this._styles.backgroundColor,
-                fontFamily: this._styles.fontFamily,
-            });
-        }
     }
 }
 

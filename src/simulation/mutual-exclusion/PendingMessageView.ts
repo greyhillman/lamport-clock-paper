@@ -6,6 +6,7 @@ import { GOLDEN_RATIO } from "../../constants";
 import { MessageShape } from "../MessageShape";
 import { LockShape } from "../LockShape";
 import { IdentifierView } from "./IdentifierView";
+import { StringModel } from "../StringModel";
 
 interface Events {
     "pointerover": void;
@@ -24,9 +25,9 @@ interface Options {
 }
 
 interface Styles {
-    color: string;
-    backgroundColor: string;
-    fontFamily: string;
+    color: StringModel;
+    backgroundColor: StringModel;
+    fontFamily: StringModel;
 }
 
 export class PendingMessageView extends View<MessageModel, Events> {
@@ -80,10 +81,10 @@ export class PendingMessageView extends View<MessageModel, Events> {
             height: 20,
             align: "right",
             verticalAlign: "middle",
-            fontFamily: options.styles.fontFamily,
+            fontFamily: options.styles.fontFamily.value,
             fontSize: 25,
             text: `${this.model.timestamp}:`,
-            fill: options.styles.color,
+            fill: options.styles.color.value,
         });
         this._group.add(this._timestamp);
 
@@ -111,11 +112,16 @@ export class PendingMessageView extends View<MessageModel, Events> {
         if (model.request === "acknowledge") {
             this._check = new Konva.Line({
                 points: [125, 10, 130, 17, 135, 0],
-                stroke: options.styles.color,
+                stroke: options.styles.color.value,
                 strokeWidth: 3,
             });
             this._group.add(this._check);
         }
+
+        options.styles.color.addListener("value", color => {
+            this._timestamp.fill(color);
+            this._check?.stroke(color);
+        });
     }
 
     move(start: Point, end: Point, onEnd?: () => void) {
@@ -146,19 +152,5 @@ export class PendingMessageView extends View<MessageModel, Events> {
         this.dispatchEvent("pointerout", undefined);
 
         this._group.destroy();
-    }
-
-    style(styles: Styles) {
-        this._message.style({
-            color: styles.color,
-            backgroundColor: styles.backgroundColor,
-        });
-        this._timestamp.fill(styles.color);
-        this._lock?.style({
-            color: styles.color,
-            backgroundColor: styles.backgroundColor,
-        });
-        this._check?.stroke(styles.color);
-        this._identifier.style(styles);
     }
 }

@@ -3,6 +3,7 @@ import { View } from "../../mvc/View";
 import { LockModel } from "./LockModel";
 import { Point } from "../../Point";
 import { LockShape } from "../LockShape";
+import { StringModel } from "../StringModel";
 
 interface Events {
     "click": void;
@@ -11,8 +12,8 @@ interface Events {
 }
 
 interface Styles {
-    color: string;
-    backgroundColor: string;
+    color: StringModel;
+    backgroundColor: StringModel;
 }
 
 interface Options {
@@ -66,12 +67,5 @@ export class LockView extends View<LockModel, Events> {
         } else {
             this._lock.unlock();
         }
-    }
-
-    style(styles: Styles) {
-        this._lock.style({
-            color: styles.color,
-            backgroundColor: styles.backgroundColor,
-        });
     }
 }

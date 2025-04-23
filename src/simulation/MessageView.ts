@@ -3,10 +3,11 @@ import { View } from "../mvc/View";
 import { MessageModel } from "./MessageModel";
 import { Direction, Point } from "../Point";
 import { GOLDEN_RATIO } from "../constants";
+import { StringModel } from "./StringModel";
 
 interface Styles {
-    color: string;
-    fontFamily: string;
+    color: StringModel;
+    fontFamily: StringModel;
 }
 
 interface Options {
@@ -39,14 +40,14 @@ export class MessageView extends View<MessageModel> {
         this._messageBorder = new Konva.Rect({
             width: width,
             height: height,
-            stroke: options.styles.color,
+            stroke: options.styles.color.value,
             strokeWidth: 3,
             cornerRadius: 5,
             listening: false,
         });
         this._messageFold = new Konva.Line({
             points: [0, 0, width * 0.5, height * 0.5, width, 0],
-            stroke: options.styles.color,
+            stroke: options.styles.color.value,
             strokeWidth: 3,
             listening: false,
         });
@@ -61,24 +62,26 @@ export class MessageView extends View<MessageModel> {
             height: height,
             align: "left",
             verticalAlign: "middle",
-            fontFamily: options.styles.fontFamily,
+            fontFamily: options.styles.fontFamily.value,
             fontSize: 25,
             text: `${this.model.timestamp}`,
-            fill: options.styles.color,
+            fill: options.styles.color.value,
         });
         this._group.add(this._timestamp);
+
+        options.styles.color.addListener("value", color => {
+            this._messageBorder.stroke(color);
+            this._messageFold.stroke(color);
+            this._timestamp.fill(color);
+        });
+        options.styles.fontFamily.addListener("value", fontFamily => {
+            this._timestamp.fontFamily(fontFamily);
+        })
     }
 
     move(direction: Direction) {
         this._group.x(this._group.x() + direction.dx);
         this._group.y(this._group.y() + direction.dy);
-    }
-
-    style(styles: Styles) {
-        this._messageBorder.stroke(styles.color);
-        this._messageFold.stroke(styles.color);
-        this._timestamp.fill(styles.color);
-        this._timestamp.fontFamily(styles.fontFamily);
     }
 
     destroy() {

@@ -398,7 +398,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
         this._layer.add(this._nodeGroup);
         this._layer.add(this._tooltipGroup);
 
-        this._styles = this.getStyles();
+        this._styles = this._getStyles(this._stage.container());
 
         this.nodes = [];
         this.links = [];
@@ -637,17 +637,15 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
         this.dispatchEvent("updateFrame", diff);
     }
 
-    getStyles(): Styles {
-        const container = this._stage.container();
-
+    private _getStyles(element: HTMLElement): Styles {
         return {
             color: {
-                text: attachPropertyValue(container, "--font-color"),
-                background: attachPropertyValue(container, "--background-color"),
-                mutedText: attachPropertyValue(container, "--muted-font-color"),
-                clockDrift: attachPropertyValue(container, "--clock-drift-color"),
+                text: attachPropertyValue(element, "--font-color"),
+                background: attachPropertyValue(element, "--background-color"),
+                mutedText: attachPropertyValue(element, "--muted-font-color"),
+                clockDrift: attachPropertyValue(element, "--clock-drift-color"),
             },
-            fontFamily: attachPropertyValue(container, "--font-family"),
+            fontFamily: attachPropertyValue(element, "--font-family"),
         };
     }
 

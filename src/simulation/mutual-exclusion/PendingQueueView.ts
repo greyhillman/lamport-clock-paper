@@ -4,6 +4,7 @@ import { PendingQueueModel } from "./PendingQueueModel";
 import { Direction, Point } from "../../Point";
 import { PendingMessageView } from "./PendingMessageView";
 import { IdentifierView } from "./IdentifierView";
+import { StringModel } from "../StringModel";
 
 interface Events {
     "update": PendingMessageView;
@@ -19,21 +20,19 @@ interface Options {
 }
 
 interface Styles {
-    color: string;
-    backgroundColor: string;
-    fontFamily: string;
+    color: StringModel;
+    backgroundColor: StringModel;
+    fontFamily: StringModel;
 }
 
 export class PendingQueueView extends View<PendingQueueModel, Events> {
     private _group: Konva.Group;
-    private _styles: Styles;
 
     messages: { [process: string]: PendingMessageView };
 
     constructor(model: PendingQueueModel, options: Options) {
         super(model);
 
-        this._styles = options.styles;
         this._group = new Konva.Group({
             x: options.end.x,
             y: options.end.y,
@@ -47,7 +46,7 @@ export class PendingQueueView extends View<PendingQueueModel, Events> {
                 const view = new PendingMessageView(data.message, {
                     container: this._group,
                     start: new Point(0, 0),
-                    styles: this._styles,
+                    styles: options.styles,
                     getIdentifier: options.getIdentifier,
                 });
 
@@ -82,20 +81,6 @@ export class PendingQueueView extends View<PendingQueueModel, Events> {
             view.moveTo(currentCenter);
 
             currentCenter = currentCenter.add(diff);
-        }
-    }
-
-    style(styles: Styles) {
-        this._styles = styles;
-
-        for (const process in this.messages) {
-            const view = this.messages[process];
-
-            view.style({
-                color: styles.color,
-                backgroundColor: styles.backgroundColor,
-                fontFamily: styles.fontFamily,
-            });
         }
     }
 }

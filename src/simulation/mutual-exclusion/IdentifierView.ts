@@ -1,6 +1,7 @@
 import Konva from "konva";
 import { View } from "../../mvc/View";
 import { IdentifierModel } from "./IdentifierModel";
+import { StringModel } from "../StringModel";
 
 interface Options {
     container: Konva.Container;
@@ -10,7 +11,7 @@ interface Options {
 }
 
 interface Styles {
-    color: string;
+    color: StringModel;
 }
 
 export class IdentifierView extends View<IdentifierModel> {
@@ -26,6 +27,11 @@ export class IdentifierView extends View<IdentifierModel> {
         this._group.add(this._shape);
 
         options.container.add(this._group);
+
+        options.styles.color.addListener("value", color => {
+            this._shape.fill(color);
+            this._shape.stroke(color);
+        });
     }
 
     scale(scales: { x: number; y: number }) {
@@ -38,10 +44,5 @@ export class IdentifierView extends View<IdentifierModel> {
 
     y(value: number): void {
         this._group.y(value);
-    }
-
-    style(styles: Styles) {
-        this._shape.fill(styles.color);
-        this._shape.stroke(styles.color);
     }
 }

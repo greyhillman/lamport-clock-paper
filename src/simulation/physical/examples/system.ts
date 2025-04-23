@@ -210,8 +210,6 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
 
     private _animation: Konva.Animation;
 
-    private _styles: Styles;
-
     private _figure: HTMLElement;
 
     private _playButton: HTMLButtonElement;
@@ -305,7 +303,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             }
         }, this._layer);
 
-        this._styles = this.getStyles();
+        const styles = this._getStyles(this._stage.container());
 
         this.firstToSecondLink = new LinkView(model.firstToSecondLink, {
             containers: {
@@ -317,9 +315,9 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             end: new Point(200, 30),
             offset: 0,
             styles: {
-                backgroundColor: this._styles.color.background,
-                color: this._styles.color.text,
-                fontFamily: this._styles.fontFamily,
+                backgroundColor: styles.color.background,
+                color: styles.color.text,
+                fontFamily: styles.fontFamily,
             },
         });
         this.secondToFirstLink = new LinkView(model.secondToFirstLink, {
@@ -332,9 +330,9 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             end: new Point(100, 90),
             offset: 0,
             styles: {
-                backgroundColor: this._styles.color.background,
-                color: this._styles.color.text,
-                fontFamily: this._styles.fontFamily,
+                backgroundColor: styles.color.background,
+                color: styles.color.text,
+                fontFamily: styles.fontFamily,
             },
         });
         this.firstLinkControl = new LinkControlView(model.firstToSecondLink, {
@@ -351,8 +349,8 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             center: new Point(60, 60),
             radius: 50,
             styles: {
-                color: this._styles.color.text,
-                backgroundColor: this._styles.color.background,
+                color: styles.color.text,
+                backgroundColor: styles.color.background,
             },
         });
         this.second = new PhysicalClockView(model.second, {
@@ -360,8 +358,8 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             center: new Point(240, 60),
             radius: 50,
             styles: {
-                color: this._styles.color.text,
-                backgroundColor: this._styles.color.background,
+                color: styles.color.text,
+                backgroundColor: styles.color.background,
             },
         });
 
@@ -372,7 +370,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             opacity: 0,
             strokeWidth: this.first.strokeWidth,
             styles: {
-                color: this._styles.color.timestamp,
+                color: styles.color.timestamp,
             },
         });
         this.firstExpectedTimestamp = new PhysicalClockArmView(this.model.firstExpectedTimestamp, {
@@ -382,7 +380,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             opacity: 0,
             strokeWidth: this.first.strokeWidth,
             styles: {
-                color: this._styles.color.minFuture,
+                color: styles.color.minFuture,
             },
         });
         this.firstOverlay = new PhysicalClockArmView(this.model.second.time, {
@@ -392,7 +390,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             opacity: 0,
             strokeWidth: this.second.strokeWidth,
             styles: {
-                color: this._styles.color.current,
+                color: styles.color.current,
             },
         });
 
@@ -403,7 +401,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             opacity: 0,
             strokeWidth: this.second.strokeWidth,
             styles: {
-                color: this._styles.color.timestamp,
+                color: styles.color.timestamp,
             },
         });
         this.secondExpectedTimestamp = new PhysicalClockArmView(this.model.secondExpectedTimestamp, {
@@ -413,7 +411,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             opacity: 0,
             strokeWidth: this.second.strokeWidth,
             styles: {
-                color: this._styles.color.minFuture,
+                color: styles.color.minFuture,
             },
         });
         this.secondOverlay = new PhysicalClockArmView(this.model.first.time, {
@@ -423,7 +421,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             opacity: 0,
             strokeWidth: this.first.strokeWidth,
             styles: {
-                color: this._styles.color.current,
+                color: styles.color.current,
             },
         });
 
@@ -510,18 +508,16 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
         this._renderTime(frame!.time / 1000);
     }
 
-    getStyles(): Styles {
-        const container = this._stage.container();
-
+    private _getStyles(element: HTMLElement): Styles {
         return {
             color: {
-                text: attachPropertyValue(container, "--font-color"),
-                background: attachPropertyValue(container, "--background-color"),
-                timestamp: attachPropertyValue(container, "--timestamp-color"),
-                minFuture: attachPropertyValue(container, "--min-future-color"),
-                current: attachPropertyValue(container, "--current-color"),
+                text: attachPropertyValue(element, "--font-color"),
+                background: attachPropertyValue(element, "--background-color"),
+                timestamp: attachPropertyValue(element, "--timestamp-color"),
+                minFuture: attachPropertyValue(element, "--min-future-color"),
+                current: attachPropertyValue(element, "--current-color"),
             },
-            fontFamily: attachPropertyValue(container, "--font-family"),
+            fontFamily: attachPropertyValue(element, "--font-family"),
         };
     }
 

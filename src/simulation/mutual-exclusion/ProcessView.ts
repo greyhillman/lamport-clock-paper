@@ -9,6 +9,7 @@ import { RequestQueueView } from "./RequestQueueView";
 import { PendingMessageView } from "./PendingMessageView";
 import { PendingQueueView } from "./PendingQueueView";
 import { IdentifierView } from "./IdentifierView";
+import { StringModel } from "../StringModel";
 
 interface Events {
     "click-pending": PendingMessageView,
@@ -24,13 +25,12 @@ interface Options {
 }
 
 interface Styles {
-    color: string;
-    backgroundColor: string;
-    fontFamily: string;
+    color: StringModel;
+    backgroundColor: StringModel;
+    fontFamily: StringModel;
 }
 
 export class ProcessView extends View<ProcessModel, Events> {
-    private _styles: Styles;
     private _group: Konva.Group;
 
     private _identifier: IdentifierView;
@@ -44,8 +44,6 @@ export class ProcessView extends View<ProcessModel, Events> {
 
     constructor(model: ProcessModel, options: Options) {
         super(model);
-
-        this._styles = options.styles;
 
         this._group = new Konva.Group({
             x: options.start.x,
@@ -107,23 +105,5 @@ export class ProcessView extends View<ProcessModel, Events> {
                 this._group.getStage()!.container().style.cursor = "auto";
             });
         });
-    }
-
-    style(styles: Styles) {
-        this.lock.style({
-            color: styles.color,
-            backgroundColor: styles.backgroundColor,
-        });
-        this.pending.style({
-            color: styles.color,
-            backgroundColor: styles.backgroundColor,
-            fontFamily: styles.fontFamily,
-        });
-        this.clockRegister.style({
-            color: styles.color,
-            fontFamily: styles.fontFamily,
-        });
-        this.requestQueue.style(styles);
-        this._identifier.style(styles);
     }
 }

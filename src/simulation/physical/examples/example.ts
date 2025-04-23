@@ -64,8 +64,6 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
 
     private _animation: Konva.Animation;
 
-    private _styles: Styles;
-
     private _figure: HTMLElement;
 
     private _playButton: HTMLButtonElement;
@@ -99,13 +97,13 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             }
         }, this._layer);
 
-        this._styles = this._getStyles();
+        const styles = this._getStyles(this._stage.container());
 
         this.clock = new PhysicalClockView(model.clock, {
             container: this._layer,
             center: new Point(60, 60),
             radius: 50,
-            styles: this._styles,
+            styles: styles,
         });
 
         model.speed.addListener("value", speed => {
@@ -146,12 +144,10 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
         this._renderTime(frame!.time / 1000);
     }
 
-    private _getStyles(): Styles {
-        const container = this._stage.container();
-
+    private _getStyles(element: HTMLElement): Styles {
         return {
-            color: attachPropertyValue(container, "--font-color"),
-            backgroundColor: attachPropertyValue(container, "--background-color"),
+            color: attachPropertyValue(element, "--font-color"),
+            backgroundColor: attachPropertyValue(element, "--background-color"),
         };
     }
 

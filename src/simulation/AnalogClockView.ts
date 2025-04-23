@@ -2,10 +2,11 @@ import Konva from "konva";
 import { View } from "../mvc/View";
 import { Direction, Point } from "../Point";
 import { ClockModel } from "./ClockModel";
+import { StringModel } from "./StringModel";
 
 interface Styles {
-    color: string;
-    backgroundColor: string;
+    color: StringModel;
+    backgroundColor: StringModel;
 }
 
 interface Options {
@@ -46,9 +47,9 @@ export class AnalogClockView extends View<ClockModel> {
             x: 0,
             y: 0,
             radius: this._radius,
-            stroke: options.styles.color,
+            stroke: options.styles.color.value,
             strokeWidth: this._strokeWidth,
-            fill: options.styles.backgroundColor,
+            fill: options.styles.backgroundColor.value,
         });
         group.add(this._ring);
 
@@ -60,7 +61,7 @@ export class AnalogClockView extends View<ClockModel> {
 
             const tick = new Konva.Line({
                 points: [0, start * this._radius, 0, this._radius],
-                stroke: options.styles.color,
+                stroke: options.styles.color.value,
                 strokeWidth: this._strokeWidth,
                 rotation: i * 30,
             });
@@ -71,13 +72,13 @@ export class AnalogClockView extends View<ClockModel> {
 
         this._secondHand = new Konva.Line({
             points: [0, 0, 0, -0.65 * this._radius],
-            stroke: options.styles.color,
+            stroke: options.styles.color.value,
             strokeWidth: this._strokeWidth,
             rotation: 0,
         });
         this._minuteHand = new Konva.Line({
             points: [0, 0, 0, -0.35 * this._radius],
-            stroke: options.styles.color,
+            stroke: options.styles.color.value,
             strokeWidth: this._strokeWidth,
             rotation: 0,
         });
@@ -85,7 +86,7 @@ export class AnalogClockView extends View<ClockModel> {
             x: 0,
             y: 0,
             radius: this._strokeWidth,
-            fill: options.styles.color,
+            fill: options.styles.color.value,
         });
 
         group.add(this._secondHand);
@@ -94,7 +95,22 @@ export class AnalogClockView extends View<ClockModel> {
 
         this.model.addListener("update", register => {
             this.update(register);
-        })
+        });
+
+        options.styles.color.addListener("value", color => {
+            this._secondHand.stroke(color);
+            this._minuteHand.stroke(color);
+            this._ring.stroke(color);
+            this._pivot.fill(color);
+
+            for (const tick of this._ticks) {
+                tick.stroke(color);
+            }
+        });
+
+        options.styles.backgroundColor.addListener("value", color => {
+            this._ring.fill(color);
+        });
     }
 
     update(register: number) {
@@ -106,17 +122,5 @@ export class AnalogClockView extends View<ClockModel> {
 
         this._secondHand.rotation(secondDeg);
         this._minuteHand.rotation(minuteDeg);
-    }
-
-    style(styles: Styles) {
-        this._secondHand.stroke(styles.color);
-        this._minuteHand.stroke(styles.color);
-        this._ring.stroke(styles.color);
-        this._ring.fill(styles.backgroundColor);
-        this._pivot.fill(styles.color);
-
-        for (const tick of this._ticks) {
-            tick.stroke(styles.color);
-        }
     }
 }
