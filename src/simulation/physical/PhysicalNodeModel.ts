@@ -54,7 +54,7 @@ export class PhysicalNodeModel extends Model<Events> {
 
     private sendHeartbeat() {
         for (const link of this.links) {
-            link.send(this.clock.time);
+            link.send(this.clock.time.value);
         }
     }
 
