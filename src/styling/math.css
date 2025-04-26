@@ -57,6 +57,8 @@ math {
     mi[title],
     mo[title],
     msub[title],
+    msup[title],
+    msubsup[title],
     mfrac[title],
     mtext.description {
         cursor: pointer;
