@@ -2,7 +2,7 @@
 name: Improvement
 about: What existing thing would you like improved?
 title: ''
-labels: enhancement
+labels: improvement
 assignees: greyhillman
 
 ---
