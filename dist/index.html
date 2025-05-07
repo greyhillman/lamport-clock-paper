@@ -13,8 +13,8 @@
 
 
     <title>Time, Clocks, and the Ordering of Events in a Distributed System</title>
-  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-CEiQfHT9.js"></script>
-  <link rel="stylesheet" crossorigin href="/lamport-clock-paper/assets/index-CncOAhcA.css">
+  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-DoxmHGoM.js"></script>
+  <link rel="stylesheet" crossorigin href="/lamport-clock-paper/assets/index-D9OUSKDv.css">
 </head>
 
 <body>
@@ -3331,22 +3331,22 @@
                     For any <math>
                         <mi>i</mi>
                     </math>, and <math>
-                        <mi>t</mi>
+                        <mi title="start time">t</mi>
                     </math>, let us define <math>
-                        <msubsup>
+                        <msubsup title="never-resetting clock from start time">
                             <mi>C</mi>
                             <mi>i</mi>
-                            <mi>t</mi>
+                            <mi title="start time">t</mi>
                         </msubsup>
                     </math> to be a clock which is set equal to <math>
-                        <msub>
+                        <msub title="process clock">
                             <mi>C</mi>
                             <mi>i</mi>
                         </msub>
                     </math> at time <math>
-                        <mi>t</mi>
+                        <mi title="start time">t</mi>
                     </math> and runs at the same rate as <math>
-                        <msub>
+                        <msub title="process clock">
                             <mi>C</mi>
                             <mi>i</mi>
                         </msub>
@@ -3358,12 +3358,12 @@
                 </section>
                 <p>
                     for all <math>
-                        <mrow>
+                        <mrow title="current time">
                             <mi>t</mi>
                             <mo>&#x2032;</mo>
                         </mrow>
                         <mo>&#x2265;</mo>
-                        <mi>t</mi>
+                        <mi title="start time">t</mi>
                     </math>. Note that
                 </p>
                 <section class="equation" id="proof-2">
@@ -3372,47 +3372,47 @@
                 </section>
                 <p>
                     Suppose process <math>
-                        <msub>
+                        <msub title="sending process">
                             <mi>P</mi>
                             <mn>1</mn>
                         </msub>
                     </math> at time <math>
-                        <msub>
+                        <msub title="sent time">
                             <mi>t</mi>
                             <mn>1</mn>
                         </msub>
                     </math> sends a message to process <math>
-                        <msub>
+                        <msub title="receiving process">
                             <mi>P</mi>
                             <mn>2</mn>
                         </msub>
                     </math> which is received at <math>
-                        <msub>
+                        <msub title="received time">
                             <mi>t</mi>
                             <mn>2</mn>
                         </msub>
                     </math> with an unpredictable delay <math>
                         <mo>&#x2264;</mo>
-                        <mi>&#x3BE;</mi>
+                        <mi title="maximum unpredictable delay">&#x3BE;</mi>
                     </math>, where <math>
-                        <msub>
+                        <msub title="initial time">
                             <mi>t</mi>
                             <mn>0</mn>
                         </msub>
                         <mo>&#x2264;</mo>
-                        <msub>
+                        <msub title="sent time">
                             <mi>t</mi>
                             <mn>1</mn>
                         </msub>
                         <mo>&#x2264;</mo>
-                        <msub>
+                        <msub title="received time">
                             <mi>t</mi>
                             <mn>2</mn>
                         </msub>
                     </math>. Then for all <math>
-                        <mi>t</mi>
+                        <mi title="current time">t</mi>
                         <mo>&#x2265;</mo>
-                        <msub>
+                        <msub title="received time">
                             <mi>t</mi>
                             <mn>2</mn>
                         </msub>
@@ -3421,55 +3421,57 @@
                 <ol class="math derivation">
                     <li>
                         <math>
-                            <mrow>
-                                <msubsup>
+                            <mrow title="never-resetting receiving clock's current value">
+                                <msubsup title="receiving never-resetting clock from received time">
                                     <mi>C</mi>
                                     <mn>2</mn>
-                                    <msub>
+                                    <msub title="recevied time">
                                         <mi>t</mi>
                                         <mn>2</mn>
                                     </msub>
                                 </msubsup>
                                 <mo>(</mo>
-                                <mi>t</mi>
+                                <mi title="current time">t</mi>
                                 <mo>)</mo>
                             </mrow>
                         </math>
                         <math>
                             <mo>&#x2265;</mo>
-                            <mrow>
-                                <msubsup>
+                            <mrow title="never-resetting receiving clock's value at received time">
+                                <msubsup title="never-resetting receiving clock at received time">
                                     <mi>C</mi>
                                     <mn>2</mn>
-                                    <msub>
+                                    <msub title="received time">
                                         <mi>t</mi>
                                         <mn>2</mn>
                                     </msub>
                                 </msubsup>
                                 <mo>(</mo>
-                                <msub>
+                                <msub title="received time">
                                     <mi>t</mi>
                                     <mn>2</mn>
                                 </msub>
                                 <mo>)</mo>
                             </mrow>
                             <mo>+</mo>
-                            <mrow>
-                                <mo>(</mo>
-                                <mn>1</mn>
-                                <mo>-</mo>
-                                <mi>&#x3BA;</mi>
-                                <mo>)</mo>
-                            </mrow>
-                            <mrow>
-                                <mo>(</mo>
-                                <mn>t</mn>
-                                <mo>-</mo>
-                                <msub>
-                                    <mi>t</mi>
-                                    <mn>2</mn>
-                                </msub>
-                                <mo>)</mo>
+                            <mrow title="minimum possible clock value since message received">
+                                <mrow title="minimum clock speed">
+                                    <mo>(</mo>
+                                    <mn>1</mn>
+                                    <mo>-</mo>
+                                    <mi title="maximum clock speed error">&#x3BA;</mi>
+                                    <mo>)</mo>
+                                </mrow>
+                                <mrow title="time since received">
+                                    <mo>(</mo>
+                                    <mi title="current time">t</mi>
+                                    <mo>-</mo>
+                                    <msub title="received time">
+                                        <mi>t</mi>
+                                        <mn>2</mn>
+                                    </msub>
+                                    <mo>)</mo>
+                                </mrow>
                             </mrow>
                         </math>
                         <span class="reason">
@@ -3485,40 +3487,42 @@
                     <li>
                         <math>
                             <mo>&#x2265;</mo>
-                            <mrow>
-                                <msub>
+                            <mrow title="sending clocks' value at sent time">
+                                <msub title="sending clock">
                                     <mi>C</mi>
                                     <mn>1</mn>
                                 </msub>
                                 <mo>(</mo>
-                                <msub>
+                                <msub title="sent time">
                                     <mi>t</mi>
                                     <mn>1</mn>
                                 </msub>
                                 <mo>)</mo>
                             </mrow>
                             <mo>+</mo>
-                            <msub>
+                            <msub title="minimum message delay">
                                 <mi>&#x3BC;</mi>
                                 <mi>m</mi>
                             </msub>
                             <mo>+</mo>
-                            <mrow>
-                                <mo>(</mo>
-                                <mn>1</mn>
-                                <mo>-</mo>
-                                <mi>&#x3BA;</mi>
-                                <mo>)</mo>
-                            </mrow>
-                            <mrow>
-                                <mo>(</mo>
-                                <mn>t</mn>
-                                <mo>-</mo>
-                                <msub>
-                                    <mi>t</mi>
-                                    <mn>2</mn>
-                                </msub>
-                                <mo>)</mo>
+                            <mrow title="minimum clock value since message received">
+                                <mrow title="minimum clock speed">
+                                    <mo>(</mo>
+                                    <mn>1</mn>
+                                    <mo>-</mo>
+                                    <mi title="maximum clock speed error">&#x3BA;</mi>
+                                    <mo>)</mo>
+                                </mrow>
+                                <mrow title="time since received">
+                                    <mo>(</mo>
+                                    <mi title="current time">t</mi>
+                                    <mo>-</mo>
+                                    <msub title="received time">
+                                        <mi>t</mi>
+                                        <mn>2</mn>
+                                    </msub>
+                                    <mo>)</mo>
+                                </mrow>
                             </mrow>
                         </math>
                         <span class="reason">
@@ -3531,32 +3535,32 @@
                     <li>
                         <math>
                             <mo>=</mo>
-                            <mrow>
-                                <msub>
+                            <mrow title="sending clock's value at sent time">
+                                <msub title="sending clock">
                                     <mi>C</mi>
                                     <mn>1</mn>
                                 </msub>
                                 <mo>(</mo>
-                                <msub>
+                                <msub title="sent time">
                                     <mi>t</mi>
                                     <mn>1</mn>
                                 </msub>
                                 <mo>)</mo>
                             </mrow>
                             <mo>+</mo>
-                            <mrow>
-                                <mrow>
+                            <mrow title="minimum clock value since message sent">
+                                <mrow title="minimum clock speed">
                                     <mo>(</mo>
                                     <mn>1</mn>
                                     <mo>-</mo>
-                                    <mi>&#x3BA;</mi>
+                                    <mi title="maximum clock speed error">&#x3BA;</mi>
                                     <mo>)</mo>
                                 </mrow>
-                                <mrow>
+                                <mrow title="time since message sent">
                                     <mo>(</mo>
-                                    <mi>t</mi>
+                                    <mi title="current time">t</mi>
                                     <mo>-</mo>
-                                    <msub>
+                                    <msub title="sent time">
                                         <mi>t</mi>
                                         <mn>1</mn>
                                     </msub>
@@ -3564,39 +3568,39 @@
                                 </mrow>
                             </mrow>
                             <mo>-</mo>
-                            <mrow>
+                            <mrow title="unpredictable message delay">
                                 <mo>(</mo>
-                                <mrow>
+                                <mrow title="total message delay">
                                     <mo>(</mo>
-                                    <msub>
+                                    <msub title="received time">
                                         <mi>t</mi>
                                         <mn>2</mn>
                                     </msub>
                                     <mo>-</mo>
-                                    <msub>
+                                    <msub title="sent time">
                                         <mi>t</mi>
                                         <mn>1</mn>
                                     </msub>
                                     <mo>)</mo>
                                 </mrow>
                                 <mo>-</mo>
-                                <msub>
+                                <msub title="minimum message delay">
                                     <mi>&#x3BC;</mi>
                                     <mi>m</mi>
                                 </msub>
                                 <mo>)</mo>
                             </mrow>
                             <mo>+</mo>
-                            <mrow>
-                                <mi>&#x3BA;</mi>
-                                <mrow>
+                            <mrow title="max error in clock value during total message delay">
+                                <mi title="max clock speed error">&#x3BA;</mi>
+                                <mrow title="total message delay">
                                     <mo>(</mo>
-                                    <msub>
+                                    <msub title="received time">
                                         <mi>t</mi>
                                         <mn>2</mn>
                                     </msub>
                                     <mo>-</mo>
-                                    <msub>
+                                    <msub title="sent time">
                                         <mi>t</mi>
                                         <mn>1</mn>
                                     </msub>
@@ -3608,44 +3612,48 @@
                     <li>
                         <math>
                             <mo>&#x2265;</mo>
-                            <msub>
-                                <mi>C</mi>
-                                <mn>1</mn>
-                            </msub>
-                            <mo>(</mo>
-                            <msub>
-                                <mi>t</mi>
-                                <mn>1</mn>
-                            </msub>
-                            <mo>)</mo>
-                            <mo>+</mo>
-                            <mrow>
+                            <mrow title="sending clock's value at sent time">
+                                <msub title="sending clock">
+                                    <mi>C</mi>
+                                    <mn>1</mn>
+                                </msub>
                                 <mo>(</mo>
-                                <mn>1</mn>
-                                <mo>-</mo>
-                                <mi>&#x3BA;</mi>
-                                <mo>)</mo>
-                            </mrow>
-                            <mrow>
-                                <mo>(</mo>
-                                <mi>t</mi>
-                                <mo>-</mo>
-                                <msub>
+                                <msub title="sent time">
                                     <mi>t</mi>
                                     <mn>1</mn>
                                 </msub>
                                 <mo>)</mo>
                             </mrow>
+                            <mo>+</mo>
+                            <mrow title="lowest possible clock value since message sent">
+                                <mrow title="minimum clock speed">
+                                    <mo>(</mo>
+                                    <mn>1</mn>
+                                    <mo>-</mo>
+                                    <mi title="maximum clock speed error">&#x3BA;</mi>
+                                    <mo>)</mo>
+                                </mrow>
+                                <mrow title="time since message sent">
+                                    <mo>(</mo>
+                                    <mi>t</mi>
+                                    <mo>-</mo>
+                                    <msub title="sent time">
+                                        <mi>t</mi>
+                                        <mn>1</mn>
+                                    </msub>
+                                    <mo>)</mo>
+                                </mrow>
+                            </mrow>
                             <mo>-</mo>
-                            <mi>&#x3BE;</mi>
+                            <mi title="maximum unpredictable delay">&#x3BE;</mi>
                         </math>
                     </li>
                 </ol>
                 <p>
                     Hence, with these assumptions, for all <math>
-                        <mi>t</mi>
+                        <mi title="current time">t</mi>
                         <mo>&#x2265;</mo>
-                        <msub>
+                        <msub title="received time">
                             <mi>t</mi>
                             <mn>2</mn>
                         </msub>
@@ -3663,20 +3671,20 @@
                         <mo>,</mo>
                         <mo>...</mo>
                         <mo>,</mo>
-                        <mi>n</mi>
+                        <mi title="path length">n</mi>
                     </math> we have <math>
-                        <msub>
+                        <msub title="current process's start/received time">
                             <mi>t</mi>
                             <mi>i</mi>
                         </msub>
                         <mo>&#x2264;</mo>
-                        <msubsup>
+                        <msubsup title="current process's sent time">
                             <mi>t</mi>
                             <mi>i</mi>
                             <mo>&#x2032;</mo>
                         </msubsup>
                         <mo>&#x3C;</mo>
-                        <msub>
+                        <msub title="next process's received time">
                             <mi>t</mi>
                             <mrow>
                                 <mi>i</mi>
@@ -3685,28 +3693,28 @@
                             </mrow>
                         </msub>
                     </math>, <math>
-                        <msub>
+                        <msub title="initial time">
                             <mi>t</mi>
                             <mn>0</mn>
                         </msub>
                         <mo>&#x2264;</mo>
-                        <msub>
+                        <msub title="first process's start time">
                             <mi>t</mi>
                             <mn>1</mn>
                         </msub>
                     </math>, and that at time <math>
-                        <msubsup>
+                        <msubsup title="current process's sent time">
                             <mi>t</mi>
                             <mi>i</mi>
                             <mo>&#x2032;</mo>
                         </msubsup>
                     </math> process <math>
-                        <msub>
+                        <msub title="current process">
                             <mi>P</mi>
                             <mi>i</mi>
                         </msub>
                     </math> sends a message to process <math>
-                        <msub>
+                        <msub title="next process">
                             <mi>P</mi>
                             <mrow>
                                 <mi>i</mi>
@@ -3715,7 +3723,7 @@
                             </mrow>
                         </msub>
                     </math> which is received at time <math>
-                        <msub>
+                        <msub title="next process's received time">
                             <mi>t</mi>
                             <mrow>
                                 <mi>i</mi>
@@ -3724,14 +3732,14 @@
                             </mrow>
                         </msub>
                     </math> with an unpredictable delay less than <math>
-                        <mi>&#x3BE;</mi>
+                        <mi title="maximum unpredictable delay">&#x3BE;</mi>
                     </math>. Then repeated application of the inequality <inline-details>
                         <span slot="summary">(3)</span>
                         <template-use slot="content" template-id="proof-3-use"></template-use>
                     </inline-details> yields the following result for <math>
-                        <mi>t</mi>
+                        <mi title="current time">t</mi>
                         <mo>&#x2265;</mo>
-                        <msub>
+                        <msub title="last received time">
                             <mi>t</mi>
                             <mrow>
                                 <mi>n</mi>
@@ -3759,49 +3767,55 @@
                 </p>
                 <section class="equation">
                     <math display="block">
-                        <msub>
-                            <mi>C</mi>
-                            <mn>1</mn>
-                        </msub>
-                        <mo>(</mo>
-                        <msubsup>
-                            <mi>t</mi>
-                            <mn>1</mn>
-                            <mo>&#x2032;</mo>
-                        </msubsup>
-                        <mo>)</mo>
-                        <mo>&#x2265;</mo>
-                        <msub>
-                            <mi>C</mi>
-                            <mn>1</mn>
-                        </msub>
-                        <mo>(</mo>
-                        <msub>
-                            <mi>t</mi>
-                            <mn>1</mn>
-                        </msub>
-                        <mo>)</mo>
-                        <mo>+</mo>
-                        <mrow>
+                        <mrow title="the first clock's value when the first message was sent">
+                            <msub title="first clock">
+                                <mi>C</mi>
+                                <mn>1</mn>
+                            </msub>
                             <mo>(</mo>
-                            <mn>1</mn>
-                            <mo>-</mo>
-                            <mi>&#x3BA;</mi>
-                            <mo>)</mo>
-                        </mrow>
-                        <mrow>
-                            <mo>(</mo>
-                            <msubsup>
+                            <msubsup title="time the first message was sent">
                                 <mi>t</mi>
                                 <mn>1</mn>
                                 <mo>&#x2032;</mo>
                             </msubsup>
-                            <mo>-</mo>
-                            <msub>
+                            <mo>)</mo>
+                        </mrow>
+                        <mo>&#x2265;</mo>
+                        <mrow title="the first clock's value when the first clock started">
+                            <msub title="first clock">
+                                <mi>C</mi>
+                                <mn>1</mn>
+                            </msub>
+                            <mo>(</mo>
+                            <msub title="first process's start time">
                                 <mi>t</mi>
                                 <mn>1</mn>
                             </msub>
                             <mo>)</mo>
+                        </mrow>
+                        <mo>+</mo>
+                        <mrow title="minimum clock value change before first message was sent">
+                            <mrow title="minimum clock speed">
+                                <mo>(</mo>
+                                <mn>1</mn>
+                                <mo>-</mo>
+                                <mi title="maximum clock speed error">&#x3BA;</mi>
+                                <mo>)</mo>
+                            </mrow>
+                            <mrow title="first message delay">
+                                <mo>(</mo>
+                                <msubsup title="time first message was sent">
+                                    <mi>t</mi>
+                                    <mn>1</mn>
+                                    <mo>&#x2032;</mo>
+                                </msubsup>
+                                <mo>-</mo>
+                                <msub title="first start time">
+                                    <mi>t</mi>
+                                    <mn>1</mn>
+                                </msub>
+                                <mo>)</mo>
+                            </mrow>
                         </mrow>
                     </math>
                 </section>
@@ -3820,9 +3834,9 @@
                 </section>
                 <p>
                     for <math>
-                        <mi>t</mi>
+                        <mi title="current time">t</mi>
                         <mo>&#x2265;</mo>
-                        <msub>
+                        <msub title="last process's received time">
                             <mi>t</mi>
                             <mrow>
                                 <mi>n</mi>
@@ -3834,28 +3848,28 @@
                 </p>
                 <p>
                     For any two processes <math>
-                        <mi>P</mi>
+                        <mi title="start process">P</mi>
                     </math> and <math>
-                        <msup>
+                        <msup title="end process">
                             <mi>P</mi>
                             <mo>&#x2032;</mo>
                         </msup>
                     </math>, we can find a sequence of processes <math>
-                        <mi>P</mi>
+                        <mi title="start process">P</mi>
                         <mo>=</mo>
-                        <msub>
+                        <msub title="start process">
                             <mi>P</mi>
                             <mn>0</mn>
                         </msub>
                         <mo>,</mo>
-                        <msub>
+                        <msub title="first process">
                             <mi>P</mi>
                             <mn>1</mn>
                         </msub>
                         <mo>,</mo>
                         <mo>...</mo>
                         <mo>,</mo>
-                        <msub>
+                        <msub title="end process">
                             <mi>P</mi>
                             <mrow>
                                 <mi>n</mi>
@@ -3864,21 +3878,21 @@
                             </mrow>
                         </msub>
                         <mo>=</mo>
-                        <msup>
+                        <msup title="end process">
                             <mi>P</mi>
                             <mo>&#x2032;</mo>
                         </msup>
                     </math>, <math>
-                        <mi>n</mi>
+                        <mi title="path length">n</mi>
                         <mo>&#x2264;</mo>
-                        <mi>d</mi>
+                        <mi title="graph diameter">d</mi>
                     </math>, with communication arcs from each <math>
-                        <msub>
+                        <msub title="current process in the path">
                             <mi>P</mi>
                             <mi>i</mi>
                         </msub>
                     </math> to <math>
-                        <msub>
+                        <msub title="next process in the path">
                             <mi>P</mi>
                             <mrow>
                                 <mi>i</mi>
@@ -3887,108 +3901,124 @@
                             </mrow>
                         </msub>
                     </math>. By hypothesis (b) we can find times <math>
-                        <msub>
+                        <msub title="current process's start/received time">
                             <mi>t</mi>
                             <mi>i</mi>
                         </msub>
                     </math>, <math>
-                        <msubsup>
+                        <msubsup title="current process's sent time">
                             <mi>t</mi>
                             <mi>i</mi>
                             <mo>&#x2032;</mo>
                         </msubsup>
                     </math> with <math>
-                        <msubsup>
-                            <mi>t</mi>
-                            <mi>i</mi>
-                            <mo>&#x2032;</mo>
-                        </msubsup>
-                        <mo>-</mo>
-                        <msub>
-                            <mi>t</mi>
-                            <mi>i</mi>
-                        </msub>
-                        <mo>&#x2264;</mo>
-                        <mi>&#x3C4;</mi>
-                    </math> and <math>
-                        <msub>
-                            <mi>t</mi>
-                            <mrow>
+                        <mrow title="time for current process to send neighbour message">
+                            <msubsup title="current process's sent time">
+                                <mi>t</mi>
                                 <mi>i</mi>
-                                <mo>+</mo>
-                                <mn>1</mn>
-                            </mrow>
-                        </msub>
-                        <mo>-</mo>
-                        <msubsup>
-                            <mi>t</mi>
-                            <mi>i</mi>
-                            <mo>&#x2032;</mo>
-                        </msubsup>
+                                <mo>&#x2032;</mo>
+                            </msubsup>
+                            <mo>-</mo>
+                            <msub title="current process's start/received time">
+                                <mi>t</mi>
+                                <mi>i</mi>
+                            </msub>
+                        </mrow>
                         <mo>&#x2264;</mo>
-                        <mi>v</mi>
+                        <mi title="neighbour period">&#x3C4;</mi>
+                    </math> and <math>
+                        <mrow title="total message delay for a neighbour message">
+                            <msub title="next process's received time">
+                                <mi>t</mi>
+                                <mrow>
+                                    <mi>i</mi>
+                                    <mo>+</mo>
+                                    <mn>1</mn>
+                                </mrow>
+                            </msub>
+                            <mo>-</mo>
+                            <msubsup title="current process's sent time">
+                                <mi>t</mi>
+                                <mi>i</mi>
+                                <mo>&#x2032;</mo>
+                            </msubsup>
+                        </mrow>
+                        <mo>&#x2264;</mo>
+                        <mi title="maximum total message delay">v</mi>
                     </math>, where <math>
-                        <mi>v</mi>
+                        <mi title="maximum total message delay">v</mi>
                         <mo>=</mo>
-                        <mi>&#x3BC;</mi>
+                        <mi title="maximum minimum message delay">&#x3BC;</mi>
                         <mo>+</mo>
-                        <mi>&#x3BE;</mi>
+                        <mi title="maximum unpredictable delay">&#x3BE;</mi>
                     </math>. Hence, an inequality of the form <inline-details>
                         <span slot="summary">(5)</span>
                         <template-use slot="content" template-id="proof-5-use"></template-use>
                     </inline-details> holds with <math>
-                        <mi>n</mi>
+                        <mi title="path length">n</mi>
                         <mo>&#x2264;</mo>
-                        <mi>d</mi>
+                        <mi title="graph diameter">d</mi>
                     </math> whenever <math>
-                        <mi>t</mi>
+                        <mi title="current time">t</mi>
                         <mo>&#x2265;</mo>
-                        <msub>
-                            <mi>t</mi>
-                            <mn>1</mn>
-                        </msub>
-                        <mo>+</mo>
-                        <mi>d</mi>
-                        <mo>(</mo>
-                        <mi>&#x3C4;</mi>
-                        <mo>+</mo>
-                        <mi>v</mi>
-                        <mo>)</mo>
+                        <mrow title="maximum time for the last process to know of the first process's clock">
+                            <msub title="start time">
+                                <mi>t</mi>
+                                <mn>1</mn>
+                            </msub>
+                            <mo>+</mo>
+                            <mrow title="maximum time for a process to know of the first process's clock">
+                                <mi title="graph diameter">d</mi>
+                                <mrow title="maximum time for a process to send a message to the next process">
+                                    <mo>(</mo>
+                                    <mi title="neighbour period">&#x3C4;</mi>
+                                    <mo>+</mo>
+                                    <mi title="maximum total message delay">v</mi>
+                                    <mo>)</mo>
+                                </mrow>
+                            </mrow>
+                        </mrow>
                     </math>. For any <math>
                         <mi>i</mi>
                     </math>, <math>
                         <mi>j</mi>
                     </math> and any <math>
-                        <mi>t</mi>
+                        <mi title="current time">t</mi>
                     </math>, and <math>
-                        <msub>
+                        <msub title="start time">
                             <mi>t</mi>
                             <mn>1</mn>
                         </msub>
                     </math> with <math>
-                        <msub>
+                        <msub title="start time">
                             <mi>t</mi>
                             <mn>1</mn>
                         </msub>
                         <mo>&#x2265;</mo>
-                        <msub>
+                        <msub title="initial time">
                             <mi>t</mi>
                             <mn>0</mn>
                         </msub>
                     </math> and <math>
-                        <mi>t</mi>
+                        <mi title="current time">t</mi>
                         <mo>&#x2265;</mo>
-                        <msub>
-                            <mi>t</mi>
-                            <mn>1</mn>
-                        </msub>
-                        <mo>+</mo>
-                        <mi>d</mi>
-                        <mo>(</mo>
-                        <mi>&#x3C4;</mi>
-                        <mo>+</mo>
-                        <mi>v</mi>
-                        <mo>)</mo>
+                        <mrow title="maximum time for the last process to know of the first process's clock">
+                            <msub title="start time">
+                                <mi>t</mi>
+                                <mn>1</mn>
+                            </msub>
+                            <mo>+</mo>
+                            <mrow title="maximum time for a process to know of the first process's clock">
+                                <mi title="graph diameter">d</mi>
+                                <mrow title="maximum time for a process to send a message to the next process">
+                                    <mo>(</mo>
+                                    <mi title="neighbour period">&#x3C4;</mi>
+                                    <mo>+</mo>
+                                    <mi title="maximum total message delay">v</mi>
+                                    <mo>)</mo>
+                                </mrow>
+                            </mrow>
+                        </mrow>
                     </math> we therefore have:
                 </p>
                 <section class="equation" id="proof-6">
@@ -3997,74 +4027,82 @@
                 </section>
                 <p>
                     Now let <math>
-                        <mi>m</mi>
+                        <mi title="message">m</mi>
                     </math> be any message timestamped <math>
-                        <msub>
+                        <msub title="message timestamp">
                             <mi>T</mi>
                             <mi>m</mi>
                         </msub>
                     </math>, and suppose it is sent at time <math>
-                        <mi>t</mi>
+                        <mi title="sent time">t</mi>
                     </math> and received at time <math>
-                        <msup>
+                        <msup title="received time">
                             <mi>t</mi>
                             <mo>&#x2032;</mo>
                         </msup>
                     </math>. We pretend that <math>
-                        <mi>m</mi>
+                        <mi title="message">m</mi>
                     </math> has a clock <math>
-                        <msub>
+                        <msub title="message's clock">
                             <mi>C</mi>
                             <mi>m</mi>
                         </msub>
                     </math> which runs at a constant rate such that <math>
-                        <msub>
-                            <mi>C</mi>
-                            <mi>m</mi>
-                        </msub>
-                        <mo>(</mo>
-                        <mi>t</mi>
-                        <mo>)</mo>
+                        <mrow title="the starting value of the message's clock">
+                            <msub title="message's clock">
+                                <mi>C</mi>
+                                <mi>m</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <mi title="sent time">t</mi>
+                            <mo>)</mo>
+                        </mrow>
                         <mo>=</mo>
-                        <msub>
-                            <mi>t</mi>
+                        <msub title="message timestamp">
+                            <mi>T</mi>
                             <mi>m</mi>
                         </msub>
                     </math> and <math>
-                        <msub>
-                            <mi>C</mi>
-                            <mi>m</mi>
-                        </msub>
-                        <mo>(</mo>
-                        <msup>
-                            <mi>t</mi>
-                            <mo>&#x2032;</mo>
-                        </msup>
-                        <mo>)</mo>
+                        <mrow title="the final value of the message's clock">
+                            <msub title="message's clock">
+                                <mi>C</mi>
+                                <mi>m</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <msup title="received time">
+                                <mi>t</mi>
+                                <mo>&#x2032;</mo>
+                            </msup>
+                            <mo>)</mo>
+                        </mrow>
                         <mo>=</mo>
-                        <msub>
-                            <mi>t</mi>
-                            <mi>m</mi>
-                        </msub>
-                        <mo>+</mo>
-                        <msub>
-                            <mi>&#x03BC;</mi>
-                            <mi>m</mi>
-                        </msub>
+                        <mrow title="minimum time for the message to be received">
+                            <msub title="message timestamp">
+                                <mi>T</mi>
+                                <mi>m</mi>
+                            </msub>
+                            <mo>+</mo>
+                            <msub title="minimum message delay">
+                                <mi>&#x03BC;</mi>
+                                <mi>m</mi>
+                            </msub>
+                        </mrow>
                     </math>. Then <math>
-                        <msub>
+                        <msub title="minimum message delay">
                             <mi>&#x03BC;</mi>
                             <mi>m</mi>
                         </msub>
                         <mo>&#x2264;</mo>
-                        <msup>
-                            <mi>t</mi>
-                            <mo>&#x2032;</mo>
-                        </msup>
-                        <mo>-</mo>
-                        <mi>t</mi>
+                        <mrow title="total message delay">
+                            <msup title="received time">
+                                <mi>t</mi>
+                                <mo>&#x2032;</mo>
+                            </msup>
+                            <mo>-</mo>
+                            <mi title="sent time">t</mi>
+                        </mrow>
                     </math> implies that <math>
-                        <mfrac>
+                        <mfrac title="message's clock speed">
                             <mrow>
                                 <mo>d</mo>
                                 <msub>
@@ -4083,26 +4121,28 @@
                         <span slot="summary">Rule IR2' (b)</span>
                         <template-use slot="content" template-id="physical-implementation-rule-2b-use"></template-use>
                     </inline-details> simply set <math>
-                        <msub>
-                            <mi>C</mi>
-                            <mi>j</mi>
-                        </msub>
-                        <mo>(</mo>
-                        <msup>
-                            <mi>t</mi>
-                            <mo>&#x2032;</mo>
-                        </msup>
-                        <mo>)</mo>
-                    </math> to <math>
-                        <mo>maximum</mo>
-                        <mo>(</mo>
-                        <mrow>
-                            <msub>
+                        <mrow title="the value of the receiving clock when the message is received">
+                            <msub title="receiving clock">
                                 <mi>C</mi>
                                 <mi>j</mi>
                             </msub>
                             <mo>(</mo>
-                            <msup>
+                            <msup title="received time">
+                                <mi>t</mi>
+                                <mo>&#x2032;</mo>
+                            </msup>
+                            <mo>)</mo>
+                        </mrow>
+                    </math> to <math>
+                        <mo>maximum</mo>
+                        <mo>(</mo>
+                        <mrow title="the current value of the receiving clock when the message is received">
+                            <msub title="receiving clock">
+                                <mi>C</mi>
+                                <mi>j</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <msup title="received time">
                                 <mi>t</mi>
                                 <mo>&#x2032;</mo>
                             </msup>
@@ -4111,13 +4151,13 @@
                             <mo>)</mo>
                         </mrow>
                         <mo>,</mo>
-                        <mrow>
-                            <msub>
+                        <mrow title="the final value of the message's clock">
+                            <msub title="message's clock">
                                 <mi>C</mi>
                                 <mi>m</mi>
                             </msub>
                             <mo>(</mo>
-                            <msup>
+                            <msup title="received time">
                                 <mi>t</mi>
                                 <mo>&#x2032;</mo>
                             </msup>
@@ -4128,46 +4168,48 @@
                 </p>
                 <p>
                     For any time <math>
-                        <msub>
+                        <msub title="largest clock time">
                             <mi>t</mi>
                             <mi>x</mi>
                         </msub>
                         <mo>&#x2265;</mo>
-                        <msub>
+                        <msub title="initial time">
                             <mi>t</mi>
                             <mn>0</mn>
                         </msub>
                         <mo>+</mo>
                         <mfrac>
-                            <mi>&#x03BC;</mi>
-                            <mrow>
+                            <mi title="maximum minimum message delay">&#x03BC;</mi>
+                            <mrow title="minimum clock speed">
                                 <mo>(</mo>
                                 <mn>1</mn>
                                 <mo>-</mo>
-                                <mi>&#x03BA;</mi>
+                                <mi title="maximum clock speed error">&#x03BA;</mi>
                                 <mo>)</mo>
                             </mrow>
                         </mfrac>
                     </math>, let <math>
-                        <msub>
+                        <msub title="clock with largest value">
                             <mi>C</mi>
                             <mi>x</mi>
                         </msub>
                     </math> be the clock having the largest value at time <math>
-                        <msub>
+                        <msub title="largest clock start time">
                             <mi>t</mi>
                             <mi>x</mi>
                         </msub>
                     </math>. Since all clocks run at a rate less than <math>
-                        <mn>1</mn>
-                        <mo>+</mo>
-                        <mi>&#x03BA;</mi>
+                        <mrow title="maximum clock speed">
+                            <mn>1</mn>
+                            <mo>+</mo>
+                            <mi title="maximum clock speed error">&#x03BA;</mi>
+                        </mrow>
                     </math>, we have for all <math>
                         <mi>i</mi>
                     </math> and all <math>
-                        <mi>t</mi>
+                        <mi title="current time">t</mi>
                         <mo>&#x2265;</mo>
-                        <msub>
+                        <msub title="largest clock start time">
                             <mi>t</mi>
                             <mi>x</mi>
                         </msub>
@@ -4206,29 +4248,33 @@
                         <span slot="summary">case (ii)</span>
                         <template-use slot="content" template-id="proof-case-ii-use"></template-use>
                     </inline-details>, since <math>
-                        <msub>
-                            <mi>C</mi>
-                            <mi>m</mi>
-                        </msub>
-                        <mo>(</mo>
-                        <msub>
-                            <mi>t</mi>
-                            <mn>1</mn>
-                        </msub>
-                        <mo>)</mo>
+                        <mrow title="the value of the message's clock when it was sent">
+                            <msub title="message's clock">
+                                <mi>C</mi>
+                                <mi>m</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <msub title="sent time">
+                                <mi>t</mi>
+                                <mn>1</mn>
+                            </msub>
+                            <mo>)</mo>
+                        </mrow>
                         <mo>=</mo>
-                        <msub>
-                            <mi>C</mi>
-                            <mi>q</mi>
-                        </msub>
-                        <mo>(</mo>
-                        <msub>
-                            <mi>t</mi>
-                            <mn>1</mn>
-                        </msub>
-                        <mo>)</mo>
+                        <mrow title="the value of the sending process's clock when the message was sent">
+                            <msub title="sending process's clock">
+                                <mi>C</mi>
+                                <mi>q</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <msub title="sent time">
+                                <mi>t</mi>
+                                <mn>1</mn>
+                            </msub>
+                            <mo>)</mo>
+                        </mrow>
                     </math> and <math>
-                        <mfrac>
+                        <mfrac title="message's clock speed">
                             <mrow>
                                 <mo>d</mo>
                                 <msub>
@@ -4246,36 +4292,40 @@
                 </p>
                 <section class="equation">
                     <math display="block">
-                        <msub>
-                            <mi>C</mi>
-                            <mi>x</mi>
-                        </msub>
-                        <mo>(</mo>
-                        <msub>
-                            <mi>t</mi>
-                            <mi>x</mi>
-                        </msub>
-                        <mo>)</mo>
-                        <mo>&#x2264;</mo>
-                        <msub>
-                            <mi>C</mi>
-                            <mi>q</mi>
-                        </msub>
-                        <mo>(</mo>
-                        <msub>
-                            <mi>t</mi>
-                            <mn>1</mn>
-                        </msub>
-                        <mo>)</mo>
-                        <mo>+</mo>
-                        <mrow>
+                        <mrow title="the largest clock's starting value">
+                            <msub title="largest clock">
+                                <mi>C</mi>
+                                <mi>x</mi>
+                            </msub>
                             <mo>(</mo>
-                            <msub>
+                            <msub title="largest clock start time">
+                                <mi>t</mi>
+                                <mi>x</mi>
+                            </msub>
+                            <mo>)</mo>
+                        </mrow>
+                        <mo>&#x2264;</mo>
+                        <mrow title="the value of the sending process's clock when the message was sent">
+                            <msub title="sending process's clock">
+                                <mi>C</mi>
+                                <mi>q</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <msub title="sent time">
+                                <mi>t</mi>
+                                <mn>1</mn>
+                            </msub>
+                            <mo>)</mo>
+                        </mrow>
+                        <mo>+</mo>
+                        <mrow title="max clock value change since message was sent">
+                            <mo>(</mo>
+                            <msub title="largest clock start time">
                                 <mi>t</mi>
                                 <mi>x</mi>
                             </msub>
                             <mo>-</mo>
-                            <msub>
+                            <msub title="sent time">
                                 <mi>t</mi>
                                 <mn>1</mn>
                             </msub>
@@ -4295,22 +4345,22 @@
                 </section>
                 <p>
                     Since <math>
-                        <msub>
+                        <msub title="largest clock start time">
                             <mi>t</mi>
                             <mi>x</mi>
                         </msub>
                         <mo>&#x2265;</mo>
-                        <msub>
+                        <msub title="initial time">
                             <mi>t</mi>
                             <mn>0</mn>
                         </msub>
                         <mo>+</mo>
                         <mfrac>
-                            <mi>&#x03BC;</mi>
-                            <mrow>
+                            <mi title="maximum minimum message delay">&#x03BC;</mi>
+                            <mrow title="minimum clock speed">
                                 <mn>1</mn>
                                 <mo>-</mo>
-                                <mi>&#x03BA;</mi>
+                                <mi title="maximum clock speed error">&#x03BA;</mi>
                             </mrow>
                         </mfrac>
                     </math>, we get
@@ -4318,23 +4368,23 @@
                 <ol class="math derivation">
                     <li>
                         <math>
-                            <msub>
+                            <msub title="sending process's clock">
                                 <mi>C</mi>
                                 <mi>q</mi>
                             </msub>
                             <mrow>
                                 <mo>(</mo>
-                                <msub>
+                                <msub title="largest clock start time">
                                     <mi>t</mi>
                                     <mi>x</mi>
                                 </msub>
                                 <mo>-</mo>
                                 <mfrac>
-                                    <mi>&#x03BC;</mi>
-                                    <mrow>
+                                    <mi title="maximum minimum message delay">&#x03BC;</mi>
+                                    <mrow title="minimum clock speed">
                                         <mn>1</mn>
                                         <mo>-</mo>
-                                        <mi>&#x03BA;</mi>
+                                        <mi title="maximum clock speed error">&#x03BA;</mi>
                                     </mrow>
                                 </mfrac>
                                 <mo>)</mo>
@@ -4342,18 +4392,20 @@
                         </math>
                         <math>
                             <mo>&#x2264;</mo>
-                            <msub>
-                                <mi>C</mi>
-                                <mi>q</mi>
-                            </msub>
-                            <mo>(</mo>
-                            <msub>
-                                <mi>t</mi>
-                                <mi>x</mi>
-                            </msub>
-                            <mo>)</mo>
+                            <mrow title="the value of the sending process's clock at the largest clock start time">
+                                <msub title="sending process's clock">
+                                    <mi>C</mi>
+                                    <mi>q</mi>
+                                </msub>
+                                <mo>(</mo>
+                                <msub title="largest clock start time">
+                                    <mi>t</mi>
+                                    <mi>x</mi>
+                                </msub>
+                                <mo>)</mo>
+                            </mrow>
                             <mo>-</mo>
-                            <mi>&#x03BC;</mi>
+                            <mi title="maximum minimum message delay">&#x03BC;</mi>
                         </math>
                         <span class="reason">
                             by <inline-details>
@@ -4365,59 +4417,65 @@
                     <li>
                         <math>
                             <mo>&#x2264;</mo>
-                            <msub>
-                                <mi>C</mi>
-                                <mi>m</mi>
-                            </msub>
-                            <mo>(</mo>
-                            <msub>
-                                <mi>t</mi>
-                                <mi>x</mi>
-                            </msub>
-                            <mo>)</mo>
+                            <mrow title="the value of the message's clock at the largest clock start time">
+                                <msub title="message's clock">
+                                    <mi>C</mi>
+                                    <mi>m</mi>
+                                </msub>
+                                <mo>(</mo>
+                                <msub title="largest clock start time">
+                                    <mi>t</mi>
+                                    <mi>x</mi>
+                                </msub>
+                                <mo>)</mo>
+                            </mrow>
                             <mo>-</mo>
-                            <mi>&#x03BC;</mi>
+                            <mi title="maximum minimum message delay">&#x03BC;</mi>
                         </math>
                         <span class="reason">
                             by choice of <math>
-                                <mi>m</mi>
+                                <mi title="message">m</mi>
                             </math>
                         </span>
                     </li>
                     <li>
                         <math>
                             <mo>&#x2264;</mo>
-                            <msub>
-                                <mi>C</mi>
-                                <mi>m</mi>
-                            </msub>
-                            <mo>(</mo>
-                            <msub>
-                                <mi>t</mi>
-                                <mi>x</mi>
-                            </msub>
-                            <mo>)</mo>
+                            <mrow title="the value of the message's clock at the largest clock start time">
+                                <msub title="message's clock">
+                                    <mi>C</mi>
+                                    <mi>m</mi>
+                                </msub>
+                                <mo>(</mo>
+                                <msub title="largest clock start time">
+                                    <mi>t</mi>
+                                    <mi>x</mi>
+                                </msub>
+                                <mo>)</mo>
+                            </mrow>
                             <mo>-</mo>
-                            <mfrac>
+                            <mfrac title="current fraction of minimum message delay">
                                 <mrow>
-                                    <mo>(</mo>
-                                    <msub>
-                                        <mi>t</mi>
-                                        <mi>x</mi>
-                                    </msub>
-                                    <mo>-</mo>
-                                    <msub>
-                                        <mi>t</mi>
-                                        <mn>1</mn>
-                                    </msub>
-                                    <mo>)</mo>
-                                    <msub>
+                                    <mrow title="the message's current flight time">
+                                        <mo>(</mo>
+                                        <msub title="largest clock start time">
+                                            <mi>t</mi>
+                                            <mi>x</mi>
+                                        </msub>
+                                        <mo>-</mo>
+                                        <msub title="sent time">
+                                            <mi>t</mi>
+                                            <mn>1</mn>
+                                        </msub>
+                                        <mo>)</mo>
+                                    </mrow>
+                                    <msub title="minimum message delay">
                                         <mi>&#x03BC;</mi>
                                         <mi>m</mi>
                                     </msub>
                                 </mrow>
                                 <mrow>
-                                    <msub>
+                                    <msub title="total message delay">
                                         <mi>v</mi>
                                         <mi>m</mi>
                                     </msub>
@@ -4427,24 +4485,24 @@
                         <span class="reason">
                             <math>
                                 <mrow>
-                                    <msub>
+                                    <msub title="minimum message delay">
                                         <mi>&#x03BC;</mi>
                                         <mi>m</mi>
                                     </msub>
                                     <mo>&#x2264;</mo>
-                                    <mi>&#x03BC;</mi>
+                                    <mi title="maximum minimum message delay">&#x03BC;</mi>
                                     <mo>,</mo>
-                                    <msub>
+                                    <msub title="largest clock time">
                                         <mi>t</mi>
                                         <mi>x</mi>
                                     </msub>
                                     <mo>-</mo>
-                                    <msub>
+                                    <msub title="sent time">
                                         <mi>t</mi>
                                         <mn>1</mn>
                                     </msub>
                                     <mo>&#x2264;</mo>
-                                    <msub>
+                                    <msub title="total message delay">
                                         <mi>v</mi>
                                         <mi>m</mi>
                                     </msub>
@@ -4455,14 +4513,14 @@
                     <li>
                         <math>
                             <mo>=</mo>
-                            <msub>
+                            <msub title="message timestamp">
                                 <mi>T</mi>
                                 <mi>m</mi>
                             </msub>
                         </math>
                         <span class="reason">
                             by definition of <math>
-                                <msub>
+                                <msub title="the message's clock">
                                     <mi>C</mi>
                                     <mi>m</mi>
                                 </msub>
@@ -4472,16 +4530,18 @@
                     <li>
                         <math>
                             <mo>=</mo>
-                            <msub>
-                                <mi>C</mi>
-                                <mi>q</mi>
-                            </msub>
-                            <mo>(</mo>
-                            <msub>
-                                <mi>t</mi>
-                                <mn>1</mn>
-                            </msub>
-                            <mo>)</mo>
+                            <mrow title="sending process's clock value when message was sent">
+                                <msub title="sending process's clock">
+                                    <mi>C</mi>
+                                    <mi>q</mi>
+                                </msub>
+                                <mo>(</mo>
+                                <msub title="sent time">
+                                    <mi>t</mi>
+                                    <mn>1</mn>
+                                </msub>
+                                <mo>)</mo>
+                            </mrow>
                         </math>
                         <span class="reason">
                             by <inline-details>
@@ -4493,64 +4553,68 @@
                 </ol>
                 <p>
                     Hence, <math>
-                        <msub>
+                        <msub title="sending process's clock">
                             <mi>C</mi>
                             <mi>q</mi>
                         </msub>
                         <mrow>
                             <mo>(</mo>
-                            <msub>
+                            <msub title="largest clock start time">
                                 <mi>t</mi>
                                 <mi>x</mi>
                             </msub>
                             <mo>-</mo>
                             <mfrac>
-                                <mi>&#x03BC;</mi>
-                                <mrow>
+                                <mi title="maximum minimum message delay">&#x03BC;</mi>
+                                <mrow title="minimum clock speed">
                                     <mn>1</mn>
                                     <mo>-</mo>
-                                    <mi>&#x03BA;</mi>
+                                    <mi title="maximum clock speed error">&#x03BA;</mi>
                                 </mrow>
                             </mfrac>
                             <mo>)</mo>
                         </mrow>
                         <mo>&#x2264;</mo>
-                        <msub>
-                            <mi>C</mi>
-                            <mi>q</mi>
-                        </msub>
-                        <mo>(</mo>
-                        <msub>
-                            <mi>t</mi>
-                            <mn>1</mn>
-                        </msub>
-                        <mo>)</mo>
+                        <mrow title="sending process's clock value when the message was sent">
+                            <msub title="sending process's clock">
+                                <mi>C</mi>
+                                <mi>q</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <msub title="sent time">
+                                <mi>t</mi>
+                                <mn>1</mn>
+                            </msub>
+                            <mo>)</mo>
+                        </mrow>
                     </math>, so <math>
-                        <msub>
-                            <mi>t</mi>
-                            <mi>x</mi>
-                        </msub>
-                        <mo>-</mo>
-                        <msub>
-                            <mi>t</mi>
-                            <mn>1</mn>
-                        </msub>
+                        <mrow title="current message flight time">
+                            <msub title="largest clock start time">
+                                <mi>t</mi>
+                                <mi>x</mi>
+                            </msub>
+                            <mo>-</mo>
+                            <msub title="sent time">
+                                <mi>t</mi>
+                                <mn>1</mn>
+                            </msub>
+                        </mrow>
                         <mo>&#x2264;</mo>
                         <mfrac>
-                            <mi>&#x03BC;</mi>
-                            <mrow>
+                            <mi title="maximum minimum message delay">&#x03BC;</mi>
+                            <mrow title="minimum clock speed">
                                 <mn>1</mn>
                                 <mo>-</mo>
-                                <mi>&#x03BA;</mi>
+                                <mi title="maximum clock speed error">&#x03BA;</mi>
                             </mrow>
                         </mfrac>
                     </math> and thus <math>
-                        <msub>
+                        <msub title="sent time">
                             <mi>t</mi>
                             <mn>1</mn>
                         </msub>
                         <mo>&#x2265;</mo>
-                        <msub>
+                        <msub title="initial time">
                             <mi>t</mi>
                             <mn>0</mn>
                         </msub>
@@ -4558,12 +4622,12 @@
                 </p>
                 <p>
                     Letting <math>
-                        <msub>
+                        <msub title="sent time">
                             <mi>t</mi>
                             <mn>1</mn>
                         </msub>
                         <mo>=</mo>
-                        <msub>
+                        <msub title="largest clock time">
                             <mi>t</mi>
                             <mi>x</mi>
                         </msub>
@@ -4574,64 +4638,64 @@
                         <span slot="summary">(8ii)</span>
                         <template-use slot="content" template-id="proof-8ii-use"></template-use>
                     </inline-details> to deduce that for any <math>
-                        <mi>t</mi>
+                        <mi title="current time">t</mi>
                     </math>, <math>
-                        <msub>
+                        <msub title="largest clock start time">
                             <mi>t</mi>
                             <mi>x</mi>
                         </msub>
                     </math> with <math>
-                        <mi>t</mi>
+                        <mi title="current time">t</mi>
                         <mo>&#x2265;</mo>
-                        <msub>
+                        <msub title="largest clock start time">
                             <mi>t</mi>
                             <mi>x</mi>
                         </msub>
                         <mo>&#x2265;</mo>
-                        <msub>
+                        <msub title="initial time">
                             <mi>t</mi>
                             <mn>0</mn>
                         </msub>
                         <mo>+</mo>
                         <mfrac>
-                            <mi>&#x03BC;</mi>
-                            <mrow>
+                            <mi title="maximum minimum message delay">&#x03BC;</mi>
+                            <mrow title="minimum clock speed">
                                 <mn>1</mn>
                                 <mo>-</mo>
-                                <mi>&#x03BA;</mi>
+                                <mi title="maximum clock speed error">&#x03BA;</mi>
                             </mrow>
                         </mfrac>
                     </math> there is a process <math>
-                        <msub>
+                        <msub title="some process">
                             <mi>P</mi>
                             <mi>q</mi>
                         </msub>
                     </math> and a time <math>
-                        <msub>
+                        <msub title="start time">
                             <mi>t</mi>
                             <mn>1</mn>
                         </msub>
                     </math> with <math>
-                        <msub>
+                        <msub title="largest clock start time">
                             <mi>t</mi>
                             <mi>x</mi>
                         </msub>
                         <mo>-</mo>
                         <mfrac>
-                            <mi>&#x03BC;</mi>
-                            <mrow>
+                            <mi title="maximum minimum message delay">&#x03BC;</mi>
+                            <mrow title="minimum clock speed">
                                 <mn>1</mn>
                                 <mo>-</mo>
-                                <mi>&#x03BA;</mi>
+                                <mi title="maximum clock speed error">&#x03BA;</mi>
                             </mrow>
                         </mfrac>
                         <mo>&#x2264;</mo>
-                        <msub>
+                        <msub title="start time">
                             <mi>t</mi>
                             <mn>1</mn>
                         </msub>
                         <mo>&#x2264;</mo>
-                        <msub>
+                        <msub title="largest clock start time">
                             <mi>t</mi>
                             <mi>x</mi>
                         </msub>
@@ -4645,26 +4709,26 @@
                 </section>
                 <p>
                     Choosing <math>
-                        <mi>t</mi>
+                        <mi title="current time">t</mi>
                     </math> and <math>
-                        <msub>
+                        <msub title="largest clock start time">
                             <mi>t</mi>
                             <mi>x</mi>
                         </msub>
                     </math> with <math>
-                        <mi>t</mi>
+                        <mi title="current time">t</mi>
                         <mo>&#x2265;</mo>
-                        <msub>
+                        <msub title="largest clock start time">
                             <mi>t</mi>
                             <mi>x</mi>
                         </msub>
                         <mo>+</mo>
-                        <mi>d</mi>
-                        <mrow>
+                        <mi title="graph diameter">d</mi>
+                        <mrow title="maximum time for a process to send a message and have it received">
                             <mo>(</mo>
-                            <mi>&#x03C4;</mi>
+                            <mi title="neighbour period">&#x03C4;</mi>
                             <mo>+</mo>
-                            <mi>v</mi>
+                            <mi title="maximum total message delay">v</mi>
                             <mo>)</mo>
                         </mrow>
                     </math>, we can combine <inline-details>
@@ -4674,12 +4738,12 @@
                         <span slot="summary">(9)</span>
                         <template-use slot="content" template-id="proof-9-use"></template-use>
                     </inline-details> to conclude that there exists a <math>
-                        <msub>
+                        <msub title="start time">
                             <mi>t</mi>
                             <mn>1</mn>
                         </msub>
                     </math> and a process <math>
-                        <msub>
+                        <msub title="some process">
                             <mi>P</mi>
                             <mi>q</mi>
                         </msub>
@@ -4693,52 +4757,64 @@
                 </section>
                 <p>
                     Letting <math>
-                        <mi>t</mi>
+                        <mi title="current time">t</mi>
                         <mo>=</mo>
-                        <msub>
+                        <msub title="largest clock start time">
                             <mi>t</mi>
                             <mi>x</mi>
                         </msub>
                         <mo>+</mo>
-                        <mi>d</mi>
-                        <mrow>
-                            <mo>(</mo>
-                            <mi>&#x03C4;</mi>
-                            <mo>+</mo>
-                            <mi>v</mi>
-                            <mo>)</mo>
+                        <mrow title="maximum time for a process to know of another process's clock value">
+                            <mi title="graph diameter">d</mi>
+                            <mrow title="maximum time for a message to be relayed from one process to another">
+                                <mo>(</mo>
+                                <mi title="neighbour period">&#x03C4;</mi>
+                                <mo>+</mo>
+                                <mi title="maximum total message delay">v</mi>
+                                <mo>)</mo>
+                            </mrow>
                         </mrow>
                     </math>, we get
                 </p>
                 <section class="equation">
                     <math display="block">
-                        <mi>d</mi>
-                        <mo>(</mo>
-                        <mi>&#x03C4;</mi>
-                        <mo>+</mo>
-                        <mi>v</mi>
-                        <mo>)</mo>
+                        <mrow title="maximum time for a process to know of another process's clock value">
+                            <mi title="graph diameter">d</mi>
+                            <mrow title="maximum time for a message to be relayed from one process to another">
+                                <mo>(</mo>
+                                <mi title="neighbour period">&#x03C4;</mi>
+                                <mo>+</mo>
+                                <mi title="maximum total message delay">v</mi>
+                                <mo>)</mo>
+                            </mrow>
+                        </mrow>
                         <mo>&#x2264;</mo>
-                        <mi>t</mi>
-                        <mo>-</mo>
-                        <msub>
-                            <mi>t</mi>
-                            <mn>1</mn>
-                        </msub>
+                        <mrow title="time since start">
+                            <mi title="current time">t</mi>
+                            <mo>-</mo>
+                            <msub title="start time">
+                                <mi>t</mi>
+                                <mn>1</mn>
+                            </msub>
+                        </mrow>
                         <mo>&#x2264;</mo>
-                        <mi>d</mi>
-                        <mo>(</mo>
-                        <mi>&#x03C4;</mi>
-                        <mo>+</mo>
-                        <mi>v</mi>
-                        <mo>)</mo>
+                        <mrow title="maximum time for a process to know of another process's clock value">
+                            <mi title="graph diameter">d</mi>
+                            <mrow title="maximum time for a message to be relayed from one process to another">
+                                <mo>(</mo>
+                                <mi title="neighbour period">&#x03C4;</mi>
+                                <mo>+</mo>
+                                <mi title="maximum total message delay">v</mi>
+                                <mo>)</mo>
+                            </mrow>
+                        </mrow>
                         <mo>+</mo>
                         <mfrac>
-                            <mi>&#x03BC;</mi>
-                            <mrow>
+                            <mi title="maximum minimum message delay">&#x03BC;</mi>
+                            <mrow title="minimum clock speed">
                                 <mn>1</mn>
                                 <mo>-</mo>
-                                <mn>&#x03BA;</mn>
+                                <mn title="maximum clock speed error">&#x03BA;</mn>
                             </mrow>
                         </mfrac>
                     </math>
@@ -4755,15 +4831,15 @@
                 </section>
                 <p>
                     Using the hypothesis that <math>
-                        <mi>&#x03BA;</mi>
+                        <mi title="max clock speed error">&#x03BA;</mi>
                         <mo>&#x226A;</mo>
                         <mn>1</mn>
                     </math> and <math>
-                        <mi>&#x03BC;</mi>
+                        <mi title="maximum minimum message delay">&#x03BC;</mi>
                         <mo>&#x2264;</mo>
-                        <mi>v</mi>
+                        <mi title="maximum total message delay">v</mi>
                         <mo>&#x226A;</mo>
-                        <mi>&#x03C4;</mi>
+                        <mi title="neighbour period">&#x03C4;</mi>
                     </math>, we can rewrite <inline-details>
                         <span slot="summary">(11)</span>
                         <template-use slot="content" template-id="proof-11-use"></template-use>
@@ -4775,35 +4851,37 @@
                         <mtable>
                             <mtr>
                                 <mtd>
-                                    <msub>
-                                        <mi>C</mi>
-                                        <mi>q</mi>
-                                    </msub>
-                                    <mo>(</mo>
-                                    <msub>
-                                        <mi>t</mi>
-                                        <mn>1</mn>
-                                    </msub>
-                                    <mo>)</mo>
-                                    <mo>+</mo>
-                                    <mrow>
+                                    <mrow title="some process's clock value at the start time">
+                                        <msub title="some process's clock">
+                                            <mi>C</mi>
+                                            <mi>q</mi>
+                                        </msub>
                                         <mo>(</mo>
-                                        <mi>t</mi>
+                                        <msub title="start time">
+                                            <mi>t</mi>
+                                            <mn>1</mn>
+                                        </msub>
+                                        <mo>)</mo>
+                                    </mrow>
+                                    <mo>+</mo>
+                                    <mrow title="time since start">
+                                        <mo>(</mo>
+                                        <mi title="current time">t</mi>
                                         <mo>-</mo>
-                                        <msub>
+                                        <msub title="start time">
                                             <mi>t</mi>
                                             <mn>1</mn>
                                         </msub>
                                         <mo>)</mo>
                                     </mrow>
                                     <mo>-</mo>
-                                    <mi>d</mi>
+                                    <mi title="graph diameter">d</mi>
                                     <mrow>
                                         <mo>(</mo>
-                                        <mi>&#x03BA;</mi>
-                                        <mi>&#x03C4;</mi>
+                                        <mi title="max clock speed error">&#x03BA;</mi>
+                                        <mi title="neighbour period">&#x03C4;</mi>
                                         <mo>+</mo>
-                                        <mi>&#x03BE;</mi>
+                                        <mi title="maximum unpredictable delay">&#x03BE;</mi>
                                         <mo>)</mo>
                                     </mrow>
                                 </mtd>
@@ -4811,43 +4889,47 @@
                             <mtr>
                                 <mtd>
                                     <mo>&#x2A85;</mo>
-                                    <msub>
-                                        <mi>C</mi>
-                                        <mi>i</mi>
-                                    </msub>
-                                    <mo>(</mo>
-                                    <mi>t</mi>
-                                    <mo>)</mo>
+                                    <mrow title="a clock's current value">
+                                        <msub title="a clock">
+                                            <mi>C</mi>
+                                            <mi>i</mi>
+                                        </msub>
+                                        <mo>(</mo>
+                                        <mi title="current time">t</mi>
+                                        <mo>)</mo>
+                                    </mrow>
                                     <mo>&#x2A85;</mo>
                                 </mtd>
                             </mtr>
                             <mtr>
                                 <mtd>
-                                    <msub>
-                                        <mi>C</mi>
-                                        <mi>q</mi>
-                                    </msub>
-                                    <mo>(</mo>
-                                    <msub>
-                                        <mi>t</mi>
-                                        <mn>1</mn>
-                                    </msub>
-                                    <mo>)</mo>
-                                    <mo>+</mo>
-                                    <mrow>
+                                    <mrow title="some process's clock at the start time">
+                                        <msub title="some process's clock">
+                                            <mi>C</mi>
+                                            <mi>q</mi>
+                                        </msub>
                                         <mo>(</mo>
-                                        <mi>t</mi>
-                                        <mo>-</mo>
-                                        <msub>
+                                        <msub title="start time">
                                             <mi>t</mi>
                                             <mn>1</mn>
                                         </msub>
                                         <mo>)</mo>
                                     </mrow>
                                     <mo>+</mo>
-                                    <mi>d</mi>
-                                    <mi>&#x03BA;</mi>
-                                    <mi>&#x03C4;</mi>
+                                    <mrow title="time since start">
+                                        <mo>(</mo>
+                                        <mi title="current time">t</mi>
+                                        <mo>-</mo>
+                                        <msub title="start time">
+                                            <mi>t</mi>
+                                            <mn>1</mn>
+                                        </msub>
+                                        <mo>)</mo>
+                                    </mrow>
+                                    <mo>+</mo>
+                                    <mi title="graph diameter">d</mi>
+                                    <mi title="max clock speed error">&#x03BA;</mi>
+                                    <mi title="neighbour period">&#x03C4;</mi>
                                 </mtd>
                             </mtr>
                         </mtable>
@@ -4860,47 +4942,51 @@
                 </p>
                 <section class="equation">
                     <math display="block">
-                        <mrow>
+                        <mrow title="clock drift">
                             <mo>|</mo>
-                            <msub>
-                                <mi>C</mi>
-                                <mi>i</mi>
-                            </msub>
-                            <mo>(</mo>
-                            <mi>t</mi>
-                            <mo>)</mo>
+                            <mrow title="a clock's current time">
+                                <msub title="a clock">
+                                    <mi>C</mi>
+                                    <mi>i</mi>
+                                </msub>
+                                <mo>(</mo>
+                                <mi title="current time">t</mi>
+                                <mo>)</mo>
+                            </mrow>
                             <mo>-</mo>
-                            <msub>
-                                <mi>C</mi>
-                                <mi>j</mi>
-                            </msub>
-                            <mo>(</mo>
-                            <mi>t</mi>
-                            <mo>)</mo>
+                            <mrow title="another clock's current value">
+                                <msub title="another clock">
+                                    <mi>C</mi>
+                                    <mi>j</mi>
+                                </msub>
+                                <mo>(</mo>
+                                <mi title="current time">t</mi>
+                                <mo>)</mo>
+                            </mrow>
                             <mo>|</mo>
                         </mrow>
                         <mo>&#x2A85;</mo>
-                        <mi>d</mi>
+                        <mi title="graph diameter">d</mi>
                         <mo>(</mo>
                         <mn>2</mn>
-                        <mi>&#x03BA;</mi>
-                        <mi>&#x03C4;</mi>
+                        <mi title="max clock speed error">&#x03BA;</mi>
+                        <mi title="neighbour period">&#x03C4;</mi>
                         <mo>+</mo>
-                        <mi>&#x03BE;</mi>
+                        <mi title="maximum unpredictable delay">&#x03BE;</mi>
                         <mo>)</mo>
                     </math>
                 </section>
                 <p>
                     and this holds for all <math>
-                        <mi>t</mi>
+                        <mi title="current time">t</mi>
                         <mo>&#x2A86;</mo>
-                        <msub>
+                        <msub title="initial time">
                             <mi>t</mi>
                             <mn>0</mn>
                         </msub>
                         <mo>+</mo>
-                        <mi>d</mi>
-                        <mi>&#x03C4;</mi>
+                        <mi title="graph diameter">d</mi>
+                        <mi title="neighbour period">&#x03C4;</mi>
                     </math>. &#x220E;
                 </p>
                 <p>
@@ -4908,46 +4994,56 @@
                         <span slot="summary">(11)</span>
                         <template-use slot="content" template-id="proof-11-use"></template-use>
                     </inline-details> of the proof yields an exact upper bound for <math>
-                        <mrow>
+                        <mrow title="clock drift">
                             <mo>|</mo>
-                            <msub>
-                                <mi>C</mi>
-                                <mi>i</mi>
-                            </msub>
-                            <mo>(</mo>
-                            <mi>t</mi>
-                            <mo>)</mo>
+                            <mrow title="a clock's current value">
+                                <msub title="a clock">
+                                    <mi>C</mi>
+                                    <mi>i</mi>
+                                </msub>
+                                <mo>(</mo>
+                                <mi title="current time">t</mi>
+                                <mo>)</mo>
+                            </mrow>
                             <mo>-</mo>
-                            <msub>
-                                <mi>C</mi>
-                                <mi>j</mi>
-                            </msub>
-                            <mo>(</mo>
-                            <mi>t</mi>
-                            <mo>)</mo>
+                            <mrow title="another clock's current value">
+                                <msub title="another clock">
+                                    <mi>C</mi>
+                                    <mi>j</mi>
+                                </msub>
+                                <mo>(</mo>
+                                <mi title="current time">t</mi>
+                                <mo>)</mo>
+                            </mrow>
                             <mo>|</mo>
                         </mrow>
                     </math> in case the assumption <math>
-                        <mi>&#x03BC;</mi>
-                        <mo>+</mo>
-                        <mi>&#x03BE;</mi>
+                        <mrow title="maximum total message delay">
+                            <mi title="maximum minimum message delay">&#x03BC;</mi>
+                            <mo>+</mo>
+                            <mi title="maximum unpredictable delay">&#x03BE;</mi>
+                        </mrow>
                         <mo>&#x226A;</mo>
-                        <mi>&#x03C4;</mi>
+                        <mi title="neighbour period">&#x03C4;</mi>
                     </math> is invalid. An examination of the proof suggests a simple method for
                     rapidly initializing the clocks, or resynchronizing them if they should go out
                     of synchrony for any reason. Each process sends a message which is relayed to
                     every other process. The procedure can be initiated by any process, and requires
                     less than <math>
-                        <mn>2</mn>
-                        <mi>d</mi>
-                        <mo>(</mo>
-                        <mi>&#x03BC;</mi>
-                        <mo>+</mo>
-                        <mi>&#x03BE;</mi>
-                        <mo>)</mo>
+                        <mrow title="maximum time for a message to propagate back and forth across the network">
+                            <mn>2</mn>
+                            <mi title="graph diameter">d</mi>
+                            <mrow title="maximum total message delay">
+                                <mo>(</mo>
+                                <mi title="maximum minimum message delay">&#x03BC;</mi>
+                                <mo>+</mo>
+                                <mi title="maximum unpredictable delay">&#x03BE;</mi>
+                                <mo>)</mo>
+                            </mrow>
+                        </mrow>
                     </math> seconds to effect the synchronization, assuming each of the messages has an
                     unpredictable delay less than <math>
-                        <mi>&#x03BE;</mi>
+                        <mi title="maximum unpredictable delay">&#x03BE;</mi>
                     </math>.
                 </p>
             </section>
@@ -6105,59 +6201,65 @@
 
     <template id="proof-1-template">
         <math display="block">
-            <msubsup>
-                <mi>C</mi>
-                <mi>i</mi>
-                <mi>t</mi>
-            </msubsup>
-            <mo>(</mo>
-            <mi>t</mi>
-            <mo>&#x2032;</mo>
-            <mo>)</mo>
+            <mrow title="never-resetting clock's current value">
+                <msubsup title="never-resetting clock from start time">
+                    <mi>C</mi>
+                    <mi>i</mi>
+                    <mi title="start time">t</mi>
+                </msubsup>
+                <mo>(</mo>
+                <mrow title="current time">
+                    <mi>t</mi>
+                    <mo>&#x2032;</mo>
+                </mrow>
+                <mo>)</mo>
+            </mrow>
             <mo>=</mo>
-            <mrow>
-                <msub>
+            <mrow title="the clock's starting value">
+                <msub title="process clock">
                     <mi>C</mi>
                     <mi>i</mi>
                 </msub>
                 <mo>(</mo>
-                <mi>t</mi>
+                <mi title="start time">t</mi>
                 <mo>)</mo>
             </mrow>
             <mo>+</mo>
-            <msubsup>
-                <mo>&#x222B;</mo>
-                <mi>t</mi>
-                <msup>
-                    <mi>t</mi>
-                    <mo>&#x2032;</mo>
-                </msup>
-            </msubsup>
-            <mrow>
-                <mo>(</mo>
-                <mfrac>
-                    <mrow>
-                        <mi>d</mi>
-                        <mrow>
-                            <msub>
-                                <mi>C</mi>
-                                <mi>i</mi>
-                            </msub>
-                            <mo>(</mo>
-                            <mi>t</mi>
-                            <mo>)</mo>
-                        </mrow>
-                    </mrow>
-                    <mrow>
-                        <mi>d</mi>
+            <mrow title="clock value change since start time">
+                <msubsup>
+                    <mo>&#x222B;</mo>
+                    <mi title="start time">t</mi>
+                    <msup title="current time">
                         <mi>t</mi>
-                    </mrow>
-                </mfrac>
-                <mo>)</mo>
-            </mrow>
-            <mrow>
-                <mi>d</mi>
-                <mi>t</mi>
+                        <mo>&#x2032;</mo>
+                    </msup>
+                </msubsup>
+                <mrow>
+                    <mo>(</mo>
+                    <mfrac title="clock speed">
+                        <mrow>
+                            <mi>d</mi>
+                            <mrow>
+                                <msub>
+                                    <mi>C</mi>
+                                    <mi>i</mi>
+                                </msub>
+                                <mo>(</mo>
+                                <mi>t</mi>
+                                <mo>)</mo>
+                            </mrow>
+                        </mrow>
+                        <mrow>
+                            <mi>d</mi>
+                            <mi>t</mi>
+                        </mrow>
+                    </mfrac>
+                    <mo>)</mo>
+                </mrow>
+                <mrow>
+                    <mi>d</mi>
+                    <mi>t</mi>
+                </mrow>
             </mrow>
         </math>
     </template>
@@ -6170,35 +6272,39 @@
 
     <template id="proof-2-template">
         <math display="block">
-            <msub>
-                <mi>C</mi>
-                <mi>i</mi>
-            </msub>
-            <mo>(</mo>
-            <mrow>
-                <mi>t</mi>
-                <mo>&#x2032;</mo>
+            <mrow title="clock's current value">
+                <msub title="process clock">
+                    <mi>C</mi>
+                    <mi>i</mi>
+                </msub>
+                <mo>(</mo>
+                <mrow title="current time">
+                    <mi>t</mi>
+                    <mo>&#x2032;</mo>
+                </mrow>
+                <mo>)</mo>
             </mrow>
-            <mo>)</mo>
             <mo>&#x2265;</mo>
-            <msubsup>
-                <mi>C</mi>
-                <mi>i</mi>
-                <mi>t</mi>
-            </msubsup>
-            <mo>(</mo>
-            <mrow>
-                <mi>t</mi>
-                <mo>&#x2032;</mo>
+            <mrow title="never-resetting clock's current value">
+                <msubsup title="never-resetting clock from the start time">
+                    <mi>C</mi>
+                    <mi>i</mi>
+                    <mi title="start time">t</mi>
+                </msubsup>
+                <mo>(</mo>
+                <mrow title="current time">
+                    <mi>t</mi>
+                    <mo>&#x2032;</mo>
+                </mrow>
+                <mo>)</mo>
             </mrow>
-            <mo>)</mo>
             <mtext class="separator">for all</mtext>
-            <mrow>
+            <mrow title="current time">
                 <mi>t</mi>
                 <mo>&#x2032;</mo>
             </mrow>
             <mo>&#x2265;</mo>
-            <mi>t</mi>
+            <mi title="start time">t</mi>
         </math>
     </template>
     <template id="proof-2-use">
@@ -6210,48 +6316,54 @@
 
     <template id="proof-3-template">
         <math display="block">
-            <msubsup>
-                <mi>C</mi>
-                <mn>2</mn>
-                <msub>
-                    <mi>t</mi>
+            <mrow title="never-resetting receiving clock's current value">
+                <msubsup title="never-resetting receiving clock at received time">
+                    <mi>C</mi>
                     <mn>2</mn>
-                </msub>
-            </msubsup>
-            <mo>(</mo>
-            <mi>t</mi>
-            <mo>)</mo>
-            <mo>&#x2265;</mo>
-            <msub>
-                <mi>C</mi>
-                <mn>1</mn>
-            </msub>
-            <mo>(</mo>
-            <msub>
-                <mi>t</mi>
-                <mn>1</mn>
-            </msub>
-            <mo>)</mo>
-            <mo>+</mo>
-            <mrow>
+                    <msub title="received time">
+                        <mi>t</mi>
+                        <mn>2</mn>
+                    </msub>
+                </msubsup>
                 <mo>(</mo>
-                <mn>1</mn>
-                <mo>-</mo>
-                <mi>&#x3BA;</mi>
+                <mi title="current time">t</mi>
                 <mo>)</mo>
             </mrow>
-            <mrow>
+            <mo>&#x2265;</mo>
+            <mrow title="sending clock's value when message was sent">
+                <msub title="sending clock">
+                    <mi>C</mi>
+                    <mn>1</mn>
+                </msub>
                 <mo>(</mo>
-                <mi>t</mi>
-                <mo>-</mo>
-                <msub>
+                <msub title="sent time">
                     <mi>t</mi>
                     <mn>1</mn>
                 </msub>
                 <mo>)</mo>
             </mrow>
+            <mo>+</mo>
+            <mrow title="minimum clock value since message sent">
+                <mrow title="minimum clock speed">
+                    <mo>(</mo>
+                    <mn>1</mn>
+                    <mo>-</mo>
+                    <mi title="max clock speed error">&#x3BA;</mi>
+                    <mo>)</mo>
+                </mrow>
+                <mrow title="time since message was sent">
+                    <mo>(</mo>
+                    <mi>t</mi>
+                    <mo>-</mo>
+                    <msub title="sent time">
+                        <mi>t</mi>
+                        <mn>1</mn>
+                    </msub>
+                    <mo>)</mo>
+                </mrow>
+            </mrow>
             <mo>-</mo>
-            <mi>&#x3BE;</mi>
+            <mi title="maximum unpredictable delay">&#x3BE;</mi>
         </math>
     </template>
     <template id="proof-3-use">
@@ -6263,15 +6375,15 @@
 
     <template id="proof-4-template">
         <math display="block">
-            <msubsup>
-                <mi>C</mi>
-                <mrow>
-                    <mi>n</mi>
-                    <mo>+</mo>
-                    <mn>1</mn>
-                </mrow>
-                <mrow>
-                    <msub>
+            <mrow title="the path's last never-resetting clock's current value">
+                <msubsup title="the path's last never-resetting clock starting at its received time">
+                    <mi>C</mi>
+                    <mrow>
+                        <mi>n</mi>
+                        <mo>+</mo>
+                        <mn>1</mn>
+                    </mrow>
+                    <msub title="last received time">
                         <mi>t</mi>
                         <mrow>
                             <mi>n</mi>
@@ -6279,42 +6391,51 @@
                             <mn>1</mn>
                         </mrow>
                     </msub>
-                </mrow>
-            </msubsup>
-            <mo>&#x2265;</mo>
-            <msub>
-                <mi>C</mi>
-                <mn>1</mn>
-            </msub>
-            <mo>(</mo>
-            <msubsup>
-                <mi>t</mi>
-                <mn>1</mn>
-                <mo>&#x2032;</mo>
-            </msubsup>
-            <mo>)</mo>
-            <mo>+</mo>
-            <mrow>
+                </msubsup>
                 <mo>(</mo>
-                <mn>1</mn>
-                <mo>-</mo>
-                <mi>&#x3BA;</mi>
+                <mi title="current time">t</mi>
                 <mo>)</mo>
             </mrow>
-            <mrow>
+            <mo>&#x2265;</mo>
+            <mrow title="the path's first clock's value when the first message is sent">
+                <msub title="the path's first clock">
+                    <mi>C</mi>
+                    <mn>1</mn>
+                </msub>
                 <mo>(</mo>
-                <mn>t</mn>
-                <mo>-</mo>
-                <msubsup>
+                <msubsup title="first sent time">
                     <mi>t</mi>
                     <mn>1</mn>
                     <mo>&#x2032;</mo>
                 </msubsup>
                 <mo>)</mo>
             </mrow>
+            <mo>+</mo>
+            <mrow title="minimum clock value since the first message was sent">
+                <mrow title="minimum clock speed">
+                    <mo>(</mo>
+                    <mn>1</mn>
+                    <mo>-</mo>
+                    <mi title="maximum clock speed error">&#x3BA;</mi>
+                    <mo>)</mo>
+                </mrow>
+                <mrow title="time since first message sent">
+                    <mo>(</mo>
+                    <mi title="current time">t</mi>
+                    <mo>-</mo>
+                    <msubsup title="first sent time">
+                        <mi>t</mi>
+                        <mn>1</mn>
+                        <mo>&#x2032;</mo>
+                    </msubsup>
+                    <mo>)</mo>
+                </mrow>
+            </mrow>
             <mo>-</mo>
-            <mi>n</mi>
-            <mi>&#x3BE;</mi>
+            <mrow title="the path's maximum unpredictable delay">
+                <mi title="path length">n</mi>
+                <mi title="maximum unpredictable delay">&#x3BE;</mi>
+            </mrow>
         </math>
     </template>
     <template id="proof-4-use">
@@ -6326,49 +6447,57 @@
 
     <template id="proof-5-template">
         <math display="block">
-            <msub>
-                <mi>C</mi>
-                <mrow>
-                    <mi>n</mi>
-                    <mo>+</mo>
-                    <mn>1</mn>
-                </mrow>
-            </msub>
-            <mo>(</mo>
-            <mi>t</mi>
-            <mo>)</mo>
-            <mo>&#x2265;</mo>
-            <msub>
-                <mi>C</mi>
-                <mn>1</mn>
-            </msub>
-            <mo>(</mo>
-            <msub>
-                <mi>t</mi>
-                <mn>1</mn>
-            </msub>
-            <mo>)</mo>
-            <mo>+</mo>
-            <mrow>
+            <mrow title="the current value of the last process's clock">
+                <msub title="last process's clock">
+                    <mi>C</mi>
+                    <mrow>
+                        <mi>n</mi>
+                        <mo>+</mo>
+                        <mn>1</mn>
+                    </mrow>
+                </msub>
                 <mo>(</mo>
-                <mn>1</mn>
-                <mo>-</mo>
-                <mi>&#x3BA;</mi>
+                <mi title="current time">t</mi>
                 <mo>)</mo>
             </mrow>
-            <mrow>
+            <mo>&#x2265;</mo>
+            <mrow title="the value of the first process's clock when the first process started">
+                <msub title="first process's clock">
+                    <mi>C</mi>
+                    <mn>1</mn>
+                </msub>
                 <mo>(</mo>
-                <mi>t</mi>
-                <mo>-</mo>
-                <msub>
+                <msub title="first start time">
                     <mi>t</mi>
                     <mn>1</mn>
                 </msub>
                 <mo>)</mo>
             </mrow>
+            <mo>+</mo>
+            <mrow title="smallest clock value change since the first process's start">
+                <mrow title="minimum clock speed">
+                    <mo>(</mo>
+                    <mn>1</mn>
+                    <mo>-</mo>
+                    <mi title="maximum clock speed error">&#x3BA;</mi>
+                    <mo>)</mo>
+                </mrow>
+                <mrow title="time since first start time">
+                    <mo>(</mo>
+                    <mi title="current time">t</mi>
+                    <mo>-</mo>
+                    <msub title="first start time">
+                        <mi>t</mi>
+                        <mn>1</mn>
+                    </msub>
+                    <mo>)</mo>
+                </mrow>
+            </mrow>
             <mo>-</mo>
-            <mi>n</mi>
-            <mi>&#x3BE;</mi>
+            <mrow title="the path's maximum unpredictable delay">
+                <mi title="path length">n</mi>
+                <mi title="maximum unpredictable delay">&#x3BE;</mi>
+            </mrow>
         </math>
     </template>
     <template id="proof-5-use">
@@ -6380,45 +6509,53 @@
 
     <template id="proof-6-template">
         <math display="block">
-            <msub>
-                <mi>C</mi>
-                <mi>i</mi>
-            </msub>
-            <mo>(</mo>
-            <mi>t</mi>
-            <mo>)</mo>
-            <mo>&#x2265;</mo>
-            <msub>
-                <mi>C</mi>
-                <mi>j</mi>
-            </msub>
-            <mo>(</mo>
-            <msub>
-                <mi>t</mi>
-                <mn>1</mn>
-            </msub>
-            <mo>)</mo>
-            <mo>+</mo>
-            <mrow>
+            <mrow title="a clock's current value">
+                <msub title="a clock">
+                    <mi>C</mi>
+                    <mi>i</mi>
+                </msub>
                 <mo>(</mo>
-                <mn>1</mn>
-                <mo>-</mo>
-                <mi>&#x3BA;</mi>
+                <mi title="current time">t</mi>
                 <mo>)</mo>
             </mrow>
-            <mrow>
+            <mo>&#x2265;</mo>
+            <mrow title="another clock's value when it started">
+                <msub title="another clock">
+                    <mi>C</mi>
+                    <mi>j</mi>
+                </msub>
                 <mo>(</mo>
-                <mi>t</mi>
-                <mo>-</mo>
-                <msub>
+                <msub title="start time">
                     <mi>t</mi>
                     <mn>1</mn>
                 </msub>
                 <mo>)</mo>
             </mrow>
+            <mo>+</mo>
+            <mrow title="smallest clock value change since the first process started">
+                <mrow title="minimum clock speed">
+                    <mo>(</mo>
+                    <mn>1</mn>
+                    <mo>-</mo>
+                    <mi title="maximum clock speed error">&#x3BA;</mi>
+                    <mo>)</mo>
+                </mrow>
+                <mrow title="time since start time">
+                    <mo>(</mo>
+                    <mi title="later time">t</mi>
+                    <mo>-</mo>
+                    <msub title="start time">
+                        <mi>t</mi>
+                        <mn>1</mn>
+                    </msub>
+                    <mo>)</mo>
+                </mrow>
+            </mrow>
             <mo>-</mo>
-            <mi>d</mi>
-            <mi>&#x3BE;</mi>
+            <mrow title="the maximum unpredictable delay of any path between two processes">
+                <mi title="graph diameter">d</mi>
+                <mi title="maximum unpredictable delay">&#x3BE;</mi>
+            </mrow>
         </math>
     </template>
     <template id="proof-6-use">
@@ -6430,41 +6567,47 @@
 
     <template id="proof-7-template">
         <math display="block">
-            <msub>
-                <mi>C</mi>
-                <mi>i</mi>
-            </msub>
-            <mo>(</mo>
-            <mi>t</mi>
-            <mo>)</mo>
-            <mo>&#x2264;</mo>
-            <msub>
-                <mi>C</mi>
-                <mi>x</mi>
-            </msub>
-            <mo>(</mo>
-            <msub>
-                <mi>t</mi>
-                <mi>x</mi>
-            </msub>
-            <mo>)</mo>
-            <mo>+</mo>
-            <mrow>
+            <mrow title="a clock's current value">
+                <msub title="some clock">
+                    <mi>C</mi>
+                    <mi>i</mi>
+                </msub>
                 <mo>(</mo>
-                <mn>1</mn>
-                <mo>+</mo>
-                <mi>&#x03BA;</mi>
+                <mi title="current time">t</mi>
                 <mo>)</mo>
             </mrow>
-            <mrow>
+            <mo>&#x2264;</mo>
+            <mrow title="the largest clock's starting value">
+                <msub title="the largest clock">
+                    <mi>C</mi>
+                    <mi>x</mi>
+                </msub>
                 <mo>(</mo>
-                <mi>t</mi>
-                <mo>-</mo>
-                <msub>
+                <msub title="the largest clock start time">
                     <mi>t</mi>
                     <mi>x</mi>
                 </msub>
                 <mo>)</mo>
+            </mrow>
+            <mo>+</mo>
+            <mrow title="maximum clock value change">
+                <mrow title="maximum clock speed">
+                    <mo>(</mo>
+                    <mn>1</mn>
+                    <mo>+</mo>
+                    <mi title="maximum clock speed error">&#x03BA;</mi>
+                    <mo>)</mo>
+                </mrow>
+                <mrow title="time since largest clock start time">
+                    <mo>(</mo>
+                    <mi title="current time">t</mi>
+                    <mo>-</mo>
+                    <msub title="largest clock time">
+                        <mi>t</mi>
+                        <mi>x</mi>
+                    </msub>
+                    <mo>)</mo>
+                </mrow>
             </mrow>
         </math>
     </template>
@@ -6478,17 +6621,17 @@
     <template id="proof-case-i-template">
         <p>
             <math>
-                <msub>
+                <msub title="largest clock">
                     <mi>C</mi>
                     <mi>x</mi>
                 </msub>
             </math> is the clock <math>
-                <msub>
+                <msub title="largest process clock">
                     <mi>C</mi>
                     <mi>q</mi>
                 </msub>
             </math> of process <math>
-                <msub>
+                <msub title="process with the largest clock">
                     <mi>P</mi>
                     <mi>q</mi>
                 </msub>
@@ -6503,22 +6646,22 @@
     <template id="proof-case-ii-template">
         <p>
             <math>
-                <msub>
+                <msub title="largest clock">
                     <mi>C</mi>
                     <mi>x</mi>
                 </msub>
             </math> is the clock <math>
-                <msub>
+                <msub title="message's clock">
                     <mi>C</mi>
                     <mi>m</mi>
                 </msub>
             </math> of a message sent at time <math>
-                <msub>
+                <msub title="sent time">
                     <mi>t</mi>
                     <mn>1</mn>
                 </msub>
             </math> by process <math>
-                <msub>
+                <msub title="sending process">
                     <mi>P</mi>
                     <mi>q</mi>
                 </msub>
@@ -6532,41 +6675,47 @@
 
     <template id="proof-8i-template">
         <math display="block">
-            <msub>
-                <mi>C</mi>
-                <mi>i</mi>
-            </msub>
-            <mo>(</mo>
-            <mi>t</mi>
-            <mo>)</mo>
-            <mo>&#x2264;</mo>
-            <msub>
-                <mi>C</mi>
-                <mi>q</mi>
-            </msub>
-            <mo>(</mo>
-            <msub>
-                <mi>t</mi>
-                <mi>x</mi>
-            </msub>
-            <mo>)</mo>
-            <mo>+</mo>
-            <mrow>
+            <mrow title="a clock's current value">
+                <msub title="a clock">
+                    <mi>C</mi>
+                    <mi>i</mi>
+                </msub>
                 <mo>(</mo>
-                <mn>1</mn>
-                <mo>+</mo>
-                <mi>&#x03BA;</mi>
+                <mi title="current time">t</mi>
                 <mo>)</mo>
             </mrow>
-            <mrow>
+            <mo>&#x2264;</mo>
+            <mrow title="the largest clock's starting value">
+                <msub title="largest process clock">
+                    <mi>C</mi>
+                    <mi>q</mi>
+                </msub>
                 <mo>(</mo>
-                <mi>t</mi>
-                <mo>-</mo>
-                <msub>
+                <msub title="largest clock start time">
                     <mi>t</mi>
                     <mi>x</mi>
                 </msub>
                 <mo>)</mo>
+            </mrow>
+            <mo>+</mo>
+            <mrow title="maximum clock change since largest clock time">
+                <mrow title="max clock speed">
+                    <mo>(</mo>
+                    <mn>1</mn>
+                    <mo>+</mo>
+                    <mi title="max clock speed error">&#x03BA;</mi>
+                    <mo>)</mo>
+                </mrow>
+                <mrow title="time since largest clock time">
+                    <mo>(</mo>
+                    <mi title="current time">t</mi>
+                    <mo>-</mo>
+                    <msub title="largest clock time">
+                        <mi>t</mi>
+                        <mi>x</mi>
+                    </msub>
+                    <mo>)</mo>
+                </mrow>
             </mrow>
         </math>
     </template>
@@ -6579,41 +6728,47 @@
 
     <template id="proof-8ii-template">
         <math display="block">
-            <msub>
-                <mi>C</mi>
-                <mi>i</mi>
-            </msub>
-            <mo>(</mo>
-            <mi>t</mi>
-            <mo>)</mo>
-            <mo>&#x2264;</mo>
-            <msub>
-                <mi>C</mi>
-                <mi>q</mi>
-            </msub>
-            <mo>(</mo>
-            <msub>
-                <mi>t</mi>
-                <mn>1</mn>
-            </msub>
-            <mo>)</mo>
-            <mo>+</mo>
-            <mrow>
+            <mrow title="a clock's current value">
+                <msub title="a clock">
+                    <mi>C</mi>
+                    <mi>i</mi>
+                </msub>
                 <mo>(</mo>
-                <mn>1</mn>
-                <mo>+</mo>
-                <mi>&#x03BA;</mi>
+                <mi title="current time">t</mi>
                 <mo>)</mo>
             </mrow>
-            <mrow>
+            <mo>&#x2264;</mo>
+            <mrow title="the value of the sending process's clock when the message was sent">
+                <msub title="sending process's clock">
+                    <mi>C</mi>
+                    <mi>q</mi>
+                </msub>
                 <mo>(</mo>
-                <mi>t</mi>
-                <mo>-</mo>
-                <msub>
+                <msub title="sent time">
                     <mi>t</mi>
                     <mn>1</mn>
                 </msub>
                 <mo>)</mo>
+            </mrow>
+            <mo>+</mo>
+            <mrow title="max clock change since message was sent">
+                <mrow title="max clock speed">
+                    <mo>(</mo>
+                    <mn>1</mn>
+                    <mo>+</mo>
+                    <mi title="max clock speed error">&#x03BA;</mi>
+                    <mo>)</mo>
+                </mrow>
+                <mrow title="time since message was sent">
+                    <mo>(</mo>
+                    <mi title="current time">t</mi>
+                    <mo>-</mo>
+                    <msub title="sent time">
+                        <mi>t</mi>
+                        <mn>1</mn>
+                    </msub>
+                    <mo>)</mo>
+                </mrow>
             </mrow>
         </math>
     </template>
@@ -6626,37 +6781,41 @@
 
     <template id="proof-9-template">
         <math display="block">
-            <msub>
-                <mi>C</mi>
-                <mi>i</mi>
-            </msub>
-            <mo>(</mo>
-            <mi>t</mi>
-            <mo>)</mo>
+            <mrow title="a process's current clock value">
+                <msub title="a process's clock">
+                    <mi>C</mi>
+                    <mi>i</mi>
+                </msub>
+                <mo>(</mo>
+                <mi title="current time">t</mi>
+                <mo>)</mo>
+            </mrow>
             <mo>&#x2264;</mo>
-            <msub>
-                <mi>C</mi>
-                <mi>q</mi>
-            </msub>
-            <mo>(</mo>
-            <msub>
-                <mi>t</mi>
-                <mn>1</mn>
-            </msub>
-            <mo>)</mo>
+            <mrow title="some process's clock value at start time">
+                <msub title="some process's clock">
+                    <mi>C</mi>
+                    <mi>q</mi>
+                </msub>
+                <mo>(</mo>
+                <msub title="start time">
+                    <mi>t</mi>
+                    <mn>1</mn>
+                </msub>
+                <mo>)</mo>
+            </mrow>
             <mo>+</mo>
-            <mrow>
+            <mrow title="maximum clock speed">
                 <mo>(</mo>
                 <mn>1</mn>
                 <mo>+</mo>
-                <mi>&#x03BA;</mi>
+                <mi title="maximum clock speed error">&#x03BA;</mi>
                 <mo>)</mo>
             </mrow>
-            <mrow>
+            <mrow title="time since message was sent">
                 <mo>(</mo>
-                <mi>t</mi>
+                <mi title="current time">t</mi>
                 <mo>-</mo>
-                <msub>
+                <msub title="start time">
                     <mi>t</mi>
                     <mn>1</mn>
                 </msub>
@@ -6673,74 +6832,98 @@
 
     <template id="proof-10-template">
         <math display="block">
-            <msub>
-                <mi>C</mi>
-                <mi>q</mi>
-            </msub>
-            <mo>(</mo>
-            <msub>
-                <mi>t</mi>
-                <mn>1</mn>
-            </msub>
-            <mo>)</mo>
-            <mo>+</mo>
-            <mrow>
-                <mo>(</mo>
-                <mn>1</mn>
-                <mo>-</mo>
-                <mi>&#x03BA;</mi>
-                <mo>)</mo>
-            </mrow>
-            <mrow>
-                <mo>(</mo>
-                <mi>t</mi>
-                <mo>-</mo>
-                <msub>
-                    <mi>t</mi>
-                    <mn>1</mn>
-                </msub>
-                <mo>)</mo>
-            </mrow>
-            <mo>-</mo>
-            <mi>d</mi>
-            <mi>&#x03BE;</mi>
-            <mo>&#x2264;</mo>
-            <msub>
-                <mi>C</mi>
-                <mi>i</mi>
-            </msub>
-            <mo>(</mo>
-            <mi>t</mi>
-            <mo>)</mo>
-            <mo>&#x2264;</mo>
-            <msub>
-                <mi>C</mi>
-                <mi>q</mi>
-            </msub>
-            <mo>(</mo>
-            <msub>
-                <mi>t</mi>
-                <mn>1</mn>
-            </msub>
-            <mo>)</mo>
-            <mo>+</mo>
-            <mrow>
-                <mo>(</mo>
-                <mn>1</mn>
-                <mo>+</mo>
-                <mi>&#x03BA;</mi>
-                <mo>)</mo>
-            </mrow>
-            <mrow>
-                <mo>(</mo>
-                <mi>t</mi>
-                <mo>-</mo>
-                <msub>
-                    <mi>t</mi>
-                    <mn>1</mn>
-                </msub>
-                <mo>)</mo>
-            </mrow>
+            <mtable>
+                <mtr>
+                    <mtd>
+                        <mrow title="some process's clock value at start time">
+                            <msub title="some process's clock">
+                                <mi>C</mi>
+                                <mi>q</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <msub title="start time">
+                                <mi>t</mi>
+                                <mn>1</mn>
+                            </msub>
+                            <mo>)</mo>
+                        </mrow>
+                        <mo>+</mo>
+                        <mrow title="minimum clock value change since start time">
+                            <mrow title="minimum clock speed">
+                                <mo>(</mo>
+                                <mn>1</mn>
+                                <mo>-</mo>
+                                <mi title="maximum clock speed error">&#x03BA;</mi>
+                                <mo>)</mo>
+                            </mrow>
+                            <mrow title="time since start">
+                                <mo>(</mo>
+                                <mi title="current time">t</mi>
+                                <mo>-</mo>
+                                <msub title="start time">
+                                    <mi>t</mi>
+                                    <mn>1</mn>
+                                </msub>
+                                <mo>)</mo>
+                            </mrow>
+                        </mrow>
+                        <mo>-</mo>
+                        <mi title="graph diameter">d</mi>
+                        <mi title="maximum unpredictable delay">&#x03BE;</mi>
+                    </mtd>
+                </mtr>
+                <mtr>
+                    <mtd>
+                        <mo>&#x2264;</mo>
+                        <mrow title="a clock's current value">
+                            <msub title="a clock">
+                                <mi>C</mi>
+                                <mi>i</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <mi title="current time">t</mi>
+                            <mo>)</mo>
+                        </mrow>
+                        <mo>&#x2264;</mo>
+                    </mtd>
+                </mtr>
+                <mtr>
+                    <mtd>
+                        <mrow title="some process's clock value at start time">
+                            <msub title="some process's clock">
+                                <mi>C</mi>
+                                <mi>q</mi>
+                            </msub>
+                            <mo>(</mo>
+                            <msub title="start time">
+                                <mi>t</mi>
+                                <mn>1</mn>
+                            </msub>
+                            <mo>)</mo>
+                        </mrow>
+                        <mo>+</mo>
+                        <mrow title="maximum clock value change since start time">
+                            <mrow title="maximum clock speed">
+                                <mo>(</mo>
+                                <mn>1</mn>
+                                <mo>+</mo>
+                                <mi title="maximum clock speed error">&#x03BA;</mi>
+                                <mo>)</mo>
+                            </mrow>
+                            <mrow title="time since start">
+                                <mo>(</mo>
+                                <mi title="current time">t</mi>
+                                <mo>-</mo>
+                                <msub title="start time">
+                                    <mi>t</mi>
+                                    <mn>1</mn>
+                                </msub>
+                                <mo>)</mo>
+                            </mrow>
+                        </mrow>
+                    </mtd>
+                </mtr>
+            </mtable>
         </math>
     </template>
     <template id="proof-10-use">
@@ -6755,106 +6938,110 @@
             <mtable>
                 <mtr>
                     <mtd>
-                        <mrow>
-                            <msub>
+                        <mrow title="some process's clock value at the start time">
+                            <msub title="some process's clock">
                                 <mi>C</mi>
                                 <mi>q</mi>
                             </msub>
                             <mo>(</mo>
-                            <msub>
+                            <msub title="start time">
                                 <mi>t</mi>
                                 <mn>1</mn>
                             </msub>
                             <mo>)</mo>
-                            <mo>+</mo>
-                            <mrow>
-                                <mo>(</mo>
-                                <mi>t</mi>
-                                <mo>-</mo>
-                                <msub>
-                                    <mi>t</mi>
-                                    <mn>1</mn>
-                                </msub>
-                                <mo>)</mo>
-                            </mrow>
-                            <mo>-</mo>
-                            <mi>&#x03BA;</mi>
-                            <mi>d</mi>
-                            <mrow>
-                                <mo>(</mo>
-                                <mi>&#x03C4;</mi>
-                                <mo>+</mo>
-                                <mi>v</mi>
-                                <mo>)</mo>
-                            </mrow>
-                            <mo>-</mo>
-                            <mi>d</mi>
-                            <mi>&#x03BE;</mi>
                         </mrow>
+                        <mo>+</mo>
+                        <mrow title="time since start">
+                            <mo>(</mo>
+                            <mi title="current time">t</mi>
+                            <mo>-</mo>
+                            <msub title="start time">
+                                <mi>t</mi>
+                                <mn>1</mn>
+                            </msub>
+                            <mo>)</mo>
+                        </mrow>
+                        <mo>-</mo>
+                        <mi title="maximum clock speed error">&#x03BA;</mi>
+                        <mi title="graph diameter">d</mi>
+                        <mrow title="maximum time for a process to send a message to a neighbour">
+                            <mo>(</mo>
+                            <mi title="neighbour period">&#x03C4;</mi>
+                            <mo>+</mo>
+                            <mi title="maximum total message delay">v</mi>
+                            <mo>)</mo>
+                        </mrow>
+                        <mo>-</mo>
+                        <mi title="graph diameter">d</mi>
+                        <mi title="maximum unpredictable delay">&#x03BE;</mi>
                     </mtd>
                 </mtr>
                 <mtr>
                     <mtd>
                         <mrow>
                             <mo>&#x2264;</mo>
-                            <msub>
-                                <mi>C</mi>
-                                <mi>i</mi>
-                            </msub>
-                            <mo>(</mo>
-                            <mi>t</mi>
-                            <mo>)</mo>
+                            <mrow title="a clock's current value">
+                                <msub title="a clock">
+                                    <mi>C</mi>
+                                    <mi>i</mi>
+                                </msub>
+                                <mo>(</mo>
+                                <mi title="current time">t</mi>
+                                <mo>)</mo>
+                            </mrow>
                             <mo>&#x2264;</mo>
                         </mrow>
                     </mtd>
                 </mtr>
                 <mtr>
                     <mtd>
-                        <mrow>
-                            <msub>
+                        <mrow title="some process's clock value at the start time">
+                            <msub title="some process's clock">
                                 <mi>C</mi>
                                 <mi>q</mi>
                             </msub>
                             <mo>(</mo>
-                            <msub>
+                            <msub title="start time">
                                 <mi>t</mi>
                                 <mn>1</mn>
                             </msub>
                             <mo>)</mo>
-                            <mo>+</mo>
-                            <mrow>
-                                <mo>(</mo>
+                        </mrow>
+                        <mo>+</mo>
+                        <mrow title="time since start">
+                            <mo>(</mo>
+                            <mi title="current time">t</mi>
+                            <mo>-</mo>
+                            <msub title="start time">
                                 <mi>t</mi>
-                                <mo>-</mo>
-                                <msub>
-                                    <mi>t</mi>
-                                    <mn>1</mn>
-                                </msub>
-                                <mo>)</mo>
-                            </mrow>
-                            <mo>+</mo>
-                            <mi>&#x03BA;</mi>
-                            <mrow>
-                                <mo>(</mo>
-                                <mi>d</mi>
-                                <mrow>
+                                <mn>1</mn>
+                            </msub>
+                            <mo>)</mo>
+                        </mrow>
+                        <mo>+</mo>
+                        <mi title="maximum clock speed error">&#x03BA;</mi>
+                        <mrow>
+                            <mo>(</mo>
+                            <mrow title="maximum time for a process to learn of another process's clock">
+                                <mi title="graph diameter">d</mi>
+                                <mrow title="maximum time for a process to send a message to a neighbour">
                                     <mo>(</mo>
-                                    <mi>&#x03C4;</mi>
+                                    <mi title="neighbour period">&#x03C4;</mi>
                                     <mo>+</mo>
-                                    <mi>v</mi>
+                                    <mi title="maximum total message delay">v</mi>
                                     <mo>)</mo>
                                 </mrow>
-                                <mo>+</mo>
-                                <mfrac>
-                                    <mi>&#x03BC;</mi>
-                                    <mrow>
-                                        <mn>1</mn>
-                                        <mo>-</mo>
-                                        <mi>&#x03BA;</mi>
-                                    </mrow>
-                                </mfrac>
-                                <mo>)</mo>
                             </mrow>
+                            <mo>+</mo>
+                            <mfrac>
+                                <mi title="maximum minimum message delay">&#x03BC;</mi>
+                                <mrow title="minimum clock speed">
+                                    <mn>1</mn>
+                                    <mo>-</mo>
+                                    <mi title="maximum clock speed error">&#x03BA;</mi>
+                                </mrow>
+                            </mfrac>
+                            <mo>)</mo>
                         </mrow>
                     </mtd>
                 </mtr>

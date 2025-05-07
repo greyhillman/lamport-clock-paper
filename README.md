@@ -30,6 +30,10 @@ We also have the set of relevant events which is "\mathscr{S}" but with an under
 The closest unicode symbol is the [mathmatical script capital S](https://unicodeplus.com/U+1D4AE) and there is no symbol with a dedicated underline.
 Therefore, I went with the [mathmatical script lowercase s](https://unicodeplus.com/U+1D4C8) for the system events and the capital for relevant events (capital is bigger than lowercase and the relevant events contains the system events).
 
+### Corrections
+
+- In the appendix, just after equation (6), the message clock is defined with $C_m (t) = t_m$ and $C_m (t') = t_m + u_m$. $t_m$ is not defined and probably was supposed to be $T_m$, the timestamp of the message.
+
 
 ## Elements
 
@@ -50,7 +54,7 @@ The paper will already know the mapping but may be far away from the use of the 
 The math elements allow a reader to switch between the math notation and its textual representation.
 This brings the related information close together and allows the reader to understand quicker.
 
-## Expandable Text
+### Expandable Text
 
 Inspiration is from [Nicky Case's Nutshell library](https://ncase.me/nutshell/).
 
