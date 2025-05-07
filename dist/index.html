@@ -5186,65 +5186,71 @@
     <template id="message-ordering-template">
         <p>
             The ordering <math>
-                <mo>&#x227A;</mo>
+                <mo title="an arbitrary total ordering">&#x227A;</mo>
             </math> establishes a priority among the processes.
             If a "fairer" method is desired, then <math>
-                <mo>&#x227A;</mo>
+                <mo title="the arbitrary total ordering">&#x227A;</mo>
             </math> can be made
             a function of the clock value. For example, if <math>
                 <mrow>
-                    <msub>
-                        <mi>C</mi>
-                        <mi>i</mi>
-                    </msub>
-                    <mo>&#x27E8;</mo>
-                    <mi>a</mi>
-                    <mo>&#x27E9;</mo>
+                    <mrow title="the logical timestamp of an event">
+                        <msub>
+                            <mi>C</mi>
+                            <mi>i</mi>
+                        </msub>
+                        <mo>&#x27E8;</mo>
+                        <mi title="an event">a</mi>
+                        <mo>&#x27E9;</mo>
+                    </mrow>
                     <mo>=</mo>
-                    <msub>
-                        <mi>C</mi>
-                        <mi>j</mi>
-                    </msub>
-                    <mo>&#x27E8;</mo>
-                    <mi>b</mi>
-                    <mo>&#x27E9;</mo>
+                    <mrow title="the logical timestamp of another event">
+                        <msub>
+                            <mi>C</mi>
+                            <mi>j</mi>
+                        </msub>
+                        <mo>&#x27E8;</mo>
+                        <mi title="another event">b</mi>
+                        <mo>&#x27E9;</mo>
+                    </mrow>
                 </mrow>
             </math> and <math>
                 <mrow>
-                    <mi>j</mi>
+                    <mi title="index of the other process">j</mi>
                     <mo>&#x3C;</mo>
-                    <mi>i</mi>
+                    <mi title="index of the process">i</mi>
                 </mrow>
             </math>, then we can let <math>
-                <mrow>
-                    <mi>a</mi>
-                    <mo>&#x21D2;</mo>
-                    <mi>b</mi>
+                <mrow title="an event totally happened before another event">
+                    <mi title="an event">a</mi>
+                    <mo title="totally happened before">&#x21D2;</mo>
+                    <mi title="another event">b</mi>
                 </mrow>
             </math> if <math>
                 <mrow>
-                    <mi>j</mi>
+                    <mi title="index of the other process">j</mi>
                     <mo>&#x3C;</mo>
-                    <msub>
-                        <mi>C</mi>
-                        <mi>i</mi>
-                    </msub>
-                    <mo>&#x27E8;</mo>
-                    <mi>a</mi>
-                    <mo>&#x27E9;</mo>
-                    <mi>mod</mi>
-                    <mi>N</mi>
+                    <mrow title="the logical timestamp of an event">
+                        <msub>
+                            <mi>C</mi>
+                            <mi>i</mi>
+                        </msub>
+                        <mo>&#x27E8;</mo>
+                        <mi title="an event">a</mi>
+                        <mo>&#x27E9;</mo>
+                    </mrow>
+                    <mo>mod</mo>
+                    <mi title="total number of processes">N</mi>
                     <mo>&#x2264;</mo>
-                    <mi>i</mi>
+                    <mi title="index of the process">i</mi>
                 </mrow>
             </math>, and <math>
-                <mrow>
-                    <mi>b</mi>
-                    <mo>&#x21D2;</mo>
-                    <mi>a</mi>
+                <mrow title="another event totally happened before an event">
+                    <mi title="another event">b</mi>
+                    <mo title="totally happened before">&#x21D2;</mo>
+                    <mi title="an event">a</mi>
                 </mrow>
             </math> otherwise; where <math>
-                <mi>N</mi>
+                <mi title="total number of processes">N</mi>
             </math> is the total number of processes.
         </p>
     </template>
@@ -5258,19 +5264,19 @@
     <template id="acknowledgement-note-template">
         <p>
             This acknowledgement message need not be sent if <math>
-                <msub>
+                <msub title="the receiving process">
                     <mi>P</mi>
                     <mi>j</mi>
                 </msub>
             </math> has
             already sent a message to <math>
-                <msub>
+                <msub title="the requesting process">
                     <mi>P</mi>
                     <mi>i</mi>
                 </msub>
             </math> timestamped later
             than <math>
-                <msub>
+                <msub title="the requesting-resource message's timestamp">
                     <mi>T</mi>
                     <mi>m</mi>
                 </msub>
@@ -5281,19 +5287,19 @@
     <template id="receive-message-note-template">
         <p>
             If <math>
-                <mrow>
-                    <msub>
+                <mrow title="the process is totally ordered before another process">
+                    <msub title="the process">
                         <mi>P</mi>
                         <mi>i</mi>
                     </msub>
-                    <mo>&#x227A;</mo>
-                    <msub>
+                    <mo title="totally ordered before">&#x227A;</mo>
+                    <msub title="another process">
                         <mi>P</mi>
                         <mi>j</mi>
                     </msub>
                 </mrow>
             </math>, then <math>
-                <msub>
+                <msub title="the process">
                     <mi>P</mi>
                     <mi>i</mi>
                 </msub>
@@ -5301,13 +5307,13 @@
             message timestamped <math>
                 <mrow>
                     <mo>&ge;</mo>
-                    <msub>
+                    <msub title="the message's timestamp">
                         <mi>T</mi>
                         <mi>m</mi>
                     </msub>
                 </mrow>
             </math> from <math>
-                <msub>
+                <msub title="another process">
                     <mi>P</mi>
                     <mi>j</mi>
                 </msub>
@@ -5327,13 +5333,13 @@
         <p>
             We will assume a Newtonian space-time. If the relative motion of the clocks or gravitational effects are not
             negligible, then <math>
-                <mrow>
-                    <msub>
+                <mrow title="the clock's value">
+                    <msub title="a clock">
                         <mi>C</mi>
                         <mi>i</mi>
                     </msub>
                     <mo>(</mo>
-                    <mi>t</mi>
+                    <mi title="physical time">t</mi>
                     <mo>)</mo>
                 </mrow>
             </math> must be deduced from the actual clock reading by transforming from proper time
@@ -5344,13 +5350,15 @@
     <template id="limit-note-template">
         <math display="block">
             <mrow>
-                <msub>
+                <msub title="the receiving clock">
                     <mi>C</mi>
                     <mi>j</mi>
                 </msub>
                 <mo>(</mo>
-                <mi>t</mi>
-                <mo>&#x2032;</mo>
+                <mrow title="the received time">
+                    <mi>t</mi>
+                    <mo>&#x2032;</mo>
+                </mrow>
                 <mo>-</mo>
                 <mn>0</mn>
                 <mo>)</mo>
@@ -5358,22 +5366,26 @@
                 <munder>
                     <mi>lim</mi>
                     <mrow>
-                        <mi>&#x3B4;</mi>
+                        <mi title="beginning of time">&#x3B4;</mi>
                         <mo>&#x2192;</mo>
                         <mn>0</mn>
                     </mrow>
                 </munder>
-                <msub>
+                <msub title="the receiving clock">
                     <mi>C</mi>
                     <mi>j</mi>
                 </msub>
                 <mo>(</mo>
-                <mi>t</mi>
-                <mo>&#x2032;</mo>
+                <mrow title="the received time">
+                    <mi>t</mi>
+                    <mo>&#x2032;</mo>
+                </mrow>
                 <mo>-</mo>
-                <mo>|</mo>
-                <mi>&#x3B4;</mi>
-                <mo>|</mo>
+                <mrow>
+                    <mo>|</mo>
+                    <mi title="beginning of time">&#x3B4;</mi>
+                    <mo>|</mo>
+                </mrow>
                 <mo>)</mo>
             </mrow>
         </math>
