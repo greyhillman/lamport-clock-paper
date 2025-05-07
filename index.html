@@ -3120,20 +3120,8 @@
                     <li>
                         <p>PC1 holds.</p>
                     </li>
-                    <li>
-                        <p>
-                            There are constants <math>
-                                <mi title="neighbour period">&#x1D70F;</mi>
-                            </math> and <math>
-                                <mi title="maximum unpredictable delay">&#x3BE;</mi>
-                            </math> such
-                            that every <math>
-                                <mi title="neighbour period">&#x1D70F;</mi>
-                            </math> seconds a message with
-                            an unpredictable delay less than <math>
-                                <mi title="maximum unpredictable delay">&#x3BE;</mi>
-                            </math> is sent over every arc.
-                        </p>
+                    <li id="theorem-hypothesis-b">
+                        <template-use template-id="theorem-hypothesis-b-template"></template-use>
                     </li>
                 </ol>
                 <p>
@@ -3922,7 +3910,10 @@
                                 <mn>1</mn>
                             </mrow>
                         </msub>
-                    </math>. By hypothesis (b) we can find times <math>
+                    </math>. By <inline-details>
+                        <span slot="summary">hypothesis (b)</span>
+                        <template-use slot="content" template-id="theorem-hypothesis-b-use"></template-use>
+                    </inline-details> we can find times <math>
                         <msub title="current process's start/received time">
                             <mi>t</mi>
                             <mi>i</mi>
@@ -6231,6 +6222,26 @@
             <template-use template-id="figure-3-template"></template-use>
             <figcaption>Figure 3</figcaption>
         </figure>
+    </template>
+
+    <template id="theorem-hypothesis-b-template">
+        <p>
+            There are constants <math>
+                <mi title="neighbour period">&#x1D70F;</mi>
+            </math> and <math>
+                <mi title="maximum unpredictable delay">&#x3BE;</mi>
+            </math> such
+            that every <math>
+                <mi title="neighbour period">&#x1D70F;</mi>
+            </math> seconds a message with
+            an unpredictable delay less than <math>
+                <mi title="maximum unpredictable delay">&#x3BE;</mi>
+            </math> is sent over every arc.
+        </p>
+    </template>
+    <template id="theorem-hypothesis-b-use">
+        <a href="#theorem-hypothesis-b">Go to source.</a>
+        <template-use template-id="theorem-hypothesis-b-template"></template-use>
     </template>
 
     <template id="proof-1-template">
