@@ -40,7 +40,7 @@ export class PhysicalNodeModel extends Model<Events> {
         if (this._heartbeatTime <= 0) {
             this.sendHeartbeat();
 
-            this._heartbeatTime = Math.random() * this._neighbourPeriod.value;
+            this._heartbeatTime = this._neighbourPeriod.value;
         }
     }
 
