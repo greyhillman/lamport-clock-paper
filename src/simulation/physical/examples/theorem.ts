@@ -110,7 +110,6 @@ class SimulationModel extends Model<ModelEvents> {
 
     randomize() {
         const graph = random(this._numNodes);
-        console.log(graph);
 
         this.nodes = graph.vertices.map(() => {
             const amplitude = new NumberModel(Math.random() * this.maxClockSpeedError.value);
