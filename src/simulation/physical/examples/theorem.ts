@@ -144,10 +144,7 @@ class SimulationModel extends Model<ModelEvents> {
                 const fromIndex = start;
                 const toIndex = neighbour;
 
-                const minDelay = new NumberModel(Math.random() * this.minimumDelay.value);
-                this.minimumDelay.addListener("value", value => {
-                    minDelay.value = Math.random() * value;
-                });
+                const minDelay = this.minimumDelay;
 
                 const model = new LinkModel({
                     minDelay: minDelay,
