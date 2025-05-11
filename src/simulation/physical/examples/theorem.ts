@@ -38,6 +38,25 @@ interface ModelOptions {
     nodes: number;
 }
 
+function uniformRandom(start: number, end: number): number {
+    const range = end - start;
+
+    return start + Math.random() * range;
+}
+
+function createSpeed(maxError: NumberModel): NumberModel {
+    const min = 1 - maxError.value;
+    const max = 1 + maxError.value;
+
+    const speed = new NumberModel(uniformRandom(min, max));
+
+    maxError.addListener("value", maxError => {
+        speed.value = uniformRandom(1 - maxError, 1 + maxError);
+    });
+
+    return speed;
+}
+
 class SimulationModel extends Model<ModelEvents> {
     nodes: PhysicalNodeModel[];
 
@@ -112,23 +131,7 @@ class SimulationModel extends Model<ModelEvents> {
         const graph = random(this._numNodes);
 
         this.nodes = graph.vertices.map(() => {
-            const amplitude = new NumberModel(Math.random() * this.maxClockSpeedError.value);
-
-            const shift = Math.random() * 10;
-            const period = Math.random() * 10;
-
-            this.maxClockSpeedError.addListener("value", maxClockSpeedError => {
-                amplitude.value = Math.random() * maxClockSpeedError;
-            });
-
-            const getSpeed = (time: number): number => {
-                return 1 + amplitude.value * Math.sin(period * time + shift);
-            }
-            const speed = new NumberModel(getSpeed(0));
-
-            this.physicalTime.addListener("value", time => {
-                speed.value = getSpeed(time);
-            });
+            const speed = createSpeed(this.maxClockSpeedError);
 
             return new PhysicalNodeModel({
                 speed: speed,
