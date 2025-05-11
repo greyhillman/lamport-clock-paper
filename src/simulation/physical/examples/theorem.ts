@@ -280,7 +280,6 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
     private _randomizeButton: HTMLButtonElement;
 
     diameter: MathNumberView;
-    convergenceTime: MathNumberView;
 
     minimumMessageDelay: MathNumberRangeView;
     unpredictableMessageDelay: MathNumberRangeView;
@@ -288,8 +287,6 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
     neighbourPeriod: MathNumberRangeView;
 
     physicalTime: MathNumberView;
-
-    maxClockDrift: MathNumberView;
 
     nodes: PhysicalClockView[];
     links: LinkView[];
@@ -313,12 +310,6 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             element: this._figure.querySelector<MathMLElement>("mn[data-var='diameter']")!,
             format(value) {
                 return `${value.toFixed(0)}`;
-            },
-        });
-        this.convergenceTime = new MathNumberView(this.model.convergenceTime, {
-            element: this._figure.querySelector<MathMLElement>("mn[data-var='convergence time']")!,
-            format(value) {
-                return `${value.toFixed(2)}s`;
             },
         });
 
@@ -356,13 +347,6 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             },
             format(value) {
                 return `${value.toFixed(1)}s`;
-            },
-        });
-
-        this.maxClockDrift = new MathNumberView(this.model.expectedMaxClockDrift, {
-            element: this._figure.querySelector<MathMLElement>("mn[data-var='expected clock drift']")!,
-            format(value) {
-                return `${value.toFixed(2)}s`;
             },
         });
 
