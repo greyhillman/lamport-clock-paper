@@ -165,9 +165,6 @@ class SimulationModel extends Model<ModelEvents> {
         this.firstToSecondLink.reset();
         this.secondToFirstLink.reset();
 
-        this.minMessageDelay.value = 0.2;
-        this.unpredictableDelay.value = 0.2;
-
         this.updateSpeed();
     }
 }
@@ -425,7 +422,9 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             },
         });
 
-        this._resetButton.addEventListener("click", () => {
+        this._resetButton.addEventListener("click", event => {
+            event.preventDefault(); // Don't reset the input elements
+
             this.dispatchEvent("reset", undefined);
         });
         this._playButton.addEventListener("click", () => {

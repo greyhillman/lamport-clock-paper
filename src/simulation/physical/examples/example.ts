@@ -118,7 +118,9 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             this.dispatchEvent("updateSpeed", value);
         });
 
-        this._resetButton.addEventListener("click", () => {
+        this._resetButton.addEventListener("click", event => {
+            event.preventDefault(); // Don't reset the input elements
+
             this.dispatchEvent("reset", undefined);
         });
         this._playButton.addEventListener("click", () => {

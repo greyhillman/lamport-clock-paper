@@ -71,7 +71,6 @@ class SimulationModel extends Model<ModelEvents> {
         this.pause();
         this.first.reset();
         this.second.reset();
-        this.setError(0.2);
     }
 }
 
@@ -217,7 +216,10 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             this.dispatchEvent("updateError", value);
         });
 
-        this._resetButton.addEventListener("click", () => {
+        this._resetButton.addEventListener("click", event => {
+            // Don't reset the input elements
+            event.preventDefault();
+
             this.dispatchEvent("reset", undefined);
         });
         this._playButton.addEventListener("click", () => {
