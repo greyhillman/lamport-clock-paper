@@ -39,7 +39,6 @@ export class PhysicalClockModel extends Model<Events> {
 
     reset() {
         this.time.value = 0;
-        this.speed.value = 1;
 
         this.dispatchEvent("reset", undefined);
     }
