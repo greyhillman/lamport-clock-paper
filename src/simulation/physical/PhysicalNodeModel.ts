@@ -29,8 +29,13 @@ export class PhysicalNodeModel extends Model<Events> {
 
         this.links = [];
 
-        this._heartbeatTime = 0;
+        this._heartbeatTime = options.neighbourPeriod.value;
         this._neighbourPeriod = options.neighbourPeriod;
+
+        this._neighbourPeriod.addListener("value", value => {
+            // This really shouldn't happen unless we're reset
+            this._heartbeatTime = value;
+        });
     }
 
     increment(diff: number) {
@@ -60,6 +65,6 @@ export class PhysicalNodeModel extends Model<Events> {
 
     reset() {
         this.clock.reset();
-        this._heartbeatTime = 0;
+        this._heartbeatTime = this._neighbourPeriod.value;
     }
 }
