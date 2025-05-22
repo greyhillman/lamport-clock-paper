@@ -13,8 +13,8 @@
 
 
     <title>Time, Clocks, and the Ordering of Events in a Distributed System</title>
-  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-C-v3Q3n2.js"></script>
-  <link rel="stylesheet" crossorigin href="/lamport-clock-paper/assets/index-zza6V4H5.css">
+  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-q52OLcdS.js"></script>
+  <link rel="stylesheet" crossorigin href="/lamport-clock-paper/assets/index-swJzEiS5.css">
 </head>
 
 <body>
@@ -3154,14 +3154,14 @@
 
                 <section>
                     <form>
-                        <fieldset>
+                        <fieldset class="variable">
                             <label class="variable range">
                                 <math>
-                                    <mi title="maximum minimum message delay">&#x3BC;</mi>
+                                    <mi title="maximum clock speed error">&#x3BA;</mi>
                                     <mo>=</mo>
-                                    <mn data-var="maximum minimum message delay">0.20s</mn>
+                                    <mn data-var="maximum clock speed error">0.20</mn>
                                 </math>
-                                <input name="minimum delay" type="range" value="0.20" min="0" max="3" step="0.01" />
+                                <input name="maximum clock speed error" type="range" value="0.20" min="0" max="0.99" step="0.01" />
                             </label>
                             <label class="variable range">
                                 <math>
@@ -3173,19 +3173,19 @@
                             </label>
                             <label class="variable range">
                                 <math>
+                                    <mi title="maximum minimum message delay">&#x3BC;</mi>
+                                    <mo>=</mo>
+                                    <mn data-var="maximum minimum message delay">0.20s</mn>
+                                </math>
+                                <input name="minimum delay" type="range" value="0.20" min="0" max="3" step="0.01" />
+                            </label>
+                            <label class="variable range">
+                                <math>
                                     <mi title="maximum unpredictable delay">&#x3BE;</mi>
                                     <mo>=</mo>
                                     <mn data-var="unpredictable delay">1.0s</mn>
                                 </math>
                                 <input name="unpredictable delay" type="range" value="1.0" min="0.0" max="10.0" step="0.1" />
-                            </label>
-                            <label class="variable range">
-                                <math>
-                                    <mi title="maximum clock speed error">&#x3BA;</mi>
-                                    <mo>=</mo>
-                                    <mn data-var="maximum clock speed error">0.20</mn>
-                                </math>
-                                <input name="maximum clock speed error" type="range" value="0.20" min="0" max="0.99" step="0.01" />
                             </label>
                         </fieldset>
 

@@ -490,3 +490,24 @@ form label.variable.range {
 figure#minimal-causal-delay-diagram {
   max-width: 12em;
 }
+
+fieldset.variable {
+  display: grid;
+  grid-template-columns: auto 1fr;
+
+  row-gap: 0.25em;
+
+  & label.variable.range {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: subgrid;
+  }
+}
+
+form>fieldset+fieldset {
+  margin-top: 0.5em;
+}
+
+figure>section+section {
+  margin-top: 0.5em;
+}
