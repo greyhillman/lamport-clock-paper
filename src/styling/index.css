@@ -486,3 +486,7 @@ form label.variable.range {
   grid-template-columns: auto 1fr;
   column-gap: 0.5em;
 }
+
+figure#minimal-causal-delay-diagram {
+  max-width: 12em;
+}
