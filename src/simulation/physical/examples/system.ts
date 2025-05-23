@@ -98,8 +98,6 @@ class SimulationModel extends Model<ModelEvents> {
         this.firstToSecondLink.addListener("receive", message => {
             this.secondExpectedTimestamp.value = message.timestamp + this.minMessageDelay.value;
         });
-
-        this.updateSpeed();
     }
 
     get playing() {
@@ -147,14 +145,6 @@ class SimulationModel extends Model<ModelEvents> {
 
         this.firstToSecondLink.increment(diff);
         this.secondToFirstLink.increment(diff);
-
-        this.updateSpeed();
-    }
-
-    private updateSpeed() {
-        this.first.speed.value = 1 + 0.2 * Math.sin(0.1 * this.first.time.value);
-
-        this.second.speed.value = 1 + 0.2 * Math.cos(0.2 * this.second.time.value);
     }
 
     reset() {
@@ -164,8 +154,6 @@ class SimulationModel extends Model<ModelEvents> {
 
         this.firstToSecondLink.reset();
         this.secondToFirstLink.reset();
-
-        this.updateSpeed();
     }
 }
 
@@ -214,17 +202,19 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
     private _resetButton: HTMLButtonElement;
 
     first: PhysicalClockView;
+    _firstSpeed: MathNumberView;
+    firstSpeedInput: NumberSliderView;
     firstTimestamp: PhysicalClockArmView;
     firstExpectedTimestamp: PhysicalClockArmView;
     secondOverlay: PhysicalClockArmView;
 
     second: PhysicalClockView;
+    _secondSpeed: MathNumberView;
+    secondSpeedInput: NumberSliderView;
     secondTimestamp: PhysicalClockArmView;
     secondExpectedTimestamp: PhysicalClockArmView;
     firstOverlay: PhysicalClockArmView;
 
-    private _firstSpeed: MathNumberView;
-    private _secondSpeed: MathNumberView;
 
     firstToSecondLink: LinkView;
     firstLinkControl: LinkControlView;
@@ -252,11 +242,18 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
                 return `${value.toFixed(2)}`;
             },
         });
+        this.firstSpeedInput = new NumberSliderView(model.first.speed, {
+            element: this._figure.querySelector<HTMLInputElement>("input[name='speed-1']")!,
+        });
+
         this._secondSpeed = new MathNumberView(model.second.speed, {
             element: this._figure.querySelector<MathMLElement>("mn[data-var='speed 2']")!,
             format(value) {
                 return `${value.toFixed(2)}`;
             },
+        });
+        this.secondSpeedInput = new NumberSliderView(model.second.speed, {
+            element: this._figure.querySelector<HTMLInputElement>("input[name='speed-2']")!,
         });
 
         this.minMessageDelayInput = new NumberSliderView(model.minMessageDelay, {
@@ -566,11 +563,17 @@ class SimulationController extends Controller<SimulationModel, SimulationView> {
     minMessageDelay: NumberSliderController;
     unpredictableDelay: NumberSliderController;
 
+    firstSpeed: NumberSliderController;
+    secondSpeed: NumberSliderController;
+
     constructor(model: SimulationModel, view: SimulationView) {
         super(model, view);
 
         this.minMessageDelay = new NumberSliderController(model.minMessageDelay, view.minMessageDelayInput);
         this.unpredictableDelay = new NumberSliderController(model.unpredictableDelay, view.unpredictableDelayInput);
+
+        this.firstSpeed = new NumberSliderController(model.first.speed, view.firstSpeedInput);
+        this.secondSpeed = new NumberSliderController(model.second.speed, view.secondSpeedInput);
 
         view.addListener("updateFrame", diff => {
             this._model.increment(diff);

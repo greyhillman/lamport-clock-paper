@@ -13,7 +13,7 @@
 
 
     <title>Time, Clocks, and the Ordering of Events in a Distributed System</title>
-  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-BtaEEmQ4.js"></script>
+  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-iyRkF9U9.js"></script>
   <link rel="stylesheet" crossorigin href="/lamport-clock-paper/assets/index-ByCP73y5.css">
 </head>
 
@@ -2813,50 +2813,62 @@
             <figure class="visual example" id="physical-clock-system">
                 <div class="konva canvas"></div>
                 <form>
-                    <fieldset>
+                    <fieldset class="clock">
                         <legend>Clock 1</legend>
-                        <math>
-                            <mfrac title="the first clock speed">
-                                <mrow>
-                                    <mo>d</mo>
-                                    <msub>
-                                        <mi>C</mi>
-                                        <mn>1</mn>
-                                    </msub>
-                                    <mo>(</mo>
-                                    <mi>t</mi>
-                                    <mo>)</mo>
-                                </mrow>
-                                <mo>dt</mo>
-                            </mfrac>
-                            <mo>=</mo>
-                            <mn data-var="speed 1">1.00</mn>
-                        </math>
+
+                        <label class="variable range">
+                            <math>
+                                <mfrac title="the first clock speed">
+                                    <mrow>
+                                        <mo>d</mo>
+                                        <msub>
+                                            <mi>C</mi>
+                                            <mn>1</mn>
+                                        </msub>
+                                        <mo>(</mo>
+                                        <mi>t</mi>
+                                        <mo>)</mo>
+                                    </mrow>
+                                    <mo>dt</mo>
+                                </mfrac>
+                                <mo>=</mo>
+                                <mn data-var="speed 1">1.00</mn>
+                            </math>
+
+                            <input name="speed-1" type="range" min="0.8" max="1.2" step="0.01" value="1.00" />
+                        </label>
                         <button name="send 1">Send message</button>
                         <button name="receive 1">Receive message</button>
                     </fieldset>
-                    <fieldset>
+
+                    <fieldset class="clock">
                         <legend>Clock 2</legend>
-                        <math>
-                            <mfrac title="the second clock speed">
-                                <mrow>
-                                    <mo>d</mo>
-                                    <msub>
-                                        <mi>C</mi>
-                                        <mn>2</mn>
-                                    </msub>
-                                    <mo>(</mo>
-                                    <mi>t</mi>
-                                    <mo>)</mo>
-                                </mrow>
-                                <mo>dt</mo>
-                            </mfrac>
-                            <mo>=</mo>
-                            <mn data-var="speed 2">1.20</mn>
-                        </math>
+
+                        <label class="variable range">
+                            <math>
+                                <mfrac title="the second clock speed">
+                                    <mrow>
+                                        <mo>d</mo>
+                                        <msub>
+                                            <mi>C</mi>
+                                            <mn>2</mn>
+                                        </msub>
+                                        <mo>(</mo>
+                                        <mi>t</mi>
+                                        <mo>)</mo>
+                                    </mrow>
+                                    <mo>dt</mo>
+                                </mfrac>
+                                <mo>=</mo>
+                                <mn data-var="speed 2">1.20</mn>
+                            </math>
+
+                            <input name="speed-2" type="range" min="0.8" max="1.2" step="0.01" value="1.00" />
+                        </label>
                         <button name="send 2">Send message</button>
                         <button name="receive 2">Receive message</button>
                     </fieldset>
+
                     <label>
                         <math>
                             <msub title="the minimum delay of a message">
@@ -2879,6 +2891,7 @@
                         </math>
                         <input name="unpredictable delay" type="range" min="0" max="1" step="0.01" value="0.2" />
                     </label>
+
                     <label>
                         <math>
                             <mi title="maximum clock speed error">&#x3BA;</mi>
