@@ -511,3 +511,19 @@ form>fieldset+fieldset {
 figure>section+section {
   margin-top: 0.5em;
 }
+
+fieldset {
+  border: 2px solid var(--font-color);
+  border-radius: 0.25em;
+  padding: 0.5em;
+}
+
+fieldset.time {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  align-items: baseline;
+  justify-content: center;
+  column-gap: 0.25em;
+}

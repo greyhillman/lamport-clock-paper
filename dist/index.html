@@ -13,8 +13,8 @@
 
 
     <title>Time, Clocks, and the Ordering of Events in a Distributed System</title>
-  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-q52OLcdS.js"></script>
-  <link rel="stylesheet" crossorigin href="/lamport-clock-paper/assets/index-swJzEiS5.css">
+  <script type="module" crossorigin src="/lamport-clock-paper/assets/index-BtaEEmQ4.js"></script>
+  <link rel="stylesheet" crossorigin href="/lamport-clock-paper/assets/index-ByCP73y5.css">
 </head>
 
 <body>
@@ -2115,18 +2115,18 @@
                         </math>
                         <input name="speed" type="range" min="0.8" max="1.2" step="0.01" value="1.0" />
                     </label>
-                    <label>
+
+                    <fieldset class="time">
+                        <button name="play">Play</button>
+                        <button disabled name="pause">Pause</button>
                         <math>
                             <mi title="physical time">t</mi>
                             <mo>=</mo>
                             <mn data-var="time">0.0s</mn>
                         </math>
-                    </label>
-                    <fieldset>
-                        <button name="play">Play</button>
-                        <button disabled name="pause">Pause</button>
-                        <button type="reset">Reset</button>
                     </fieldset>
+
+                    <button type="reset">Reset</button>
                 </form>
                 <figcaption>Example of a physical clock</figcaption>
             </figure>
@@ -2207,18 +2207,18 @@
                         </math>
                         <input name="speed error" type="range" min="0" max="0.5" step="0.01" value="0.2" />
                     </label>
-                    <label>
+
+                    <fieldset class="time">
+                        <button name="play">Play</button>
+                        <button disabled name="pause">Pause</button>
                         <math>
                             <mi title="physical time">t</mi>
                             <mo>=</mo>
                             <mn data-var="time">0.0s</mn>
                         </math>
-                    </label>
-                    <fieldset>
-                        <button name="play">Play</button>
-                        <button disabled name="pause">Pause</button>
-                        <button type="reset">Reset</button>
                     </fieldset>
+
+                    <button type="reset">Reset</button>
                 </form>
                 <figcaption>Example of a physical clock</figcaption>
             </figure>
@@ -2333,18 +2333,18 @@
                         </math>
                         <input name="speed error" type="range" min="0" max="0.5" step="0.01" value="0.2" />
                     </label>
-                    <label>
+
+                    <fieldset class="time">
+                        <button name="play">Play</button>
+                        <button disabled name="pause">Pause</button>
                         <math>
                             <mi title="physical time">t</mi>
                             <mo>=</mo>
                             <mn data-var="time">0.0s</mn>
                         </math>
-                    </label>
-                    <fieldset>
-                        <button name="play">Play</button>
-                        <button disabled name="pause">Pause</button>
-                        <button type="reset">Reset</button>
                     </fieldset>
+
+                    <button type="reset">Reset</button>
                 </form>
                 <figcaption>
                     Example of two independent physical clocks.
@@ -2881,23 +2881,23 @@
                     </label>
                     <label>
                         <math>
-                            <mi title="physical time">t</mi>
-                            <mo>=</mo>
-                            <mn data-var="time">0.0s</mn>
-                        </math>
-                    </label>
-                    <label>
-                        <math>
                             <mi title="maximum clock speed error">&#x3BA;</mi>
                             <mo>=</mo>
                             <mn>0.2</mn>
                         </math>
                     </label>
-                    <fieldset>
+
+                    <fieldset class="time">
                         <button name="play">Play</button>
                         <button name="pause" disabled>Pause</button>
-                        <button type="reset">Reset</button>
+                        <math>
+                            <mi title="physical time">t</mi>
+                            <mo>=</mo>
+                            <mn data-var="time">0.0s</mn>
+                        </math>
                     </fieldset>
+
+                    <button type="reset">Reset</button>
                 </form>
                 <figcaption>
                     Simulation of two physical clocks sending & receiving messages.
@@ -3189,17 +3189,17 @@
                             </label>
                         </fieldset>
 
-                        <fieldset class="button">
+                        <fieldset class="time">
                             <button name="play">Play</button>
                             <button name="pause" disabled>Pause</button>
-                            <button name="reset" type="reset">Reset</button>
-
                             <math>
-                                <mi>t</mi>
+                                <mi title="physical time">t</mi>
                                 <mo>=</mo>
                                 <mn data-var="time">0.0s</mn>
                             </math>
                         </fieldset>
+
+                        <button name="reset" type="reset">Reset</button>
                     </form>
 
                     <canvas id="real-clock-theorem-drift" class="chart" width="500px"></canvas>
