@@ -445,7 +445,7 @@ figure#physical-clock-system {
   &>form {
     display: flex;
     flex-direction: column;
-
+    row-gap: 0.25em;
     align-items: center;
   }
 }
@@ -487,6 +487,10 @@ form label.variable.range {
   column-gap: 0.5em;
 }
 
+label.variable>math {
+  min-width: max-content;
+}
+
 figure#minimal-causal-delay-diagram {
   max-width: 12em;
 }
@@ -504,14 +508,6 @@ fieldset.variable {
   }
 }
 
-form>fieldset+fieldset {
-  margin-top: 0.5em;
-}
-
-figure>section+section {
-  margin-top: 0.5em;
-}
-
 fieldset {
   border: 2px solid var(--font-color);
   border-radius: 0.25em;
@@ -526,4 +522,154 @@ fieldset.time {
   align-items: baseline;
   justify-content: center;
   column-gap: 0.25em;
+}
+
+figure#physical-clock-system>form {
+  display: grid;
+  grid-template-areas:
+    'clock-1 message clock-2'
+    '. time .'
+    '. reset .';
+
+  column-gap: 0.5em;
+  row-gap: 0.5em;
+
+  align-items: center;
+
+  &>fieldset[name="clock 1"] {
+    grid-area: clock-1;
+  }
+
+  &>fieldset[name="clock 2"] {
+    grid-area: clock-2;
+  }
+
+  &>fieldset[name="message"] {
+    grid-area: message;
+  }
+
+  &>fieldset.time {
+    grid-area: time;
+  }
+
+  &>button[type="reset"] {
+    grid-area: reset;
+  }
+}
+
+fieldset.clock {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+
+  row-gap: 0.25em;
+}
+
+@media (width <=65em) {
+  figure#physical-clock-system>form {
+    grid-template-areas:
+      'clock-1'
+      'message'
+      'clock-2'
+      'time'
+      'reset';
+  }
+}
+
+#physical-clock-simple-system {
+  & form {
+
+    display: grid;
+    grid-template-areas:
+      'lhs lhs   rhs   rhs'
+      '.   err   err   .'
+      '.   time  time  .'
+      '.   reset reset .'
+    ;
+
+    row-gap: 0.5em;
+    column-gap: 0.5em;
+
+    &>fieldset:nth-of-type(1) {
+      grid-area: lhs;
+    }
+
+    &>fieldset:nth-of-type(2) {
+      grid-area: rhs;
+    }
+
+    &>fieldset.time {
+      grid-area: time;
+    }
+
+    &>label {
+      grid-area: err;
+    }
+
+    & button[type="reset"] {
+      grid-area: reset;
+    }
+  }
+}
+
+@media (width <=65em) {
+  #physical-clock-simple-system>form {
+    grid-template-areas:
+      'lhs'
+      'rhs'
+      'err'
+      'time'
+      'reset'
+    ;
+  }
+}
+
+figure#real-clock-theorem {
+  display: grid;
+  grid-template-areas:
+    'graph chart'
+    'graph controls'
+    'caption  caption'
+  ;
+
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+
+  row-gap: 0.5em;
+  column-gap: 0.5em;
+
+  &>section:nth-of-type(1) {
+    grid-area: graph;
+  }
+
+  &>figcaption {
+    grid-area: caption;
+  }
+
+  &>form {
+    grid-area: controls;
+  }
+
+  & #real-clock-theorem-drift {
+    grid-area: chart;
+  }
+
+  & form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.25em;
+    align-items: center;
+  }
+}
+
+@media (width <=60em) {
+  figure#real-clock-theorem {
+    grid-template-areas:
+      'graph'
+      'chart'
+      'controls'
+      'caption'
+    ;
+  }
 }

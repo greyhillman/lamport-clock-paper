@@ -2117,26 +2117,29 @@
             <figure id="physical-clock-example" class="visual example">
                 <div class="konva canvas"></div>
                 <form>
-                    <label>
-                        <math>
-                            <mfrac title="the clock speed">
-                                <mrow>
-                                    <mo>d</mo>
-                                    <msub>
-                                        <mi>C</mi>
-                                        <mi>i</mi>
-                                    </msub>
-                                    <mo>(</mo>
-                                    <mi title="physical time">t</mi>
-                                    <mo>)</mo>
-                                </mrow>
-                                <mo>dt</mo>
-                            </mfrac>
-                            <mo>=</mo>
-                            <mn data-var="speed">1.0</mn>
-                        </math>
-                        <input name="speed" type="range" min="0.8" max="1.2" step="0.01" value="1.0" />
-                    </label>
+                    <fieldset>
+                        <legend>Clock</legend>
+                        <label class="variable range">
+                            <math>
+                                <mfrac title="the clock speed">
+                                    <mrow>
+                                        <mo>d</mo>
+                                        <msub>
+                                            <mi>C</mi>
+                                            <mi>i</mi>
+                                        </msub>
+                                        <mo>(</mo>
+                                        <mi title="physical time">t</mi>
+                                        <mo>)</mo>
+                                    </mrow>
+                                    <mo>dt</mo>
+                                </mfrac>
+                                <mo>=</mo>
+                                <mn data-var="speed">1.00</mn>
+                            </math>
+                            <input name="speed" type="range" min="0.8" max="1.2" step="0.01" value="1.0" />
+                        </label>
+                    </fieldset>
 
                     <fieldset class="time">
                         <button name="play">Play</button>
@@ -2201,34 +2204,38 @@
             <figure id="physical-clock-speed-error" class="visual example">
                 <div class="konva canvas"></div>
                 <form>
-                    <label>
-                        <math>
-                            <mfrac title="the clock speed">
-                                <mrow>
-                                    <mo>d</mo>
-                                    <msub>
-                                        <mi>C</mi>
-                                        <mi>i</mi>
-                                    </msub>
-                                    <mo>(</mo>
-                                    <mi title="physical time">t</mi>
-                                    <mo>)</mo>
-                                </mrow>
-                                <mo>dt</mo>
-                            </mfrac>
-                            <mo>=</mo>
-                            <mn data-var="speed">1.0</mn>
-                        </math>
-                        <input name="speed" type="range" min="0.8" max="1.2" step="0.01" value="1.0" />
-                    </label>
-                    <label>
-                        <math>
-                            <mi title="maximum clock speed error">&#x3BA;</mi>
-                            <mo>=</mo>
-                            <mn data-var="speed error">0.2</mn>
-                        </math>
-                        <input name="speed error" type="range" min="0" max="0.5" step="0.01" value="0.2" />
-                    </label>
+                    <fieldset class="multiple variable">
+                        <legend>Clock</legend>
+
+                        <label class="variable range">
+                            <math>
+                                <mfrac title="the clock speed">
+                                    <mrow>
+                                        <mo>d</mo>
+                                        <msub>
+                                            <mi>C</mi>
+                                            <mi>i</mi>
+                                        </msub>
+                                        <mo>(</mo>
+                                        <mi title="physical time">t</mi>
+                                        <mo>)</mo>
+                                    </mrow>
+                                    <mo>dt</mo>
+                                </mfrac>
+                                <mo>=</mo>
+                                <mn data-var="speed">1.00</mn>
+                            </math>
+                            <input name="speed" type="range" min="0.8" max="1.2" step="0.01" value="1.0" />
+                        </label>
+                        <label class="variable range">
+                            <math>
+                                <mi title="maximum clock speed error">&#x3BA;</mi>
+                                <mo>=</mo>
+                                <mn data-var="speed error">0.20</mn>
+                            </math>
+                            <input name="speed error" type="range" min="0" max="0.5" step="0.01" value="0.2" />
+                        </label>
+                    </fieldset>
 
                     <fieldset class="time">
                         <button name="play">Play</button>
@@ -2302,8 +2309,8 @@
                 <div class="konva canvas"></div>
                 <form>
                     <fieldset>
-                        <legend>Clock 1</legend>
-                        <label>
+                        <legend>Left Clock</legend>
+                        <label class="variable range">
                             <math>
                                 <mfrac title="the first clock speed">
                                     <mrow>
@@ -2325,8 +2332,8 @@
                         </label>
                     </fieldset>
                     <fieldset>
-                        <legend>Clock 2</legend>
-                        <label>
+                        <legend>Right Clock</legend>
+                        <label class="variable range">
                             <math>
                                 <mfrac title="the second clock speed">
                                     <mrow>
@@ -2347,11 +2354,11 @@
                             <input name="speed-2" type="range" min="0.8" max="1.2" step="0.01" value="1.00" />
                         </label>
                     </fieldset>
-                    <label>
+                    <label class="variable range">
                         <math>
                             <mi title="maximum clock speed error">&#x3BA;</mi>
                             <mo>=</mo>
-                            <mn data-var="speed error">0.2</mn>
+                            <mn data-var="speed error">0.20</mn>
                         </math>
                         <input name="speed error" type="range" min="0" max="0.5" step="0.01" value="0.2" />
                     </label>
@@ -2835,8 +2842,8 @@
             <figure class="visual example" id="physical-clock-system">
                 <div class="konva canvas"></div>
                 <form>
-                    <fieldset class="clock">
-                        <legend>Clock 1</legend>
+                    <fieldset class="clock" name="clock 1">
+                        <legend>Left Clock</legend>
 
                         <label class="variable range">
                             <math>
@@ -2863,8 +2870,8 @@
                         <button name="receive 1">Receive message</button>
                     </fieldset>
 
-                    <fieldset class="clock">
-                        <legend>Clock 2</legend>
+                    <fieldset class="clock" name="clock 2">
+                        <legend>Right Clock</legend>
 
                         <label class="variable range">
                             <math>
@@ -2891,36 +2898,32 @@
                         <button name="receive 2">Receive message</button>
                     </fieldset>
 
-                    <label>
-                        <math>
-                            <msub title="the minimum delay of a message">
-                                <mi>&#x3BC;</mi>
-                                <mi>m</mi>
-                            </msub>
-                            <mo>=</mo>
-                            <mn data-var="min delay">0.20s</mn>
-                        </math>
-                        <input name="min delay" type="range" min="0" max="1" step="0.01" value="0.2" />
-                    </label>
-                    <label>
-                        <math>
-                            <msub title="the unpredictable delay of a message">
-                                <mi>&#x3BE;</mi>
-                                <mi>m</mi>
-                            </msub>
-                            <mo>=</mo>
-                            <mn data-var="unpredictable delay">0.20s</mn>
-                        </math>
-                        <input name="unpredictable delay" type="range" min="0" max="1" step="0.01" value="0.2" />
-                    </label>
+                    <fieldset class="variable" name="message">
+                        <legend>Message Links</legend>
 
-                    <label>
-                        <math>
-                            <mi title="maximum clock speed error">&#x3BA;</mi>
-                            <mo>=</mo>
-                            <mn>0.2</mn>
-                        </math>
-                    </label>
+                        <label class="variable range">
+                            <math>
+                                <msub title="the minimum delay of a message">
+                                    <mi>&#x3BC;</mi>
+                                    <mi>m</mi>
+                                </msub>
+                                <mo>=</mo>
+                                <mn data-var="min delay">0.20s</mn>
+                            </math>
+                            <input name="min delay" type="range" min="0" max="1" step="0.01" value="0.2" />
+                        </label>
+                        <label class="variable range">
+                            <math>
+                                <msub title="the unpredictable delay of a message">
+                                    <mi>&#x3BE;</mi>
+                                    <mi>m</mi>
+                                </msub>
+                                <mo>=</mo>
+                                <mn data-var="unpredictable delay">0.20s</mn>
+                            </math>
+                            <input name="unpredictable delay" type="range" min="0" max="1" step="0.01" value="0.2" />
+                        </label>
+                    </fieldset>
 
                     <fieldset class="time">
                         <button name="play">Play</button>
@@ -3187,58 +3190,56 @@
                     </form>
                 </section>
 
-                <section>
-                    <form>
-                        <fieldset class="variable">
-                            <label class="variable range">
-                                <math>
-                                    <mi title="maximum clock speed error">&#x3BA;</mi>
-                                    <mo>=</mo>
-                                    <mn data-var="maximum clock speed error">0.20</mn>
-                                </math>
-                                <input name="maximum clock speed error" type="range" value="0.20" min="0" max="0.99" step="0.01" />
-                            </label>
-                            <label class="variable range">
-                                <math>
-                                    <mi title="neighbour period">&#x1D70F;</mi>
-                                    <mo>=</mo>
-                                    <mn data-var="neighbour period">1.0s</mn>
-                                </math>
-                                <input name="neighbour period" type="range" value="1.0" min="0.1" max="10.0" step="0.1" />
-                            </label>
-                            <label class="variable range">
-                                <math>
-                                    <mi title="maximum minimum message delay">&#x3BC;</mi>
-                                    <mo>=</mo>
-                                    <mn data-var="maximum minimum message delay">0.20s</mn>
-                                </math>
-                                <input name="minimum delay" type="range" value="0.20" min="0" max="3" step="0.01" />
-                            </label>
-                            <label class="variable range">
-                                <math>
-                                    <mi title="maximum unpredictable delay">&#x3BE;</mi>
-                                    <mo>=</mo>
-                                    <mn data-var="unpredictable delay">1.0s</mn>
-                                </math>
-                                <input name="unpredictable delay" type="range" value="1.0" min="0.0" max="10.0" step="0.1" />
-                            </label>
-                        </fieldset>
-
-                        <fieldset class="time">
-                            <button name="play">Play</button>
-                            <button name="pause" disabled>Pause</button>
+                <form>
+                    <fieldset class="variable">
+                        <label class="variable range">
                             <math>
-                                <mi title="physical time">t</mi>
+                                <mi title="maximum clock speed error">&#x3BA;</mi>
                                 <mo>=</mo>
-                                <mn data-var="time">0.0s</mn>
+                                <mn data-var="maximum clock speed error">0.20</mn>
                             </math>
-                        </fieldset>
+                            <input name="maximum clock speed error" type="range" value="0.20" min="0" max="0.99" step="0.01" />
+                        </label>
+                        <label class="variable range">
+                            <math>
+                                <mi title="neighbour period">&#x1D70F;</mi>
+                                <mo>=</mo>
+                                <mn data-var="neighbour period">1.0s</mn>
+                            </math>
+                            <input name="neighbour period" type="range" value="1.0" min="0.1" max="10.0" step="0.1" />
+                        </label>
+                        <label class="variable range">
+                            <math>
+                                <mi title="maximum minimum message delay">&#x3BC;</mi>
+                                <mo>=</mo>
+                                <mn data-var="maximum minimum message delay">0.20s</mn>
+                            </math>
+                            <input name="minimum delay" type="range" value="0.20" min="0" max="3" step="0.01" />
+                        </label>
+                        <label class="variable range">
+                            <math>
+                                <mi title="maximum unpredictable delay">&#x3BE;</mi>
+                                <mo>=</mo>
+                                <mn data-var="unpredictable delay">1.0s</mn>
+                            </math>
+                            <input name="unpredictable delay" type="range" value="1.0" min="0.0" max="10.0" step="0.1" />
+                        </label>
+                    </fieldset>
 
-                        <button name="reset" type="reset">Reset</button>
-                    </form>
+                    <fieldset class="time">
+                        <button name="play">Play</button>
+                        <button name="pause" disabled>Pause</button>
+                        <math>
+                            <mi title="physical time">t</mi>
+                            <mo>=</mo>
+                            <mn data-var="time">0.0s</mn>
+                        </math>
+                    </fieldset>
 
-                    <canvas id="real-clock-theorem-drift" class="chart" width="500px"></canvas>
-                </section>
+                    <button name="reset" type="reset">Reset</button>
+                </form>
+
+                <canvas id="real-clock-theorem-drift" class="chart" width="500px"></canvas>
 
                 <figcaption>Simulation of a network of clocks synchronizing.</figcaption>
             </figure>
@@ -6113,7 +6114,7 @@
                         <mo>)</mo>
                     </mrow>
                     <mo>,</mo>
-                    <mrow>
+                    <mrow title="the minimum future timestamp">
                         <msub title="the message's timestamp">
                             <mi>T</mi>
                             <mi>m</mi>

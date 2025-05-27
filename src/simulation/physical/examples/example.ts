@@ -109,7 +109,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
         model.speed.addListener("value", speed => {
             const element = this._figure.querySelector<MathMLElement>("mn[data-var='speed']")!;
 
-            element.textContent = `${speed}`;
+            element.textContent = `${speed.toFixed(2)}`;
         });
 
         this._figure.querySelector<HTMLInputElement>("input[name='speed']")?.addEventListener("input", event => {

@@ -191,7 +191,9 @@ interface ViewEvents {
 
 class SimulationView extends View<SimulationModel, ViewEvents> {
     private _stage: Konva.Stage;
-    private _layer: Konva.Layer;
+
+    private _clockLayer: Konva.Layer;
+    private _tooltipLayer: Konva.Layer;
 
     private _animation: Konva.Animation;
 
@@ -214,7 +216,6 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
     secondTimestamp: PhysicalClockArmView;
     secondExpectedTimestamp: PhysicalClockArmView;
     firstOverlay: PhysicalClockArmView;
-
 
     firstToSecondLink: LinkView;
     firstLinkControl: LinkControlView;
@@ -288,22 +289,25 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             height: options.height,
         });
 
-        this._layer = new Konva.Layer();
-        this._stage.add(this._layer);
+        this._clockLayer = new Konva.Layer();
+        this._tooltipLayer = new Konva.Layer();
+
+        this._stage.add(this._clockLayer);
+        this._stage.add(this._tooltipLayer);
 
         this._animation = new Konva.Animation(frame => {
             if (frame) {
                 this._render(frame);
             }
-        }, this._layer);
+        }, this._clockLayer);
 
         const styles = this._getStyles(this._stage.container());
 
         this.firstToSecondLink = new LinkView(model.firstToSecondLink, {
             containers: {
-                link: this._layer,
-                message: this._layer,
-                tooltip: this._layer,
+                link: this._clockLayer,
+                message: this._clockLayer,
+                tooltip: this._tooltipLayer,
             },
             start: new Point(100, 30),
             end: new Point(200, 30),
@@ -316,9 +320,9 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
         });
         this.secondToFirstLink = new LinkView(model.secondToFirstLink, {
             containers: {
-                link: this._layer,
-                message: this._layer,
-                tooltip: this._layer,
+                link: this._clockLayer,
+                message: this._clockLayer,
+                tooltip: this._tooltipLayer,
             },
             start: new Point(200, 90),
             end: new Point(100, 90),
@@ -339,7 +343,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
         });
 
         this.first = new PhysicalClockView(model.first, {
-            container: this._layer,
+            container: this._clockLayer,
             center: new Point(60, 60),
             radius: 50,
             styles: {
@@ -348,7 +352,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             },
         });
         this.second = new PhysicalClockView(model.second, {
-            container: this._layer,
+            container: this._clockLayer,
             center: new Point(240, 60),
             radius: 50,
             styles: {
@@ -358,7 +362,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
         });
 
         this.firstTimestamp = new PhysicalClockArmView(this.model.firstTimestamp, {
-            container: this._layer,
+            container: this._clockLayer,
             center: new Point(60, 60),
             radius: 50,
             opacity: 0,
@@ -368,7 +372,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             },
         });
         this.firstExpectedTimestamp = new PhysicalClockArmView(this.model.firstExpectedTimestamp, {
-            container: this._layer,
+            container: this._clockLayer,
             center: new Point(60, 60),
             radius: 50,
             opacity: 0,
@@ -378,7 +382,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             },
         });
         this.firstOverlay = new PhysicalClockArmView(this.model.second.time, {
-            container: this._layer,
+            container: this._clockLayer,
             center: new Point(60, 60),
             radius: 50,
             opacity: 0,
@@ -389,7 +393,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
         });
 
         this.secondTimestamp = new PhysicalClockArmView(this.model.secondTimestamp, {
-            container: this._layer,
+            container: this._clockLayer,
             center: new Point(240, 60),
             radius: 50,
             opacity: 0,
@@ -399,7 +403,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             },
         });
         this.secondExpectedTimestamp = new PhysicalClockArmView(this.model.secondExpectedTimestamp, {
-            container: this._layer,
+            container: this._clockLayer,
             center: new Point(240, 60),
             radius: 50,
             opacity: 0,
@@ -409,7 +413,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             },
         });
         this.secondOverlay = new PhysicalClockArmView(this.model.first.time, {
-            container: this._layer,
+            container: this._clockLayer,
             center: new Point(240, 60),
             radius: 50,
             opacity: 0,
@@ -552,7 +556,7 @@ class SimulationView extends View<SimulationModel, ViewEvents> {
             if (frame) {
                 this._render(frame);
             }
-        }, this._layer);
+        }, this._clockLayer);
 
         this._renderTime(0);
     }
