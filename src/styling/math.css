@@ -58,6 +58,7 @@ math {
     mo[title],
     msub[title],
     msup[title],
+    munder[title],
     msubsup[title],
     mfrac[title],
     mtext.description {
