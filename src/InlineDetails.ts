@@ -40,6 +40,10 @@ export class InlineDetails extends LitElement {
 
     static styles = css`
     span {
+        display: inline-flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        
         text-decoration: underline dotted;
         cursor: pointer;
     }

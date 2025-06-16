@@ -289,6 +289,10 @@ var Bf=Object.defineProperty;var Vf=(s,t,e)=>t in s?Bf(s,t,{enumerable:!0,config
             </div>`:$`<span class="closed" @click=${this._open}>
                 <slot name="summary"></slot></span>`}};gr.styles=Va`
     span {
+        display: inline-flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        
         text-decoration: underline dotted;
         cursor: pointer;
     }
